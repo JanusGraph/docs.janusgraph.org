@@ -1,0 +1,1602 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Schema and Data Modeling - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#schema-and-data-modeling" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo">
+          
+            <img src="../../janusgraph-logomark.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JanusGraph
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Schema and Data Modeling
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo">
+      
+        <img src="../../janusgraph-logomark.svg" width="48" height="48">
+      
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Schema and Data Modeling
+      </label>
+    
+    <a href="./" title="Schema and Data Modeling" class="md-nav__link md-nav__link--active">
+      Schema and Data Modeling
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#displaying-schema-information" title="Displaying Schema Information" class="md-nav__link">
+    Displaying Schema Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-edge-labels" title="Defining Edge Labels" class="md-nav__link">
+    Defining Edge Labels
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edge-label-multiplicity" title="Edge Label Multiplicity" class="md-nav__link">
+    Edge Label Multiplicity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-property-keys" title="Defining Property Keys" class="md-nav__link">
+    Defining Property Keys
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#property-key-data-type" title="Property Key Data Type" class="md-nav__link">
+    Property Key Data Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-key-cardinality" title="Property Key Cardinality" class="md-nav__link">
+    Property Key Cardinality
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-types" title="Relation Types" class="md-nav__link">
+    Relation Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-vertex-labels" title="Defining Vertex Labels" class="md-nav__link">
+    Defining Vertex Labels
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-schema-maker" title="Automatic Schema Maker" class="md-nav__link">
+    Automatic Schema Maker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-schema-elements" title="Changing Schema Elements" class="md-nav__link">
+    Changing Schema Elements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-constraints" title="Schema Constraints" class="md-nav__link">
+    Schema Constraints
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#displaying-schema-information" title="Displaying Schema Information" class="md-nav__link">
+    Displaying Schema Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-edge-labels" title="Defining Edge Labels" class="md-nav__link">
+    Defining Edge Labels
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edge-label-multiplicity" title="Edge Label Multiplicity" class="md-nav__link">
+    Edge Label Multiplicity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-property-keys" title="Defining Property Keys" class="md-nav__link">
+    Defining Property Keys
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#property-key-data-type" title="Property Key Data Type" class="md-nav__link">
+    Property Key Data Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-key-cardinality" title="Property Key Cardinality" class="md-nav__link">
+    Property Key Cardinality
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-types" title="Relation Types" class="md-nav__link">
+    Relation Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-vertex-labels" title="Defining Vertex Labels" class="md-nav__link">
+    Defining Vertex Labels
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-schema-maker" title="Automatic Schema Maker" class="md-nav__link">
+    Automatic Schema Maker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-schema-elements" title="Changing Schema Elements" class="md-nav__link">
+    Changing Schema Elements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-constraints" title="Schema Constraints" class="md-nav__link">
+    Schema Constraints
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.3/docs/basics/schema.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="schema-and-data-modeling">Schema and Data Modeling</h1>
+<p>Each JanusGraph graph has a schema comprised of the edge labels,
+property keys, and vertex labels used therein. A JanusGraph schema can
+either be explicitly or implicitly defined. Users are encouraged to
+explicitly define the graph schema during application development. An
+explicitly defined schema is an important component of a robust graph
+application and greatly improves collaborative software development.
+Note, that a JanusGraph schema can be evolved over time without any
+interruption of normal database operations. Extending the schema does
+not slow down query answering and does not require database downtime.</p>
+<p>The schema type - i.e. edge label, property key, or vertex label - is
+assigned to elements in the graph - i.e. edge, properties or vertices
+respectively - when they are first created. The assigned schema type
+cannot be changed for a particular element. This ensures a stable type
+system that is easy to reason about.</p>
+<p>Beyond the schema definition options explained in this section, schema
+types provide performance tuning options that are discussed in
+<a href="../../advanced-topics/advschema/">Advanced Schema</a>.</p>
+<h2 id="displaying-schema-information">Displaying Schema Information</h2>
+<p>There are methods to view specific elements of the graph schema within the management API.
+These methods are <code>mgmt.printIndexes()</code>, <code>mgmt.printPropertyKeys()</code>, <code>mgmt.printVertexLabels()</code>, and <code>mgmt.printEdgeLabels()</code>.
+There is also a method that displays all the combined output named <code>printSchema()</code>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">printSchema</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="defining-edge-labels">Defining Edge Labels</h2>
+<p>Each edge connecting two vertices has a label which defines the
+semantics of the relationship. For instance, an edge labeled <code>friend</code>
+between vertices A and B encodes a friendship between the two
+individuals.</p>
+<p>To define an edge label, call <code>makeEdgeLabel(String)</code> on an open graph
+or management transaction and provide the name of the edge label as the
+argument. Edge label names must be unique in the graph. This method
+returns a builder for edge labels that allows to define its
+multiplicity. The <strong>multiplicity</strong> of an edge label defines a
+multiplicity constraint on all edges of this label, that is, a maximum
+number of edges between pairs of vertices. JanusGraph recognizes the
+following multiplicity settings.</p>
+<h3 id="edge-label-multiplicity">Edge Label Multiplicity</h3>
+<ul>
+<li><strong>MULTI</strong>: Allows multiple edges of the same label between any pair
+    of vertices. In other words, the graph is a <em>multi graph</em> with
+    respect to such edge label. There is no constraint on edge
+    multiplicity.</li>
+<li><strong>SIMPLE</strong>: Allows at most one edge of such label between any pair
+    of vertices. In other words, the graph is a <em>simple graph</em> with
+    respect to the label. Ensures that edges are unique for a given
+    label and pairs of vertices.</li>
+<li><strong>MANY2ONE</strong>: Allows at most one outgoing edge of such label on any
+    vertex in the graph but places no constraint on incoming edges. The
+    edge label <code>mother</code> is an example with MANY2ONE multiplicity since
+    each person has at most one mother but mothers can have multiple
+    children.</li>
+<li><strong>ONE2MANY</strong>: Allows at most one incoming edge of such label on any
+    vertex in the graph but places no constraint on outgoing edges. The
+    edge label <code>winnerOf</code> is an example with ONE2MANY multiplicity since
+    each contest is won by at most one person but a person can win
+    multiple contests.</li>
+<li><strong>ONE2ONE</strong>: Allows at most one incoming and one outgoing edge of
+    such label on any vertex in the graph. The edge label <em>marriedTo</em> is
+    an example with ONE2ONE multiplicity since a person is married to
+    exactly one other person.</li>
+</ul>
+<p>The default multiplicity is MULTI. The definition of an edge label is
+completed by calling the <code>make()</code> method on the builder which returns
+the defined edge label as shown in the following example.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">follow</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeEdgeLabel</span><span class="o">(</span><span class="s1">&#39;follow&#39;</span><span class="o">).</span><span class="na">multiplicity</span><span class="o">(</span><span class="n">MULTI</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mother</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeEdgeLabel</span><span class="o">(</span><span class="s1">&#39;mother&#39;</span><span class="o">).</span><span class="na">multiplicity</span><span class="o">(</span><span class="n">MANY2ONE</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table></p>
+<h2 id="defining-property-keys">Defining Property Keys</h2>
+<p>Properties on vertices and edges are key-value pairs. For instance, the
+property <code>name='Daniel'</code> has the key <code>name</code> and the value <code>'Daniel'</code>.
+Property keys are part of the JanusGraph schema and can constrain the
+allowed data types and cardinality of values.</p>
+<p>To define a property key, call <code>makePropertyKey(String)</code> on an open
+graph or management transaction and provide the name of the property key
+as the argument. Property key names must be unique in the graph, and it
+is recommended to avoid spaces or special characters in property names.
+This method returns a builder for the property keys.</p>
+<h3 id="property-key-data-type">Property Key Data Type</h3>
+<p>Use <code>dataType(Class)</code> to define the data type of a property key.
+JanusGraph will enforce that all values associated with the key have the
+configured data type and thereby ensures that data added to the graph is
+valid. For instance, one can define that the <code>name</code> key has a String
+data type.</p>
+<p>Define the data type as <code>Object.class</code> in order to allow any
+(serializable) value to be associated with a key. However, it is
+encouraged to use concrete data types whenever possible. Configured data
+types must be concrete classes and not interfaces or abstract classes.
+JanusGraph enforces class equality, so adding a sub-class of a
+configured data type is not allowed.</p>
+<p>JanusGraph natively supports the following data types.</p>
+<p><center>Native JanusGraph Data Types</center></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>Character sequence</td>
+</tr>
+<tr>
+<td>Character</td>
+<td>Individual character</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>true or false</td>
+</tr>
+<tr>
+<td>Byte</td>
+<td>byte value</td>
+</tr>
+<tr>
+<td>Short</td>
+<td>short value</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>integer value</td>
+</tr>
+<tr>
+<td>Long</td>
+<td>long value</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>4 byte floating point number</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>8 byte floating point number</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>Specific instant in time (<code>java.util.Date</code>)</td>
+</tr>
+<tr>
+<td>Geoshape</td>
+<td>Geographic shape like point, circle or box</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>Universally unique identifier (<code>java.util.UUID</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="property-key-cardinality">Property Key Cardinality</h3>
+<p>Use <code>cardinality(Cardinality)</code> to define the allowed cardinality of the
+values associated with the key on any given vertex.</p>
+<ul>
+<li><strong>SINGLE</strong>: Allows at most one value per element for such key. In
+    other words, the key→value mapping is unique for all elements in the
+    graph. The property key <code>birthDate</code> is an example with SINGLE
+    cardinality since each person has exactly one birth date.</li>
+<li><strong>LIST</strong>: Allows an arbitrary number of values per element for such
+    key. In other words, the key is associated with a list of values
+    allowing duplicate values. Assuming we model sensors as vertices in
+    a graph, the property key <code>sensorReading</code> is an example with LIST
+    cardinality to allow lots of (potentially duplicate) sensor readings
+    to be recorded.</li>
+<li><strong>SET</strong>: Allows multiple values but no duplicate values per element
+    for such key. In other words, the key is associated with a set of
+    values. The property key <code>name</code> has SET cardinality if we want to
+    capture all names of an individual (including nick name, maiden
+    name, etc).</li>
+</ul>
+<p>The default cardinality setting is SINGLE. Note, that property keys used
+on edges and properties have cardinality SINGLE. Attaching multiple
+values for a single key on an edge or property is not supported.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">birthDate</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">birthDate</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SINGLE</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SET</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">sensorReading</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">sensorReading</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">LIST</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="relation-types">Relation Types</h2>
+<p>Edge labels and property keys are jointly referred to as <strong>relation
+types</strong>. Names of relation types must be unique in the graph which means
+that property keys and edge labels cannot have the same name. There are
+methods in the JanusGraph API to query for the existence or retrieve
+relation types which encompasses both property keys and edge labels.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">mgmt</span><span class="o">.</span><span class="na">containsRelationType</span><span class="o">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="o">))</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">getPropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">getRelationTypes</span><span class="o">(</span><span class="n">EdgeLabel</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="defining-vertex-labels">Defining Vertex Labels</h2>
+<p>Like edges, vertices have labels. Unlike edge labels, vertex labels are
+optional. Vertex labels are useful to distinguish different types of
+vertices, e.g. <em>user</em> vertices and <em>product</em> vertices.</p>
+<p>Although labels are optional at the conceptual and data model level,
+JanusGraph assigns all vertices a label as an internal implementation
+detail. Vertices created by the <code>addVertex</code> methods use JanusGraph’s
+default label.</p>
+<p>To create a label, call <code>makeVertexLabel(String).make()</code> on an open
+graph or management transaction and provide the name of the vertex label
+as the argument. Vertex label names must be unique in the graph.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeVertexLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">person</span><span class="err">&#39;</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+<span class="c1">// Create a labeled vertex</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="n">label</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">person</span><span class="err">&#39;</span><span class="o">)</span>
+<span class="c1">// Create an unlabeled vertex</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="automatic-schema-maker">Automatic Schema Maker</h2>
+<p>If an edge label, property key, or vertex label has not been defined
+explicitly, it will be defined implicitly when it is first used during
+the addition of an edge, vertex or the setting of a property. The
+<code>DefaultSchemaMaker</code> configured for the JanusGraph graph defines such
+types.</p>
+<p>By default, implicitly created edge labels have multiplicity MULTI and
+implicitly created property keys have cardinality SINGLE and data type
+<code>Object.class</code>. Users can control automatic schema element creation by
+implementing and registering their own <code>DefaultSchemaMaker</code>.</p>
+<p>It is strongly encouraged to explicitly define all schema elements and
+to disable automatic schema creation by setting <code>schema.default=none</code> in
+the JanusGraph graph configuration.</p>
+<h2 id="changing-schema-elements">Changing Schema Elements</h2>
+<p>The definition of an edge label, property key, or vertex label cannot be
+changed once its committed into the graph. However, the names of schema
+elements can be changed via
+<code>JanusGraphManagement.changeName(JanusGraphSchemaElement, String)</code> as
+shown in the following example where the property key <code>place</code> is renamed
+to <code>location</code>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">place</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">getPropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">place</span><span class="err">&#39;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">changeName</span><span class="o">(</span><span class="n">place</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">location</span><span class="err">&#39;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<p>Note, that schema name changes may not be immediately visible in
+currently running transactions and other JanusGraph graph instances in
+the cluster. While schema name changes are announced to all JanusGraph
+instances through the storage backend, it may take a while for the
+schema changes to take effect and it may require a instance restart in
+the event of certain failure conditions - like network partitions - if
+they coincide with the rename. Hence, the user must ensure that either
+of the following holds:</p>
+<ul>
+<li>The renamed label or key is not currently in active use (i.e.
+    written or read) and will not be in use until all JanusGraph
+    instances are aware of the name change.</li>
+<li>Running transactions actively accommodate the brief intermediate
+    period where either the old or new name is valid based on the
+    specific JanusGraph instance and status of the name-change
+    announcement. For instance, that could mean transactions query for
+    both names simultaneously.</li>
+</ul>
+<p>Should the need arise to re-define an existing schema type, it is
+recommended to change the name of this type to a name that is not
+currently (and will never be) in use. After that, a new label or key can
+be defined with the original name, thereby effectively replacing the old
+one. However, note that this would not affect vertices, edges, or
+properties previously written with the existing type. Redefining
+existing graph elements is not supported online and must be accomplished
+through a batch graph transformation.</p>
+<h2 id="schema-constraints">Schema Constraints</h2>
+<p>The definition of the schema allows users to configure explicit property and connection constraints. Properties can be bound to specific vertex label and/or edge labels. Moreover, connection constraints allow users to explicitly define which two vertex labels can be connected by an edge label. These constraints can be used to ensure that a graph matches a given domain model. For example for the graph of the gods, a <code>god</code> can be a brother of another <code>god</code>, but not of a <code>monster</code> and a <code>god</code> can have a property <code>age</code>, but <code>location</code> can not have a property <code>age</code>. These constraints are disabled by default.</p>
+<p>Enable these schema constraints by setting <code>schema.constraints=true</code>. This setting depends on the setting <code>schema.default</code>. If config <code>schema.default</code> is set to <code>none</code>, then an <code>IllegalArgumentException</code> is thrown for schema constraint violations. If <code>schema.default</code> is not set <code>none</code>, schema constraints are automatically created, but no exception is thrown.
+Activating schema constraints has no impact on the existing data, because these schema constraints are only applied during the insertion process. So reading of data is not affected at all by those constraints.</p>
+<p>Multiple properties can be bound to a vertex using <code>JanusGraphManagement.addProperties(VertexLabel, PropertyKey...)</code>, for example:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeVertexLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">person</span><span class="err">&#39;</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SET</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">birthDate</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">birthDate</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SINGLE</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">addProperties</span><span class="o">(</span><span class="n">person</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">birthDate</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<p>Multiple properties can be bound to an edge using <code>JanusGraphManagement.addProperties(EdgeLabel, PropertyKey...)</code>, for example:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">follow</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeEdgeLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">follow</span><span class="err">&#39;</span><span class="o">).</span><span class="na">multiplicity</span><span class="o">(</span><span class="n">MULTI</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="err">&#39;</span><span class="n">name</span><span class="err">&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SET</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">addProperties</span><span class="o">(</span><span class="n">follow</span><span class="o">,</span> <span class="n">name</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<p>Connections can be defined using <code>JanusGraphManagement.addConnection(EdgeLabel, VertexLabel out, VertexLabel in)</code> between an outgoing, an incoming and an edge, for example:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeVertexLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">person</span><span class="err">&#39;</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">company</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeVertexLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">company</span><span class="err">&#39;</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">works</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makeEdgeLabel</span><span class="o">(</span><span class="err">&#39;</span><span class="n">works</span><span class="err">&#39;</span><span class="o">).</span><span class="na">multiplicity</span><span class="o">(</span><span class="n">MULTI</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">addConnection</span><span class="o">(</span><span class="n">works</span><span class="o">,</span> <span class="n">person</span><span class="o">,</span> <span class="n">company</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Configuration
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../gremlin/" title="Gremlin Query Language" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Gremlin Query Language
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

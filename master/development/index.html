@@ -1,0 +1,1490 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Development - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#development-decisions" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="JanusGraph" class="md-header-nav__button md-logo">
+          
+            <img src="../janusgraph-logomark.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JanusGraph
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Development
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="JanusGraph" class="md-nav__button md-logo">
+      
+        <img src="../janusgraph-logomark.svg" width="48" height="48">
+      
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Development
+      </label>
+    
+    <a href="./" title="Development" class="md-nav__link md-nav__link--active">
+      Development
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#development-decisions" title="Development Decisions" class="md-nav__link">
+    Development Decisions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching" title="Branching" class="md-nav__link">
+    Branching
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branch-naming-conventions" title="Branch Naming Conventions" class="md-nav__link">
+    Branch Naming Conventions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests" title="Pull Requests" class="md-nav__link">
+    Pull Requests
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#review-then-commit-rtc" title="Review-Then-Commit (RTC)" class="md-nav__link">
+    Review-Then-Commit (RTC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-then-review-ctr" title="Commit-Then-Review (CTR)" class="md-nav__link">
+    Commit-Then-Review (CTR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-of-pull-requests" title="Merging of Pull Requests" class="md-nav__link">
+    Merging of Pull Requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-policy" title="Release Policy" class="md-nav__link">
+    Release Policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-janusgraph" title="Building JanusGraph" class="md-nav__link">
+    Building JanusGraph
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depending-on-janusgraph-snapshots" title="Depending on JanusGraph Snapshots" class="md-nav__link">
+    Depending on JanusGraph Snapshots
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faqs" title="FAQs" class="md-nav__link">
+    FAQs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#development-decisions" title="Development Decisions" class="md-nav__link">
+    Development Decisions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching" title="Branching" class="md-nav__link">
+    Branching
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branch-naming-conventions" title="Branch Naming Conventions" class="md-nav__link">
+    Branch Naming Conventions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests" title="Pull Requests" class="md-nav__link">
+    Pull Requests
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#review-then-commit-rtc" title="Review-Then-Commit (RTC)" class="md-nav__link">
+    Review-Then-Commit (RTC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-then-review-ctr" title="Commit-Then-Review (CTR)" class="md-nav__link">
+    Commit-Then-Review (CTR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-of-pull-requests" title="Merging of Pull Requests" class="md-nav__link">
+    Merging of Pull Requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-policy" title="Release Policy" class="md-nav__link">
+    Release Policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-janusgraph" title="Building JanusGraph" class="md-nav__link">
+    Building JanusGraph
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depending-on-janusgraph-snapshots" title="Depending on JanusGraph Snapshots" class="md-nav__link">
+    Depending on JanusGraph Snapshots
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faqs" title="FAQs" class="md-nav__link">
+    FAQs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/development.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Development</h1>
+                
+                <p>The following sections describe the JanusGraph development process.</p>
+<h2 id="development-decisions">Development Decisions</h2>
+<p>Many development decisions will be made during the day-to-day work of
+JanusGraph contributors without any extra process overhead. However, for
+larger bodies of work and significant updates and additions, the
+following process shall be followed. Significant work may include, but
+is not limited to:</p>
+<ul>
+<li>A major new feature or subproject, e.g., a new storage adapter</li>
+<li>Incrementing the version of a core dependency such as a Apache TinkerPop</li>
+<li>Addition or deprecation of a public API</li>
+<li>Internal shared data structure or API change</li>
+<li>Addition of a new major dependency</li>
+</ul>
+<p>For these sorts of changes, contributors will:</p>
+<ul>
+<li>Create one or more issues in the GitHub issue tracker</li>
+<li>Start a DISCUSS thread on the <a href="https://groups.google.com/forum/#!forum/janusgraph-dev">janusgraph-dev</a>
+ list where the proposed change may be discussed by committers and other community members</li>
+<li>When the proposer feels it appropriate, a VOTE shall be called</li>
+<li>Two +1 votes are required for the change to be accepted</li>
+</ul>
+<h2 id="branching">Branching</h2>
+<p>For features that involve only one developer, developers will work in
+their own JanusGraph forks, managing their own branches, and submitting
+pull requests when ready. If multiple developers wish to collaborate on
+a feature, they may request that a feature branch be created in
+JanusGraph repository. If the developers are not committers, a
+JanusGraph committer will be assigned as the shepherd for that branch.
+The shepherd will be responsible for merging pull requests to that
+branch.</p>
+<h3 id="branch-naming-conventions">Branch Naming Conventions</h3>
+<p>All branch names hosted in the JanusGraph repository shall be prepended
+with <code>Issue_#_</code>.</p>
+<h2 id="pull-requests">Pull Requests</h2>
+<p>Users wishing to contribute to JanusGraph should fork the
+<a href="https://github.com/janusgraph/janusgraph">JanusGraph</a> repository and
+then submit pull requests using the 
+<a href="https://help.github.com/articles/creating-a-pull-request/">GitHub pull request process</a>.
+Every pull request must be associated with an existing issue. Be sure to
+include the relevant issue number in the title of your pull request,
+complete the pull request template checklist, and provide a description
+of what test suites were run to validate the pull request. Pull requests
+commit messages should clearly describe what work was accomplished.
+Intermediate work-in-progress commits should be squashed prior to pull
+request submittal.</p>
+<h3 id="review-then-commit-rtc">Review-Then-Commit (RTC)</h3>
+<p>Pull requests must be reviewed before being merged following a
+review-then-commit (RTC) process. The JanusGraph project uses the
+<a href="https://help.github.com/articles/about-pull-request-reviews/">GitHub review process</a>
+to review pull requests. Non-committers are welcomed and encouraged to
+review pull requests. Their review will be non-binding, but can be taken
+into consideration and are still very valuable community input. The
+following rules apply to the voting process.</p>
+<ul>
+<li>Approval flows<ul>
+<li>2 committer approvals are required to merge a pull request</li>
+<li>If a committer submits the pull request, it has their implicit
+    approval so it requires 1 additional committer approval</li>
+<li>1 committer approval followed a one week review period for
+    objections at which point a lazy consensus is assumed</li>
+</ul>
+</li>
+<li>One or more -1 votes within a change request will veto the pull
+    request until the noted issue(s) are addressed and the -1 vote is
+    withdrawn</li>
+<li>Change requests will not be considered valid without an explanation</li>
+</ul>
+<h3 id="commit-then-review-ctr">Commit-Then-Review (CTR)</h3>
+<p>In instances where the committer deems the full RTC process unnecessary,
+a commit-then-review (CTR) process may be employed. The purpose of
+invoking CTR is to reduce the burden on the committers and minimize the
+turnaround time for merging trivial changes. Changes of this sort may
+include:</p>
+<ul>
+<li>Documentation typo or small documentation addition</li>
+<li>Addition of a new test case</li>
+<li>Merging approved fixes into an upstream branch</li>
+</ul>
+<p>Any commit that is made following CTR shall include the fact that it is
+a CTR in the commit comments. Community members who wish to review CTRs
+may subscribe to the <a href="https://groups.google.com/forum/#!forum/janusgraph-commits">JanusGraph commits</a>
+list so that they will see CTRs as they come through. If another
+committer responds with a -1, the commit should be rolled back and the
+formal RTC process should be followed.</p>
+<h3 id="merging-of-pull-requests">Merging of Pull Requests</h3>
+<p>A pull request is ready to be merged when it has been approved (see
+<a href="#review-then-commit">Review-Then-Commit (RTC)</a>). It can either be
+merged manually with <code>git</code> commands or through the GitHub UI with the
+<em>Merge pull request</em> button. If the pull request targets a release
+branch that is upstream of other release branches (e.g., <code>v0.2</code> is
+upstream of <code>master</code>), then it is important to make sure that the change
+also lands in the downstream release branches. This is the
+responsibility of the committer who merges the pull request. Therefore,
+merge the pull request first into its target branch and then merge that
+branch (e.g., <code>v0.2</code>) into the next downstream branch (e.g., <code>v0.3</code>), and
+so on until you merge the last release branch into <code>master</code>. Afterwards
+push all release branches, ideally with an atomic commit:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>git push --atomic origin master v0.3 v0.2
+</pre></div>
+</td></tr></table>
+
+<p>This approach keeps merge conflicts to a minimum when a release branch
+is merged into a downstream release branch.</p>
+<h2 id="release-policy">Release Policy</h2>
+<p>Any JanusGraph committer may propose a release. To propose a release,
+simple start a new RELEASE thread on
+<a href="https://groups.google.com/forum/#!forum/janusgraph-dev">janusgraph-dev</a>
+proposing the new release and requesting feedback on what should be
+included in the release. After consensus is reached the release manager
+will perform the following tasks:</p>
+<ul>
+<li>Create a release branch so that work may continue on <code>master</code></li>
+<li>Prepare the release artifacts</li>
+<li>Call a vote to approve the release on
+    <a href="https://groups.google.com/forum/#!forum/janusgraph-dev">janusgraph-dev</a></li>
+<li>Committers will be given 72 hours to review and vote on the release
+    artifacts</li>
+<li>Three +1 votes are required for a release to be approved</li>
+<li>One or more -1 votes with explanation will veto the release until
+    the noted issues are addressed and the -1 votes are withdrawn</li>
+</ul>
+<h2 id="building-janusgraph">Building JanusGraph</h2>
+<p>To build JanusGraph you need <a href="http://git-scm.com/">git</a> and
+<a href="http://maven.apache.org/">Maven</a>.</p>
+<ol>
+<li>
+<p>Clone the <a href="https://github.com/JanusGraph/janusgraph">JanusGraph repository from
+    GitHub</a> to a local
+    directory.</p>
+</li>
+<li>
+<p>In that directory, execute <code>mvn clean install</code>. This will build
+    JanusGraph and run the internal test suite. The internal test suite
+    has no external dependencies. Note, that running all test cases
+    requires a significant amount of time. To skip the tests when
+    building JanusGraph, execute <code>mvn clean install -DskipTests</code></p>
+</li>
+<li>
+<p>For comprehensive test coverage, execute
+    <code>mvn clean test -P comprehensive</code>. This will run additional test
+    covering communication to external storage backends, performance
+    tests and concurrency tests. The comprehensive test suite uses
+    Cassandra and HBase as external databases and requires that
+    Cassandra and HBase are installed. Note, that running the
+    comprehensive test suite requires a significant amount of of time
+    (&gt; 1 hour).</p>
+</li>
+</ol>
+<h3 id="depending-on-janusgraph-snapshots">Depending on JanusGraph Snapshots</h3>
+<p>For developing against the most current version of JanusGraph, depend on
+JanusGraph snapshot releases. Note, that these releases are development
+releases and therefore unstable and likely to change. Unless one is
+interested in the most recent development status of JanusGraph, we
+recommend to use the stable JanusGraph release instead.</p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Maven</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.5.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</td></tr></table></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Gradle</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.5.0-SNAPSHOT&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Check the <a href="https://github.com/JanusGraph/janusgraph/tree/master">master branch</a> for the
+most current release version. SNAPSHOTs will be available through the
+<a href="https://oss.sonatype.org/content/repositories/snapshots/org/janusgraph/">Sonatype repository</a>.</p>
+<p>When adding this dependency, be sure to add the following repository to build file:</p>
+<div class="superfences-tabs">
+<input name="__tabs_2" type="radio" id="__tab_2_0" checked="checked" />
+<label for="__tab_2_0">Maven</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">&lt;repository&gt;</span>
+  <span class="nt">&lt;id&gt;</span>ossrh<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Sonatype Nexus Snapshots<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
+  <span class="nt">&lt;releases&gt;</span>
+    <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+  <span class="nt">&lt;/releases&gt;</span>
+  <span class="nt">&lt;snapshots&gt;</span>
+    <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+  <span class="nt">&lt;/snapshots&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</td></tr></table></div>
+<input name="__tabs_2" type="radio" id="__tab_2_1" />
+<label for="__tab_2_1">Gradle</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">maven</span> <span class="o">{</span>
+  <span class="n">url</span> <span class="s2">&quot;https://oss.sonatype.org/content/repositories/snapshots&quot;</span>
+  <span class="n">mavenContent</span> <span class="o">{</span>
+    <span class="n">snapshotsOnly</span><span class="o">()</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<h3 id="faqs">FAQs</h3>
+<p><strong>Maven build causes dozens of "[WARNING] We have a duplicate…"
+errors</strong></p>
+<p>Make sure to use the maven-assembly-plugin when building or depending on
+JanusGraph.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../connecting/dotnet/" title="Using .Net" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Using .Net
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../appendices/" title="Appendices" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Appendices
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

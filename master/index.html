@@ -1,0 +1,1861 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#the-benefits-of-janusgraph" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="JanusGraph" class="md-header-nav__button md-logo">
+          
+            <img src="janusgraph-logomark.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JanusGraph
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Introduction
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="JanusGraph" class="md-nav__button md-logo">
+      
+        <img src="janusgraph-logomark.svg" width="48" height="48">
+      
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Introduction
+      </label>
+    
+    <a href="." title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-benefits-of-janusgraph" title="The Benefits of JanusGraph" class="md-nav__link">
+    The Benefits of JanusGraph
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-janusgraph-benefits" title="General JanusGraph Benefits" class="md-nav__link">
+    General JanusGraph Benefits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-janusgraph-with-apache-cassandra" title="Benefits of JanusGraph with Apache Cassandra" class="md-nav__link">
+    Benefits of JanusGraph with Apache Cassandra
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-janusgraph-with-hbase" title="Benefits of JanusGraph with HBase" class="md-nav__link">
+    Benefits of JanusGraph with HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#janusgraph-and-the-cap-theorem" title="JanusGraph and the CAP Theorem" class="md-nav__link">
+    JanusGraph and the CAP Theorem
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading-janusgraph-and-running-the-gremlin-console" title="Downloading JanusGraph and Running the Gremlin Console" class="md-nav__link">
+    Downloading JanusGraph and Running the Gremlin Console
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-graph-of-the-gods-into-janusgraph" title="Loading the Graph of the Gods Into JanusGraph" class="md-nav__link">
+    Loading the Graph of the Gods Into JanusGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-graph-indices" title="Global Graph Indices" class="md-nav__link">
+    Global Graph Indices
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-traversal-examples" title="Graph Traversal Examples" class="md-nav__link">
+    Graph Traversal Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-complex-graph-traversal-examples" title="More Complex Graph Traversal Examples" class="md-nav__link">
+    More Complex Graph Traversal Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cohabiters-of-tartarus" title="Cohabiters of Tartarus" class="md-nav__link">
+    Cohabiters of Tartarus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plutos-brothers" title="Pluto’s Brothers" class="md-nav__link">
+    Pluto’s Brothers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-overview" title="Architectural Overview" class="md-nav__link">
+    Architectural Overview
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-benefits-of-janusgraph" title="The Benefits of JanusGraph" class="md-nav__link">
+    The Benefits of JanusGraph
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-janusgraph-benefits" title="General JanusGraph Benefits" class="md-nav__link">
+    General JanusGraph Benefits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-janusgraph-with-apache-cassandra" title="Benefits of JanusGraph with Apache Cassandra" class="md-nav__link">
+    Benefits of JanusGraph with Apache Cassandra
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-janusgraph-with-hbase" title="Benefits of JanusGraph with HBase" class="md-nav__link">
+    Benefits of JanusGraph with HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#janusgraph-and-the-cap-theorem" title="JanusGraph and the CAP Theorem" class="md-nav__link">
+    JanusGraph and the CAP Theorem
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading-janusgraph-and-running-the-gremlin-console" title="Downloading JanusGraph and Running the Gremlin Console" class="md-nav__link">
+    Downloading JanusGraph and Running the Gremlin Console
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-graph-of-the-gods-into-janusgraph" title="Loading the Graph of the Gods Into JanusGraph" class="md-nav__link">
+    Loading the Graph of the Gods Into JanusGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-graph-indices" title="Global Graph Indices" class="md-nav__link">
+    Global Graph Indices
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-traversal-examples" title="Graph Traversal Examples" class="md-nav__link">
+    Graph Traversal Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-complex-graph-traversal-examples" title="More Complex Graph Traversal Examples" class="md-nav__link">
+    More Complex Graph Traversal Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cohabiters-of-tartarus" title="Cohabiters of Tartarus" class="md-nav__link">
+    Cohabiters of Tartarus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plutos-brothers" title="Pluto’s Brothers" class="md-nav__link">
+    Pluto’s Brothers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-overview" title="Architectural Overview" class="md-nav__link">
+    Architectural Overview
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Introduction</h1>
+                
+                <h2 id="the-benefits-of-janusgraph">The Benefits of JanusGraph</h2>
+<p>JanusGraph is designed to support the processing of graphs so large that
+they require storage and computational capacities beyond what a single
+machine can provide. Scaling graph data processing for real time
+traversals and analytical queries is JanusGraph’s foundational benefit.
+This section will discuss the various specific benefits of JanusGraph
+and its underlying, supported persistence solutions.</p>
+<h3 id="general-janusgraph-benefits">General JanusGraph Benefits</h3>
+<ul>
+<li>Support for very large graphs. JanusGraph graphs scale with the
+    number of machines in the cluster.</li>
+<li>Support for very many concurrent transactions and operational graph
+    processing. JanusGraph’s transactional capacity scales with the
+    number of machines in the cluster and answers complex traversal
+    queries on huge graphs in milliseconds.</li>
+<li>Support for global graph analytics and batch graph processing
+    through the Hadoop framework.</li>
+<li>Support for geo, numeric range, and full text search for vertices
+    and edges on very large graphs.</li>
+<li>Native support for the popular property graph data model exposed by
+    <a href="https://tinkerpop.apache.org/">Apache TinkerPop</a>.</li>
+<li>Native support for the graph traversal language
+    <a href="https://tinkerpop.apache.org/gremlin.html">Gremlin</a>.</li>
+<li>Numerous graph-level configurations provide knobs for tuning
+    performance.</li>
+<li>Vertex-centric indices provide vertex-level querying to alleviate
+    issues with the infamous <a href="http://thinkaurelius.com/2012/10/25/a-solution-to-the-supernode-problem/">super node problem</a>.</li>
+<li>Provides an optimized disk representation to allow for efficient use
+    of storage and speed of access.</li>
+<li>Open source under the liberal <a href="https://en.wikipedia.org/wiki/Apache_License">Apache 2 license</a>.</li>
+</ul>
+<h3 id="benefits-of-janusgraph-with-apache-cassandra">Benefits of JanusGraph with Apache Cassandra</h3>
+<div style="float: right;">
+    <img src="cassandra-small.svg">
+</div>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Continuous_availability">Continuously available</a>
+    with no single point of failure.</li>
+<li>
+<p>No read/write bottlenecks to the graph as there is no master/slave
+    architecture.</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Elastic_computing">Elastic scalability</a> allows
+    for the introduction and removal of machines.</p>
+</li>
+<li>Caching layer ensures that continuously accessed data is available
+    in memory.</li>
+<li>Increase the size of the cache by adding more machines to the
+    cluster.</li>
+<li>Integration with <a href="https://hadoop.apache.org/">Apache Hadoop</a>.</li>
+<li>Open source under the liberal Apache 2 license.</li>
+</ul>
+<h3 id="benefits-of-janusgraph-with-hbase">Benefits of JanusGraph with HBase</h3>
+<div style="float: right;">
+    <img src="https://hbase.apache.org/images/hbase_logo.png">
+</div>
+
+<ul>
+<li>Tight integration with the <a href="https://hadoop.apache.org/">Apache Hadoop</a> ecosystem.</li>
+<li>Native support for <a href="https://en.wikipedia.org/wiki/Strong_consistency">strong consistency</a>.</li>
+<li>Linear scalability with the addition of more machines.</li>
+<li><a href="https://en.wikipedia.org/wiki/Strict_consistency">Strictly consistent</a> reads and writes.</li>
+<li>Convenient base classes for backing Hadoop
+    <a href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a> jobs with HBase
+    tables.</li>
+<li>Support for exporting metrics via
+    <a href="https://en.wikipedia.org/wiki/Java_Management_Extensions">JMX</a>.</li>
+<li>Open source under the liberal Apache 2 license.</li>
+</ul>
+<h3 id="janusgraph-and-the-cap-theorem">JanusGraph and the CAP Theorem</h3>
+<blockquote>
+<p>Despite your best efforts, your system will experience enough faults
+that it will have to make a choice between reducing yield (i.e., stop
+answering requests) and reducing harvest (i.e., giving answers based
+on incomplete data). This decision should be based on business
+requirements.</p>
+<p>—  <a href="https://codahale.com/you-cant-sacrifice-partition-tolerance">Coda Hale</a></p>
+</blockquote>
+<p>When using a database, the <a href="https://en.wikipedia.org/wiki/CAP_theorem">CAP theorem</a> should be thoroughly
+considered (C=Consistency, A=Availability, P=Partitionability).
+JanusGraph is distributed with 3 supporting backends: <a href="https://cassandra.apache.org/">Apache Cassandra</a>,
+ <a href="https://hbase.apache.org/">Apache HBase</a>, and <a href="https://www.oracle.com/technetwork/database/berkeleydb/overview/index-093405.html">Oracle Berkeley DB Java Edition</a>.
+Note that BerkeleyDB JE is a non-distributed database and is typically
+only used with JanusGraph for testing and exploration purposes.</p>
+<p>HBase gives preference to consistency at the expense of yield, i.e. the
+probability of completing a request. Cassandra gives preference to
+availability at the expense of harvest, i.e. the completeness of the
+answer to the query (data available/complete data).</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>The examples in this section make extensive use of a toy graph
+distributed with JanusGraph called <em>The Graph of the Gods</em>. This graph
+is diagrammed below. The abstract data model is known as a 
+<a href="https://tinkerpop.apache.org/docs/3.4.1/reference#intro">Property Graph Model</a>
+and this particular instance describes the relationships between the
+beings and places of the Roman pantheon. Moreover, special text and
+symbol modifiers in the diagram (e.g. bold, underline, etc.) denote
+different schematics/typings in the graph.</p>
+<p><img alt="Graph of the Gods" src="graph-of-the-gods-2.png" /></p>
+<table>
+<thead>
+<tr>
+<th>visual symbol</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bold key</td>
+<td>a graph indexed key</td>
+</tr>
+<tr>
+<td>bold key with star</td>
+<td>a graph indexed key that must have a unique value</td>
+</tr>
+<tr>
+<td>underlined key</td>
+<td>a vertex-centric indexed key</td>
+</tr>
+<tr>
+<td>hollow-head edge</td>
+<td>a functional/unique edge (no duplicates)</td>
+</tr>
+<tr>
+<td>tail-crossed edge</td>
+<td>a unidirectional edge (can only traverse in one direction)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="downloading-janusgraph-and-running-the-gremlin-console">Downloading JanusGraph and Running the Gremlin Console</h3>
+<p>JanusGraph can be downloaded from the
+<a href="https://github.com/JanusGraph/janusgraph/releases">Releases</a> section of
+the project repository. Once retrieved and unpacked, a Gremlin Console
+can be opened. The Gremlin Console is a
+<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>
+(i.e. interactive shell) that is distributed with JanusGraph and only
+differs from the standard Gremlin Console insofar that JanusGraph is a
+pre-installed and pre-loaded package. Alternatively, a user may choose
+to install and activate JanusGraph in an existing Gremlin Console by
+downloading the JanusGraph package from the central repository. In the
+example below, <code>janusgraph.zip</code> is used, however, be sure to unzip the
+zip-file that was downloaded.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>JanusGraph requires Java 8 (Standard Edition). Oracle Java 8 is
+recommended. JanusGraph’s shell scripts expect that the <code>$JAVA_HOME</code>
+environment variable points to the directory where JRE or JDK is
+installed.</p>
+</div>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>$ unzip janusgraph-0.5.0.zip
+Archive:  janusgraph-0.5.0.zip
+  creating: janusgraph-0.5.0/
+...
+$ <span class="nb">cd</span> janusgraph-0.5.0
+$ bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+<span class="m">09</span>:12:24 INFO  org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph  - HADOOP_GREMLIN_LIBS is <span class="nb">set</span> to: /usr/local/janusgraph/lib
+plugin activated: tinkerpop.hadoop
+plugin activated: janusgraph.imports
+gremlin&gt;
+</pre></div>
+</td></tr></table>
+
+<p>The Gremlin Console interprets commands using <a href="https://www.groovy-lang.org/">Apache Groovy</a>. 
+Groovy is a superset of Java that
+has various shorthand notations that make interactive programming
+easier. Likewise Gremlin-Groovy is a superset of Groovy with various
+shorthand notations that make graph traversals easy. The basic examples
+below demonstrate handling numbers, strings, and maps. The remainder of
+the tutorial will discuss graph-specific constructs.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="mi">100</span><span class="o">-</span><span class="mi">10</span>
+<span class="o">==&gt;</span><span class="mi">90</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="s2">&quot;JanusGraph:&quot;</span> <span class="o">+</span> <span class="s2">&quot; The Rise of Big Graph Data&quot;</span>
+<span class="o">==&gt;</span><span class="nl">JanusGraph:</span> <span class="n">The</span> <span class="n">Rise</span> <span class="n">of</span> <span class="n">Big</span> <span class="n">Graph</span> <span class="n">Data</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">[</span><span class="nl">name:</span><span class="s1">&#39;aurelius&#39;</span><span class="o">,</span> <span class="nl">vocation:</span><span class="o">[</span><span class="s1">&#39;philosopher&#39;</span><span class="o">,</span> <span class="s1">&#39;emperor&#39;</span><span class="o">]]</span>
+<span class="o">==&gt;</span><span class="n">name</span><span class="o">=</span><span class="n">aurelius</span>
+<span class="o">==&gt;</span><span class="n">vocation</span><span class="o">=[</span><span class="n">philosopher</span><span class="o">,</span> <span class="n">emperor</span><span class="o">]</span>
+</pre></div>
+</td></tr></table></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Refer to <a href="https://tinkerpop.apache.org/docs/3.4.1/reference">Apache TinkerPop</a>,
+<a href="http://sql2gremlin.com/">SQL2Gremlin</a>, and <a href="https://tinkerpop.apache.org/docs/3.4.1/recipes/">Gremlin Recipes</a>
+for more information about using Gremlin.</p>
+</div>
+<h3 id="loading-the-graph-of-the-gods-into-janusgraph">Loading the Graph of the Gods Into JanusGraph</h3>
+<p>The example below will open a JanusGraph graph instance and load <em>The
+Graph of the Gods</em> dataset diagrammed above. <code>JanusGraphFactory</code>
+provides a set of static <code>open</code> methods, each of which takes a
+configuration as its argument and returns a graph instance. This
+tutorial calls one of these <code>open</code> methods on a configuration that uses
+the <a href="storage-backend/bdb/">BerkeleyDB</a> storage backend and the
+<a href="index-backend/elasticsearch/">Elasticsearch</a> index backend, then loads <em>The Graph of
+the Gods</em> using the helper class <code>GraphOfTheGodsFactory</code>. This section
+skips over the configuration details, but additional information about
+storage backends, index backends, and their configuration are available
+in <a href="storage-backend/">Storage Backends</a>, <a href="index-backend/search-predicates/">Index Backends</a>, and
+<a href="basics/configuration-reference/">Configuration Reference</a>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s1">&#39;conf/janusgraph-berkeleyje-es.properties&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">berkeleyje:</span><span class="o">..</span><span class="s">/db/</span><span class="n">berkeley</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">GraphOfTheGodsFactory</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">graph</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">traversal</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">berkeleyje:</span><span class="o">..</span><span class="s">/db/</span><span class="n">berkeley</span><span class="o">],</span> <span class="n">standard</span><span class="o">]</span>
+</pre></div>
+</td></tr></table>
+
+<p>The <code>JanusGraphFactory.open() and GraphOfTheGodsFactory.load()</code> methods
+do the following to the newly constructed graph prior to returning it:</p>
+<ol>
+<li>Creates a collection of global and vertex-centric indices on the graph.</li>
+<li>Adds all the vertices to the graph along with their properties.</li>
+<li>Adds all the edges to the graph along with their properties.</li>
+</ol>
+<p>Please see the <a href="https://github.com/JanusGraph/janusgraph/blob/master/janusgraph-core/src/main/java/org/janusgraph/example/GraphOfTheGodsFactory.java">GraphOfTheGodsFactory source code</a>
+for details.</p>
+<p>For those using JanusGraph/Cassandra (or JanusGraph/HBase), be sure to
+make use of <code>conf/janusgraph-cql-es.properties</code> (or
+<code>conf/janusgraph-hbase-es.properties</code>) and
+<code>GraphOfTheGodsFactory.load()</code>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s1">&#39;conf/janusgraph-cql-es.properties&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">GraphOfTheGodsFactory</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">graph</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">traversal</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]],</span> <span class="n">standard</span><span class="o">]</span>
+</pre></div>
+</td></tr></table>
+
+<p>You may also use the <code>conf/janusgraph-cql.properties</code>,
+<code>conf/janusgraph-berkeleyje.properties</code>, or
+<code>conf/janusgraph-hbase.properties</code> configuration files to open a graph
+without an indexing backend configured. In such cases, you will need to
+use the <code>GraphOfTheGodsFactory.loadWithoutMixedIndex()</code> method to load
+the <em>Graph of the Gods</em> so that it doesn’t attempt to make use of an
+indexing backend.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s1">&#39;conf/janusgraph-cql.properties&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">GraphOfTheGodsFactory</span><span class="o">.</span><span class="na">loadWithoutMixedIndex</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">traversal</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]],</span> <span class="n">standard</span><span class="o">]</span>
+</pre></div>
+</td></tr></table></p>
+<h3 id="global-graph-indices">Global Graph Indices</h3>
+<p>The typical pattern for accessing data in a graph database is to first
+locate the entry point into the graph using a graph index. That entry
+point is an element (or set of elements) — i.e. a vertex or edge. From
+the entry elements, a Gremlin path description describes how to traverse
+to other elements in the graph via the explicit graph structure.</p>
+<p>Given that there is a unique index on <code>name</code> property, the Saturn vertex
+can be retrieved. The property map (i.e. the key/value pairs of Saturn)
+can then be examined. As demonstrated, the Saturn vertex has a <code>name</code> of
+"saturn, " an <code>age</code> of 10000, and a <code>type</code> of "titan." The grandchild of
+Saturn can be retrieved with a traversal that expresses: "Who is
+Saturn’s grandchild?" (the inverse of "father" is "child"). The result
+is Hercules.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">saturn</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;saturn&#39;</span><span class="o">).</span><span class="na">next</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">256</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">saturn</span><span class="o">).</span><span class="na">valueMap</span><span class="o">()</span>
+<span class="o">==&gt;[</span><span class="nl">name:</span><span class="o">[</span><span class="n">saturn</span><span class="o">],</span> <span class="nl">age:</span><span class="o">[</span><span class="mi">10000</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">saturn</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">hercules</span>
+</pre></div>
+</td></tr></table>
+
+<p>The property <code>place</code> is also in a graph index. The property <code>place</code> is
+an edge property. Therefore, JanusGraph can index edges in a graph
+index. It is possible to query <em>The Graph of the Gods</em> for all events
+that have happened within 50 kilometers of
+<a href="https://en.wikipedia.org/wiki/Athens">Athens</a> (latitude:37.97 and
+long:23.72). Then, given that information, which vertices were involved
+in those events.</p>
+<p><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;place&#39;</span><span class="o">,</span> <span class="n">geoWithin</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">circle</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">,</span> <span class="mi">50</span><span class="o">)))</span>
+<span class="o">==&gt;</span><span class="n">e</span><span class="o">[</span><span class="n">a9x</span><span class="o">-</span><span class="n">co8</span><span class="o">-</span><span class="mi">9</span><span class="n">hx</span><span class="o">-</span><span class="mi">39</span><span class="n">s</span><span class="o">][</span><span class="mi">16424</span><span class="o">-</span><span class="n">battled</span><span class="o">-&gt;</span><span class="mi">4240</span><span class="o">]</span>
+<span class="o">==&gt;</span><span class="n">e</span><span class="o">[</span><span class="mi">9</span><span class="n">vp</span><span class="o">-</span><span class="n">co8</span><span class="o">-</span><span class="mi">9</span><span class="n">hx</span><span class="o">-</span><span class="mi">9</span><span class="n">ns</span><span class="o">][</span><span class="mi">16424</span><span class="o">-</span><span class="n">battled</span><span class="o">-&gt;</span><span class="mi">12520</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;place&#39;</span><span class="o">,</span> <span class="n">geoWithin</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">circle</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">,</span> <span class="mi">50</span><span class="o">))).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;source&#39;</span><span class="o">).</span><span class="na">inV</span><span class="o">().</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;god2&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;source&#39;</span><span class="o">).</span><span class="na">outV</span><span class="o">().</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;god1&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;god1&#39;</span><span class="o">,</span> <span class="s1">&#39;god2&#39;</span><span class="o">).</span><span class="na">by</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;[</span><span class="nl">god1:</span><span class="n">hercules</span><span class="o">,</span> <span class="nl">god2:</span><span class="n">hydra</span><span class="o">]</span>
+<span class="o">==&gt;[</span><span class="nl">god1:</span><span class="n">hercules</span><span class="o">,</span> <span class="nl">god2:</span><span class="n">nemean</span><span class="o">]</span>
+</pre></div>
+</td></tr></table>
+Graph indices are one type of index structure in JanusGraph. Graph
+indices are automatically chosen by JanusGraph to answer which ask for
+all vertices (<code>g.V</code>) or all edges (<code>g.E</code>) that satisfy one or multiple
+constraints (e.g. <code>has</code> or <code>interval</code>). The second aspect of indexing in
+JanusGraph is known as vertex-centric indices. Vertex-centric indices
+are utilized to speed up traversals inside the graph. Vertex-centric
+indices are described later.</p>
+<h4 id="graph-traversal-examples">Graph Traversal Examples</h4>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Hercules">Hercules</a>, son of Jupiter and
+<a href="https://en.wikipedia.org/wiki/Alcmene">Alcmene</a>, bore super human
+strength. Hercules was a
+<a href="https://en.wikipedia.org/wiki/Demigod">Demigod</a> because his father was
+a god and his mother was a human.
+<a href="https://en.wikipedia.org/wiki/Juno_(mythology)">Juno</a>, wife of
+Jupiter, was furious with Jupiter’s infidelity. In revenge, she
+blinded Hercules with temporary insanity and caused him to kill his
+wife and children. To atone for the slaying, Hercules was ordered by
+the <a href="https://en.wikipedia.org/wiki/Oracle_at_Delphi">Oracle of Delphi</a>
+to serve <a href="https://en.wikipedia.org/wiki/Eurystheus">Eurystheus</a>.
+Eurystheus appointed Hercules to 12 labors.</p>
+</blockquote>
+<p>In the previous section, it was demonstrated that Saturn’s grandchild
+was Hercules. This can be expressed using a <code>loop</code>. In essence, Hercules
+is the vertex that is 2-steps away from Saturn along the <code>in('father')</code>
+path.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">hercules</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">saturn</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">__</span><span class="o">.</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">)).</span><span class="na">times</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="na">next</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">1536</span><span class="o">]</span>
+</pre></div>
+</td></tr></table></p>
+<p>Hercules is a demigod. To prove that Hercules is half human and half
+god, his parent’s origins must be examined. It is possible to traverse
+from the Hercules vertex to his mother and father. Finally, it is
+possible to determine the <code>type</code> of each of them — yielding "god" and
+"human."
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">,</span> <span class="s1">&#39;mother&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">1024</span><span class="o">]</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">1792</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">,</span> <span class="s1">&#39;mother&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">jupiter</span>
+<span class="o">==&gt;</span><span class="n">alcmene</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">,</span> <span class="s1">&#39;mother&#39;</span><span class="o">).</span><span class="na">label</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">god</span>
+<span class="o">==&gt;</span><span class="n">human</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">hercules</span><span class="o">.</span><span class="na">label</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">demigod</span>
+</pre></div>
+</td></tr></table></p>
+<p>The examples thus far have been with respect to the genetic lines of the
+various actors in the Roman pantheon. The <a href="https://tinkerpop.apache.org/docs/3.4.1/reference#intro">Property Graph Model</a>
+is expressive enough to represent multiple types of things and
+relationships. In this way, <em>The Graph of the Gods</em> also identifies
+Hercules' various heroic exploits --- his famous 12 labors. In the
+previous section, it was discovered that Hercules was involved in two
+battles near Athens. It is possible to explore these events by
+traversing <code>battled</code> edges out of the Hercules vertex.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">2304</span><span class="o">]</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">2560</span><span class="o">]</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">2816</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">valueMap</span><span class="o">()</span>
+<span class="o">==&gt;[</span><span class="nl">name:</span><span class="o">[</span><span class="n">nemean</span><span class="o">]]</span>
+<span class="o">==&gt;[</span><span class="nl">name:</span><span class="o">[</span><span class="n">hydra</span><span class="o">]]</span>
+<span class="o">==&gt;[</span><span class="nl">name:</span><span class="o">[</span><span class="n">cerberus</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">outE</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;time&#39;</span><span class="o">,</span> <span class="n">gt</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">inV</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">cerberus</span>
+<span class="o">==&gt;</span><span class="n">hydra</span>
+</pre></div>
+</td></tr></table></p>
+<p>The edge property <code>time</code> on <code>battled</code> edges is indexed by the
+vertex-centric indices of a vertex. Retrieving <code>battled</code> edges incident
+to Hercules according to a constraint/filter on <code>time</code> is faster than
+doing a linear scan of all edges and filtering (typically <code>O(log n)</code>,
+where <code>n</code> is the number incident edges). JanusGraph is intelligent
+enough to use vertex-centric indices when available. A <code>toString()</code> of a
+Gremlin expression shows a decomposition into individual steps.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">outE</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;time&#39;</span><span class="o">,</span> <span class="n">gt</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">inV</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">).</span><span class="na">toString</span><span class="o">()</span>
+<span class="o">==&gt;[</span><span class="n">GraphStep</span><span class="o">([</span><span class="n">v</span><span class="o">[</span><span class="mi">24744</span><span class="o">]],</span><span class="n">vertex</span><span class="o">),</span> <span class="n">VertexStep</span><span class="o">(</span><span class="n">OUT</span><span class="o">,[</span><span class="n">battled</span><span class="o">],</span><span class="n">edge</span><span class="o">),</span> <span class="n">HasStep</span><span class="o">([</span><span class="n">time</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="mi">1</span><span class="o">)]),</span> <span class="n">EdgeVertexStep</span><span class="o">(</span><span class="n">IN</span><span class="o">),</span> <span class="n">PropertiesStep</span><span class="o">([</span><span class="n">name</span><span class="o">],</span><span class="n">value</span><span class="o">)]</span>
+</pre></div>
+</td></tr></table>
+
+<h4 id="more-complex-graph-traversal-examples">More Complex Graph Traversal Examples</h4>
+<blockquote>
+<p>In the depths of Tartarus lives Pluto. His relationship with Hercules
+was strained by the fact that Hercules battled his pet, Cerberus.
+However, Hercules is his nephew — how should he make Hercules pay for
+his insolence?</p>
+</blockquote>
+<p>The Gremlin traversals below provide more examples over <em>The Graph of
+the Gods</em>. The explanation of each traversal is provided in the prior
+line as a <code>//</code> comment.</p>
+<h5 id="cohabiters-of-tartarus">Cohabiters of Tartarus</h5>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">pluto</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;pluto&#39;</span><span class="o">).</span><span class="na">next</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">2048</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="c1">// who are pluto&#39;s cohabitants?</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">pluto</span>
+<span class="o">==&gt;</span><span class="n">cerberus</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="c1">// pluto can&#39;t be his own cohabitant</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="n">is</span><span class="o">(</span><span class="n">neq</span><span class="o">(</span><span class="n">pluto</span><span class="o">))).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">cerberus</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;x&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="n">neq</span><span class="o">(</span><span class="s1">&#39;x&#39;</span><span class="o">)).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">cerberus</span>
+</pre></div>
+</td></tr></table>
+
+<h5 id="plutos-brothers">Pluto’s Brothers</h5>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="c1">// where do pluto&#39;s brothers live?</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;brother&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">sky</span>
+<span class="o">==&gt;</span><span class="n">sea</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="c1">// which brother lives in which place?</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;brother&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;place&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">,</span> <span class="s1">&#39;place&#39;</span><span class="o">)</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">v</span><span class="o">[</span><span class="mi">1024</span><span class="o">],</span> <span class="nl">place:</span><span class="n">v</span><span class="o">[</span><span class="mi">512</span><span class="o">]]</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">v</span><span class="o">[</span><span class="mi">1280</span><span class="o">],</span> <span class="nl">place:</span><span class="n">v</span><span class="o">[</span><span class="mi">768</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="c1">// what is the name of the brother and the name of the place?</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;brother&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;place&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">,</span> <span class="s1">&#39;place&#39;</span><span class="o">).</span><span class="na">by</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">jupiter</span><span class="o">,</span> <span class="nl">place:</span><span class="n">sky</span><span class="o">]</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">neptune</span><span class="o">,</span> <span class="nl">place:</span><span class="n">sea</span><span class="o">]</span>
+</pre></div>
+</td></tr></table>
+
+<p>Finally, Pluto lives in Tartarus because he shows no concern for death.
+His brothers, on the other hand, chose their locations based upon their
+love for certain qualities of those locations.!
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">pluto</span><span class="o">).</span><span class="na">outE</span><span class="o">(</span><span class="s1">&#39;lives&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;reason&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">no</span> <span class="n">fear</span> <span class="n">of</span> <span class="n">death</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;reason&#39;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s1">&#39;loves&#39;</span><span class="o">))</span>
+<span class="o">==&gt;</span><span class="n">e</span><span class="o">[</span><span class="mi">6</span><span class="n">xs</span><span class="o">-</span><span class="n">sg</span><span class="o">-</span><span class="n">m51</span><span class="o">-</span><span class="n">e8</span><span class="o">][</span><span class="mi">1024</span><span class="o">-</span><span class="n">lives</span><span class="o">-&gt;</span><span class="mi">512</span><span class="o">]</span>
+<span class="o">==&gt;</span><span class="n">e</span><span class="o">[</span><span class="mi">70</span><span class="n">g</span><span class="o">-</span><span class="n">zk</span><span class="o">-</span><span class="n">m51</span><span class="o">-</span><span class="n">lc</span><span class="o">][</span><span class="mi">1280</span><span class="o">-</span><span class="n">lives</span><span class="o">-&gt;</span><span class="mi">768</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;reason&#39;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s1">&#39;loves&#39;</span><span class="o">)).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;source&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;reason&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;reason&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;source&#39;</span><span class="o">).</span><span class="na">outV</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;source&#39;</span><span class="o">).</span><span class="na">inV</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;thing&#39;</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s1">&#39;god&#39;</span><span class="o">,</span> <span class="s1">&#39;reason&#39;</span><span class="o">,</span> <span class="s1">&#39;thing&#39;</span><span class="o">)</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">neptune</span><span class="o">,</span> <span class="nl">reason:</span><span class="n">loves</span> <span class="n">waves</span><span class="o">,</span> <span class="nl">thing:</span><span class="n">sea</span><span class="o">]</span>
+<span class="o">==&gt;[</span><span class="nl">god:</span><span class="n">jupiter</span><span class="o">,</span> <span class="nl">reason:</span><span class="n">loves</span> <span class="n">fresh</span> <span class="n">breezes</span><span class="o">,</span> <span class="nl">thing:</span><span class="n">sky</span><span class="o">]</span>
+</pre></div>
+</td></tr></table></p>
+<h2 id="architectural-overview">Architectural Overview</h2>
+<p>JanusGraph is a graph database engine. JanusGraph itself is focused on
+compact graph serialization, rich graph data modeling, and efficient
+query execution. In addition, JanusGraph utilizes Hadoop for graph
+analytics and batch graph processing. JanusGraph implements robust,
+modular interfaces for data persistence, data indexing, and client
+access. JanusGraph’s modular architecture allows it to interoperate with
+a wide range of storage, index, and client technologies; it also eases
+the process of extending JanusGraph to support new ones.</p>
+<p>Between JanusGraph and the disks sits one or more storage and indexing
+adapters. JanusGraph comes standard with the following adapters, but
+JanusGraph’s modular architecture supports third-party adapters.</p>
+<ul>
+<li>Data storage:<ul>
+<li><a href="storage-backend/cassandra/">Apache Cassandra</a></li>
+<li><a href="storage-backend/hbase/">Apache HBase</a></li>
+<li><a href="storage-backend/bdb/">Oracle Berkeley DB Java Edition</a></li>
+</ul>
+</li>
+<li>Indices, which speed up and enable more complex queries:<ul>
+<li><a href="index-backend/elasticsearch/">Elasticsearch</a></li>
+<li><a href="index-backend/solr/">Apache Solr</a></li>
+<li><a href="index-backend/lucene/">Apache Lucene</a></li>
+</ul>
+</li>
+</ul>
+<p>Broadly speaking, applications can interact with JanusGraph in two ways:</p>
+<ul>
+<li>
+<p>Embed JanusGraph inside the application executing
+    <a href="https://tinkerpop.apache.org/docs/3.4.1/reference#graph-traversal-steps">Gremlin</a>
+    queries directly against the graph within the same JVM. Query
+    execution, JanusGraph’s caches, and transaction handling all happen
+    in the same JVM as the application while data retrieval from the
+    storage backend may be local or remote.</p>
+</li>
+<li>
+<p>Interact with a local or remote JanusGraph instance by submitting
+    Gremlin queries to the server. JanusGraph natively supports the
+    Gremlin Server component of the <a href="https://tinkerpop.apache.org/">Apache TinkerPop</a> stack.</p>
+</li>
+</ul>
+<p><img alt="High-level JanusGraph Architecture and Context" src="architecture-layer-diagram.svg" /></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="basics/configuration/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Configuration
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

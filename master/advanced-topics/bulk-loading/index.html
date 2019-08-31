@@ -1,0 +1,1467 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Bulk Loading - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#bulk-loading" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo">
+          
+            <img src="../../janusgraph-logomark.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JanusGraph
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Bulk Loading
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo">
+      
+        <img src="../../janusgraph-logomark.svg" width="48" height="48">
+      
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Bulk Loading
+      </label>
+    
+    <a href="./" title="Bulk Loading" class="md-nav__link md-nav__link--active">
+      Bulk Loading
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-loading" title="Batch Loading" class="md-nav__link">
+    Batch Loading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-id-allocation" title="Optimizing ID Allocation" class="md-nav__link">
+    Optimizing ID Allocation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id-block-size" title="ID Block Size" class="md-nav__link">
+    ID Block Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-acquisition-process" title="ID Acquisition Process" class="md-nav__link">
+    ID Acquisition Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-writes-and-reads" title="Optimizing Writes and Reads" class="md-nav__link">
+    Optimizing Writes and Reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffer-size" title="Buffer Size" class="md-nav__link">
+    Buffer Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-and-write-robustness" title="Read and Write Robustness" class="md-nav__link">
+    Read and Write Robustness
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategies" title="Strategies" class="md-nav__link">
+    Strategies
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallelizing-the-load" title="Parallelizing the Load" class="md-nav__link">
+    Parallelizing the Load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" title="Q&amp;A" class="md-nav__link">
+    Q&amp;A
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-loading" title="Batch Loading" class="md-nav__link">
+    Batch Loading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-id-allocation" title="Optimizing ID Allocation" class="md-nav__link">
+    Optimizing ID Allocation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id-block-size" title="ID Block Size" class="md-nav__link">
+    ID Block Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-acquisition-process" title="ID Acquisition Process" class="md-nav__link">
+    ID Acquisition Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-writes-and-reads" title="Optimizing Writes and Reads" class="md-nav__link">
+    Optimizing Writes and Reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffer-size" title="Buffer Size" class="md-nav__link">
+    Buffer Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-and-write-robustness" title="Read and Write Robustness" class="md-nav__link">
+    Read and Write Robustness
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategies" title="Strategies" class="md-nav__link">
+    Strategies
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallelizing-the-load" title="Parallelizing the Load" class="md-nav__link">
+    Parallelizing the Load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" title="Q&amp;A" class="md-nav__link">
+    Q&amp;A
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/advanced-topics/bulk-loading.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="bulk-loading">Bulk Loading</h1>
+<p>There are a number of configuration options and tools that make
+ingesting large amounts of graph data into JanusGraph more efficient.
+Such ingestion is referred to as <em>bulk loading</em> in contrast to the
+default <em>transactional loading</em> where small amounts of data are added
+through individual transactions.</p>
+<p>There are a number of use cases for bulk loading data into JanusGraph,
+including:</p>
+<ul>
+<li>
+<p>Introducing JanusGraph into an existing environment with existing
+    data and migrating or duplicating this data into a new JanusGraph
+    cluster.</p>
+</li>
+<li>
+<p>Using JanusGraph as an end point of an
+    <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load">ETL</a>
+    process.</p>
+</li>
+<li>
+<p>Adding an existing or external graph datasets (e.g. publicly
+    available <a href="http://linkeddata.org/">RDF datasets</a>) to a running
+    JanusGraph cluster.</p>
+</li>
+<li>
+<p>Updating a JanusGraph graph with results from a graph analytics job.</p>
+</li>
+</ul>
+<p>This page describes configuration options and tools that make bulk
+loading more efficient in JanusGraph. Please observe the limitations and
+assumptions for each option carefully before proceeding to avoid data
+loss or data corruption.</p>
+<p>This documentation focuses on JanusGraph specific optimization. In
+addition, consider improving the chosen storage backend and (optional)
+index backend for high write performance. Please refer to the
+documentation of the respective backend for more information.</p>
+<h2 id="configuration-options">Configuration Options</h2>
+<h3 id="batch-loading">Batch Loading</h3>
+<p>Enabling the <code>storage.batch-loading</code> configuration option will have the
+biggest positive impact on bulk loading times for most applications.
+Enabling batch loading disables JanusGraph internal consistency checks
+in a number of places. Most importantly, it disables locking. In other
+words, JanusGraph assumes that the data to be loaded into JanusGraph is
+consistent with the graph and hence disables its own checks in the
+interest of performance.</p>
+<p>In many bulk loading scenarios it is significantly cheaper to ensure
+data consistency prior to loading the data then ensuring data
+consistency while loading it into the database. The
+<code>storage.batch-loading</code> configuration option exists because of this
+observation.</p>
+<p>For example, consider the use case of bulk loading existing user
+profiles into JanusGraph. Furthermore, assume that the username property
+key has a unique composite index defined on it, i.e. usernames must be
+unique across the entire graph. If the user profiles are imported from
+another database, username uniqueness might already guaranteed. If not,
+it is simple to sort the profiles by name and filter out duplicates or
+writing a Hadoop job that does such filtering. Now, we can enable
+<code>storage.batch-loading</code> which significantly reduces the bulk loading
+time because JanusGraph does not have to check for every added user
+whether the name already exists in the database.</p>
+<p><strong>Important</strong>: Enabling <code>storage.batch-loading</code> requires the user to
+ensure that the loaded data is internally consistent and consistent with
+any data already in the graph. In particular, concurrent type creation
+can lead to severe data integrity issues when batch loading is enabled.
+Hence, we <strong>strongly</strong> encourage disabling automatic type creation by
+setting <code>schema.default = none</code> in the graph configuration.</p>
+<h3 id="optimizing-id-allocation">Optimizing ID Allocation</h3>
+<h4 id="id-block-size">ID Block Size</h4>
+<p>Each newly added vertex or edge is assigned a unique id. JanusGraph’s id
+pool manager acquires ids in blocks for a particular JanusGraph
+instance. The id block acquisition process is expensive because it needs
+to guarantee globally unique assignment of blocks. Increasing
+<code>ids.block-size</code> reduces the number of acquisitions but potentially
+leaves many ids unassigned and hence wasted. For transactional workloads
+the default block size is reasonable, but during bulk loading vertices
+and edges are added much more frequently and in rapid succession. Hence,
+it is generally advisable to increase the block size by a factor of 10
+or more depending on the number of vertices to be added per machine.</p>
+<p><strong>Rule of thumb</strong>: Set <code>ids.block-size</code> to the number of vertices you
+expect to add per JanusGraph instance per hour.</p>
+<p><strong>Important:</strong> All JanusGraph instances MUST be configured with the same
+value for <code>ids.block-size</code> to ensure proper id allocation. Hence, be
+careful to shut down all JanusGraph instances prior to changing this
+value.</p>
+<h4 id="id-acquisition-process">ID Acquisition Process</h4>
+<p>When id blocks are frequently allocated by many JanusGraph instances in
+parallel, allocation conflicts between instances will inevitably arise
+and slow down the allocation process. In addition, the increased write
+load due to bulk loading may further slow down the process to the point
+where JanusGraph considers it failed and throws an exception. There are
+three configuration options that can be tuned to avoid this.</p>
+<p>1) <code>ids.authority.wait-time</code> configures the time in milliseconds the id
+pool manager waits for an id block application to be acknowledged by the
+storage backend. The shorter this time, the more likely it is that an
+application will fail on a congested storage cluster.</p>
+<p><strong>Rule of thumb</strong>: Set this to the sum of the 95th percentile read and
+write times measured on the storage backend cluster under load.
+<strong>Important</strong>: This value should be the same across all JanusGraph
+instances.</p>
+<p>2) <code>ids.renew-timeout</code> configures the number of milliseconds
+JanusGraph’s id pool manager will wait in total while attempting to
+acquire a new id block before failing.</p>
+<p><strong>Rule of thumb</strong>: Set this value to be as large feasible to not have to
+wait too long for unrecoverable failures. The only downside of
+increasing it is that JanusGraph will try for a long time on an
+unavailable storage backend cluster.</p>
+<h3 id="optimizing-writes-and-reads">Optimizing Writes and Reads</h3>
+<h4 id="buffer-size">Buffer Size</h4>
+<p>JanusGraph buffers writes and executes them in small batches to reduce
+the number of requests against the storage backend. The size of these
+batches is controlled by <code>storage.buffer-size</code>. When executing a lot of
+writes in a short period of time, it is possible that the storage
+backend can become overloaded with write requests. In that case,
+increasing <code>storage.buffer-size</code> can avoid failure by increasing the
+number of writes per request and thereby lowering the number of
+requests.</p>
+<p>However, increasing the buffer size increases the latency of the write
+request and its likelihood of failure. Hence, it is not advisable to
+increase this setting for transactional loads and one should carefully
+experiment with this setting during bulk loading.</p>
+<h4 id="read-and-write-robustness">Read and Write Robustness</h4>
+<p>During bulk loading, the load on the cluster typically increases making
+it more likely for read and write operations to fail (in particular if
+the buffer size is increased as described above).
+<code>storage.read-attempts</code> and <code>storage.write-attempts</code> configure how many
+times JanusGraph will attempt to execute a read or write operation
+against the storage backend before giving up. If it is expected that
+there is a high load on the backend during bulk loading, it is generally
+advisable to increase these configuration options.</p>
+<p><code>storage.attempt-wait</code> specifies the number of milliseconds that
+JanusGraph will wait before re-attempting a failed backend operation. A
+higher value can ensure that operation re-tries do not further increase
+the load on the backend.</p>
+<h2 id="strategies">Strategies</h2>
+<h3 id="parallelizing-the-load">Parallelizing the Load</h3>
+<p>By parallelizing the bulk loading across multiple machines, the load
+time can be greatly reduced if JanusGraph’s storage backend cluster is
+large enough to serve the additional requests. This is essentially the
+approach <a href="../hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> takes to bulk loading data into JanusGraph
+using MapReduce.</p>
+<p>If Hadoop cannot be used for parallelizing the bulk loading process,
+here are some high level guidelines for effectively parallelizing the
+loading process:</p>
+<ul>
+<li>
+<p>In some cases, the graph data can be decomposed into multiple
+    disconnected subgraphs. Those subgraphs can be loaded independently
+    in parallel across multiple machines (for instance, using BatchGraph
+    as described above).</p>
+</li>
+<li>
+<p>If the graph cannot be decomposed, it is often beneficial to load in
+    multiple steps where the last two steps can be parallelized across
+    multiple machines:</p>
+<ol>
+<li>
+<p>Make sure the vertex and edge data sets are de-duplicated and
+    consistent.</p>
+</li>
+<li>
+<p>Set <code>batch-loading=true</code>. Possibly optimize additional
+    configuration settings described above.</p>
+</li>
+<li>
+<p>Add all the vertices with their properties to the graph (but no
+    edges). Maintain a (distributed) map from vertex id (as defined
+    by the loaded data) to JanusGraph’s internal vertex id (i.e.
+    <code>vertex.getId()</code>) which is a 64 bit long id.</p>
+</li>
+<li>
+<p>Add all the edges using the map to look-up JanusGraph’s vertex
+    id and retrieving the vertices using that id.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="qa">Q&amp;A</h2>
+<ul>
+<li><strong>What should I do to avoid the following exception during
+    batch-loading:</strong>
+    <code>java.io.IOException: ID renewal thread on partition [X] did not complete in time.</code>?
+    This exception is mostly likely caused by repeated time-outs during
+    the id allocation phase due to highly stressed storage backend.
+    Refer to the section on <em>ID Allocation Optimization</em> above.</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../index-admin/" title="Index Management" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index Management
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../partitioning/" title="Graph Partitioning" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Graph Partitioning
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

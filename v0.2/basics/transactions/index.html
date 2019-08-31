@@ -1,0 +1,1535 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Transactions - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#transactions" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo">
+          
+            <img src="../../janusgraph-logomark.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JanusGraph
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Transactions
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo">
+      
+        <img src="../../janusgraph-logomark.svg" width="48" height="48">
+      
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Transactions
+      </label>
+    
+    <a href="./" title="Transactions" class="md-nav__link md-nav__link--active">
+      Transactions
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-handling" title="Transaction Handling" class="md-nav__link">
+    Transaction Handling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactional-scope" title="Transactional Scope" class="md-nav__link">
+    Transactional Scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-failures" title="Transaction Failures" class="md-nav__link">
+    Transaction Failures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-threaded-transactions" title="Multi-Threaded Transactions" class="md-nav__link">
+    Multi-Threaded Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrent-algorithms" title="Concurrent Algorithms" class="md-nav__link">
+    Concurrent Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-transactions" title="Nested Transactions" class="md-nav__link">
+    Nested Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-transaction-handling-problems" title="Common Transaction Handling Problems" class="md-nav__link">
+    Common Transaction Handling Problems
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-configuration" title="Transaction Configuration" class="md-nav__link">
+    Transaction Configuration
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-handling" title="Transaction Handling" class="md-nav__link">
+    Transaction Handling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactional-scope" title="Transactional Scope" class="md-nav__link">
+    Transactional Scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-failures" title="Transaction Failures" class="md-nav__link">
+    Transaction Failures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-threaded-transactions" title="Multi-Threaded Transactions" class="md-nav__link">
+    Multi-Threaded Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrent-algorithms" title="Concurrent Algorithms" class="md-nav__link">
+    Concurrent Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-transactions" title="Nested Transactions" class="md-nav__link">
+    Nested Transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-transaction-handling-problems" title="Common Transaction Handling Problems" class="md-nav__link">
+    Common Transaction Handling Problems
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-configuration" title="Transaction Configuration" class="md-nav__link">
+    Transaction Configuration
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.2/docs/basics/transactions.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="transactions">Transactions</h1>
+<p>Almost all interaction with JanusGraph is associated with a transaction.
+JanusGraph transactions are safe for concurrent use by multiple threads.
+Methods on a JanusGraph instance like <code>graph.V(...)</code> and
+<code>graph.tx().commit()</code> perform a <code>ThreadLocal</code> lookup to retrieve or
+create a transaction associated with the calling thread. Callers can
+alternatively forego <code>ThreadLocal</code> transaction management in favor of
+calling <code>graph.tx().createThreadedTx()</code>, which returns a reference to a
+transaction object with methods to read/write graph data and commit or
+rollback.</p>
+<p>JanusGraph transactions are not necessarily ACID. They can be so
+configured on BerkeleyDB, but they are not generally so on Cassandra or
+HBase, where the underlying storage system does not provide serializable
+isolation or multi-row atomic writes and the cost of simulating those
+properties would be substantial.</p>
+<p>This section describes JanusGraph’s transactional semantics and API.</p>
+<h2 id="transaction-handling">Transaction Handling</h2>
+<p>Every graph operation in JanusGraph occurs within the context of a
+transaction. According to the TinkerPop’s transactional specification,
+each thread opens its own transaction against the graph database with
+the first operation (i.e. retrieval or mutation) on the graph:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;berkeleyje:/tmp/janusgraph&quot;</span><span class="o">)</span>
+<span class="n">juno</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span> <span class="c1">//Automatically opens a new transaction</span>
+<span class="n">juno</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="s2">&quot;juno&quot;</span><span class="o">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span> <span class="c1">//Commits transaction</span>
+</pre></div>
+</td></tr></table></p>
+<p>In this example, a local JanusGraph graph database is opened. Adding the
+vertex "juno" is the first operation (in this thread) which
+automatically opens a new transaction. All subsequent operations occur
+in the context of that same transaction until the transaction is
+explicitly stopped or the graph database is closed. If transactions are
+still open when <code>close()</code> is called, then the behavior of the
+outstanding transactions is technically undefined. In practice, any
+non-thread-bound transactions will usually be effectively rolled back,
+but the thread-bound transaction belonging to the thread that invoked
+shutdown will first be committed. Note, that both read and write
+operations occur within the context of a transaction.</p>
+<h2 id="transactional-scope">Transactional Scope</h2>
+<p>All graph elements (vertices, edges, and types) are associated with the
+transactional scope in which they were retrieved or created. Under
+TinkerPop’s default transactional semantics, transactions are
+automatically created with the first operation on the graph and closed
+explicitly using <code>commit()</code> or <code>rollback()</code>. Once the transaction is
+closed, all graph elements associated with that transaction become stale
+and unavailable. However, JanusGraph will automatically transition
+vertices and types into the new transactional scope as shown in this
+example:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;berkeleyje:/tmp/janusgraph&quot;</span><span class="o">)</span>
+<span class="n">juno</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span> <span class="c1">//Automatically opens a new transaction</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span> <span class="c1">//Ends transaction</span>
+<span class="n">juno</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="s2">&quot;juno&quot;</span><span class="o">)</span> <span class="c1">//Vertex is automatically transitioned</span>
+</pre></div>
+</td></tr></table></p>
+<p>Edges, on the other hand, are not automatically transitioned and cannot
+be accessed outside their original transaction. They must be explicitly
+transitioned:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">juno</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">,</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">())</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span> <span class="c1">//Ends transaction</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="na">next</span><span class="o">()</span> <span class="c1">//Need to refresh edge</span>
+<span class="n">e</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;time&quot;</span><span class="o">,</span> <span class="mi">99</span><span class="o">)</span>
+</pre></div>
+</td></tr></table></p>
+<h2 id="transaction-failures">Transaction Failures</h2>
+<p>When committing a transaction, JanusGraph will attempt to persist all
+changes to the storage backend. This might not always be successful due
+to IO exceptions, network errors, machine crashes or resource
+unavailability. Hence, transactions can fail. In fact, transactions
+<strong>will eventually fail</strong> in sufficiently large systems. Therefore, we
+highly recommend that your code expects and accommodates such failures:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">try</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">name</span><span class="o">).</span><span class="na">iterator</span><span class="o">().</span><span class="na">hasNext</span><span class="o">())</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s2">&quot;Username already taken: &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">name</span><span class="o">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//Recover, retry, or return error message</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">())</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></p>
+<p>The example above demonstrates a simplified user signup implementation
+where <code>name</code> is the name of the user who wishes to register. First, it
+is checked whether a user with that name already exists. If not, a new
+user vertex is created and the name assigned. Finally, the transaction
+is committed.</p>
+<p>If the transaction fails, a <code>JanusGraphException</code> is thrown. There are a
+variety of reasons why a transaction may fail. JanusGraph differentiates
+between <em>potentially temporary</em> and <em>permanent</em> failures.</p>
+<p>Potentially temporary failures are those related to resource
+unavailability and IO hiccups (e.g. network timeouts). JanusGraph
+automatically tries to recover from temporary failures by retrying to
+persist the transactional state after some delay. The number of retry
+attempts and the retry delay are configurable (see <a href="../configuration-reference/">Configuration Reference</a>).</p>
+<p>Permanent failures can be caused by complete connection loss, hardware
+failure or lock contention. To understand the cause of lock contention,
+consider the signup example above and suppose a user tries to signup
+with username "juno". That username may still be available at the
+beginning of the transaction but by the time the transaction is
+committed, another user might have concurrently registered with "juno"
+as well and that transaction holds the lock on the username therefore
+causing the other transaction to fail. Depending on the transaction
+semantics one can recover from a lock contention failure by re-running
+the entire transaction.</p>
+<p>Permanent exceptions that can fail a transaction include:</p>
+<ul>
+<li>
+<p>PermanentLockingException(<strong>Local lock contention</strong>): Another local
+    thread has already been granted a conflicting lock.</p>
+</li>
+<li>
+<p>PermanentLockingException(<strong>Expected value mismatch for X:
+    expected=Y vs actual=Z</strong>): The verification that the value read in
+    this transaction is the same as the one in the datastore after
+    applying for the lock failed. In other words, another transaction
+    modified the value after it had been read and modified.</p>
+</li>
+</ul>
+<h2 id="multi-threaded-transactions">Multi-Threaded Transactions</h2>
+<p>JanusGraph supports multi-threaded transactions through TinkerPop’s threaded transactions.
+ Hence, to speed up transaction processing and utilize multi-core architectures multiple threads can run concurrently in a single transaction.</p>
+<p>With TinkerPop’s default transaction handling, each thread automatically
+opens its own transaction against the graph database. To open a
+thread-independent transaction, use the <code>createThreadedTx()</code> method.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">threadedGraph</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">createThreadedTx</span><span class="o">();</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">threads</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="k">new</span> <span class="n">Thread</span><span class="o">({</span>
+        <span class="n">println</span><span class="o">(</span><span class="s2">&quot;Do something with &#39;threadedGraph&#39;&#39;&quot;</span><span class="o">);</span>
+    <span class="o">});</span>
+    <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">threads</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">join</span><span class="o">();</span>
+<span class="n">threadedGraph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">();</span>
+</pre></div>
+</td></tr></table></p>
+<p>The <code>createThreadedTx()</code> method returns a new <code>Graph</code> object that
+represents this newly opened transaction. The graph object <code>tx</code> supports
+all of the methods that the original graph did, but does so without
+opening new transactions for each thread. This allows us to start
+multiple threads which all work concurrently in the same transaction and
+one of which finally commits the transaction when all threads have
+completed their work.</p>
+<p>JanusGraph relies on optimized concurrent data structures to support
+hundreds of concurrent threads running efficiently in a single
+transaction.</p>
+<h2 id="concurrent-algorithms">Concurrent Algorithms</h2>
+<p>Thread independent transactions started through <code>createThreadedTx()</code> are
+particularly useful when implementing concurrent graph algorithms. Most
+traversal or message-passing (ego-centric) like graph algorithms are
+<a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a> which
+means they can be parallelized and executed through multiple threads
+with little effort. Each of these threads can operate on a single
+<code>Graph</code> object returned by <code>createThreadedTx()</code> without blocking each
+other.</p>
+<h2 id="nested-transactions">Nested Transactions</h2>
+<p>Another use case for thread independent transactions is nested
+transactions that ought to be independent from the surrounding
+transaction.</p>
+<p>For instance, assume a long running transactional job that has to create
+a new vertex with a unique name. Since enforcing unique names requires
+the acquisition of a lock (see <a href="../../advanced-topics/eventual-consistency/">Eventually-Consistent Storage Backends</a> for more
+detail) and since the transaction is running for a long time, lock
+congestion and expensive transactional failures are likely.
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="c1">//Do many other things</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="n">v2</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;uniqueName&quot;</span><span class="o">,</span> <span class="s2">&quot;foo&quot;</span><span class="o">)</span>
+<span class="n">v1</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s2">&quot;related&quot;</span><span class="o">,</span> <span class="n">v2</span><span class="o">)</span>
+<span class="c1">//Do many other things</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span> <span class="c1">// This long-running tx might fail due to contention on its uniqueName lock</span>
+</pre></div>
+</td></tr></table></p>
+<p>One way around this is to create the vertex in a short, nested thread-independent transaction as demonstrated by the following pseudo code  </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="c1">//Do many other things</span>
+<span class="n">tx</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">createThreadedTx</span><span class="o">()</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="n">v2</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;uniqueName&quot;</span><span class="o">,</span> <span class="s2">&quot;foo&quot;</span><span class="o">)</span>
+<span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span> <span class="c1">// Any lock contention will be detected here</span>
+<span class="n">v1</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s2">&quot;related&quot;</span><span class="o">,</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v2</span><span class="o">).</span><span class="na">next</span><span class="o">())</span> <span class="c1">// Need to load v2 into outer transaction</span>
+<span class="c1">//Do many other things</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span> <span class="c1">// Can&#39;t fail due to uniqueName write lock contention involving v2</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="common-transaction-handling-problems">Common Transaction Handling Problems</h2>
+<p>Transactions are started automatically with the first operation executed
+against the graph. One does NOT have to start a transaction manually.
+The method <code>newTransaction</code> is used to start <a href="#multi-threaded-transactions">multi-threaded transactions</a> only.</p>
+<p>Transactions are automatically started under the TinkerPop semantics but
+<strong>not</strong> automatically terminated. Transactions must be terminated
+manually with <code>commit()</code> or <code>rollback()</code>. If a <code>commit()</code> transactions
+fails, it should be terminated manually with <code>rollback()</code> after catching
+the failure. Manual termination of transactions is necessary because
+only the user knows the transactional boundary.</p>
+<p>A transaction will attempt to maintain its state from the beginning of the transaction. This might lead to unexpected behavior in multi-threaded applications as illustrated in the following artificial example  </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="mi">4</span><span class="o">).</span><span class="na">next</span><span class="o">()</span> <span class="c1">// Retrieve vertex, first action automatically starts transaction</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v</span><span class="o">).</span><span class="na">bothE</span><span class="o">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">returns</span> <span class="n">nothing</span><span class="o">,</span> <span class="n">v</span> <span class="n">has</span> <span class="n">no</span> <span class="n">edges</span>
+<span class="c1">//thread is idle for a few seconds, another thread adds edges to v</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v</span><span class="o">).</span><span class="na">bothE</span><span class="o">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">still</span> <span class="n">returns</span> <span class="n">nothing</span> <span class="n">because</span> <span class="n">the</span> <span class="n">transactional</span> <span class="n">state</span> <span class="n">from</span> <span class="n">the</span> <span class="n">beginning</span> <span class="n">is</span> <span class="n">maintained</span>
+</pre></div>
+</td></tr></table>
+
+<p>Such unexpected behavior is likely to occur in client-server
+applications where the server maintains multiple threads to answer
+client requests. It is therefore important to terminate the transaction
+after a unit of work (e.g. code snippet, query, etc). So, the example
+above should be:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="mi">4</span><span class="o">).</span><span class="na">next</span><span class="o">()</span> <span class="c1">// Retrieve vertex, first action automatically starts transaction</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v</span><span class="o">).</span><span class="na">bothE</span><span class="o">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span>
+<span class="c1">//thread is idle for a few seconds, another thread adds edges to v</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v</span><span class="o">).</span><span class="na">bothE</span><span class="o">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">newly</span> <span class="n">added</span> <span class="n">edge</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span>
+</pre></div>
+</td></tr></table>
+
+<p>When using multi-threaded transactions via <code>newTransaction</code> all vertices
+and edges retrieved or created in the scope of that transaction are
+<strong>not</strong> available outside the scope of that transaction. Accessing such
+elements after the transaction has been closed will result in an
+exception. As demonstrated in the example above, such elements have to
+be explicitly refreshed in the new transaction using
+<code>g.V(existingVertex)</code> or <code>g.E(existingEdge)</code>.</p>
+<h2 id="transaction-configuration">Transaction Configuration</h2>
+<p>JanusGraph’s <code>JanusGraph.buildTransaction()</code> method gives the user the
+ability to configure and start a new <a href="#multi-threaded-transactions">multi-threaded transaction</a> 
+against a <code>JanusGraph</code>. Hence, it is identical to <code>JanusGraph.newTransaction()</code> with additional configuration
+options.</p>
+<p><code>buildTransaction()</code> returns a <code>TransactionBuilder</code> which allows the
+following aspects of a transaction to be configured:</p>
+<ul>
+<li>
+<p><code>readOnly()</code> - makes the transaction read-only and any attempt to
+    modify the graph will result in an exception.</p>
+</li>
+<li>
+<p><code>enableBatchLoading()</code> - enables batch-loading for an individual
+    transaction. This setting results in similar efficiencies as the
+    graph-wide setting <code>storage.batch-loading</code> due to the disabling of
+    consistency checks and other optimizations. Unlike
+    <code>storage.batch-loading</code> this option will not change the behavior of
+    the storage backend.</p>
+</li>
+<li>
+<p><code>setTimestamp(long)</code> - Sets the timestamp for this transaction as
+    communicated to the storage backend for persistence. Depending on
+    the storage backend, this setting may be ignored. For eventually
+    consistent backends, this is the timestamp used to resolve write
+    conflicts. If this setting is not explicitly specified, JanusGraph
+    uses the current time.</p>
+</li>
+<li>
+<p><code>setVertexCacheSize(long size)</code> - The number of vertices this
+    transaction caches in memory. The larger this number, the more
+    memory a transaction can potentially consume. If this number is too
+    small, a transaction might have to re-fetch data which causes delays
+    in particular for long running transactions.</p>
+</li>
+<li>
+<p><code>checkExternalVertexExistence(boolean)</code> - Whether this transaction
+    should verify the existence of vertices for user provided vertex
+    ids. Such checks requires access to the database which takes time.
+    The existence check should only be disabled if the user is
+    absolutely sure that the vertex must exist - otherwise data
+    corruption can ensue.</p>
+</li>
+<li>
+<p><code>checkInternalVertexExistence(boolean)</code> - Whether this transaction
+    should double-check the existence of vertices during query
+    execution. This can be useful to avoid <strong>phantom vertices</strong> on
+    eventually consistent storage backends. Disabled by default.
+    Enabling this setting can slow down query processing.</p>
+</li>
+<li>
+<p><code>consistencyChecks(boolean)</code> - Whether JanusGraph should enforce
+    schema level consistency constraints (e.g. multiplicity
+    constraints). Disabling consistency checks leads to better
+    performance but requires that the user ensures consistency
+    confirmation at the application level to avoid inconsistencies. USE
+    WITH GREAT CARE!</p>
+</li>
+</ul>
+<p>Once, the desired configuration options have been specified, the new
+transaction is started via <code>start()</code> which returns a
+<code>JanusGraphTransaction</code>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../index-performance/" title="Indexing for Better Performance" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Indexing for Better Performance
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../cache/" title="JanusGraph Cache" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                JanusGraph Cache
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
