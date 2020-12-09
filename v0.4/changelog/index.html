@@ -1,0 +1,2450 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Changelog - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Changelog
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Changelog" class="md-nav__link md-nav__link--active">
+      Changelog
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    Version Compatibility
+  </a>
+  
+    <nav class="md-nav" aria-label="Version Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-compatibility-matrix" class="md-nav__link">
+    Version Compatibility Matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    Release Notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-041-release-date-january-14-2020" class="md-nav__link">
+    Version 0.4.1 (Release Date: January 14, 2020)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.4.1 (Release Date: January 14, 2020)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tinkerpop-upgrade-from-341-to-344" class="md-nav__link">
+    TinkerPop: Upgrade from 3.4.1 to 3.4.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-040-release-date-july-1-2019" class="md-nav__link">
+    Version 0.4.0 (Release Date: July 1, 2019)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.4.0 (Release Date: July 1, 2019)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_1" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hbase-upgrade-from-12-to-21" class="md-nav__link">
+    HBase: Upgrade from 1.2 to 2.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cassandra-upgrade-from-21-to-22" class="md-nav__link">
+    Cassandra: Upgrade from 2.1 to 2.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#berkeleydb-upgrade-from-74-to-75" class="md-nav__link">
+    BerkeleyDB : Upgrade from 7.4 to 7.5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solr-compatible-lucene-version-changed-from-500-to-700-in-distributed-config" class="md-nav__link">
+    Solr: Compatible Lucene version changed from 5.0.0 to 7.0.0 in distributed config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-033-release-date-january-11-2020" class="md-nav__link">
+    Version 0.3.3 (Release Date: January 11, 2020)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-032-release-date-june-16-2019" class="md-nav__link">
+    Version 0.3.2 (Release Date: June 16, 2019)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-031-release-date-october-2-2018" class="md-nav__link">
+    Version 0.3.1 (Release Date: October 2, 2018)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-030-release-date-july-31-2018" class="md-nav__link">
+    Version 0.3.0 (Release Date: July 31, 2018)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.3.0 (Release Date: July 31, 2018)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_2" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-023-release-date-may-21-2019" class="md-nav__link">
+    Version 0.2.3 (Release Date: May 21, 2019)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-022-release-date-october-9-2018" class="md-nav__link">
+    Version 0.2.2 (Release Date: October 9, 2018)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-021-release-date-july-9-2018" class="md-nav__link">
+    Version 0.2.1 (Release Date: July 9, 2018)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.2.1 (Release Date: July 9, 2018)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_3" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hbase-ttl" class="md-nav__link">
+    HBase TTL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-020-release-date-october-11-2017" class="md-nav__link">
+    Version 0.2.0 (Release Date: October 11, 2017)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.2.0 (Release Date: October 11, 2017)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_4" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    Elasticsearch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transport-client" class="md-nav__link">
+    Transport client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-client" class="md-nav__link">
+    Node client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-configuration" class="md-nav__link">
+    Legacy configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-011-release-date-may-11-2017" class="md-nav__link">
+    Version 0.1.1 (Release Date: May 11, 2017)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-010-release-date-april-11-2017" class="md-nav__link">
+    Version 0.1.0 (Release Date: April 11, 2017)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.1.0 (Release Date: April 11, 2017)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_5" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    Version Compatibility
+  </a>
+  
+    <nav class="md-nav" aria-label="Version Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-compatibility-matrix" class="md-nav__link">
+    Version Compatibility Matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    Release Notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-041-release-date-january-14-2020" class="md-nav__link">
+    Version 0.4.1 (Release Date: January 14, 2020)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.4.1 (Release Date: January 14, 2020)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tinkerpop-upgrade-from-341-to-344" class="md-nav__link">
+    TinkerPop: Upgrade from 3.4.1 to 3.4.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-040-release-date-july-1-2019" class="md-nav__link">
+    Version 0.4.0 (Release Date: July 1, 2019)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.4.0 (Release Date: July 1, 2019)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_1" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hbase-upgrade-from-12-to-21" class="md-nav__link">
+    HBase: Upgrade from 1.2 to 2.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cassandra-upgrade-from-21-to-22" class="md-nav__link">
+    Cassandra: Upgrade from 2.1 to 2.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#berkeleydb-upgrade-from-74-to-75" class="md-nav__link">
+    BerkeleyDB : Upgrade from 7.4 to 7.5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solr-compatible-lucene-version-changed-from-500-to-700-in-distributed-config" class="md-nav__link">
+    Solr: Compatible Lucene version changed from 5.0.0 to 7.0.0 in distributed config
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-033-release-date-january-11-2020" class="md-nav__link">
+    Version 0.3.3 (Release Date: January 11, 2020)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-032-release-date-june-16-2019" class="md-nav__link">
+    Version 0.3.2 (Release Date: June 16, 2019)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-031-release-date-october-2-2018" class="md-nav__link">
+    Version 0.3.1 (Release Date: October 2, 2018)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-030-release-date-july-31-2018" class="md-nav__link">
+    Version 0.3.0 (Release Date: July 31, 2018)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.3.0 (Release Date: July 31, 2018)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_2" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-023-release-date-may-21-2019" class="md-nav__link">
+    Version 0.2.3 (Release Date: May 21, 2019)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-022-release-date-october-9-2018" class="md-nav__link">
+    Version 0.2.2 (Release Date: October 9, 2018)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-021-release-date-july-9-2018" class="md-nav__link">
+    Version 0.2.1 (Release Date: July 9, 2018)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.2.1 (Release Date: July 9, 2018)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_3" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hbase-ttl" class="md-nav__link">
+    HBase TTL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-020-release-date-october-11-2017" class="md-nav__link">
+    Version 0.2.0 (Release Date: October 11, 2017)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.2.0 (Release Date: October 11, 2017)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_4" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    Elasticsearch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transport-client" class="md-nav__link">
+    Transport client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-client" class="md-nav__link">
+    Node client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-configuration" class="md-nav__link">
+    Legacy configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-011-release-date-may-11-2017" class="md-nav__link">
+    Version 0.1.1 (Release Date: May 11, 2017)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-010-release-date-april-11-2017" class="md-nav__link">
+    Version 0.1.0 (Release Date: April 11, 2017)
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 0.1.0 (Release Date: April 11, 2017)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-instructions_5" class="md-nav__link">
+    Upgrade Instructions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.4/docs/changelog.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="changelog">Changelog</h1>
+<h2 id="version-compatibility">Version Compatibility</h2>
+<p>The JanusGraph project is growing along with the rest of the graph and
+big data ecosystem and utilized storage and indexing backends. Below are
+version compatibilities between the various versions of components. For
+dependent backend systems, different minor versions are typically
+supported as well. It is strongly encouraged to verify version
+compatibility prior to deploying JanusGraph.</p>
+<p>Although JanusGraph may be compatible with older and no longer supported
+versions of its dependencies, users are warned that there are possible
+risks and security exposures with running software that is no longer
+supported or updated. Please check with the software providers to
+understand their supported versions. Users are strongly encouraged to
+use the latest versions of the software.</p>
+<h3 id="version-compatibility-matrix">Version Compatibility Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>JanusGraph</th>
+<th>Storage Version</th>
+<th>Cassandra</th>
+<th>HBase</th>
+<th>Bigtable</th>
+<th>Elasticsearch</th>
+<th>Solr</th>
+<th>TinkerPop</th>
+<th>Spark</th>
+<th>Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1.z</td>
+<td>1</td>
+<td>1.2.z, 2.0.z, 2.1.z</td>
+<td>0.98.z, 1.0.z, 1.1.z, 1.2.z</td>
+<td>0.9.z, 1.0.0-preZ, 1.0.0</td>
+<td>1.5.z</td>
+<td>5.2.z</td>
+<td>3.2.z</td>
+<td>1.6.z</td>
+<td>2.10.z</td>
+</tr>
+<tr>
+<td>0.2.z</td>
+<td>1</td>
+<td>1.2.z, 2.0.z, 2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
+<td>0.98.z, 1.0.z, 1.1.z, 1.2.z, 1.3.z</td>
+<td>0.9.z, 1.0.0-preZ, 1.0.0</td>
+<td>1.5-1.7.z, 2.3-2.4.z, 5.y, 6.y</td>
+<td>5.2-5.5.z, 6.2-6.6.z, 7.y</td>
+<td>3.2.z</td>
+<td>1.6.z</td>
+<td>2.10.z</td>
+</tr>
+<tr>
+<td>0.3.z</td>
+<td>2</td>
+<td>1.2.z, 2.0.z, 2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
+<td>1.0.z, 1.1.z, 1.2.z, 1.3.z, 1.4.z</td>
+<td>1.0.0, 1.1.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</td>
+<td>1.5-1.7.z, 2.3-2.4.z, 5.y, 6.y</td>
+<td>5.2-5.5.z, 6.2-6.6.z, 7.y</td>
+<td>3.3.z</td>
+<td>2.2.z</td>
+<td>2.11.z</td>
+</tr>
+<tr>
+<td>0.4.z</td>
+<td>2</td>
+<td>2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
+<td>1.2.z, 1.3.z, 1.4.z, 2.1.z</td>
+<td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z</td>
+<td>5.y, 6.y</td>
+<td>7.y</td>
+<td>3.4.z</td>
+<td>2.2.z</td>
+<td>2.11.z</td>
+</tr>
+</tbody>
+</table>
+<h2 id="release-notes">Release Notes</h2>
+<h3 id="version-041-release-date-january-14-2020">Version 0.4.1 (Release Date: January 14, 2020)</h3>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.4.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.4.1&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.10, 2.1.5</li>
+<li>Google Bigtable 1.3.0, 1.4.0, 1.5.0, 1.6.0, 1.7.0, 1.8.0, 1.9.0, 1.10.0, 1.11.0</li>
+<li>Oracle BerkeleyJE 7.5.11</li>
+<li>Elasticsearch 5.6.14, 6.0.1, 6.6.0</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 7.0.0</li>
+<li>Apache TinkerPop 3.4.4</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.4.1, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/15?closed=1">https://github.com/JanusGraph/janusgraph/milestone/15?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="tinkerpop-upgrade-from-341-to-344">TinkerPop: Upgrade from 3.4.1 to 3.4.4</h5>
+<p>Adding multiple values in the same query to a new vertex property without explicitly defined type 
+(i.e. using <code>Automatic Schema Maker</code> to create a property type) requires explicit usage of <code>VertexProperty.Cardinality</code> 
+for each call (only for the first query which defines a property) if the <code>VertexProperty.Cardinality</code> is different than 
+<code>VertexProperty.Cardinality.single</code>.</p>
+<h3 id="version-040-release-date-july-1-2019">Version 0.4.0 (Release Date: July 1, 2019)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.4.0/index.html">https://old-docs.janusgraph.org/0.4.0/index.html</a></p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.4.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.4.0&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.10, 2.1.5</li>
+<li>Google Bigtable 1.3.0, 1.4.0, 1.5.0, 1.6.0, 1.7.0, 1.8.0, 1.9.0, 1.10.0, 1.11.0</li>
+<li>Oracle BerkeleyJE 7.5.11</li>
+<li>Elasticsearch 5.6.14, 6.0.1, 6.6.0</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 7.0.0</li>
+<li>Apache TinkerPop 3.4.1</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.4.0, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/8?closed=1">https://github.com/JanusGraph/janusgraph/milestone/8?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions_1">Upgrade Instructions</h4>
+<h5 id="hbase-upgrade-from-12-to-21">HBase: Upgrade from 1.2 to 2.1</h5>
+<p>The version of HBase that is included in the distribution of JanusGraph was upgraded from 1.2.6 to 2.1.5.
+HBase 2.x client is not fully backward compatible with HBase 1.x server. Users who operate their own HBase version 1.x cluster may need to upgrade their cluster to version 2.x.
+Optionally users may build their own distribution of JanusGraph which includes HBase 1.x from source with the maven flags -Dhbase.profile -Phbase1.</p>
+<h5 id="cassandra-upgrade-from-21-to-22">Cassandra: Upgrade from 2.1 to 2.2</h5>
+<p>The version of Cassandra that is included in the distribution of JanusGraph was upgraded from 2.1.20 to 2.2.13.
+Refer to <a href="https://github.com/apache/cassandra/blob/174cf761f7897443080b8a840b649b7eab17ae25/NEWS.txt#L787">the upgrade documentation of Cassandra</a>
+for detailed instructions to perform this upgrade.
+Users who operate their own Cassandra cluster instead of using Cassandra distributed together with JanusGraph are not affected by this upgrade.
+This also does not change the different versions of Cassandra that are supported by JanusGraph (see &lt;<version-compat>&gt; for a detailed list of the supported versions).</p>
+<h5 id="berkeleydb-upgrade-from-74-to-75">BerkeleyDB : Upgrade from 7.4 to 7.5</h5>
+<p>The BerkeleyDB version has been updated, and it contains changes to the file format stored on disk 
+(see <a href="https://docs.oracle.com/cd/E17277_02/html/changelog.html">the BerkeleyDB changelog for reference</a>).
+This file format change is forward compatible with previous versions of BerkeleyDB, so existing graph data stored with JanusGraph can be read in.
+However, once the data has been read in with the newer version of BerkeleyDB, those files can no longer be read by the older version.
+Users are encouraged to backup the BerkeleyDB storage directory before attempting to use it with the JanusGraph release.</p>
+<h5 id="solr-compatible-lucene-version-changed-from-500-to-700-in-distributed-config">Solr: Compatible Lucene version changed from 5.0.0 to 7.0.0 in distributed config</h5>
+<p>The JanusGraph distribution contains a <code>solrconfig.xml</code> file that can be used to configure Solr.
+The value <code>luceneMatchVersion</code> in this config that tells Solr to behave according to that Lucene version was changed from 5.0.0 to 7.0.0 as that is the default version currently used by JanusGraph.
+Users should generally set this value to the version of their Solr installation.
+If the config distributed by JanusGraph is used for an existing Solr installation that used a lower version before (like 5.0.0 from a previous versions of this file), it is highly recommended that a re-indexing is performed.</p>
+<h3 id="version-033-release-date-january-11-2020">Version 0.3.3 (Release Date: January 11, 2020)</h3>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.3.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.3.3&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.4</li>
+<li>Google Bigtable 1.0.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</li>
+<li>Oracle BerkeleyJE 7.4.5</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.3.3</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.3.3, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/14?closed=1">https://github.com/JanusGraph/janusgraph/milestone/14?closed=1</a></li>
+</ul>
+<h3 id="version-032-release-date-june-16-2019">Version 0.3.2 (Release Date: June 16, 2019)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.2/index.html">https://old-docs.janusgraph.org/0.3.2/index.html</a></p>
+<div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.3.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.3.2&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.4</li>
+<li>Google Bigtable 1.0.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</li>
+<li>Oracle BerkeleyJE 7.4.5</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.3.3</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.3.2, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/10?closed=1">https://github.com/JanusGraph/janusgraph/milestone/10?closed=1</a></li>
+</ul>
+<h3 id="version-031-release-date-october-2-2018">Version 0.3.1 (Release Date: October 2, 2018)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.1/index.html">https://old-docs.janusgraph.org/0.3.1/index.html</a></p>
+<div class="tabbed-set" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.3.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.3.1&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.4</li>
+<li>Google Bigtable 1.0.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</li>
+<li>Oracle BerkeleyJE 7.4.5</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.3.3</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.3.1, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/7?closed=1">https://github.com/JanusGraph/janusgraph/milestone/7?closed=1</a></li>
+</ul>
+<h3 id="version-030-release-date-july-31-2018">Version 0.3.0 (Release Date: July 31, 2018)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.0/index.html">https://old-docs.janusgraph.org/0.3.0/index.html</a></p>
+<div class="tabbed-set" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.3.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.3.0&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 1.2.6, 1.3.1, 1.4.4</li>
+<li>Google Bigtable 1.0.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</li>
+<li>Oracle BerkeleyJE 7.4.5</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.3.3</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.3.0, see the GitHub milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/4?closed=1">https://github.com/JanusGraph/janusgraph/milestone/4?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions_2">Upgrade Instructions</h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You should back-up your data prior to attempting an upgrade! Also please note that once an upgrade has been completed you will no longer be able to connect to your graph with client versions prior to 0.3.0.</p>
+</div>
+<p>JanusGraph 0.3.0 implements <a href="../basics/schema/#schema-constraints">Schema Constraints</a> which made it necessary to also introduce the concept of a schema version. There is a check to prevent client connections that either expect a different schema version or have no concept of a schema version. To perform an upgrade, the configuration option <code>graph.allow-upgrade=true</code> must be set on each graph you wish to upgrade. The graph must be opened with a 0.3.0 or greater version of JanusGraph since older versions have no concept of <code>graph.storage-version</code> and will not allow for it to be set.</p>
+<p>Example excerpt from <code>janusgraph.properties</code> file
+<div class="highlight"><pre><span></span><code># JanusGraph configuration sample: Cassandra over a socket
+#
+# This file connects to a Cassandra daemon running on localhost via
+# Thrift.  Cassandra must already be started before starting JanusGraph
+# with this file.
+
+# This option should be removed as soon as the upgrade is complete. Otherwise if this file
+# is used in the future to connect to a different graph it could cause an unintended upgrade.
+graph.allow-upgrade=true
+
+gremlin.graph=org.janusgraph.core.JanusGraphFactory
+
+# The primary persistence provider used by JanusGraph.  This is required.
+# It should be set one of JanusGraph&#39;s built-in shorthand names for its
+# standard storage backends (shorthands: berkeleyje, cassandrathrift,
+# cassandra, astyanax, embeddedcassandra, cql, hbase, inmemory) or to the
+# full package and classname of a custom/third-party StoreManager
+# implementation.
+#
+# Default:    (no default value)
+# Data Type:  String
+# Mutability: LOCAL
+storage.backend=cassandrathrift
+
+# The hostname or comma-separated list of hostnames of storage backend
+# servers.  This is only applicable to some storage backends, such as
+# cassandra and hbase.
+#
+# Default:    127.0.0.1
+# Data Type:  class java.lang.String[]
+# Mutability: LOCAL
+storage.hostname=127.0.0.1
+</code></pre></div></p>
+<p>If <code>graph.allow-upgrade</code> is set to true on a graph <code>graph.storage-version</code> and <code>graph.janusgraph-version</code> will automatically be upgraded to match the version level of the server, or local client, that is opening the graph.
+You can verify the upgrade was successful by opening the management API and validating the values of <code>graph.storage-version</code> and <code>graph.janusgraph-version</code>.</p>
+<p>Once the storage version has been set you should remove <code>graph.allow-upgrade=true</code> from your properties file and reopen your graph to ensure that the upgrade was successful. </p>
+<h3 id="version-023-release-date-may-21-2019">Version 0.2.3 (Release Date: May 21, 2019)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.3/index.html">https://old-docs.janusgraph.org/0.2.3/index.html</a></p>
+<div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.2.3&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 0.98.24-hadoop2, 1.2.6, 1.3.1</li>
+<li>Google Bigtable 1.0.0</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.2.9</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.2.3, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/9?closed=1">https://github.com/JanusGraph/janusgraph/milestone/9?closed=1</a></li>
+</ul>
+<h3 id="version-022-release-date-october-9-2018">Version 0.2.2 (Release Date: October 9, 2018)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.2/index.html">https://old-docs.janusgraph.org/0.2.2/index.html</a></p>
+<div class="tabbed-set" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><label for="__tabbed_8_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><label for="__tabbed_8_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.2.2&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 0.98.24-hadoop2, 1.2.6, 1.3.1</li>
+<li>Google Bigtable 1.0.0</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.2.9</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.2.2, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/6?closed=1">https://github.com/JanusGraph/janusgraph/milestone/6?closed=1</a></li>
+</ul>
+<h3 id="version-021-release-date-july-9-2018">Version 0.2.1 (Release Date: July 9, 2018)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.1/index.html">https://old-docs.janusgraph.org/0.2.1/index.html</a></p>
+<div class="tabbed-set" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><label for="__tabbed_9_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><label for="__tabbed_9_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.2.1&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.20, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 0.98.24-hadoop2, 1.2.6, 1.3.1</li>
+<li>Google Bigtable 1.0.0</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.5, 6.0.1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.2.9</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.2.1, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/5?closed=1">https://github.com/JanusGraph/janusgraph/milestone/5?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions_3">Upgrade Instructions</h4>
+<h5 id="hbase-ttl">HBase TTL</h5>
+<p>In JanusGraph 0.2.0, time-to-live (TTL) support was added for HBase
+storage backend. In order to utilize the TTL capability on HBase, the
+graph timestamps need to be MILLI. If the <code>graph.timestamps</code> property is
+not explicitly set to MILLI, the default is MICRO in JanusGraph 0.2.0,
+which does not work for HBase TTL. Since the <code>graph.timestamps</code> property
+is FIXED, a new graph needs to be created to make any change of the
+<code>graph.timestamps</code> property effective.</p>
+<h3 id="version-020-release-date-october-11-2017">Version 0.2.0 (Release Date: October 11, 2017)</h3>
+<p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.0/index.html">https://old-docs.janusgraph.org/0.2.0/index.html</a></p>
+<div class="tabbed-set" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><label for="__tabbed_10_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><label for="__tabbed_10_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.2.0&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.18, 2.2.10, 3.0.14, 3.11.0</li>
+<li>Apache HBase 0.98.24-hadoop2, 1.2.6, 1.3.1</li>
+<li>Google Bigtable 1.0.0-pre3</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.7.6, 2.4.6, 5.6.2, 6.0.0-rc1</li>
+<li>Apache Lucene 7.0.0</li>
+<li>Apache Solr 5.5.4, 6.6.1, 7.0.0</li>
+<li>Apache TinkerPop 3.2.6</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.2.0, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/2?closed=1">https://github.com/JanusGraph/janusgraph/milestone/2?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions_4">Upgrade Instructions</h4>
+<h5 id="elasticsearch">Elasticsearch</h5>
+<p>JanusGraph 0.1.z is compatible with Elasticsearch 1.5.z. There were
+several configuration options available, including transport client,
+node client, and legacy configuration track. JanusGraph 0.2.0 is
+compatible with Elasticsearch versions from 1.y through 6.y, however it
+offers only a single configuration option using the REST client.</p>
+<h5 id="transport-client">Transport client</h5>
+<p>The <code>TRANSPORT_CLIENT</code> interface has been replaced with <code>REST_CLIENT</code>.
+When migrating an existing graph to JanusGraph 0.2.0, the <code>interface</code>
+property must be set when connecting to the graph:
+<div class="highlight"><pre><span></span><code>index.search.backend=elasticsearch
+index.search.elasticsearch.interface=REST_CLIENT
+index.search.hostname=127.0.0.1
+</code></pre></div></p>
+<p>After connecting to the graph, the property update can be made permanent
+by making the change with <code>JanusGraphManagement</code>:
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s2">&quot;index.search.elasticsearch.interface&quot;</span><span class="o">,</span> <span class="s2">&quot;REST_CLIENT&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div></p>
+<h5 id="node-client">Node client</h5>
+<p>A node client with JanusGraph can be configured in a few ways. If the
+node client was configured as a client-only or non-data node, follow the
+steps from the <a href="#_transport_client">transport client</a> section to connect
+to the existing cluster using the <code>REST_CLIENT</code> instead. If the node
+client was a data node (local-mode), then convert it into a standalone
+Elasticsearch node, running in a separate JVM from your application
+process. This can be done by using the node’s configuration from the
+JanusGraph configuration to start a standalone Elasticsearch 1.5.z node.
+For example, we start with these JanusGraph 0.1.z properties:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="err">index.search.backend=elasticsearch</span>
+<span class="err">index.search.elasticsearch.interface=NODE</span>
+<span class="err">index.search.conf-file=es-client.yml</span>
+<span class="err">index.search.elasticsearch.ext.node.name=alice</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>where the configuration file <code>es-client.yml</code> has properties:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="err">node.data: true</span>
+<span class="err">path.data: /var/lib/elasticsearch/data</span>
+<span class="err">path.work: /var/lib/elasticsearch/work</span>
+<span class="err">path.logs: /var/log/elasticsearch</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>The properties found in the configuration file <code>es-client.yml</code> and the
+<code>index.search.elasticsearch.ext.*</code> properties can be inserted into
+<code>$ES_HOME/config/elasticsearch.yml</code> so that a standalone Elasticsearch
+1.5.z node can be started with the same properties. Keep in mind that if
+any <code>path</code> locations have relative paths, those values may need to be
+updated appropriately. Once the standalone Elasticsearch node is
+started, follow the directions in the <a href="#_transport_client">transport
+client</a> section to complete the migration to the
+<code>REST_CLIENT</code> interface. Note that the <code>index.search.conf-file</code> and
+<code>index.search.elasticsearch.ext.*</code> properties are not used by the
+<code>REST_CLIENT</code> interface, so they can be removed from the configuration
+properties.</p>
+<h5 id="legacy-configuration">Legacy configuration</h5>
+<p>The legacy configuration track was not recommended in JanusGraph 0.1.z
+and is no longer supported in JanusGraph 0.2.0. Users should refer to
+the previous sections and migrate to the <code>REST_CLIENT</code>.</p>
+<h3 id="version-011-release-date-may-11-2017">Version 0.1.1 (Release Date: May 11, 2017)</h3>
+<p>Documentation: <a href="https://old-docs.janusgraph.org/0.1.1/index.html">https://old-docs.janusgraph.org/0.1.1/index.html</a></p>
+<div class="tabbed-set" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><label for="__tabbed_11_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.1.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><label for="__tabbed_11_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.1.1&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.9</li>
+<li>Apache HBase 0.98.8-hadoop2, 1.0.3, 1.1.8, 1.2.4</li>
+<li>Google Bigtable 0.9.5.1</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.5.1</li>
+<li>Apache Lucene 4.10.4</li>
+<li>Apache Solr 5.2.1</li>
+<li>Apache TinkerPop 3.2.3</li>
+<li>Java 1.8</li>
+</ul>
+<p>For more information on features and bug fixes in 0.1.1, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/3?closed=1">https://github.com/JanusGraph/janusgraph/milestone/3?closed=1</a></li>
+</ul>
+<h3 id="version-010-release-date-april-11-2017">Version 0.1.0 (Release Date: April 11, 2017)</h3>
+<p>Documentation: <a href="https://old-docs.janusgraph.org/0.1.0/index.html">https://old-docs.janusgraph.org/0.1.0/index.html</a></p>
+<div class="tabbed-set" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><label for="__tabbed_12_1">Maven</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><label for="__tabbed_12_2">Gradle</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.1.0&quot;</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><strong>Tested Compatibility:</strong></p>
+<ul>
+<li>Apache Cassandra 2.1.9</li>
+<li>Apache HBase 0.98.8-hadoop2, 1.0.3, 1.1.8, 1.2.4</li>
+<li>Google Bigtable 0.9.5.1</li>
+<li>Oracle BerkeleyJE 7.3.7</li>
+<li>Elasticsearch 1.5.1</li>
+<li>Apache Lucene 4.10.4</li>
+<li>Apache Solr 5.2.1</li>
+<li>Apache TinkerPop 3.2.3</li>
+<li>Java 1.8</li>
+</ul>
+<p><strong>Features added since version Titan 1.0.0:</strong></p>
+<ul>
+<li>
+<p>TinkerPop 3.2.3 compatibility</p>
+<ul>
+<li>Includes update to Spark 1.6.1</li>
+</ul>
+</li>
+<li>
+<p>Query optimizations: JanusGraphStep folds in HasId and HasContainers
+    can be folded in even mid-traversal</p>
+</li>
+<li>
+<p>Support Google Cloud Bigtable as a backend over the HBase interface</p>
+</li>
+<li>
+<p>Compatibility with newer versions of backend and index stores</p>
+<ul>
+<li>
+<p>HBase 1.2</p>
+</li>
+<li>
+<p>BerkeleyJE 7.3.7</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Includes a number of bug fixes and optimizations</p>
+</li>
+</ul>
+<p>For more information on features and bug fixes in 0.1.0, see the GitHub
+milestone:</p>
+<ul>
+<li><a href="https://github.com/JanusGraph/janusgraph/milestone/1?closed=1">https://github.com/JanusGraph/janusgraph/milestone/1?closed=1</a></li>
+</ul>
+<h4 id="upgrade-instructions_5">Upgrade Instructions</h4>
+<p>JanusGraph is based on the latest commit to the <code>titan11</code> branch of
+<a href="https://github.com/thinkaurelius/titan">Titan repo</a>.</p>
+<p>JanusGraph has made the following changes to Titan, so you will need to
+adjust your code and configuration accordingly:</p>
+<ol>
+<li>
+<p>module names: <code>titan-*</code> are now <code>janusgraph-*</code></p>
+</li>
+<li>
+<p>package names: <code>com.thinkaurelius.titan</code> are now <code>org.janusgraph</code></p>
+</li>
+<li>
+<p>class names: <code>Titan*</code> are now <code>JanusGraph*</code> except in cases where
+    this would duplicate a word, e.g., <code>TitanGraph</code> is simply
+    <code>JanusGraph</code> rather than <code>JanusGraphGraph</code></p>
+</li>
+</ol>
+<p>For more information on how to configure JanusGraph to read data which
+had previously been written by Titan refer to <a href="../advanced-topics/migrating/">Migration from titan</a>.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../appendices/" title="Appendices" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Appendices
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
