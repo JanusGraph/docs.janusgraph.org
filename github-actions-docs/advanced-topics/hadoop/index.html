@@ -1,0 +1,1716 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>JanusGraph with TinkerPop’s Hadoop-Gremlin - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#janusgraph-with-tinkerpops-hadoop-gremlin" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              JanusGraph with TinkerPop’s Hadoop-Gremlin
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        JanusGraph with TinkerPop’s Hadoop-Gremlin
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link md-nav__link--active">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-hadoop-for-running-olap" class="md-nav__link">
+    Configuring Hadoop for Running OLAP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#olap-traversals" class="md-nav__link">
+    OLAP Traversals
+  </a>
+  
+    <nav class="md-nav" aria-label="OLAP Traversals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#olap-traversals-with-spark-local" class="md-nav__link">
+    OLAP Traversals with Spark Local
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#olap-traversals-with-spark-standalone-cluster" class="md-nav__link">
+    OLAP Traversals with Spark Standalone Cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-vertex-programs" class="md-nav__link">
+    Other Vertex Programs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../migrating-titan/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../migrating-thrift/" title="Migrating from Thrift" class="md-nav__link">
+      Migrating from Thrift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-hadoop-for-running-olap" class="md-nav__link">
+    Configuring Hadoop for Running OLAP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#olap-traversals" class="md-nav__link">
+    OLAP Traversals
+  </a>
+  
+    <nav class="md-nav" aria-label="OLAP Traversals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#olap-traversals-with-spark-local" class="md-nav__link">
+    OLAP Traversals with Spark Local
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#olap-traversals-with-spark-standalone-cluster" class="md-nav__link">
+    OLAP Traversals with Spark Standalone Cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-vertex-programs" class="md-nav__link">
+    Other Vertex Programs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/github-actions-docs/docs/advanced-topics/hadoop.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="janusgraph-with-tinkerpops-hadoop-gremlin">JanusGraph with TinkerPop’s Hadoop-Gremlin</h1>
+<p>This chapter describes how to leverage <a href="https://hadoop.apache.org/">Apache Hadoop</a> 
+and <a href="https://spark.apache.org/">Apache Spark</a> to configure JanusGraph for
+distributed graph processing. These steps will provide an overview on
+how to get started with those projects, but please refer to those
+project communities to become more deeply familiar with them.</p>
+<p>JanusGraph-Hadoop works with TinkerPop’s
+<a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#hadoop-gremlin">hadoop-gremlin</a>
+package for general-purpose OLAP.</p>
+<p>For the scope of the example below, Apache Spark is the computing
+framework and Apache Cassandra is the storage backend. The directions
+can be followed with other packages with minor changes to the
+configuration properties.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The examples in this chapter are based on running Spark in local mode
+or standalone cluster mode. Additional configuration is required when
+using Spark on YARN or Mesos.</p>
+</div>
+<h2 id="configuring-hadoop-for-running-olap">Configuring Hadoop for Running OLAP</h2>
+<p>For running OLAP queries from the Gremlin Console, a few prerequisites
+need to be fulfilled. You will need to add the Hadoop configuration
+directory into the <code>CLASSPATH</code>, and the configuration directory needs to
+point to a live Hadoop cluster.</p>
+<p>Hadoop provides a distributed access-controlled file system. The Hadoop
+file system is used by Spark workers running on different machines to
+have a common source for file based operations. The intermediate
+computations of various OLAP queries may be persisted on the Hadoop file
+system.</p>
+<p>For configuring a single node Hadoop cluster, please refer to official
+<a href="https://hadoop.apache.org/docs/r2.7.7/hadoop-project-dist/hadoop-common/SingleCluster.html">Apache Hadoop Docs</a></p>
+<p>Once you have a Hadoop cluster up and running, we will need to specify
+the Hadoop configuration files in the <code>CLASSPATH</code>. The below document
+expects that you have those configuration files located under
+<code>/etc/hadoop/conf</code>.</p>
+<p>Once verified, follow the below steps to add the Hadoop configuration to
+the <code>CLASSPATH</code> and start the Gremlin Console, which will play the role
+of the Spark driver program.
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span>/etc/hadoop/conf
+<span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$HADOOP_CONF_DIR</span>
+bin/gremlin.sh
+</code></pre></div></p>
+<p>Once the path to Hadoop configuration has been added to the <code>CLASSPATH</code>,
+we can verify whether the Gremlin Console can access the Hadoop cluster
+by following these quick steps:
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">hdfs</span>
+<span class="o">==&gt;</span><span class="n">storage</span><span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">fs</span><span class="o">.</span><span class="na">LocalFileSystem</span><span class="err">@</span><span class="mi">65</span><span class="n">bb9029</span><span class="o">]</span> <span class="c1">// BAD</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">hdfs</span>
+<span class="o">==&gt;</span><span class="n">storage</span><span class="o">[</span><span class="n">DFS</span><span class="o">[</span><span class="n">DFSClient</span><span class="o">[</span><span class="n">clientName</span><span class="o">=</span><span class="n">DFSClient_NONMAPREDUCE_1229457199_1</span><span class="o">,</span> <span class="n">ugi</span><span class="o">=</span><span class="n">user</span> <span class="o">(</span><span class="nl">auth:</span><span class="n">SIMPLE</span><span class="o">)]]]</span> <span class="c1">// GOOD</span>
+</code></pre></div></p>
+<h2 id="olap-traversals">OLAP Traversals</h2>
+<p>JanusGraph-Hadoop works with TinkerPop’s hadoop-gremlin package for
+general-purpose OLAP to traverse over the graph, and parallelize queries
+by leveraging Apache Spark.</p>
+<h3 id="olap-traversals-with-spark-local">OLAP Traversals with Spark Local</h3>
+<p>OLAP Examples below are showing configuration examples for directly supported 
+backends by JanusGraph. Additional configuration will be needed that 
+is specific to that storage backend. The configuration is specified by the
+<code>gremlin.hadoop.graphReader</code> property which specifies the class to read
+data from the storage backend.</p>
+<p>JanusGraph directly supports following graphReader classes:</p>
+<ul>
+<li><code>CqlInputFormat</code> for use with Cassandra</li>
+<li><code>HBaseInputFormat</code> and <code>HBaseSnapshotInputFormat</code> for use with HBase</li>
+</ul>
+<p>The following <code>.properties</code> files can be used to connect a JanusGraph
+instance such that it can be used with HadoopGraph to run OLAP queries.</p>
+<div class="tabbed-set" data-tabs="3:2">
+<input name="__tabbed_3" type="radio" id="__tabbed_3_1" checked="checked" /><label for="__tabbed_3_1">read-cql.properties</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="c"># Copyright 2019 JanusGraph Authors</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="c">#</span>
+<span class="c"># Hadoop Graph Configuration</span>
+<span class="c">#</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph</span>
+<span class="na">gremlin.hadoop.graphReader</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.formats.cql.CqlInputFormat</span>
+<span class="na">gremlin.hadoop.graphWriter</span><span class="o">=</span><span class="s">org.apache.hadoop.mapreduce.lib.output.NullOutputFormat</span>
+
+<span class="na">gremlin.hadoop.jarsInDistributedCache</span><span class="o">=</span><span class="s">true</span>
+<span class="na">gremlin.hadoop.inputLocation</span><span class="o">=</span><span class="s">none</span>
+<span class="na">gremlin.hadoop.outputLocation</span><span class="o">=</span><span class="s">output</span>
+<span class="na">gremlin.spark.persistContext</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># JanusGraph Cassandra InputFormat configuration</span>
+<span class="c">#</span>
+<span class="c"># These properties defines the connection properties which were used while write data to JanusGraph.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="c"># This specifies the hostname &amp; port for Cassandra data store.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hostname</span><span class="o">=</span><span class="s">127.0.0.1</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.port</span><span class="o">=</span><span class="s">9042</span>
+<span class="c"># This specifies the keyspace where data is stored.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.cql.keyspace</span><span class="o">=</span><span class="s">janusgraph</span>
+<span class="c"># This defines the indexing backend configuration used while writing data to JanusGraph.</span>
+<span class="na">janusgraphmr.ioformat.conf.index.search.backend</span><span class="o">=</span><span class="s">elasticsearch</span>
+<span class="na">janusgraphmr.ioformat.conf.index.search.hostname</span><span class="o">=</span><span class="s">127.0.0.1</span>
+<span class="c"># Use the appropriate properties for the backend when using a different storage backend (HBase) or indexing backend (Solr).</span>
+
+<span class="c">#</span>
+<span class="c"># Apache Cassandra InputFormat configuration</span>
+<span class="c">#</span>
+<span class="na">cassandra.input.partitioner.class</span><span class="o">=</span><span class="s">org.apache.cassandra.dht.Murmur3Partitioner</span>
+<span class="na">cassandra.input.widerows</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># SparkGraphComputer Configuration</span>
+<span class="c">#</span>
+<span class="na">spark.master</span><span class="o">=</span><span class="s">local[*]</span>
+<span class="na">spark.executor.memory</span><span class="o">=</span><span class="s">1g</span>
+<span class="na">spark.serializer</span><span class="o">=</span><span class="s">org.apache.spark.serializer.KryoSerializer</span>
+<span class="na">spark.kryo.registrator</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.serialize.JanusGraphKryoRegistrator</span>
+</code></pre></div></div>
+<input name="__tabbed_3" type="radio" id="__tabbed_3_2" /><label for="__tabbed_3_2">read-hbase.properties</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="c"># Copyright 2019 JanusGraph Authors</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="c">#</span>
+<span class="c"># Hadoop Graph Configuration</span>
+<span class="c">#</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph</span>
+<span class="na">gremlin.hadoop.graphReader</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.formats.hbase.HBaseInputFormat</span>
+<span class="na">gremlin.hadoop.graphWriter</span><span class="o">=</span><span class="s">org.apache.hadoop.mapreduce.lib.output.NullOutputFormat</span>
+
+<span class="na">gremlin.hadoop.jarsInDistributedCache</span><span class="o">=</span><span class="s">true</span>
+<span class="na">gremlin.hadoop.inputLocation</span><span class="o">=</span><span class="s">none</span>
+<span class="na">gremlin.hadoop.outputLocation</span><span class="o">=</span><span class="s">output</span>
+<span class="na">gremlin.spark.persistContext</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># JanusGraph HBase InputFormat configuration</span>
+<span class="c">#</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.backend</span><span class="o">=</span><span class="s">hbase</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hostname</span><span class="o">=</span><span class="s">localhost</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hbase.table</span><span class="o">=</span><span class="s">janusgraph</span>
+
+<span class="c">#</span>
+<span class="c"># SparkGraphComputer Configuration</span>
+<span class="c">#</span>
+<span class="na">spark.master</span><span class="o">=</span><span class="s">local[*]</span>
+<span class="na">spark.executor.memory</span><span class="o">=</span><span class="s">1g</span>
+<span class="na">spark.serializer</span><span class="o">=</span><span class="s">org.apache.spark.serializer.KryoSerializer</span>
+<span class="na">spark.kryo.registrator</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.serialize.JanusGraphKryoRegistrator</span>
+</code></pre></div></div>
+</div>
+<p>First create a properties file with above configurations, and load the
+same on the Gremlin Console to run OLAP queries as follows:</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">read-cql.properties</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>bin/gremlin.sh
+
+        <span class="se">\,</span>,,/
+        <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+plugin activated: janusgraph.imports
+gremlin&gt; :plugin use tinkerpop.hadoop
+<span class="o">==</span>&gt;tinkerpop.hadoop activated
+gremlin&gt; :plugin use tinkerpop.spark
+<span class="o">==</span>&gt;tinkerpop.spark activated
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">3</span>
+gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cql.properties&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>
+gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
+gremlin&gt; <span class="nv">g</span> <span class="o">=</span> graph.traversal<span class="o">()</span>.withComputer<span class="o">(</span>SparkGraphComputer<span class="o">)</span>
+<span class="o">==</span>&gt;graphtraversalsource<span class="o">[</span>hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>, sparkgraphcomputer<span class="o">]</span>
+gremlin&gt; // <span class="m">3</span>. Run some OLAP traversals
+gremlin&gt; g.V<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt;808
+gremlin&gt; g.E<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt; <span class="m">8046</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">read-hbase.properties</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>bin/gremlin.sh
+
+        <span class="se">\,</span>,,/
+        <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+plugin activated: janusgraph.imports
+gremlin&gt; :plugin use tinkerpop.hadoop
+<span class="o">==</span>&gt;tinkerpop.hadoop activated
+gremlin&gt; :plugin use tinkerpop.spark
+<span class="o">==</span>&gt;tinkerpop.spark activated
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from HBase
+gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-hbase.properties&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>
+gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
+gremlin&gt; <span class="nv">g</span> <span class="o">=</span> graph.traversal<span class="o">()</span>.withComputer<span class="o">(</span>SparkGraphComputer<span class="o">)</span>
+<span class="o">==</span>&gt;graphtraversalsource<span class="o">[</span>hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>, sparkgraphcomputer<span class="o">]</span>
+gremlin&gt; // <span class="m">3</span>. Run some OLAP traversals
+gremlin&gt; g.V<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt;808
+gremlin&gt; g.E<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt; <span class="m">8046</span>
+</code></pre></div>
+
+</div>
+</div>
+<h3 id="olap-traversals-with-spark-standalone-cluster">OLAP Traversals with Spark Standalone Cluster</h3>
+<p>The steps followed in the previous section can also be used with a Spark
+standalone cluster with only minor changes:</p>
+<ul>
+<li>
+<p>Update the <code>spark.master</code> property to point to the Spark master URL
+    instead of local</p>
+</li>
+<li>
+<p>Update the <code>spark.executor.extraClassPath</code> to enable the Spark
+    executor to find the JanusGraph dependency jars</p>
+</li>
+<li>
+<p>Copy the JanusGraph dependency jars into the location specified in
+    the previous step on each Spark executor machine</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have copied all the jars under <strong>janusgraph-distribution/lib</strong> into
+/opt/lib/janusgraph/ and the same directory structure is created
+across all workers, and jars are manually copied across all workers.</p>
+</div>
+<p>The final properties file used for OLAP traversal is as follows:</p>
+<div class="tabbed-set" data-tabs="4:2">
+<input name="__tabbed_4" type="radio" id="__tabbed_4_1" checked="checked" /><label for="__tabbed_4_1">read-cql-standalone-cluster.properties</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="c"># Copyright 2020 JanusGraph Authors</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="c">#</span>
+<span class="c"># Hadoop Graph Configuration</span>
+<span class="c">#</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph</span>
+<span class="na">gremlin.hadoop.graphReader</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.formats.cql.CqlInputFormat</span>
+<span class="na">gremlin.hadoop.graphWriter</span><span class="o">=</span><span class="s">org.apache.hadoop.mapreduce.lib.output.NullOutputFormat</span>
+
+<span class="na">gremlin.hadoop.jarsInDistributedCache</span><span class="o">=</span><span class="s">true</span>
+<span class="na">gremlin.hadoop.inputLocation</span><span class="o">=</span><span class="s">none</span>
+<span class="na">gremlin.hadoop.outputLocation</span><span class="o">=</span><span class="s">output</span>
+<span class="na">gremlin.spark.persistContext</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># JanusGraph Cassandra InputFormat configuration</span>
+<span class="c">#</span>
+<span class="c"># These properties defines the connection properties which were used while write data to JanusGraph.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="c"># This specifies the hostname &amp; port for Cassandra data store.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hostname</span><span class="o">=</span><span class="s">127.0.0.1</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.port</span><span class="o">=</span><span class="s">9042</span>
+<span class="c"># This specifies the keyspace where data is stored.</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.cql.keyspace</span><span class="o">=</span><span class="s">janusgraph</span>
+<span class="c"># This defines the indexing backend configuration used while writing data to JanusGraph.</span>
+<span class="na">janusgraphmr.ioformat.conf.index.search.backend</span><span class="o">=</span><span class="s">elasticsearch</span>
+<span class="na">janusgraphmr.ioformat.conf.index.search.hostname</span><span class="o">=</span><span class="s">127.0.0.1</span>
+<span class="c"># Use the appropriate properties for the backend when using a different storage backend (HBase) or indexing backend (Solr).</span>
+
+<span class="c">#</span>
+<span class="c"># Apache Cassandra InputFormat configuration</span>
+<span class="c">#</span>
+<span class="na">cassandra.input.partitioner.class</span><span class="o">=</span><span class="s">org.apache.cassandra.dht.Murmur3Partitioner</span>
+<span class="na">cassandra.input.widerows</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># SparkGraphComputer Configuration</span>
+<span class="c">#</span>
+<span class="na">spark.master</span><span class="o">=</span><span class="s">spark://127.0.0.1:7077</span>
+<span class="na">spark.executor.memory</span><span class="o">=</span><span class="s">1g</span>
+<span class="na">spark.executor.extraClassPath</span><span class="o">=</span><span class="s">/opt/lib/janusgraph/*</span>
+<span class="na">spark.serializer</span><span class="o">=</span><span class="s">org.apache.spark.serializer.KryoSerializer</span>
+<span class="na">spark.kryo.registrator</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.serialize.JanusGraphKryoRegistrator</span>
+</code></pre></div></div>
+<input name="__tabbed_4" type="radio" id="__tabbed_4_2" /><label for="__tabbed_4_2">read-hbase-standalone-cluster.properties</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="c"># Copyright 2020 JanusGraph Authors</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="c">#</span>
+<span class="c"># Hadoop Graph Configuration</span>
+<span class="c">#</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph</span>
+<span class="na">gremlin.hadoop.graphReader</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.formats.hbase.HBaseInputFormat</span>
+<span class="na">gremlin.hadoop.graphWriter</span><span class="o">=</span><span class="s">org.apache.hadoop.mapreduce.lib.output.NullOutputFormat</span>
+
+<span class="na">gremlin.hadoop.jarsInDistributedCache</span><span class="o">=</span><span class="s">true</span>
+<span class="na">gremlin.hadoop.inputLocation</span><span class="o">=</span><span class="s">none</span>
+<span class="na">gremlin.hadoop.outputLocation</span><span class="o">=</span><span class="s">output</span>
+<span class="na">gremlin.spark.persistContext</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c">#</span>
+<span class="c"># JanusGraph HBase InputFormat configuration</span>
+<span class="c">#</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.backend</span><span class="o">=</span><span class="s">hbase</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hostname</span><span class="o">=</span><span class="s">localhost</span>
+<span class="na">janusgraphmr.ioformat.conf.storage.hbase.table</span><span class="o">=</span><span class="s">janusgraph</span>
+
+<span class="c">#</span>
+<span class="c"># SparkGraphComputer Configuration</span>
+<span class="c">#</span>
+<span class="na">spark.master</span><span class="o">=</span><span class="s">spark://127.0.0.1:7077</span>
+<span class="na">spark.executor.memory</span><span class="o">=</span><span class="s">1g</span>
+<span class="na">spark.executor.extraClassPath</span><span class="o">=</span><span class="s">/opt/lib/janusgraph/*</span>
+<span class="na">spark.serializer</span><span class="o">=</span><span class="s">org.apache.spark.serializer.KryoSerializer</span>
+<span class="na">spark.kryo.registrator</span><span class="o">=</span><span class="s">org.janusgraph.hadoop.serialize.JanusGraphKryoRegistrator</span>
+</code></pre></div></div>
+</div>
+<p>Then use the properties file as follows from the Gremlin Console:</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">read-cql-standalone-cluster.properties</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>bin/gremlin.sh
+
+        <span class="se">\,</span>,,/
+        <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+plugin activated: janusgraph.imports
+gremlin&gt; :plugin use tinkerpop.hadoop
+<span class="o">==</span>&gt;tinkerpop.hadoop activated
+gremlin&gt; :plugin use tinkerpop.spark
+<span class="o">==</span>&gt;tinkerpop.spark activated
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">3</span>
+gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cql-standalone-cluster.properties&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>
+gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
+gremlin&gt; <span class="nv">g</span> <span class="o">=</span> graph.traversal<span class="o">()</span>.withComputer<span class="o">(</span>SparkGraphComputer<span class="o">)</span>
+<span class="o">==</span>&gt;graphtraversalsource<span class="o">[</span>hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>, sparkgraphcomputer<span class="o">]</span>
+gremlin&gt; // <span class="m">3</span>. Run some OLAP traversals
+gremlin&gt; g.V<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt;808
+gremlin&gt; g.E<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt; <span class="m">8046</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">read-hbase-standalone-cluster.properties</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>bin/gremlin.sh
+
+        <span class="se">\,</span>,,/
+        <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+plugin activated: janusgraph.imports
+gremlin&gt; :plugin use tinkerpop.hadoop
+<span class="o">==</span>&gt;tinkerpop.hadoop activated
+gremlin&gt; :plugin use tinkerpop.spark
+<span class="o">==</span>&gt;tinkerpop.spark activated
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from HBase
+gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-hbase-standalone-cluster.properties&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>
+gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
+gremlin&gt; <span class="nv">g</span> <span class="o">=</span> graph.traversal<span class="o">()</span>.withComputer<span class="o">(</span>SparkGraphComputer<span class="o">)</span>
+<span class="o">==</span>&gt;graphtraversalsource<span class="o">[</span>hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>, sparkgraphcomputer<span class="o">]</span>
+gremlin&gt; // <span class="m">3</span>. Run some OLAP traversals
+gremlin&gt; g.V<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt;808
+gremlin&gt; g.E<span class="o">()</span>.count<span class="o">()</span>
+......
+<span class="o">==</span>&gt; <span class="m">8046</span>
+</code></pre></div>
+
+</div>
+</div>
+<h2 id="other-vertex-programs">Other Vertex Programs</h2>
+<p>Apache TinkerPop provides various vertex programs. A vertex program runs
+on each vertex until either a termination criteria is attained or a
+fixed number of iterations has been reached. Due to the parallel nature
+of vertex programs, they can leverage parallel computing framework like
+Spark to improve their performance.</p>
+<p>Once you are familiar with how to configure JanusGraph to work with
+Spark, you can run all the other vertex programs provided by Apache
+TinkerPop, like Page Rank, Bulk Loading and Peer Pressure. See the
+<a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#vertexprogram">TinkerPop VertexProgram docs</a>
+for more details.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../serializer/" title="Datatype and Attribute Serializer Configuration" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Datatype and Attribute Serializer Configuration
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../monitoring/" title="Monitoring JanusGraph" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Monitoring JanusGraph
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
