@@ -1,0 +1,2012 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>JanusGraph Server - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#janusgraph-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              JanusGraph Server
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        JanusGraph Server
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="JanusGraph Server" class="md-nav__link md-nav__link--active">
+      JanusGraph Server
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-gremlin-server" class="md-nav__link">
+    Connecting to Gremlin Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-a-websocket-endpoint" class="md-nav__link">
+    JanusGraph Server as a WebSocket Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-a-http-endpoint" class="md-nav__link">
+    JanusGraph Server as a HTTP Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-both-a-websocket-and-http-endpoint" class="md-nav__link">
+    JanusGraph Server as Both a WebSocket and HTTP Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-janusgraph-server-configurations" class="md-nav__link">
+    Advanced JanusGraph Server Configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced JanusGraph Server Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-http" class="md-nav__link">
+    Authentication over HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-basic-authentication" class="md-nav__link">
+    HTTP Basic authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-websocket" class="md-nav__link">
+    Authentication over WebSocket
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-http-and-websocket" class="md-nav__link">
+    Authentication over HTTP and WebSocket
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-tinkerpop-gremlin-server-with-janusgraph" class="md-nav__link">
+    Using TinkerPop Gremlin Server with JanusGraph
+  </a>
+  
+    <nav class="md-nav" aria-label="Using TinkerPop Gremlin Server with JanusGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-janusgraph-via-gremlin-server" class="md-nav__link">
+    Connecting to JanusGraph via Gremlin Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-janusgraph-server" class="md-nav__link">
+    Extending JanusGraph Server
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating-titan/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating-thrift/" title="Migrating from Thrift" class="md-nav__link">
+      Migrating from Thrift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-gremlin-server" class="md-nav__link">
+    Connecting to Gremlin Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-a-websocket-endpoint" class="md-nav__link">
+    JanusGraph Server as a WebSocket Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-a-http-endpoint" class="md-nav__link">
+    JanusGraph Server as a HTTP Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraph-server-as-both-a-websocket-and-http-endpoint" class="md-nav__link">
+    JanusGraph Server as Both a WebSocket and HTTP Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-janusgraph-server-configurations" class="md-nav__link">
+    Advanced JanusGraph Server Configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced JanusGraph Server Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-http" class="md-nav__link">
+    Authentication over HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-basic-authentication" class="md-nav__link">
+    HTTP Basic authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-websocket" class="md-nav__link">
+    Authentication over WebSocket
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-over-http-and-websocket" class="md-nav__link">
+    Authentication over HTTP and WebSocket
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-tinkerpop-gremlin-server-with-janusgraph" class="md-nav__link">
+    Using TinkerPop Gremlin Server with JanusGraph
+  </a>
+  
+    <nav class="md-nav" aria-label="Using TinkerPop Gremlin Server with JanusGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-janusgraph-via-gremlin-server" class="md-nav__link">
+    Connecting to JanusGraph via Gremlin Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-janusgraph-server" class="md-nav__link">
+    Extending JanusGraph Server
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/basics/server.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="janusgraph-server">JanusGraph Server</h1>
+<p>JanusGraph uses the <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#gremlin-server">Gremlin Server</a> 
+engine as the server component to process and answer client queries. 
+When packaged in JanusGraph, Gremlin Server is called JanusGraph Server.</p>
+<p>JanusGraph Server must be started manually in order to use it.
+JanusGraph Server provides a way to remotely execute Gremlin traversals
+against one or more JanusGraph instances hosted within it. This section
+will describe how to use the WebSocket configuration, as well as
+describe how to configure JanusGraph Server to handle HTTP endpoint
+interactions. For information about how to connect to a JanusGraph
+Server from different languages refer to <a href="../../connecting/">Connecting to JanusGraph</a>.</p>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with 0.5.1, this is just included in the full package version.</p>
+</div>
+<p>The JanusGraph
+<a href="https://github.com/JanusGraph/janusgraph/releases">release</a> comes
+pre-configured to run JanusGraph Server out of the box leveraging a
+sample Cassandra and Elasticsearch configuration to allow users to get
+started quickly with JanusGraph Server. This configuration defaults to
+client applications that can connect to JanusGraph Server via WebSocket
+with a custom subprotocol. There are a number of clients developed in
+different languages to help support the subprotocol. The most familiar
+client to use the WebSocket interface is the Gremlin Console. The
+quick-start bundle is not intended to be representative of a production
+installation, but does provide a way to perform development with
+JanusGraph Server, run tests and see how the components are wired
+together. To use this default configuration:</p>
+<ul>
+<li>
+<p>Download a copy of the current <code>janusgraph-$VERSION.zip</code> file from
+    the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases
+    page</a></p>
+</li>
+<li>
+<p>Unzip it and enter the <code>janusgraph-$VERSION</code> directory</p>
+</li>
+<li>
+<p>Run <code>bin/janusgraph.sh start</code>. This step will start Gremlin Server
+    with Cassandra/ES forked into a separate process. Note for security
+    reasons Elasticsearch and therefore <code>janusgraph.sh</code> must be run
+    under a non-root account.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ bin/janusgraph.sh start
+Forking Cassandra...
+Running <span class="sb">`</span>nodetool statusthrift<span class="sb">`</span>.. OK <span class="o">(</span>returned <span class="nb">exit</span> status <span class="m">0</span> and printed string <span class="s2">&quot;running&quot;</span><span class="o">)</span>.
+Forking Elasticsearch...
+Connecting to Elasticsearch <span class="o">(</span><span class="m">127</span>.0.0.1:9300<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:9300<span class="o">)</span>.
+Forking Gremlin-Server...
+Connecting to Gremlin-Server <span class="o">(</span><span class="m">127</span>.0.0.1:8182<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:8182<span class="o">)</span>.
+Run gremlin.sh to connect.
+</code></pre></div>
+
+<h4 id="connecting-to-gremlin-server">Connecting to Gremlin Server</h4>
+<p>After running <code>janusgraph.sh</code>, Gremlin Server will be ready to listen
+for WebSocket connections. The easiest way to test the connection is
+with Gremlin Console.</p>
+<p>Start Gremlin Console with bin/gremlin.sh and use the :remote and :&gt; commands to issue Gremlin to Gremlin Server:</p>
+<div class="highlight"><pre><span></span><code>$  bin/gremlin.sh
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+plugin activated: tinkerpop.server
+plugin activated: tinkerpop.hadoop
+plugin activated: tinkerpop.utilities
+plugin activated: janusgraph.imports
+plugin activated: tinkerpop.tinkergraph
+gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
+<span class="o">==</span>&gt;Connected - localhost/127.0.0.1:8182
+gremlin&gt; :&gt; graph.addVertex<span class="o">(</span><span class="s2">&quot;name&quot;</span>, <span class="s2">&quot;stephen&quot;</span><span class="o">)</span>
+<span class="o">==</span>&gt;v<span class="o">[</span><span class="m">256</span><span class="o">]</span>
+gremlin&gt; :&gt; g.V<span class="o">()</span>.values<span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;stephen
+</code></pre></div>
+
+<p>The <code>:remote</code> command tells the console to configure a remote connection
+to Gremlin Server using the <code>conf/remote.yaml</code> file to connect. That
+file points to a Gremlin Server instance running on <code>localhost</code>. The
+<code>:&gt;</code> is the "submit" command which sends the Gremlin on that line to the
+currently active remote.
+Instead of prefixing every single script with <code>:&gt;</code>, the command <code>:remote console</code> can
+be executed once to implicitly send all subsequent scripts to the current remote connection.
+By default remote connections are sessionless,
+meaning that each line sent in the console is interpreted as a single
+request. Multiple statements can be sent on a single line using a
+semicolon as the delimiter.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml</span>
+<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
+<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="n">localhost</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]],</span> <span class="n">standard</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">()</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;Chris&quot;</span>
+<span class="o">==&gt;</span><span class="n">Chris</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">user</span><span class="o">)</span>
+<span class="n">No</span> <span class="n">such</span> <span class="nl">property:</span> <span class="n">user</span> <span class="k">for</span> <span class="nl">class:</span> <span class="n">Script21</span>
+<span class="n">Type</span> <span class="s1">&#39;:help&#39;</span> <span class="n">or</span> <span class="s1">&#39;:h&#39;</span> <span class="k">for</span> <span class="n">help</span><span class="o">.</span>
+<span class="n">Display</span> <span class="n">stack</span> <span class="n">trace</span><span class="o">?</span> <span class="o">[</span><span class="n">yN</span><span class="o">]</span>
+</code></pre></div></p>
+<p>Alternatively, you can establish a console with a session by specifying
+<a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#sessions">session</a>
+when creating the connection. A <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#console-sessions">console
+session</a>
+allows you to reuse variables across several lines of input.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml session</span>
+<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">-[</span><span class="mi">9</span><span class="n">acf239e</span><span class="o">-</span><span class="n">a3ed</span><span class="o">-</span><span class="mi">4301</span><span class="o">-</span><span class="n">b33f</span><span class="o">-</span><span class="mi">55</span><span class="n">c911e04052</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
+<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="n">localhost</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">]-[</span><span class="mi">9</span><span class="n">acf239e</span><span class="o">-</span><span class="n">a3ed</span><span class="o">-</span><span class="mi">4301</span><span class="o">-</span><span class="n">b33f</span><span class="o">-</span><span class="mi">55</span><span class="n">c911e04052</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">()</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;Chris&quot;</span>
+<span class="o">==&gt;</span><span class="n">Chris</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span>
+<span class="o">==&gt;</span><span class="n">Chris</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">user</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">4344</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">Chris</span>
+</code></pre></div></p>
+<h2 id="cleaning-up-after-the-pre-packaged-distribution">Cleaning up after the Pre-Packaged Distribution</h2>
+<p>If you want to start fresh and remove the database and logs you can use
+the clean command with <code>janusgraph.sh</code>. The server should be stopped
+before running the clean operation.
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/
+$ ./bin/janusgraph.sh stop
+Killing Gremlin-Server <span class="o">(</span>pid <span class="m">91505</span><span class="o">)</span>...
+Killing Elasticsearch <span class="o">(</span>pid <span class="m">91402</span><span class="o">)</span>...
+Killing Cassandra <span class="o">(</span>pid <span class="m">91219</span><span class="o">)</span>...
+$ ./bin/janusgraph.sh clean
+Are you sure you want to delete all stored data and logs? <span class="o">[</span>y/N<span class="o">]</span> y
+Deleted data in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/db
+Deleted logs in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/log
+</code></pre></div></p>
+<h2 id="janusgraph-server-as-a-websocket-endpoint">JanusGraph Server as a WebSocket Endpoint</h2>
+<p>The default configuration described in <a href="#getting-started">Getting Started</a> 
+is already a WebSocket configuration.
+If you want to alter the default configuration to work with your own
+Cassandra or HBase environment rather than use the quick start
+environment, follow these steps:</p>
+<p><strong>To Configure JanusGraph Server For WebSocket</strong></p>
+<ol>
+<li>
+<p>Test a local connection to a JanusGraph database first. This step
+    applies whether using the Gremlin Console to test the connection, or
+    whether connecting from a program. Make appropriate changes in a
+    properties file in the <code>./conf</code> directory for your environment. For
+    example, edit <code>./conf/janusgraph-hbase.properties</code> and make sure the
+    storage.backend, storage.hostname and storage.hbase.table parameters
+    are specified correctly. For more information on configuring
+    JanusGraph for various storage backends, see
+    <a href="../../storage-backend/">Storage Backends</a>. Make sure the properties file contains the
+    following line:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Once a local configuration is tested and you have a working
+    properties file, copy the properties file from the <code>./conf</code>
+    directory to the <code>./conf/gremlin-server</code> directory.
+<div class="highlight"><pre><span></span><code>cp conf/janusgraph-hbase.properties
+conf/gremlin-server/socket-janusgraph-hbase-server.properties
+</code></pre></div></p>
+</li>
+<li>
+<p>Copy <code>./conf/gremlin-server/gremlin-server.yaml</code> to a new file
+    called <code>socket-gremlin-server.yaml</code>. Do this in case you need to
+    refer to the original version of the file
+<div class="highlight"><pre><span></span><code>cp conf/gremlin-server/gremlin-server.yaml
+conf/gremlin-server/socket-gremlin-server.yaml
+</code></pre></div></p>
+</li>
+<li>
+<p>Edit the <code>socket-gremlin-server.yaml</code> file and make the following
+    updates:</p>
+<ol>
+<li>
+<p>If you are planning to connect to JanusGraph Server from
+    something other than localhost, update the IP address for host:
+<div class="highlight"><pre><span></span><code>host: 10.10.10.100
+</code></pre></div></p>
+</li>
+<li>
+<p>Update the graphs section to point to your new properties file
+    so the JanusGraph Server can find and connect to your JanusGraph
+    instance:
+<div class="highlight"><pre><span></span><code><span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> graph</span><span class="p">:</span>
+    <span class="nv">conf/gremlin-server/socket-janusgraph-hbase-server.properties</span><span class="p p-Indicator">}</span>
+</code></pre></div></p>
+</li>
+</ol>
+</li>
+<li>
+<p>Start the JanusGraph Server, specifying the yaml file you just
+    configured:
+<div class="highlight"><pre><span></span><code>bin/janusgraph-server.sh console ./conf/gremlin-server/socket-gremlin-server.yaml
+</code></pre></div></p>
+</li>
+<li>
+<p>The JanusGraph Server should now be running in WebSocket mode and
+    can be tested by following the instructions in <a href="../../getting-started/installation/">Connecting to Gremlin Server</a></p>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not use <code>bin/janusgraph.sh</code>. That starts the default
+configuration, which starts a separate Cassandra/Elasticsearch
+environment.</p>
+</div>
+<h2 id="janusgraph-server-as-a-http-endpoint">JanusGraph Server as a HTTP Endpoint</h2>
+<p>The default configuration described in <a href="#getting-started">Getting Started</a> is a WebSocket configuration. If you
+want to alter the default configuration in order to use JanusGraph
+Server as an HTTP endpoint for your JanusGraph database, follow these
+steps:</p>
+<ol>
+<li>
+<p>Test a local connection to a JanusGraph database first. This step
+    applies whether using the Gremlin Console to test the connection, or
+    whether connecting from a program. Make appropriate changes in a
+    properties file in the <code>./conf</code> directory for your environment. For
+    example, edit <code>./conf/janusgraph-hbase.properties</code> and make sure the
+    storage.backend, storage.hostname and storage.hbase.table parameters
+    are specified correctly. For more information on configuring
+    JanusGraph for various storage backends, see
+    <a href="../../storage-backend/">Storage Backends</a>. Make sure the properties file contains the
+    following line:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Once a local configuration is tested and you have a working
+    properties file, copy the properties file from the <code>./conf</code>
+    directory to the <code>./conf/gremlin-server</code> directory.
+<div class="highlight"><pre><span></span><code>cp conf/janusgraph-hbase.properties conf/gremlin-server/http-janusgraph-hbase-server.properties
+</code></pre></div></p>
+</li>
+<li>
+<p>Copy <code>./conf/gremlin-server/gremlin-server.yaml</code> to a new file
+    called <code>http-gremlin-server.yaml</code>. Do this in case you need to refer
+    to the original version of the file
+<div class="highlight"><pre><span></span><code>cp conf/gremlin-server/gremlin-server.yaml conf/gremlin-server/http-gremlin-server.yaml
+</code></pre></div></p>
+</li>
+<li>
+<p>Edit the <code>http-gremlin-server.yaml</code> file and make the following
+    updates:</p>
+<ol>
+<li>
+<p>If you are planning to connect to JanusGraph Server from
+    something other than localhost, update the IP address for host:
+<div class="highlight"><pre><span></span><code>host: 10.10.10.100
+</code></pre></div></p>
+</li>
+<li>
+<p>Update the channelizer setting to specify the HttpChannelizer:
+<div class="highlight"><pre><span></span><code><span class="nt">channelizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Update the graphs section to point to your new properties file
+    so the JanusGraph Server can find and connect to your JanusGraph
+    instance:
+<div class="highlight"><pre><span></span><code><span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> graph</span><span class="p">:</span>
+    <span class="nv">conf/gremlin-server/http-janusgraph-hbase-server.properties</span><span class="p p-Indicator">}</span>
+</code></pre></div></p>
+</li>
+</ol>
+</li>
+<li>
+<p>Start the JanusGraph Server, specifying the yaml file you just
+    configured:
+<div class="highlight"><pre><span></span><code>bin/janusgraph-server.sh console ./conf/gremlin-server/http-gremlin-server.yaml
+</code></pre></div></p>
+</li>
+<li>
+<p>The JanusGraph Server should now be running in HTTP mode and
+    available for testing. <strong>curl</strong> can be used to verify the server is
+    working:
+<div class="highlight"><pre><span></span><code>curl -XPOST -Hcontent-type:application/json -d *<span class="o">{</span><span class="s2">&quot;gremlin&quot;</span>:<span class="s2">&quot;g.V().count()&quot;</span><span class="o">}</span>* <span class="o">[</span>IP <span class="k">for</span> JanusGraph server host<span class="o">](</span>http://<span class="o">)</span>:8182 
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="janusgraph-server-as-both-a-websocket-and-http-endpoint">JanusGraph Server as Both a WebSocket and HTTP Endpoint</h2>
+<p>As of JanusGraph 0.2.0, you can configure your <code>gremlin-server.yaml</code> to
+accept both WebSocket and HTTP connections over the same port. This can
+be achieved by changing the channelizer in any of the previous examples
+as follows.
+<div class="highlight"><pre><span></span><code><span class="nt">channelizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer</span>
+</code></pre></div></p>
+<h2 id="advanced-janusgraph-server-configurations">Advanced JanusGraph Server Configurations</h2>
+<h3 id="authentication-over-http">Authentication over HTTP</h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In the following example, credentialsDb should be different from the graph(s) you are using. It should be configured with the correct backend and a different keyspace, table, or storage directory as appropriate for the configured backend. This graph will be used for storing usernames and passwords.</p>
+</div>
+<h3 id="http-basic-authentication">HTTP Basic authentication</h3>
+<p>To enable Basic authentication in JanusGraph Server include the following configuration in your <code>gremlin-server.yaml</code>.</p>
+<div class="highlight"><pre><span></span><code> <span class="nt">authentication</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">   authenticator</span><span class="p">:</span> <span class="nv">org.janusgraph.graphdb.tinkerpop.gremlin.server.auth.JanusGraphSimpleAuthenticator</span><span class="p p-Indicator">,</span>
+<span class="nt">   authenticationHandler</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.server.handler.HttpBasicAuthenticationHandler</span><span class="p p-Indicator">,</span>
+<span class="nt">   config</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">     defaultUsername</span><span class="p">:</span> <span class="nv">user</span><span class="p p-Indicator">,</span>
+<span class="nt">     defaultPassword</span><span class="p">:</span> <span class="nv">password</span><span class="p p-Indicator">,</span>
+<span class="nt">     credentialsDb</span><span class="p">:</span> <span class="nv">conf/janusgraph-credentials-server.properties</span>
+    <span class="p p-Indicator">}</span>
+ <span class="p p-Indicator">}</span>
+</code></pre></div>
+
+<p>Verify that basic authentication is configured correctly. For example</p>
+<div class="highlight"><pre><span></span><code>curl -v -XPOST http://localhost:8182 -d <span class="s1">&#39;{&quot;gremlin&quot;: &quot;g.V().count()&quot;}&#39;</span>
+</code></pre></div>
+
+<p>should return a 401 if the authentication is configured correctly and</p>
+<p><div class="highlight"><pre><span></span><code>curl -v -XPOST http://localhost:8182 -d <span class="s1">&#39;{&quot;gremlin&quot;: &quot;g.V().count()&quot;}&#39;</span> -u user:password
+</code></pre></div>
+should return a 200 and the result of 4 if authentication is configured correctly.</p>
+<h3 id="authentication-over-websocket">Authentication over WebSocket</h3>
+<p>Authentication over WebSocket occurs through a Simple Authentication and Security Layer (https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer[SASL]) mechanism.</p>
+<p>To enable SASL authentication include the following configuration in the <code>gremlin-server.yaml</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">authentication</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  authenticator</span><span class="p">:</span> <span class="nv">org.janusgraph.graphdb.tinkerpop.gremlin.server.auth.JanusGraphSimpleAuthenticator</span><span class="p p-Indicator">,</span>
+<span class="nt">  authenticationHandler</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.server.handler.SaslAuthenticationHandler</span><span class="p p-Indicator">,</span>
+<span class="nt">  config</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">    defaultUsername</span><span class="p">:</span> <span class="nv">user</span><span class="p p-Indicator">,</span>
+<span class="nt">    defaultPassword</span><span class="p">:</span> <span class="nv">password</span><span class="p p-Indicator">,</span>
+<span class="nt">    credentialsDb</span><span class="p">:</span> <span class="nv">conf/janusgraph-credentials-server.properties</span>
+  <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">}</span>
+</code></pre></div>
+
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In the preceding example, credentialsDb should be different from the graph(s) you are using. It should be configured with the correct backend and a different keyspace, table, or storage directory as appropriate for the configured backend. This graph will be used for storing usernames and passwords.</p>
+</div>
+<p>If you are connecting through the gremlin console, your remote yaml file should amend the <code>username</code> and <code>password</code> properties with the appropriate values.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+<span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password</span>
+</code></pre></div>
+
+<h3 id="authentication-over-http-and-websocket">Authentication over HTTP and WebSocket</h3>
+<p>If you are using the combined channelizer for both HTTP and WebSocket you can use the SaslAndHMACAuthenticator to authorize through either WebSocket through SASL, HTTP through basic auth, and HTTP through hash-based message authentication code (https://en.wikipedia.org/wiki/Hash-based_message_authentication_code[HMAC]) Auth. HMAC is a token based authentication designed to be used over HTTP. You first acquire a token via the <code>/session</code> endpoint and then use that to authenticate. It is used to amortize the time spent encrypting the password using basic auth.</p>
+<p>The <code>gremlin-server.yaml</code> should include the following configurations</p>
+<div class="highlight"><pre><span></span><code><span class="nt">authentication</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  authenticator</span><span class="p">:</span> <span class="nv">org.janusgraph.graphdb.tinkerpop.gremlin.server.auth.SaslAndHMACAuthenticator</span><span class="p p-Indicator">,</span>
+<span class="nt">  authenticationHandler</span><span class="p">:</span> <span class="nv">org.janusgraph.graphdb.tinkerpop.gremlin.server.handler.SaslAndHMACAuthenticationHandler</span><span class="p p-Indicator">,</span>
+<span class="nt">  config</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">    defaultUsername</span><span class="p">:</span> <span class="nv">user</span><span class="p p-Indicator">,</span>
+<span class="nt">    defaultPassword</span><span class="p">:</span> <span class="nv">password</span><span class="p p-Indicator">,</span>
+<span class="nt">    hmacSecret</span><span class="p">:</span> <span class="nv">secret</span><span class="p p-Indicator">,</span>
+<span class="nt">    credentialsDb</span><span class="p">:</span> <span class="nv">conf/janusgraph-credentials-server.properties</span>
+  <span class="p p-Indicator">}</span>
+<span class="p p-Indicator">}</span>
+</code></pre></div>
+
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In the preceding example, credentialsDb should be different from the graph(s) you are using. It should be configured with the correct backend and a different keyspace, table, or storage directory as appropriate for the configured backend. This graph will be used for storing usernames and passwords.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Note the hmacSecret here. This should be the same across all running JanusGraph servers if you want to be able to use the same HMAC token on each server.</p>
+</div>
+<p>For HMAC authentication over HTTP, this creates a <code>/session</code> endpoint that provides a token that expires after an hour by default. This timeout for the token can be configured through the <code>tokenTimeout</code> configuration option in the <code>authentication.config</code> map. This value is a Long value and in milliseconds.</p>
+<p>You can obtain the token using curl by issuing a get request to the <code>/session</code> endpoint. For example</p>
+<div class="highlight"><pre><span></span><code>curl http://localhost:8182/session -XGET -u user:password
+
+<span class="o">{</span><span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;dXNlcjoxNTA5NTQ2NjI0NDUzOkhrclhYaGhRVG9KTnVSRXJ5U2VpdndhalJRcVBtWEpSMzh5WldqRTM4MW89&quot;</span><span class="o">}</span>
+</code></pre></div>
+
+<p>You can then use that token for authentication by using the "Authorization: Token" header. For example</p>
+<div class="highlight"><pre><span></span><code>curl -v http://localhost:8182/session -XPOST -d <span class="s1">&#39;{&quot;gremlin&quot;: &quot;g.V().count()&quot;}&#39;</span> -H <span class="s2">&quot;Authorization: Token dXNlcjoxNTA5NTQ2NjI0NDUzOkhrclhYaGhRVG9KTnVSRXJ5U2VpdndhalJRcVBtWEpSMzh5WldqRTM4MW89&quot;</span>
+</code></pre></div>
+
+<h3 id="using-tinkerpop-gremlin-server-with-janusgraph">Using TinkerPop Gremlin Server with JanusGraph</h3>
+<p>Since JanusGraph Server is a TinkerPop Gremlin Server packaged 
+with configuration files for JanusGraph, a version compatible 
+TinkerPop Gremlin Server can be downloaded separately and used with JanusGraph. 
+Get started by downloading the appropriate version of Gremlin Server, 
+which needs to match a version supported by the JanusGraph version in use (3.4.6).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Any references to file paths in this section refer to paths under a
+TinkerPop distribution for Gremlin Server and not a JanusGraph
+distribution with the JanusGraph Server, unless specifically noted.</p>
+</div>
+<p>Configuring a standalone Gremlin Server to work with 
+JanusGraph is similar to configuring the packaged JanusGraph Server. 
+You should be familiar with <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#_configuring_2">graph configuration</a>. 
+Basically, the Gremlin Server yaml file points to graph-specific configuration files 
+that are used to instantiate JanusGraph instances that it will then host. 
+In order to instantiate these Graph instances, 
+Gremlin Server requires that the appropriate libraries and dependencies 
+for the JanusGraph be available on its classpath.</p>
+<p>For purposes of demonstration, these instructions will outline how to
+configure the BerkeleyDB backend for JanusGraph in Gremlin Server. As
+stated earlier, Gremlin Server needs JanusGraph dependencies on its
+classpath. Invoke the following command replacing <code>$VERSION</code> with the
+version of JanusGraph to use:</p>
+<div class="highlight"><pre><span></span><code>bin/gremlin-server.sh -i org.janusgraph janusgraph-all <span class="nv">$VERSION</span>
+</code></pre></div>
+
+<p>When this process completes, Gremlin Server should now have all the
+JanusGraph dependencies available to it and will thus be able to
+instantiate <code>JanusGraph</code> objects.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The above command uses Groovy Grape and if it is not configured properly 
+download errors may ensue. Please refer to <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#gremlin-applications">this section</a>
+of the TinkerPop documentation for more information around setting up ~/.groovy/grapeConfig.xml.</p>
+</div>
+<p>Create a file called <code>GREMLIN_SERVER_HOME/conf/janusgraph.properties</code>
+with the following contents:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">berkeleyje</span>
+<span class="na">storage.directory</span><span class="o">=</span><span class="s">db/berkeley</span>
+</code></pre></div></p>
+<p>Configuration of other backends is similar. See
+<a href="../../storage-backend/">Storage Backends</a>. If using Cassandra, then use Cassandra
+configuration options in the <code>janusgraph.properties</code> file. The only
+important piece to leave unchanged is the <code>gremlin.graph</code> setting which
+should always use <code>JanusGraphFactory</code>. This setting tells Gremlin Server
+how to instantiate a <code>JanusGraph</code> instance.</p>
+<p>Next create a file called
+<code>GREMLIN_SERVER_HOME/conf/gremlin-server-janusgraph.yaml</code> that has the
+following contents:
+<div class="highlight"><pre><span></span><code><span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8182</span>
+<span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  graph</span><span class="p">:</span> <span class="nv">conf/janusgraph.properties</span><span class="p p-Indicator">}</span>
+<span class="nt">scriptEngines</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  gremlin-groovy</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">    plugins</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">classImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math</span><span class="p p-Indicator">],</span><span class="nt"> methodImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math#*</span><span class="p p-Indicator">]},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">files</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">scripts/empty-sample.groovy</span><span class="p p-Indicator">]}}}}</span>
+<span class="nt">serializers</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> serializeResultToString</span><span class="p">:</span> <span class="nv">true</span> <span class="p p-Indicator">}}</span>
+  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
+<span class="nt">metrics</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  slf4jReporter</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">enabled</span><span class="p">:</span> <span class="nv">true</span><span class="p p-Indicator">,</span><span class="nt"> interval</span><span class="p">:</span> <span class="nv">180000</span><span class="p p-Indicator">}}</span>
+</code></pre></div></p>
+<p><strong>There are several important parts to this configuration file as they relate to JanusGraph.</strong></p>
+<ol>
+<li>
+<p>In the <code>graphs</code> map, there is a key called <code>graph</code> and its value is
+    <code>conf/janusgraph.properties</code>. This tells Gremlin Server to
+    instantiate a <code>Graph</code> instance called "graph" and use the
+    <code>conf/janusgraph.properties</code> file to configure it. The "graph" key
+    becomes the unique name for the <code>Graph</code> instance in Gremlin Server
+    and it can be referenced as such in the scripts submitted to it.</p>
+</li>
+<li>
+<p>In the <code>plugins</code> list, there is a reference to
+    <code>JanusGraphGremlinPlugin</code>, which tells Gremlin Server to initialize
+    the "JanusGraph Plugin". The "JanusGraph Plugin" will auto-import
+    JanusGraph specific classes for usage in scripts.</p>
+</li>
+<li>
+<p>Note the <code>scripts</code> key and the reference to
+    <code>scripts/janusgraph.groovy</code>. This Groovy file is an initialization
+    script for Gremlin Server and that particular ScriptEngine. Create
+    <code>scripts/janusgraph.groovy</code> with the following contents:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kt">def</span> <span class="n">globals</span> <span class="o">=</span> <span class="o">[:]</span>
+<span class="n">globals</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="n">g</span> <span class="o">:</span> <span class="n">graph</span><span class="o">.</span><span class="na">traversal</span><span class="o">()]</span>
+</code></pre></div>
+
+<p>The above script creates a <code>Map</code> called <code>globals</code> and assigns to it a
+key/value pair. The key is <code>g</code> and its value is a <code>TraversalSource</code>
+generated from <code>graph</code>, which was configured for Gremlin Server in its
+configuration file. At this point, there are now two global variables
+available to scripts provided to Gremlin Server - <code>graph</code> and <code>g</code>.</p>
+<p>At this point, Gremlin Server is configured and can be used to connect
+to a new or existing JanusGraph database. To start the server:
+<div class="highlight"><pre><span></span><code>$ bin/gremlin-server.sh conf/gremlin-server-janusgraph.yaml
+<span class="o">[</span>INFO<span class="o">]</span> GremlinServer -
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+
+<span class="o">[</span>INFO<span class="o">]</span> GremlinServer - Configuring Gremlin Server from conf/gremlin-server-janusgraph.yaml
+<span class="o">[</span>INFO<span class="o">]</span> MetricManager - Configured Metrics Slf4jReporter configured with <span class="nv">interval</span><span class="o">=</span>180000ms and <span class="nv">loggerName</span><span class="o">=</span>org.apache.tinkerpop.gremlin.server.Settings<span class="nv">$Slf4jReporterMetrics</span>
+<span class="o">[</span>INFO<span class="o">]</span> GraphDatabaseConfiguration - Set default timestamp provider MICRO
+<span class="o">[</span>INFO<span class="o">]</span> GraphDatabaseConfiguration - Generated unique-instance-id<span class="o">=</span>7f0000016240-ubuntu1
+<span class="o">[</span>INFO<span class="o">]</span> Backend - Initiated backend operations thread pool of size <span class="m">8</span>
+<span class="o">[</span>INFO<span class="o">]</span> KCVSLog<span class="nv">$MessagePuller</span> - Loaded unidentified ReadMarker start <span class="nb">time</span> <span class="m">2015</span>-10-02T12:28:24.411Z into org.janusgraph.diskstorage.log.kcvs.KCVSLog<span class="nv">$MessagePuller</span>@35399441
+<span class="o">[</span>INFO<span class="o">]</span> GraphManager - Graph <span class="o">[</span>graph<span class="o">]</span> was successfully configured via <span class="o">[</span>conf/janusgraph.properties<span class="o">]</span>.
+<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - Initialized Gremlin thread pool.  Threads in pool named with pattern gremlin-*
+<span class="o">[</span>INFO<span class="o">]</span> ScriptEngines - Loaded gremlin-groovy ScriptEngine
+<span class="o">[</span>INFO<span class="o">]</span> GremlinExecutor - Initialized gremlin-groovy ScriptEngine with scripts/janusgraph.groovy
+<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - Initialized GremlinExecutor and configured ScriptEngines.
+<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - A GraphTraversalSource is now bound to <span class="o">[</span>g<span class="o">]</span> with graphtraversalsource<span class="o">[</span>standardjanusgraph<span class="o">[</span>berkeleyje:db/berkeley<span class="o">]</span>, standard<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> AbstractChannelizer - Configured application/vnd.gremlin-v3.0+gryo with org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0
+<span class="o">[</span>INFO<span class="o">]</span> AbstractChannelizer - Configured application/vnd.gremlin-v3.0+gryo-stringd with org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0
+<span class="o">[</span>INFO<span class="o">]</span> GremlinServer<span class="nv">$1</span> - Gremlin Server configured with worker thread pool of <span class="m">1</span>, gremlin pool of <span class="m">8</span> and boss thread pool of <span class="m">1</span>.
+<span class="o">[</span>INFO<span class="o">]</span> GremlinServer<span class="nv">$1</span> - Channel started at port <span class="m">8182</span>.
+</code></pre></div></p>
+<p>The following section explains how to connect to the running server.</p>
+<h4 id="connecting-to-janusgraph-via-gremlin-server">Connecting to JanusGraph via Gremlin Server</h4>
+<p>Gremlin Server will be ready to listen for WebSocket connections when it
+is started. The easiest way to test the connection is with Gremlin
+Console.</p>
+<p>Follow the instructions here <a href="../../connecting/">Connecting to Gremlin Server</a> to verify the Gremlin
+Server is working.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A difference you should understand is that when working with
+JanusGraph Server, the Gremlin Console is started from underneath the
+JanusGraph distribution and when following the test instructions here
+for a standalone Gremlin Server, the Gremlin Console is started from
+under the TinkerPop distribution.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="n">GryoMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">GryoMapper</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">addRegistry</span><span class="p">(</span><span class="n">JanusGraphIoRegistry</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">).</span><span class="na">create</span><span class="p">();</span>
+<span class="n">Cluster</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">serializer</span><span class="p">(</span><span class="k">new</span> <span class="n">GryoMessageSerializerV3d0</span><span class="p">(</span><span class="n">mapper</span><span class="p">)).</span><span class="na">create</span><span class="p">();</span>
+<span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="na">connect</span><span class="p">();</span>
+<span class="n">client</span><span class="p">.</span><span class="na">submit</span><span class="p">(</span><span class="s">&quot;g.V()&quot;</span><span class="p">).</span><span class="na">all</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+</code></pre></div>
+
+<p>By adding the <code>JanusGraphIoRegistry</code> to the
+<code>org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</code>, the
+driver will know how to properly deserialize custom data types returned
+by JanusGraph.</p>
+<h2 id="extending-janusgraph-server">Extending JanusGraph Server</h2>
+<p>It is possible to extend Gremlin Server with other means of
+communication by implementing the interfaces that it provides and
+leverage this with JanusGraph. See more details in the appropriate
+TinkerPop documentation.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../gremlin/" title="Gremlin Query Language" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Gremlin Query Language
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../deployment/" title="Deployment Scenarios" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Deployment Scenarios
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

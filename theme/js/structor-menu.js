@@ -1,5 +1,5 @@
 const versions = [
-  {path: "github-actions-docs", text: "v0.6 (unreleased)", selected: false },
+  {path: "master", text: "v0.6 (unreleased)", selected: false },
   {path: "", text: "v0.5 Latest", selected: true },
   {path: "v0.4", text: "v0.4", selected: false },
 ];
