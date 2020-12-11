@@ -1,0 +1,1835 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Elasticsearch - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#elasticsearch" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Elasticsearch
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Elasticsearch
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Elasticsearch" class="md-nav__link md-nav__link--active">
+      Elasticsearch
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-elasticsearch" class="md-nav__link">
+    Running Elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elasticsearch-configuration-overview" class="md-nav__link">
+    Elasticsearch Configuration Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Elasticsearch Configuration Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-elasticsearch" class="md-nav__link">
+    Connecting to Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#janusgraph-indexx-and-indexxelasticsearch-options" class="md-nav__link">
+    JanusGraph index.[X] and index.[X].elasticsearch options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-options" class="md-nav__link">
+    REST Client Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-https-configuration" class="md-nav__link">
+    REST Client HTTPS Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-http-authentication" class="md-nav__link">
+    REST Client HTTP Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="REST Client HTTP Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-basic-http-authentication" class="md-nav__link">
+    REST Client Basic HTTP Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-custom-http-authentication" class="md-nav__link">
+    REST Client Custom HTTP Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingest-pipelines" class="md-nav__link">
+    Ingest Pipelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-elasticsearch" class="md-nav__link">
+    Secure Elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-creation-options" class="md-nav__link">
+    Index Creation Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Index Creation Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding-elasticsearch-index-creation-settings-with-createext" class="md-nav__link">
+    Embedding Elasticsearch index creation settings with create.ext
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-issues-to-remote-elasticsearch-cluster" class="md-nav__link">
+    Connection Issues to remote Elasticsearch cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-elasticsearch" class="md-nav__link">
+    Optimizing Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimizing Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-optimization" class="md-nav__link">
+    Write Optimization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-elasticsearch" class="md-nav__link">
+    Running Elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elasticsearch-configuration-overview" class="md-nav__link">
+    Elasticsearch Configuration Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Elasticsearch Configuration Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-elasticsearch" class="md-nav__link">
+    Connecting to Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#janusgraph-indexx-and-indexxelasticsearch-options" class="md-nav__link">
+    JanusGraph index.[X] and index.[X].elasticsearch options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-options" class="md-nav__link">
+    REST Client Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-https-configuration" class="md-nav__link">
+    REST Client HTTPS Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-http-authentication" class="md-nav__link">
+    REST Client HTTP Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="REST Client HTTP Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-basic-http-authentication" class="md-nav__link">
+    REST Client Basic HTTP Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-client-custom-http-authentication" class="md-nav__link">
+    REST Client Custom HTTP Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingest-pipelines" class="md-nav__link">
+    Ingest Pipelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-elasticsearch" class="md-nav__link">
+    Secure Elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-creation-options" class="md-nav__link">
+    Index Creation Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Index Creation Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding-elasticsearch-index-creation-settings-with-createext" class="md-nav__link">
+    Embedding Elasticsearch index creation settings with create.ext
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-issues-to-remote-elasticsearch-cluster" class="md-nav__link">
+    Connection Issues to remote Elasticsearch cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-elasticsearch" class="md-nav__link">
+    Optimizing Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimizing Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-optimization" class="md-nav__link">
+    Write Optimization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.3/docs/index-backend/elasticsearch.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="elasticsearch">Elasticsearch</h1>
+<blockquote>
+<p>Elasticsearch is a distributed, RESTful search and analytics engine
+capable of solving a growing number of use cases. As the heart of the
+Elastic Stack, it centrally stores your data so you can discover the
+expected and uncover the unexpected.</p>
+<p>—  <a href="https://www.elastic.co/products/elasticsearch/">Elasticsearch
+Overview</a></p>
+</blockquote>
+<p>JanusGraph supports <a href="https://www.elastic.co/">Elasticsearch</a> as an index
+backend. Here are some of the Elasticsearch features supported by
+JanusGraph:</p>
+<ul>
+<li><strong>Full-Text</strong>: Supports all <code>Text</code> predicates to search for text
+    properties that matches a given word, prefix or regular expression.</li>
+<li><strong>Geo</strong>: Supports all <code>Geo</code> predicates to search for geo properties
+    that are intersecting, within, disjoint to or contained in a given
+    query geometry. Supports points, circles, boxes, lines and polygons
+    for indexing. Supports circles, boxes and polygons for querying
+    point properties and all shapes for querying non-point properties.</li>
+<li><strong>Numeric Range</strong>: Supports all numeric comparisons in <code>Compare</code>.</li>
+<li><strong>Flexible Configuration</strong>: Supports remote operation and open-ended
+    settings customization.</li>
+<li><strong>Collections</strong>: Supports indexing SET and LIST cardinality
+    properties.</li>
+<li><strong>Temporal</strong>: Nanosecond granularity temporal indexing.</li>
+<li><strong>Custom Analyzer</strong>: Choose to use a custom analyzer</li>
+</ul>
+<p>Please see <a href="../../changelog/#version-compatibility">Version Compatibility</a> for details on what versions of
+Elasticsearch will work with JanusGraph.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Beginning with Elasticsearch 5.0 JanusGraph uses sandboxed <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting-painless.html">Painless scripts</a>
+for inline updates, which are enabled by default in Elasticsearch 5.x.</p>
+<p>Using JanusGraph with Elasticsearch 2.x requires enabling Groovy
+inline scripting by setting <code>script.engine.groovy.inline.update</code> to
+<code>true</code> on the Elasticsearch cluster (see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/modules-scripting.html#enable-dynamic-scripting">dynamic scripting documentation</a>
+for more information).</p>
+</div>
+<h2 id="running-elasticsearch">Running Elasticsearch</h2>
+<p>JanusGraph supports connections to a running Elasticsearch cluster.
+JanusGraph provides two options for running local Elasticsearch
+instances for getting started quickly. JanusGraph server (see
+<a href="../../basics/server/#getting-started">Getting started</a>) automatically starts a local
+Elasticsearch instance. Alternatively JanusGraph releases include a full
+Elasticsearch distribution to allow users to manually start a local
+Elasticsearch instance (see <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/running-elasticsearch.html">this
+page</a>
+for more information).</p>
+<div class="highlight"><pre><span></span><code>$ elasticsearch/bin/elasticsearch
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For security reasons Elasticsearch must be run under a non-root
+account</p>
+</div>
+<h2 id="elasticsearch-configuration-overview">Elasticsearch Configuration Overview</h2>
+<p>JanusGraph supports HTTP(S) client connections to a running
+Elasticsearch cluster. Please see <a href="../../appendices/#version-compatibility">Version Compatibility</a> for details on
+what versions of Elasticsearch will work with the different client types
+in JanusGraph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>JanusGraph’s index options start with the string "<code>index.[X].</code>" where
+"<code>[X]</code>" is a user-defined name for the backend. This user-defined name
+must be passed to JanusGraph’s ManagementSystem interface when
+building a mixed index, as described in <a href="../../index-management/index-performance/#mixed-index">Mixed Index</a>, so that
+JanusGraph knows which of potentially multiple configured index
+backends to use. Configuration snippets in this chapter use the name
+<code>search</code>, whereas prose discussion of options typically write <code>[X]</code> in
+the same position. The exact index name is not significant as long as
+it is used consistently in JanusGraph’s configuration and when
+administering indices.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It’s recommended that index names contain only alphanumeric lowercase
+characters and hyphens, and that they start with a lowercase letter.</p>
+</div>
+<h3 id="connecting-to-elasticsearch">Connecting to Elasticsearch</h3>
+<p>The Elasticsearch client is specified as follows:
+<div class="highlight"><pre><span></span><code>index.search.backend=elasticsearch
+</code></pre></div></p>
+<p>When connecting to Elasticsearch a single or list of hostnames for the
+Elasticsearch instances must be provided. These are supplied via
+JanusGraph’s <code>index.[X].hostname</code> key.
+<div class="highlight"><pre><span></span><code>index.search.backend=elasticsearch
+index.search.hostname=10.0.0.10:9200
+</code></pre></div></p>
+<p>Each host or host:port pair specified here will be added to the HTTP
+client’s round-robin list of request targets. Here’s a minimal
+configuration that will round-robin over 10.0.0.10 on the default
+Elasticsearch HTTP port (9200) and 10.0.0.20 on port 7777:
+<div class="highlight"><pre><span></span><code>index.search.backend=elasticsearch
+index.search.hostname=10.0.0.10, 10.0.0.20:7777
+</code></pre></div></p>
+<h4 id="janusgraph-indexx-and-indexxelasticsearch-options">JanusGraph <code>index.[X]</code> and <code>index.[X].elasticsearch</code> options</h4>
+<p>JanusGraph only uses default values for <code>index-name</code> and
+<code>health-request-timeout</code>. See <a href="../../basics/configuration-reference/">Configuration Reference</a> for descriptions of
+these options and their accepted values.</p>
+<ul>
+<li><code>index.[X].elasticsearch.index-name</code></li>
+<li><code>index.[X].elasticsearch.health-request-timeout</code></li>
+</ul>
+<h3 id="rest-client-options">REST Client Options</h3>
+<p>The REST client accepts the <code>index.[X].bulk-refresh</code> option. This option
+controls when changes are made visible to search. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-refresh.html">?refresh documentation</a>
+for more information.</p>
+<h3 id="rest-client-https-configuration">REST Client HTTPS Configuration</h3>
+<p>SSL support for HTTP can be enabled by setting the <code>index.[X].elasticsearch.ssl.enabled</code> configuration option to <code>true</code>. Note that depending on your configuration you may need to change the value of <code>index.[X].port</code> if your HTTPS port number is different from the default one for the REST API (9200).</p>
+<p>When SSL is enabled you may also configure the location and password of the truststore. This can be done as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.ssl.truststore.location</span><span class="o">=</span><span class="s">/path/to/your/truststore.jks</span>
+<span class="na">index.search.elasticsearch.ssl.truststore.password</span><span class="o">=</span><span class="s">truststorepwd</span>
+</code></pre></div>
+
+<p>Note that these settings apply only to Elasticsearch REST client and do not affect any other SSL connections in JanusGraph.</p>
+<p>Configuration of the client keystore is also supported:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.ssl.keystore.location</span><span class="o">=</span><span class="s">/path/to/your/keystore.jks</span>
+<span class="na">index.search.elasticsearch.ssl.keystore.storepassword</span><span class="o">=</span><span class="s">keystorepwd</span>
+<span class="na">index.search.elasticsearch.ssl.keystore.keypassword</span><span class="o">=</span><span class="s">keypwd</span>
+</code></pre></div>
+
+<p>Any of the passwords can be empty.</p>
+<p>If needed, the SSL hostname verification can be disabled by setting the <code>index.[X].elasticsearch.ssl.disable-hostname-verification</code> property value to <code>true</code> and the support for self-signed SSL certificates can be enabled by setting <code>index.[X].elasticsearch.ssl.allow-self-signed-certificates</code> property value to <code>true</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is not recommended to rely on the self-signed SSL certificates or to disable the hostname verification for a production system as it significantly limits the client's ability to provide the secure communication channel with the Elasticsearch server(s). This may result in leaking the confidential data which may be a part of your JanusGraph index.</p>
+</div>
+<h3 id="rest-client-http-authentication">REST Client HTTP Authentication</h3>
+<p>REST client supports the following authentication options: Basic HTTP Authentication (username/password) and custom authentication based on the user-provided implementation.</p>
+<p>These authentication methods are independent from SSL client authentication described above.</p>
+<h4 id="rest-client-basic-http-authentication">REST Client Basic HTTP Authentication</h4>
+<p>Basic HTTP Authentication is available regardless of the state of SSL support.  Optionally, an authentication realm can be specified via <code>index.[X].elasticsearch.http.auth.basic.realm</code> property.</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.http.auth.type</span><span class="o">=</span><span class="s">basic</span>
+<span class="na">index.search.elasticsearch.http.auth.basic.username</span><span class="o">=</span><span class="s">httpuser</span>
+<span class="na">index.search.elasticsearch.http.auth.basic.password</span><span class="o">=</span><span class="s">httppassword</span>
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is highly recommended to use SSL (e.g. setting <code>index.[X].elasticsearch.ssl.enabled</code> to <code>true</code>) when using this option as the credentials can be intercepted when sent over an unencrypted connection!</p>
+</div>
+<h4 id="rest-client-custom-http-authentication">REST Client Custom HTTP Authentication</h4>
+<p>Additional authentication methods can be implemented by providing your own implementation. The custom authenticator is configured as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.http.auth.custom.authenticator-class</span><span class="o">=</span><span class="s">fully.qualified.class.Name</span>
+<span class="na">index.search.elasticsearch.elasticsearch.http.auth.custom.authenticator-args</span><span class="o">=</span><span class="s">arg1,arg2,...</span>
+</code></pre></div>
+
+<p>Argument list is optional and can be empty.</p>
+<p>The class specified there has to implement the <code>org.janusgraph.diskstorage.es.rest.util.RestClientAuthenticator</code> interface or extend <code>org.janusgraph.diskstorage.es.rest.util.RestClientAuthenticatorBase</code> convenience class. The implementation gets access to HTTP client configuration and can customize the client as needed. Refer to &lt;<javadoc>&gt; for more information.</p>
+<p>For example, the following code snippet implements an authenticator allowing the
+Elasticsearch REST client to authenticate and get authorized against AWS IAM:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.LocalDateTime</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.ZoneOffset</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.HttpRequestInterceptor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.impl.nio.client.HttpAsyncClientBuilder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.janusgraph.diskstorage.es.rest.util.RestClientAuthenticatorBase</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.auth.DefaultAWSCredentialsProviderChain</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.regions.DefaultAwsRegionProviderChain</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.google.common.base.Supplier</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">vc.inreach.aws.request.AWSSigner</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">vc.inreach.aws.request.AWSSigningRequestInterceptor</span><span class="p">;</span>
+<span class="cm">/**</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * Elasticsearch REST HTTP(S) client callback implementing AWS request signing.</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * The signer is based on AWS SDK default provider chain, allowing multiple options for providing</span>
+<span class="cm"> * the caller credentials. See {@link DefaultAWSCredentialsProviderChain} documentation for the details.</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AWSV4AuthHttpClientConfigCallback</span> <span class="kd">extends</span> <span class="n">RestClientAuthenticatorBase</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">AWS_SERVICE_NAME</span> <span class="o">=</span> <span class="s">&quot;es&quot;</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="n">HttpRequestInterceptor</span> <span class="n">awsSigningInterceptor</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="nf">AWSV4AuthHttpClientConfigCallback</span><span class="p">(</span><span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// does not require any configuration</span>
+    <span class="p">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">DefaultAWSCredentialsProviderChain</span> <span class="n">awsCredentialsProvider</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultAWSCredentialsProviderChain</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">LocalDateTime</span><span class="o">&gt;</span> <span class="n">clock</span> <span class="o">=</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">);</span>
+        <span class="c1">// using default region provider chain</span>
+        <span class="c1">// (https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-region-selection.html)</span>
+        <span class="n">DefaultAwsRegionProviderChain</span> <span class="n">regionProviderChain</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultAwsRegionProviderChain</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">String</span> <span class="n">awsRegion</span> <span class="o">=</span> <span class="n">regionProviderChain</span><span class="p">.</span><span class="na">getRegion</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">AWSSigner</span> <span class="n">awsSigner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AWSSigner</span><span class="p">(</span><span class="n">awsCredentialsProvider</span><span class="p">,</span> <span class="n">awsRegion</span><span class="p">,</span> <span class="n">AWS_SERVICE_NAME</span><span class="p">,</span> <span class="n">clock</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">awsSigningInterceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AWSSigningRequestInterceptor</span><span class="p">(</span><span class="n">awsSigner</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">HttpAsyncClientBuilder</span> <span class="nf">customizeHttpClient</span><span class="p">(</span><span class="n">HttpAsyncClientBuilder</span> <span class="n">httpClientBuilder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">httpClientBuilder</span><span class="p">.</span><span class="na">addInterceptorLast</span><span class="p">(</span><span class="n">awsSigningInterceptor</span><span class="p">);</span><span class="o">/</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>This custom authenticator does not use any constructor arguments.</p>
+<h3 id="ingest-pipelines">Ingest Pipelines</h3>
+<p>If using Elasticsearch 5.0 or higher, a different ingest pipelines can
+be set for each mixed index. Ingest pipeline can be use to pre-process
+documents before indexing. A pipeline is composed by a series of
+processors. Each processor transforms the document in some way. For
+example <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/date-processor.html">date processor</a>
+can extract a date from a text to a date field. So you can query this
+date with JanusGraph without it being physically in the primary storage.</p>
+<ul>
+<li><code>index.[X].elasticsearch.ingest-pipeline.[mixedIndexName] = pipeline_id</code></li>
+</ul>
+<p>See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html">ingest documentation</a>
+for more information about ingest pipelines and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest-processors.html">processors documentation</a>
+for more information about ingest processors.</p>
+<h2 id="secure-elasticsearch">Secure Elasticsearch</h2>
+<p>Elasticsearch does not perform authentication or authorization. A client
+that can connect to Elasticsearch is trusted by Elasticsearch. When
+Elasticsearch runs on an unsecured or public network, particularly the
+Internet, it should be deployed with some type of external security.
+This is generally done with a combination of firewalling, tunneling of
+Elasticsearch’s ports or by using Elasticsearch extensions such as
+<a href="https://www.elastic.co/guide/en/x-pack/current/index.html">X-Pack</a>.
+Elasticsearch has two client-facing ports to consider:</p>
+<ul>
+<li>The HTTP REST API, usually on port 9200</li>
+<li>The native "transport" protocol, usually on port 9300</li>
+</ul>
+<p>A client uses either one protocol/port or the other, but not both simultaneously. Securing the HTTP protocol port is generally done with a combination of firewalling and a reverse proxy with SSL encryption and HTTP authentication. There are a couple of ways to approach security on the native "transport" protocol port:</p>
+<p>In addition to that, some hosted Elasticsearch services offer other methods of authentication and authorization. For example, AWS Elasticsearch Service requires the use of HTTPS and offers an option for using IAM-based access control. For that the requests sent to this service must be signed. This can be achieved by using a custom authenticator (see above).</p>
+<p>Tunnel Elasticsearch's native "transport" protocol:: This approach can be implemented with SSL/TLS tunneling (for instance via <a href="https://www.stunnel.org/index.html">stunnel</a>), a VPN, or SSH port forwarding. SSL/TLS tunnels require non-trivial setup and monitoring: one or both ends of the tunnel need a certificate, and the stunnel processes need to be configured and running continuously. The setup for most secure VPNs is likewise non-trivial. Some Elasticsearch service providers handle server-side tunnel management and provide a custom Elasticsearch <code>transport.type</code> to simplify the client setup.</p>
+<p>Add a firewall rule that allows only trusted clients to connect on Elasticsearch’s native protocol port<br />
+This is typically done at the host firewall level. Easy to configure,
+but very weak security by itself.</p>
+<h2 id="index-creation-options">Index Creation Options</h2>
+<p>JanusGraph supports customization of the index settings it uses when
+creating its Elasticsearch index. It allows setting arbitrary key-value
+pairs on the <code>settings</code> object in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html">Elasticsearch <code>create index</code>
+request</a>
+issued by JanusGraph. Here is a non-exhaustive sample of Elasticsearch
+index settings that can be customized using this mechanism:</p>
+<ul>
+<li><code>index.number_of_replicas</code></li>
+<li><code>index.number_of_shards</code></li>
+<li><code>index.refresh_interval</code></li>
+</ul>
+<p>Settings customized through this mechanism are only applied when
+JanusGraph attempts to create its index in Elasticsearch. If JanusGraph
+finds that its index already exists, then it does not attempt to
+recreate it, and these settings have no effect.</p>
+<h3 id="embedding-elasticsearch-index-creation-settings-with-createext">Embedding Elasticsearch index creation settings with <code>create.ext</code></h3>
+<p>JanusGraph iterates over all properties prefixed with
+<code>index.[X].elasticsearch.create.ext.</code>, where <code>[X]</code> is an index name such
+as <code>search</code>. It strips the prefix from each property key. The remainder
+of the stripped key will be interpreted as an Elasticsearch index
+creation setting. The value associated with the key is not modified. The
+stripped key and unmodified value are passed as part of the <code>settings</code>
+object in the Elasticsearch create index request that JanusGraph issues
+when bootstrapping on Elasticsearch. This allows embedding arbitrary
+index creation settings settings in JanusGraph’s properties. Here’s an
+example configuration fragment that customizes three Elasticsearch index
+settings using the <code>create.ext</code> config mechanism:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">elasticsearch</span>
+<span class="na">index.search.elasticsearch.create.ext.number_of_shards</span><span class="o">=</span><span class="s">15</span>
+<span class="na">index.search.elasticsearch.create.ext.number_of_replicas</span><span class="o">=</span><span class="s">3</span>
+<span class="na">index.search.elasticsearch.create.ext.shard.check_on_startup</span><span class="o">=</span><span class="s">true</span>
+</code></pre></div>
+
+<p>The configuration fragment listed above takes advantage of
+Elasticsearch’s assumption, implemented server-side, that unqualified
+<code>create index</code> setting keys have an <code>index.</code> prefix. It’s also possible
+to spell out the index prefix explicitly. Here’s a JanusGraph config
+file functionally equivalent to the one listed above, except that the
+<code>index.</code> prefix before the index creation settings is explicit:
+<div class="highlight"><pre><span></span><code>index.search.backend=elasticsearch
+index.search.elasticsearch.create.ext.index.number_of_shards=15
+index.search.elasticsearch.create.ext.index.number_of_replicas=3
+index.search.elasticsearch.create.ext.index.shard.check_on_startup=false
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>create.ext</code> mechanism for specifying index creation settings is
+compatible with JanusGraph’s Elasticsearch configuration.</p>
+</div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="connection-issues-to-remote-elasticsearch-cluster">Connection Issues to remote Elasticsearch cluster</h3>
+<p>Check that the Elasticsearch cluster nodes are reachable on the HTTP
+protocol port from the JanusGraph nodes. Check the node listen port by
+examining the Elasticsearch node configuration logs or using a general
+diagnostic utility like <code>netstat</code>. Check the JanusGraph configuration.</p>
+<h2 id="optimizing-elasticsearch">Optimizing Elasticsearch</h2>
+<h3 id="write-optimization">Write Optimization</h3>
+<p>For <a href="../../advanced-topics/bulk-loading/">bulk loading</a> or other write-intense applications,
+consider increasing Elasticsearch’s refresh interval. Refer to <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html">this
+discussion</a>
+on how to increase the refresh interval and its impact on write
+performance. Note, that a higher refresh interval means that it takes a
+longer time for graph mutations to be available in the index.</p>
+<p>For additional suggestions on how to increase write performance in
+Elasticsearch with detailed instructions, please read <a href="http://blog.bugsense.com/post/35580279634/indexing-bigdata-with-elasticsearch">this blog post</a>.</p>
+<h3 id="further-reading">Further Reading</h3>
+<ul>
+<li>Please refer to the <a href="https://www.elastic.co">Elasticsearch homepage</a>
+    and available documentation for more information on Elasticsearch
+    and how to setup an Elasticsearch cluster.</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../direct-index-query/" title="Direct Index Query" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Direct Index Query
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../solr/" title="Apache Solr" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Apache Solr
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

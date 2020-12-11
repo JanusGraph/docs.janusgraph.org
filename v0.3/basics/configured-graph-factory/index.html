@@ -1,0 +1,1925 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>ConfiguredGraphFactory - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuredgraphfactory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              ConfiguredGraphFactory
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ConfiguredGraphFactory
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="ConfiguredGraphFactory" class="md-nav__link md-nav__link--active">
+      ConfiguredGraphFactory
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuredgraphfactory-versus-janusgraphfactory" class="md-nav__link">
+    ConfiguredGraphFactory versus JanusGraphFactory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-the-configuredgraphfactory-work" class="md-nav__link">
+    How Does the ConfiguredGraphFactory Work?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-the-graphs" class="md-nav__link">
+    Accessing the Graphs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dropping-a-graph" class="md-nav__link">
+    Dropping a Graph
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-janusgraph-server-for-configuredgraphfactory" class="md-nav__link">
+    Configuring JanusGraph Server for ConfiguredGraphFactory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurationmanagementgraph" class="md-nav__link">
+    ConfigurationManagementGraph
+  </a>
+  
+    <nav class="md-nav" aria-label="ConfigurationManagementGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-configurations" class="md-nav__link">
+    Graph Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-configuration" class="md-nav__link">
+    Template Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-configurations" class="md-nav__link">
+    Updating Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-examples" class="md-nav__link">
+    Update Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraphmanager" class="md-nav__link">
+    JanusGraphManager
+  </a>
+  
+    <nav class="md-nav" aria-label="JanusGraphManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-the-janusgraphmanager" class="md-nav__link">
+    How To Use The JanusGraphManager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    Important
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph-and-traversal-bindings" class="md-nav__link">
+    Graph and Traversal Bindings
+  </a>
+  
+    <nav class="md-nav" aria-label="Graph and Traversal Bindings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binding-example" class="md-nav__link">
+    Binding Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuredgraphfactory-versus-janusgraphfactory" class="md-nav__link">
+    ConfiguredGraphFactory versus JanusGraphFactory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-the-configuredgraphfactory-work" class="md-nav__link">
+    How Does the ConfiguredGraphFactory Work?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-the-graphs" class="md-nav__link">
+    Accessing the Graphs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dropping-a-graph" class="md-nav__link">
+    Dropping a Graph
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-janusgraph-server-for-configuredgraphfactory" class="md-nav__link">
+    Configuring JanusGraph Server for ConfiguredGraphFactory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurationmanagementgraph" class="md-nav__link">
+    ConfigurationManagementGraph
+  </a>
+  
+    <nav class="md-nav" aria-label="ConfigurationManagementGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-configurations" class="md-nav__link">
+    Graph Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-configuration" class="md-nav__link">
+    Template Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-configurations" class="md-nav__link">
+    Updating Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-examples" class="md-nav__link">
+    Update Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#janusgraphmanager" class="md-nav__link">
+    JanusGraphManager
+  </a>
+  
+    <nav class="md-nav" aria-label="JanusGraphManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-the-janusgraphmanager" class="md-nav__link">
+    How To Use The JanusGraphManager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    Important
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph-and-traversal-bindings" class="md-nav__link">
+    Graph and Traversal Bindings
+  </a>
+  
+    <nav class="md-nav" aria-label="Graph and Traversal Bindings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binding-example" class="md-nav__link">
+    Binding Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.3/docs/basics/configured-graph-factory.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="configuredgraphfactory">ConfiguredGraphFactory</h1>
+<p>The JanusGraph Server can be configured to use the
+<code>ConfiguredGraphFactory</code>. The <code>ConfiguredGraphFactory</code> is an access
+point to your graphs, similar to the <code>JanusGraphFactory</code>. These graph
+factories provide methods for dynamically managing the graphs hosted on
+the server.</p>
+<h2 id="overview">Overview</h2>
+<p><code>JanusGraphFactory</code> is a class that provides an access point to your
+graphs by providing a Configuration object each time you access the
+graph.</p>
+<p><code>ConfiguredGraphFactory</code> provides an access point to your graphs for
+which you have previously created configurations using the
+<code>ConfigurationManagementGraph</code>. It also offers an access point to manage
+graph configurations.</p>
+<p><code>ConfigurationManagementGraph</code> allows you to manage graph
+configurations.</p>
+<p><code>JanusGraphManager</code> is an internal server component that tracks graph
+references, provided your graphs are configured to use it.</p>
+<h2 id="configuredgraphfactory-versus-janusgraphfactory">ConfiguredGraphFactory versus JanusGraphFactory</h2>
+<p>However, there is an important distinction between these two graph
+factories:</p>
+<ol>
+<li>The <code>ConfiguredGraphFactory</code> can only be used if you have configured
+    your server to use the <code>ConfigurationManagementGraph</code> APIs at server
+    start.</li>
+</ol>
+<p>The benefits of using the <code>ConfiguredGraphFactory</code> are that:</p>
+<ol>
+<li>
+<p>You only need to supply a <code>String</code> to access your graphs, as opposed
+    to the <code>JanusGraphFactory</code>-- which requires you to specify
+    information about the backend you wish to use when accessing a
+    graph-- every time you open a graph.</p>
+</li>
+<li>
+<p>If your ConfigurationManagementGraph is configured with a
+    distributed storage backend then your graph configurations are
+    available to all JanusGraph nodes in your cluster.</p>
+</li>
+</ol>
+<h2 id="how-does-the-configuredgraphfactory-work">How Does the ConfiguredGraphFactory Work?</h2>
+<p>The <code>ConfiguredGraphFactory</code> provides an access point to graphs under
+two scenarios:</p>
+<ol>
+<li>
+<p>You have already created a configuration for your specific graph
+    object using the <code>ConfigurationManagementGraph#createConfiguration</code>.
+    In this scenario, your graph is opened using the previously created
+    configuration for this graph.</p>
+</li>
+<li>
+<p>You have already created a template configuration using the
+    <code>ConfigurationManagementGraph#createTemplateConfiguration</code>. In this
+    scenario, we create a configuration for the graph you are creating
+    by copying over all attributes stored in your template configuration
+    and appending the relevant graphName attribute, and we then open the
+    graph according to that specific configuration.</p>
+</li>
+</ol>
+<h2 id="accessing-the-graphs">Accessing the Graphs</h2>
+<p>You can either use <code>ConfiguredGraphFactory.create("graphName")</code> or
+<code>ConfiguredGraphFactory.open("graphName")</code>. Learn more about the
+difference between these two options by reading the section below about
+the <code>ConfigurationManagementGraph</code>.</p>
+<p>You can also access your graphs by using the bindings. Read more about this in the <a href="#graph-and-traversal-bindings">Graph and Traversal Bindings</a> section.</p>
+<p>Listing the Graphs</p>
+<p><code>ConfiguredGraphFactory.getGraphNames()</code> will return a set of graph
+names for which you have created configurations using the
+<code>ConfigurationManagementGraph</code> APIs.</p>
+<p><code>JanusGraphFactory.getGraphNames()</code> on the other hand returns a set of
+graph names for which you have instantiated <em>and</em> the references are
+stored inside the <code>JanusGraphManager</code>.</p>
+<h2 id="dropping-a-graph">Dropping a Graph</h2>
+<p><code>ConfiguredGraphFactory.drop("graphName")</code> will drop the graph database,
+deleting all data in storage and indexing backends. The graph can be
+open or closed (will be closed as part of the drop operation).
+Furthermore, this will also remove any existing graph configuration in
+the <code>ConfigurationManagementGraph</code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This is an irreversible operation that will delete all graph and index
+data.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>To ensure all graph representations are consistent across all JanusGraph nodes in your cluster, this removes the graph from the <code>JanusGraphManager</code> graph cache on every node in the cluster, assuming each node has been properly configured to use the <code>JanusGraphManager</code>. Learn more about this feature and how to configure your server to use said feature <a href="../multi-node/#graph-reference-consistency">here</a>.</p>
+</div>
+<h2 id="configuring-janusgraph-server-for-configuredgraphfactory">Configuring JanusGraph Server for ConfiguredGraphFactory</h2>
+<p>To be able to use the <code>ConfiguredGraphFactory</code>, you must configure your
+server to use the <code>ConfigurationManagementGraph</code> APIs. To do this, you
+have to inject a graph variable named "ConfigurationManagementGraph" in
+your server’s YAML’s <code>graphs</code> map. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">graphManager</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">org.janusgraph.graphdb.management.JanusGraphManager</span>
+<span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  ConfigurationManagementGraph</span><span class="p">:</span> <span class="nv">conf/JanusGraph-configurationmanagement.properties</span>
+<span class="p p-Indicator">}</span>
+</code></pre></div>
+
+<p>In this example, our <code>ConfigurationManagementGraph</code> graph will be
+configured using the properties stored inside
+<code>conf/JanusGraph-configurationmanagement.properties</code>, which for example,
+look like:</p>
+<div class="highlight"><pre><span></span><code>gremlin.graph=org.janusgraph.core.ConfiguredGraphFactory
+storage.backend=cql
+graph.graphname=ConfigurationManagementGraph
+storage.hostname=127.0.0.1
+</code></pre></div>
+
+<p>Assuming the GremlinServer started successfully and the
+<code>ConfigurationManagementGraph</code> was successfully instantiated, then all
+the APIs available on the <code>ConfigurationManagementGraph</code> <code>Singleton</code>
+will also act upon said graph. Furthermore, this is the graph that will
+be used to access the configurations used to create/open graphs using
+the <code>ConfiguredGraphFactory</code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code>pom.xml</code> included in the JanusGraph distribution lists this
+dependency as optional, but the <code>ConfiguredGraphFactory</code> makes use of
+the <code>JanusGraphManager</code>, which requires a declared dependency on the
+<code>org.apache.tinkerpop:gremlin-server</code>. So if you run into
+<code>NoClassDefFoundError</code> errors, then be sure to update according to
+this message.</p>
+</div>
+<h2 id="configurationmanagementgraph">ConfigurationManagementGraph</h2>
+<p>The <code>ConfigurationManagementGraph</code> is a <code>Singleton</code> that allows you to
+create/update/remove configurations that you can use to access your
+graphs using the <code>ConfiguredGraphFactory</code>. See above on configuring your
+server to enable use of these APIs.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The ConfiguredGraphFactory offers an access point to manage your graph
+configurations managed by the <code>ConfigurationManagementGraph</code>, so
+instead of acting upon the <code>Singleton</code> itself, you may act upon the
+corresponding <code>ConfiguredGraphFactory</code> static methods. For example,
+you may use <code>ConfiguredGraphFactory.removeTemplateConfiguration()</code>
+instead of
+<code>ConfiguredGraphFactory.getInstance().removeTemplateConfiguration()</code>.</p>
+</div>
+<h3 id="graph-configurations">Graph Configurations</h3>
+<p>The <code>ConfigurationManagementGraph</code> singleton allows you to create
+configurations used to open specific graphs, referenced by the
+<code>graph.graphname</code> property. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;cql&quot;</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;graph.graphname&quot;</span><span class="o">,</span> <span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+</code></pre></div>
+
+<p>Then you could access this graph on any JanusGraph node using:
+<div class="highlight"><pre><span></span><code><span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+</code></pre></div></p>
+<h3 id="template-configuration">Template Configuration</h3>
+<p>The <code>ConfigurationManagementGraph</code> also allows you to create one
+template configuration, which you can use to create many graphs using
+the same configuration template. For example:
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;cql&quot;</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createTemplateConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+</code></pre></div></p>
+<p>After doing this, you can create graphs using the template
+configuration:
+<div class="highlight"><pre><span></span><code><span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span>
+</code></pre></div></p>
+<p>This method will first create a new configuration for "graph2" by
+copying over all the properties associated with the template
+configuration and storing it on a configuration for this specific graph.
+This means that this graph can be accessed in, on any JanusGraph node,
+in the future by doing:
+<div class="highlight"><pre><span></span><code><span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span>
+</code></pre></div></p>
+<h3 id="updating-configurations">Updating Configurations</h3>
+<p>All interactions with both the <code>JanusGraphFactory</code> and the
+<code>ConfiguredGraphFactory</code> that interact with configurations that define
+the property <code>graph.graphname</code> go through the <code>JanusGraphManager</code> which
+keeps track of graph references created on the given JVM. Think of it as
+a graph cache. For this reason:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Any updates to a graph configuration results in the eviction of the relevant graph from the graph cache on 
+every node in the JanusGraph cluster, assuming each node has been configured properly to use the <code>JanusGraphManager</code>. 
+Learn more about this feature and how to configure your server to use said feature <a href="../multi-node/#graph-reference-consistency">here</a>.</p>
+</div>
+<p>Since graphs created using the template configuration first create a
+configuration for that graph in question using a copy and create method,
+this means that:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Any updates to a specific graph created using the template
+configuration are not guaranteed to take effect on the specific graph
+until:
+1. The relevant configuration is removed: <code>ConfiguredGraphFactory.removeConfiguration("graph2");</code>
+2. The graph is recreated using the template configuration: <code>ConfiguredGraphFactory.create("graph2");</code></p>
+</div>
+<h3 id="update-examples">Update Examples</h3>
+<p>1) We migrated our Cassandra data to a new server with a new IP address:</p>
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;cql&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;graph.graphname&quot;</span><span class="p">,</span> <span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">createConfiguration</span><span class="p">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
+<span class="c1">// Update configuration</span>
+<span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;10.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
+<span class="n">map</span><span class="p">);</span>
+
+<span class="c1">// We are now guaranteed to use the updated configuration</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>2) We added an Elasticsearch node to our setup:
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;cql&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;graph.graphname&quot;</span><span class="p">,</span> <span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">createConfiguration</span><span class="p">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
+<span class="c1">// Update configuration</span>
+<span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.backend&quot;</span><span class="p">,</span> <span class="s">&quot;elasticsearch&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.elasticsearch.transport-scheme&quot;</span><span class="p">,</span> <span class="s">&quot;http&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
+<span class="n">map</span><span class="p">);</span>
+
+<span class="c1">// We are now guaranteed to use the updated configuration</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<p>3) Update a graph configuration that was created using a template
+configuration that has been updated:
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;cql&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">createTemplateConfiguration</span><span class="p">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
+<span class="c1">// Update template configuration</span>
+<span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.backend&quot;</span><span class="p">,</span> <span class="s">&quot;elasticsearch&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+<span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.elasticsearch.transport-scheme&quot;</span><span class="p">,</span> <span class="s">&quot;http&quot;</span><span class="p">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateTemplateConfiguration</span><span class="p">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+
+<span class="c1">// Remove Configuration</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">removeConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
+<span class="c1">// Recreate</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+<span class="c1">// Now this graph&#39;s configuration is guaranteed to be updated</span>
+</code></pre></div></p>
+<h2 id="janusgraphmanager">JanusGraphManager</h2>
+<p>The <code>JanusGraphManager</code> is a <code>Singleton</code> adhering to the TinkerPop
+graphManager specifications.</p>
+<p>In particular, the <code>JanusGraphManager</code> provides:</p>
+<ol>
+<li>
+<p>a coordinated mechanism by which to instantiate graph references on
+    a given JanusGraph node</p>
+</li>
+<li>
+<p>a graph reference tracker (or cache)</p>
+</li>
+</ol>
+<p>Any graph you create using the <code>graph.graphname</code> property will go
+through the <code>JanusGraphManager</code> and thus be instantiated in a
+coordinated fashion. The graph reference will also be placed in the
+graph cache on the JVM in question.</p>
+<p>Thus, any graph you open using the <code>graph.graphname</code> property that has
+already been instantiated on the JVM in question will be retrieved from
+the graph cache.</p>
+<p>This is why updates to your configurations require a few steps to
+guarantee correctness.</p>
+<h3 id="how-to-use-the-janusgraphmanager">How To Use The JanusGraphManager</h3>
+<p>This is a new configuration option you can use when defining a property
+in your configuration that defines how to access a graph. All
+configurations that include this property will result in the graph
+instantiation happening through the <code>JanusGraphManager</code> (process
+explained above).</p>
+<p>For backwards compatibility, any graphs that do not supply this
+parameter but supplied at server start in your graphs object in your
+.yaml file, these graphs will be bound through the JanusGraphManager
+denoted by their <code>key</code> supplied for that graph. For example, if your
+.yaml graphs object looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">graphManager</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">org.janusgraph.graphdb.management.JanusGraphManager</span>
+<span class="l l-Scalar l-Scalar-Plain">graphs {</span>
+  <span class="l l-Scalar l-Scalar-Plain">graph1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">conf/graph1.properties,</span>
+  <span class="l l-Scalar l-Scalar-Plain">graph2</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">conf/graph2.properties</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p>but <code>conf/graph1.properties</code> and <code>conf/graph2.properties</code> do not include
+the property <code>graph.graphname</code>, then these graphs will be stored in the
+JanusGraphManager and thus bound in your gremlin script executions as
+<code>graph1</code> and <code>graph2</code>, respectively.</p>
+<h3 id="important">Important</h3>
+<p>For convenience, if your configuration used to open a graph specifies
+<code>graph.graphname</code>, but does not specify the backend’s storage directory,
+tablename, or keyspacename, then the relevant parameter will
+automatically be set to the value of <code>graph.graphname</code>. However, if you
+supply one of those parameters, that value will always take precedence.
+And if you supply neither, they default to the configuration option’s
+default value.</p>
+<p>One special case is <code>storage.root</code> configuration option. This is a new
+configuration option used to specify the base of the directory that will
+be used for any backend requiring local storage directory access. If you
+supply this parameter, you must also supply the <code>graph.graphname</code>
+property, and the absolute storage directory will be equal to the value
+of the <code>graph.graphname</code> property appended to the value of the
+<code>storage.root</code> property.</p>
+<p>Below are some example use cases:</p>
+<p>1) Create a template configuration for my Cassandra backend such that
+each graph created using this configuration gets a unique keyspace
+equivalent to the <code>String</code> &lt;graphName&gt; provided to the factory:
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;cql&quot;</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createTemplateConfiguration</span><span class="o">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">);</span> <span class="c1">//keyspace === graph1</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span> <span class="c1">//keyspace === graph2</span>
+<span class="n">g3</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph3&quot;</span><span class="o">);</span> <span class="c1">//keyspace === graph3</span>
+</code></pre></div></p>
+<p>2) Create a template configuration for my BerkeleyJE backend such that
+each graph created using this configuration gets a unique storage
+directory equivalent to the
+"&lt;storage.root&gt;/&lt;graph.graphname&gt;":
+<div class="highlight"><pre><span></span><code><span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;berkeleyje&quot;</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.root&quot;</span><span class="o">,</span> <span class="s2">&quot;/data/graphs&quot;</span><span class="o">);</span>
+<span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createTemplateConfiguration</span><span class="o">(</span><span class="k">new</span>
+<span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">);</span> <span class="c1">//storage directory === /data/graphs/graph1</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span> <span class="c1">//storage directory === /data/graphs/graph2</span>
+<span class="n">g3</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph3&quot;</span><span class="o">);</span> <span class="c1">//storage directory === /data/graphs/graph3</span>
+</code></pre></div></p>
+<h2 id="graph-and-traversal-bindings">Graph and Traversal Bindings</h2>
+<p>Graphs created using the ConfiguredGraphFactory are bound to the executor context on the Gremlin Server by the "graph.graphname" property, and the graph's traversal reference is bound to the context by "<code>&lt;graphname&gt;_traversal</code>". This means, on subsequent connections to the server after the first time you create/open a graph, you can access the graph and traversal references by the "<code>&lt;graphname&gt;</code>" and "<code>&lt;graphname&gt;_traversal</code>" properties.</p>
+<p>Learn more about this feature and how to configure your server to use said feature <a href="../multi-node/#dynamic-graph-and-traversal-bindings">here</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you are connected to a remote Gremlin Server using the Gremlin Console and a <strong>sessioned</strong> connection, then you will have to reconnect to the server to bind the variables. This is also true for any sessioned WebSocket connection.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The JanusGraphManager rebinds every graph stored on the ConfigurationManagementGraph (or those for which you have created configurations) every 20 seconds. This means your graph and traversal bindings for graphs created using the ConfigredGraphFactory will be available on all JanusGraph nodes with a maximum of a 20 second lag. It also means that a binding will still be available on a node after a server restart.</p>
+</div>
+<h3 id="binding-example">Binding Example</h3>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml</span>
+<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
+<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="n">localhost</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cassandrathrift:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph1</span>
+<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cassandrathrift:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph1_traversal</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cassandrathrift:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]],</span> <span class="n">standard</span><span class="o">]</span>
+</code></pre></div>
+
+<h2 id="examples">Examples</h2>
+<p>It is reccomended to use a sessioned connection when creating a
+Configured Graph Factory template. If a sessioned connection is not used
+the Configured Graph Factory Template creation must be sent to the
+server as a single line using semi-colons. See details on sessions can
+be found in <a href="../../connecting/">Connecting to Gremlin Server</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml session</span>
+<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
+<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="nl">localhost:</span><span class="mi">8182</span><span class="o">]-[</span><span class="mi">5206</span><span class="n">cdde</span><span class="o">-</span><span class="n">b231</span><span class="o">-</span><span class="mi">41</span><span class="n">fa</span><span class="o">-</span><span class="mi">9</span><span class="n">e6c</span><span class="o">-</span><span class="mi">69</span><span class="n">feac0fe2b2</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph&quot;</span><span class="o">);</span>
+<span class="n">Please</span> <span class="n">create</span> <span class="n">configuration</span> <span class="k">for</span> <span class="k">this</span> <span class="n">graph</span> <span class="n">using</span> <span class="n">the</span>
+<span class="n">ConfigurationManagementGraph</span> <span class="n">API</span><span class="o">.</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph&quot;</span><span class="o">);</span>
+<span class="n">Please</span> <span class="n">create</span> <span class="n">a</span> <span class="n">template</span> <span class="n">Configuration</span> <span class="n">using</span> <span class="n">the</span>
+<span class="n">ConfigurationManagementGraph</span> <span class="n">API</span><span class="o">.</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;cql&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;GraphName&quot;</span><span class="o">,</span> <span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+<span class="n">Please</span> <span class="n">include</span> <span class="k">in</span> <span class="n">your</span> <span class="n">configuration</span> <span class="n">the</span> <span class="n">property</span> <span class="s2">&quot;graph.graphname&quot;</span><span class="o">.</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span> <span class="s2">&quot;cql&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;graph.graphname&quot;</span><span class="o">,</span> <span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">).</span><span class="na">vertices</span><span class="o">();</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span>
+<span class="s2">&quot;cql&quot;</span><span class="o">);</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;graph.graphname&quot;</span><span class="o">,</span> <span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createTemplateConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+<span class="n">Your</span> <span class="n">template</span> <span class="n">configuration</span> <span class="n">may</span> <span class="n">not</span> <span class="n">contain</span> <span class="n">the</span> <span class="n">property</span>
+<span class="s2">&quot;graph.graphname&quot;</span><span class="o">.</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.backend&quot;</span><span class="o">,</span>
+<span class="s2">&quot;cql&quot;</span><span class="o">);</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s2">&quot;storage.hostname&quot;</span><span class="o">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">createTemplateConfiguration</span><span class="o">(</span><span class="k">new</span> <span class="n">MapConfiguration</span><span class="o">(</span><span class="n">map</span><span class="o">));</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+
+<span class="c1">// Each graph is now acting in unique keyspaces equivalent to the</span>
+<span class="n">graphnames</span><span class="o">.</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph1&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g3</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph3&quot;</span><span class="o">);</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g2</span><span class="o">.</span><span class="na">addVertex</span><span class="o">();</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="o">[];</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">&lt;&lt;</span> <span class="n">g1</span><span class="o">.</span><span class="na">vertices</span><span class="o">().</span><span class="na">size</span><span class="o">();</span>
+<span class="o">==&gt;</span><span class="mi">0</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">&lt;&lt;</span> <span class="n">g2</span><span class="o">.</span><span class="na">vertices</span><span class="o">().</span><span class="na">size</span><span class="o">();</span>
+<span class="o">==&gt;</span><span class="mi">1</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">&lt;&lt;</span> <span class="n">g3</span><span class="o">.</span><span class="na">vertices</span><span class="o">().</span><span class="na">size</span><span class="o">();</span>
+<span class="o">==&gt;</span><span class="mi">0</span>
+
+<span class="c1">// After a graph is created, you must access it using .open()</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span> <span class="n">g2</span><span class="o">.</span><span class="na">vertices</span><span class="o">().</span><span class="na">size</span><span class="o">();</span>
+<span class="n">Configuration</span> <span class="k">for</span> <span class="n">graph</span> <span class="s2">&quot;graph2&quot;</span> <span class="n">already</span> <span class="n">exists</span><span class="o">.</span>
+
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;graph2&quot;</span><span class="o">);</span> <span class="n">g2</span><span class="o">.</span><span class="na">vertices</span><span class="o">().</span><span class="na">size</span><span class="o">();</span>
+<span class="o">==&gt;</span><span class="mi">1</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../deployment/" title="Deployment Scenarios" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Deployment Scenarios
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Things to Consider in a Multi-Node JanusGraph Cluster
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

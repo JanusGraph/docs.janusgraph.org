@@ -1,0 +1,2049 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Apache Solr - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apache-solr" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Apache Solr
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Apache Solr
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Apache Solr" class="md-nav__link md-nav__link--active">
+      Apache Solr
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solr-configuration-overview" class="md-nav__link">
+    Solr Configuration Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-solrcloud" class="md-nav__link">
+    Connecting to SolrCloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to SolrCloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configset-configuration" class="md-nav__link">
+    Configset Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configset Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-individual-configset" class="md-nav__link">
+    Using an Individual Configset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-shared-configset" class="md-nav__link">
+    Using a Shared Configset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-solr-standalone-http" class="md-nav__link">
+    Connecting to Solr Standalone (HTTP)
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to Solr Standalone (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-configuration" class="md-nav__link">
+    Core Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-configuration" class="md-nav__link">
+    Kerberos Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solr-schema-design" class="md-nav__link">
+    Solr Schema Design
+  </a>
+  
+    <nav class="md-nav" aria-label="Solr Schema Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-field-definition" class="md-nav__link">
+    Dynamic Field Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-field-definition" class="md-nav__link">
+    Manual Field Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schemaless-mode" class="md-nav__link">
+    Schemaless Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collection-does-not-exist" class="md-nav__link">
+    Collection Does Not Exist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cannot-find-the-specified-configset" class="md-nav__link">
+    Cannot Find the Specified Configset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-error-404" class="md-nav__link">
+    HTTP Error 404
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-core-or-collection-name" class="md-nav__link">
+    Invalid core or collection name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-problems" class="md-nav__link">
+    Connection Problems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jts-classnotfoundexception-with-geo-data" class="md-nav__link">
+    JTS ClassNotFoundException with Geo Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-solr-configuration" class="md-nav__link">
+    Advanced Solr Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Solr Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dse-search" class="md-nav__link">
+    DSE Search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solr-configuration-overview" class="md-nav__link">
+    Solr Configuration Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-solrcloud" class="md-nav__link">
+    Connecting to SolrCloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to SolrCloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configset-configuration" class="md-nav__link">
+    Configset Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configset Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-individual-configset" class="md-nav__link">
+    Using an Individual Configset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-shared-configset" class="md-nav__link">
+    Using a Shared Configset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-solr-standalone-http" class="md-nav__link">
+    Connecting to Solr Standalone (HTTP)
+  </a>
+  
+    <nav class="md-nav" aria-label="Connecting to Solr Standalone (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-configuration" class="md-nav__link">
+    Core Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-configuration" class="md-nav__link">
+    Kerberos Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solr-schema-design" class="md-nav__link">
+    Solr Schema Design
+  </a>
+  
+    <nav class="md-nav" aria-label="Solr Schema Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-field-definition" class="md-nav__link">
+    Dynamic Field Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-field-definition" class="md-nav__link">
+    Manual Field Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schemaless-mode" class="md-nav__link">
+    Schemaless Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collection-does-not-exist" class="md-nav__link">
+    Collection Does Not Exist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cannot-find-the-specified-configset" class="md-nav__link">
+    Cannot Find the Specified Configset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-error-404" class="md-nav__link">
+    HTTP Error 404
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-core-or-collection-name" class="md-nav__link">
+    Invalid core or collection name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-problems" class="md-nav__link">
+    Connection Problems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jts-classnotfoundexception-with-geo-data" class="md-nav__link">
+    JTS ClassNotFoundException with Geo Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-solr-configuration" class="md-nav__link">
+    Advanced Solr Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Solr Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dse-search" class="md-nav__link">
+    DSE Search
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.3/docs/index-backend/solr.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="apache-solr">Apache Solr</h1>
+<blockquote>
+<p>Solr is the popular, blazing fast open source enterprise search
+platform from the Apache Lucene project. Solr is a standalone
+enterprise search server with a REST-like API. Solr is highly
+reliable, scalable and fault tolerant, providing distributed indexing,
+replication and load-balanced querying, automated failover and
+recovery, centralized configuration and more.</p>
+<p>—  <a href="https://lucene.apache.org/solr/">Apache Solr Homepage</a></p>
+</blockquote>
+<p>JanusGraph supports <a href="https://lucene.apache.org/solr/">Apache Solr</a> as an
+index backend. Here are some of the Solr features supported by
+JanusGraph:</p>
+<ul>
+<li><strong>Full-Text</strong>: Supports all <code>Text</code> predicates to search for text
+    properties that matches a given word, prefix or regular expression.</li>
+<li><strong>Geo</strong>: Supports all <code>Geo</code> predicates to search for geo properties
+    that are intersecting, within, disjoint to or contained in a given
+    query geometry. Supports points, lines and polygons for indexing.
+    Supports circles, boxes and polygons for querying point properties
+    and all shapes for querying non-point properties.</li>
+<li><strong>Numeric Range</strong>: Supports all numeric comparisons in <code>Compare</code>.</li>
+<li><strong>TTL</strong>: Supports automatically expiring indexed elements.</li>
+<li><strong>Temporal</strong>: Millisecond granularity temporal indexing.</li>
+<li><strong>Custom Analyzer</strong>: Choose to use a custom analyzer</li>
+</ul>
+<p>Please see <a href="../../appendices/#version-compatibility">Version Compatibility</a> 
+for details on what versions of Solr will work with JanusGraph.</p>
+<h2 id="solr-configuration-overview">Solr Configuration Overview</h2>
+<p>JanusGraph supports Solr running in either a SolrCloud or Solr
+Standalone (HTTP) configuration for use with a <strong>mixed index</strong> 
+(see <a href="../../index-management/index-performance/#mixed-index">Mixed Index</a>). 
+The desired connection mode is configured via the
+parameter <code>mode</code> which must be set to either <code>cloud</code> or <code>http</code>, the
+former being the default value. For example, to explicitly specify that
+Solr is running in a SolrCloud configuration the following property is
+specified as a JanusGraph configuration property:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.solr.mode</span><span class="o">=</span><span class="s">cloud</span>
+</code></pre></div>
+
+<p>These are some key Solr terms:</p>
+<ul>
+<li><strong>Core</strong>: A <em>single index</em> on a single machine</li>
+<li><strong>Configuration</strong>: <em>solrconfig.xml</em>, <em>schema.xml</em>, and other files
+    required to define a core.</li>
+<li><strong>Collection</strong>: A <em>single logical index</em> that can span multiple
+    cores on different machines.</li>
+<li><strong>Configset</strong>: A shared <em>configuration</em> that can be reused by
+    multiple cores.</li>
+</ul>
+<h2 id="connecting-to-solrcloud">Connecting to SolrCloud</h2>
+<p>When connecting to a SolrCloud cluster by setting the <code>mode</code> equal to
+<code>cloud</code>, the Zookeeper URL (and optionally port) must be specified so
+that JanusGraph can discover and interact with the Solr cluster.</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">solr</span>
+<span class="na">index.search.solr.mode</span><span class="o">=</span><span class="s">cloud</span>
+<span class="na">index.search.solr.zookeeper-url</span><span class="o">=</span><span class="s">localhost:2181</span>
+</code></pre></div>
+
+<p>A number of additional configuration options pertaining to the creation
+of new collections (which is only supported in SolrCloud operation mode)
+can be configured to control sharding behavior among other things. Refer
+to the <a href="../../basics/configuration-reference/">Configuration Reference</a> for a complete listing of those options.</p>
+<p>SolrCloud leverages Zookeeper to coordinate collection and configset
+information between the Solr servers. The use of Zookeeper with
+SolrCloud provides the opportunity to significantly reduce the amount of
+manual configuration required to use Solr as a back end index for
+JanusGraph.</p>
+<h3 id="configset-configuration">Configset Configuration</h3>
+<p>A configset is required to create a collection. The configset is stored
+in Zookeeper to enable access to it across the Solr servers.</p>
+<ul>
+<li>
+<p>Each collection can provide its own configset when it is created, so
+    that each collection may have a different configuration. With this
+    approach, each collection must be created manually.</p>
+</li>
+<li>
+<p>A shared configset can be uploaded separately to Zookeeper if it
+    will be reused by multiple collections. With this approach,
+    JanusGraph can create collections automatically by using the shared
+    configset. Another benefit is that reusing a configset significantly
+    reduces the amount of data stored in Zookeeper.</p>
+</li>
+</ul>
+<h4 id="using-an-individual-configset">Using an Individual Configset</h4>
+<p>In this example, a collection named <code>verticesByAge</code> is created manually
+using the default JanusGraph configuration for Solr that is found in the
+distribution. When the collection is created, the configuration is
+uploaded into Zookeeper, using the same collection name <code>verticesByAge</code>
+for the configset name. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+for available parameters.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># create the collection</span>
+<span class="nv">$SOLR_HOME</span>/bin/solr create -c verticesByAge -d <span class="nv">$JANUSGRAPH_HOME</span>/conf/solr
+</code></pre></div>
+
+<p>Define a mixed index using <code>JanusGraphManagement</code> and the same
+collection name.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s2">&quot;verticesByAge&quot;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">age</span><span class="o">).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div>
+
+<h4 id="using-a-shared-configset">Using a Shared Configset</h4>
+<p>When using a shared configset, it is most convenient to upload the
+configuration first as a one time operation. In this example, a
+configset named <code>janusgraph-configset</code> is uploaded in to Zookeeper using
+the default JanusGraph configuration for Solr that is found in the
+distribution. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+for available parameters.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># upload the shared configset into Zookeeper</span>
+<span class="c1"># Solr 5</span>
+<span class="nv">$SOLR_HOME</span>/server/scripts/cloud-scripts/zkcli.sh -cmd upconfig -z localhost:2181 <span class="se">\</span>
+    -d <span class="nv">$JANUSGRAPH_HOME</span>/conf/solr -n janusgraph-configset
+<span class="c1"># Solr 6 and higher</span>
+<span class="nv">$SOLR_HOME</span>/bin/solr zk upconfig -d <span class="nv">$JANUSGRAPH_HOME</span>/conf/solr -n janusgraph-configset <span class="se">\</span>
+    -z localhost:2181
+</code></pre></div>
+
+<p>When configuring the SolrCloud indexing backend for JanusGraph, make
+sure to provide the name of the shared configset using the
+<code>index.search.solr.configset</code> property.</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">solr</span>
+<span class="na">index.search.solr.mode</span><span class="o">=</span><span class="s">cloud</span>
+<span class="na">index.search.solr.zookeeper-url</span><span class="o">=</span><span class="s">localhost:2181</span>
+<span class="na">index.search.solr.configset</span><span class="o">=</span><span class="s">janusgraph-configset</span>
+</code></pre></div>
+
+<p>Define a mixed index using <code>JanusGraphManagement</code> and the collection
+name.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s2">&quot;verticesByAge&quot;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">age</span><span class="o">).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div>
+
+<h2 id="connecting-to-solr-standalone-http">Connecting to Solr Standalone (HTTP)</h2>
+<p>When connecting to Solr Standalone via HTTP by setting the <code>mode</code> equal
+to <code>http</code>, a single or list of URLs for the Solr instances must be
+provided.</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">solr</span>
+<span class="na">index.search.solr.mode</span><span class="o">=</span><span class="s">http</span>
+<span class="na">index.search.solr.http-urls</span><span class="o">=</span><span class="s">http://localhost:8983/solr</span>
+</code></pre></div>
+
+<p>Additional configuration options for controlling the maximum number of
+connections, connection timeout and transmission compression are
+available for the HTTP mode. Refer to the <a href="../../basics/configuration-reference/">Configuration Reference</a> for a
+complete listing of those options.</p>
+<h3 id="core-configuration">Core Configuration</h3>
+<p>Solr Standalone is used for a single instance, and it keeps
+configuration information on the file system. A core must be created
+manually for each mixed index.</p>
+<p>To create a core, a <code>core_name</code> and a <code>configuration</code> directory is
+required. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+for available parameters. In this example, a core named <code>verticesByAge</code>
+is created using the default JanusGraph configuration for Solr that is
+found in the distribution.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$SOLR_HOME</span>/bin/solr create -c verticesByAge -d <span class="nv">$JANUSGRAPH_HOME</span>/conf/solr
+</code></pre></div>
+
+<p>Define a mixed index using <code>JanusGraphManagement</code> and the same core
+name.
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s2">&quot;verticesByAge&quot;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">age</span><span class="o">).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div></p>
+<h2 id="kerberos-configuration">Kerberos Configuration</h2>
+<p>When connecting to a Solr environment that is protected by Kerberos we must specify that Kerberos is being used and reference a JAAS configuration file to properly configure the Solr Clients. This configuration is required when Kerberos is in use regardless of the mode in which Solr is operating (SolrCloud or Solr Standalone).</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.solr.kerberos-enabled</span><span class="o">=</span><span class="s">true</span>
+</code></pre></div>
+
+<p>The JAAS configuration file is supplied by ensuring that you set the java system property <code>java.security.auth.login.config</code> with the absolute path to the file. This property should be set using JVM options. For example to run <code>gremlin.sh</code> you would need to set the <code>JAVA_OPTIONS</code> environment variable prior to running the script:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">JAVA_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Djava.security.auth.login.config=/absolute/path/jaas.conf&quot;</span>
+<span class="nv">$JANUSGRAPH_HOME</span>/bin/gremlin.sh
+</code></pre></div>
+
+<p>For details on the content required in the JAAS configuration file refer to the https://lucene.apache.org/solr/guide/7_0/kerberos-authentication-plugin.html#define-a-jaas-configuration-file[Solr Reference Guide].</p>
+<h2 id="solr-schema-design">Solr Schema Design</h2>
+<h3 id="dynamic-field-definition">Dynamic Field Definition</h3>
+<p>By default, JanusGraph uses Solr’s <a href="https://cwiki.apache.org/confluence/display/solr/Dynamic+Fields">Dynamic Fields</a>
+feature to define the field types for all indexed keys. This requires no
+extra configuration when adding property keys to a mixed index backed by
+Solr and provides better performance than schemaless mode.</p>
+<p>JanusGraph assumes the following dynamic field tags are defined in the
+backing Solr collection’s schema.xml file. Please note that there is
+additional xml definition of the following fields required in a solr
+schema.xml file in order to use them. Reference the example schema.xml
+file provided in the <code>./conf/solr/schema.xml</code> directory in a JanusGraph
+installation for more information.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_i&quot;</span>    <span class="na">type=</span><span class="s">&quot;int&quot;</span>          <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_s&quot;</span>    <span class="na">type=</span><span class="s">&quot;string&quot;</span>       <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_l&quot;</span>    <span class="na">type=</span><span class="s">&quot;long&quot;</span>         <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_t&quot;</span>    <span class="na">type=</span><span class="s">&quot;text_general&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_b&quot;</span>    <span class="na">type=</span><span class="s">&quot;boolean&quot;</span>      <span class="na">indexed=</span><span class="s">&quot;true&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_f&quot;</span>    <span class="na">type=</span><span class="s">&quot;float&quot;</span>        <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_d&quot;</span>    <span class="na">type=</span><span class="s">&quot;double&quot;</span>       <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_g&quot;</span>    <span class="na">type=</span><span class="s">&quot;geo&quot;</span>          <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dt&quot;</span>   <span class="na">type=</span><span class="s">&quot;date&quot;</span>         <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_uuid&quot;</span> <span class="na">type=</span><span class="s">&quot;uuid&quot;</span>         <span class="na">indexed=</span><span class="s">&quot;true&quot;</span>  <span class="na">stored=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</code></pre></div>
+
+<p>In JanusGraph’s default configuration, property key names do not have to
+end with the type-appropriate suffix to take advantage of Solr’s dynamic
+field feature. JanusGraph generates the Solr field name from the
+property key name by encoding the property key definition’s numeric
+identifier and the type-appropriate suffix. This means that JanusGraph
+uses synthetic field names with type-appropriate suffixes behind the
+scenes, regardless of the property key names defined and used by
+application code using JanusGraph. This field name mapping can be
+overridden through non-default configuration. That’s described in the
+next section.</p>
+<h3 id="manual-field-definition">Manual Field Definition</h3>
+<p>If the user would rather manually define the field types for each of the
+indexed fields in a collection, the configuration option <code>dyn-fields</code>
+needs to be disabled. It is important that the field for each indexed
+property key is defined in the backing Solr schema before the property
+key is added to the index.</p>
+<p>In this scenario, it is advisable to enable explicit property key name
+to field mapping in order to fix the field names for their explicit
+definition. This can be achieved in one of two ways:</p>
+<ol>
+<li>Configuring the name of the field by providing a <code>mapped-name</code>
+    parameter when adding the property key to the index. See
+    <a href="../field-mapping/#individual-field-mapping">Individual Field Mapping</a> for more information.</li>
+<li>By enabling the <code>map-name</code> configuration option for the Solr index
+    which will use the property key name as the field name in Solr. See
+    <a href="../field-mapping/#global-field-mapping">Global Field Mapping</a> for more information.</li>
+</ol>
+<h3 id="schemaless-mode">Schemaless Mode</h3>
+<p>JanusGraph can also interact with a SolrCloud cluster that is configured
+for <a href="https://cwiki.apache.org/confluence/display/solr/Schemaless+Mode">schemaless mode</a>.
+In this scenario, the configuration option <code>dyn-fields</code> should be
+disabled since Solr will infer the field type from the values and not
+the field name.</p>
+<p>Note, however, that schemaless mode is recommended only for prototyping
+and initial application development and NOT recommended for production
+use.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="collection-does-not-exist">Collection Does Not Exist</h3>
+<p>The collection (and all of the required configuration files) must be
+initialized before a defined index can use the collection. See
+<a href="#_connecting_to_solrcloud">Connecting to SolrCloud</a> for more
+information.</p>
+<p>When using SolrCloud, the Zookeeper zkCli.sh command line tool can be
+used to inspect the configurations loaded into Zookeeper. Also verify
+that the default JanusGraph configuration files are copied to the
+correct location under solr and that the directory where the files are
+copied is correct.</p>
+<h3 id="cannot-find-the-specified-configset">Cannot Find the Specified Configset</h3>
+<p>When using SolrCloud, a configset is required to create a mixed index
+for JanusGraph. See <a href="#configset_configuration">Configset Configuration</a> for more
+information.</p>
+<ul>
+<li>If using an individual configset, the collection must be created
+    manually first.</li>
+<li>If using a shared configset, the configset must be uploaded into
+    Zookeeper first.</li>
+</ul>
+<p>You can verify that the configset and its configuration files are in
+Zookeeper under <code>/configs</code>. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-ZooKeeperOperations">Solr Reference Guide</a>
+for other Zookeeper operations.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># verify the configset in Zookeeper</span>
+<span class="c1"># Solr 5</span>
+<span class="nv">$SOLR_HOME</span>/server/scripts/cloud-scripts/zkcli.sh -cmd list -z localhost:2181
+<span class="c1"># Solr 6 and higher</span>
+<span class="nv">$SOLR_HOME</span>/bin/solr zk ls -r /configs/configset-name -z localhost:2181
+</code></pre></div>
+
+<h3 id="http-error-404">HTTP Error 404</h3>
+<p>This error may be encountered when using Solr Standalone (HTTP) mode. An
+example of the error:</p>
+<div class="highlight"><pre><span></span><code>20:01:22 ERROR org.janusgraph.diskstorage.solr.SolrIndex  - Unable to save documents
+to Solr as one of the shape objects stored were not compatible with Solr.
+org.apache.solr.client.solrj.impl.HttpSolrClient$RemoteSolrException: Error from server
+at http://localhost:8983/solr: Expected mime type application/octet-stream but got text/html.
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html;charset=utf-8&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;title&gt;</span>Error 404 Not Found<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;&lt;h2&gt;</span>HTTP ERROR 404<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>Problem accessing /solr/verticesByAge/update. Reason:
+<span class="nt">&lt;pre&gt;</span>    Not Found<span class="nt">&lt;/pre&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+<p>Make sure to create the core manually before attempting to store data
+into the index. See <a href="#core-configuration">Core Configuration</a>
+for more information.</p>
+<h3 id="invalid-core-or-collection-name">Invalid core or collection name</h3>
+<p>The core or collection name is an identifier. It must consist entirely
+of periods, underscores, hyphens, and/or alphanumerics, and also it may
+not start with a hyphen.</p>
+<h3 id="connection-problems">Connection Problems</h3>
+<p>Irrespective of the operation mode, a Solr instance or a cluster of Solr
+instances must be running and accessible from the JanusGraph instance(s)
+in order for JanusGraph to use Solr as an indexing backend. Check that
+the Solr cluster is running correctly and that it is visible and
+accessible over the network (or locally) from the JanusGraph instances.</p>
+<h3 id="jts-classnotfoundexception-with-geo-data">JTS ClassNotFoundException with Geo Data</h3>
+<p>Solr relies on Spatial4j for geo processing. Spatial4j declares an
+optional dependency on JTS ("JTS Topology Suite"). JTS is required for
+some geo field definition and query functionality. If the JTS jar is not
+on the Solr daemon’s classpath and a field in schema.xml uses a geo
+type, then Solr may throw a ClassNotFoundException on one of the missing
+JTS classes. The exception can appear when starting Solr using a
+schema.xml file designed to work with JanusGraph, but can also appear
+when invoking <code>CREATE</code> in the <a href="https://wiki.apache.org/solr/CoreAdmin">Solr CoreAdmin API</a>. The exception appears in
+slightly different formats on the client and server sides, although the
+root cause is identical.</p>
+<p>Here’s a representative example from a Solr server log:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ERROR</span> <span class="o">[</span><span class="n">http</span><span class="o">-</span><span class="mi">8983</span><span class="o">-</span><span class="n">exec</span><span class="o">-</span><span class="mi">5</span><span class="o">]</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">07</span> <span class="mo">02</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mo">06</span><span class="p">,</span> <span class="mi">665</span> <span class="n">SolrCoreResourceManager</span><span class="p">.</span><span class="na">java</span> <span class="p">(</span><span class="n">line</span> <span class="mi">344</span><span class="p">)</span> <span class="n">com</span><span class="o">/</span><span class="n">vividsolutions</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">geom</span><span class="o">/</span><span class="n">Geometry</span>
+<span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">NoClassDefFoundError</span><span class="p">:</span> <span class="n">com</span><span class="o">/</span><span class="n">vividsolutions</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">geom</span><span class="o">/</span><span class="n">Geometry</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">spatial4j</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">context</span><span class="p">.</span><span class="na">jts</span><span class="p">.</span><span class="na">JtsSpatialContextFactory</span><span class="p">.</span><span class="na">newSpatialContext</span><span class="p">(</span><span class="n">JtsSpatialContextFactory</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">spatial4j</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">context</span><span class="p">.</span><span class="na">SpatialContextFactory</span><span class="p">.</span><span class="na">makeSpatialContext</span><span class="p">(</span><span class="n">SpatialContextFactory</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">83</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">AbstractSpatialFieldType</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">AbstractSpatialFieldType</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">95</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">AbstractSpatialPrefixTreeFieldType</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">AbstractSpatialPrefixTreeFieldType</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">43</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">SpatialRecursivePrefixTreeFieldType</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">SpatialRecursivePrefixTreeFieldType</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">37</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">FieldType</span><span class="p">.</span><span class="na">setArgs</span><span class="p">(</span><span class="n">FieldType</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">164</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">FieldTypePluginLoader</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">FieldTypePluginLoader</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">141</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">FieldTypePluginLoader</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">FieldTypePluginLoader</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">43</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">plugin</span><span class="p">.</span><span class="na">AbstractPluginLoader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">AbstractPluginLoader</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">190</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">IndexSchema</span><span class="p">.</span><span class="na">readSchema</span><span class="p">(</span><span class="n">IndexSchema</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">470</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">CassandraIndexSchema</span><span class="p">.</span><span class="na">readSchema</span><span class="p">(</span><span class="n">CassandraIndexSchema</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">72</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">IndexSchema</span><span class="p">.</span><span class="o">&lt;</span><span class="n">init</span><span class="o">&gt;</span><span class="p">(</span><span class="n">IndexSchema</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">168</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">CassandraIndexSchema</span><span class="p">.</span><span class="o">&lt;</span><span class="n">init</span><span class="o">&gt;</span><span class="p">(</span><span class="n">CassandraIndexSchema</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">54</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">CassandraCoreContainer</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">CassandraCoreContainer</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">210</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">SolrCoreResourceManager</span><span class="p">.</span><span class="na">createCore</span><span class="p">(</span><span class="n">SolrCoreResourceManager</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">256</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">handler</span><span class="p">.</span><span class="na">admin</span><span class="p">.</span><span class="na">CassandraCoreAdminHandler</span><span class="p">.</span><span class="na">handleCreateAction</span><span class="p">(</span><span class="n">CassandraCoreAdminHandler</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">117</span><span class="p">)</span>
+    <span class="p">...</span>
+</code></pre></div>
+
+<p>Here’s what normally appears in the output of the client that issued the
+associated <code>CREATE</code> command to the CoreAdmin API:</p>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">common</span><span class="p">.</span><span class="na">SolrException</span><span class="p">:</span> <span class="n">com</span><span class="o">/</span><span class="n">vividsolutions</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="n">geom</span><span class="o">/</span><span class="n">Geometry</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">SolrCoreResourceManager</span><span class="p">.</span><span class="na">createCore</span><span class="p">(</span><span class="n">SolrCoreResourceManager</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">345</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="p">.</span><span class="na">datastax</span><span class="p">.</span><span class="na">bdp</span><span class="p">.</span><span class="na">search</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">handler</span><span class="p">.</span><span class="na">admin</span><span class="p">.</span><span class="na">CassandraCoreAdminHandler</span><span class="p">.</span><span class="na">handleCreateAction</span><span class="p">(</span><span class="n">CassandraCoreAdminHandler</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">117</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">handler</span><span class="p">.</span><span class="na">admin</span><span class="p">.</span><span class="na">CoreAdminHandler</span><span class="p">.</span><span class="na">handleRequestBody</span><span class="p">(</span><span class="n">CoreAdminHandler</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">152</span><span class="p">)</span>
+    <span class="p">...</span>
+</code></pre></div>
+
+<p>This is resolved by adding the JTS jar to the classpath of JanusGraph
+and/or the Solr server. JTS is not included in JanusGraph distributions
+by default due to its LGPL license. Users must download the <a href="https://search.maven.org/remotecontent?filepath=com/vividsolutions/jts/1.13/jts-1.13.jar">JTS jar file</a>
+separately and copy it into the JanusGraph and/or Solr server lib
+directory. If using Solr’s built in web server, the JTS jar may be
+copied to the example/solr-webapp/webapp/WEB-INF/lib directory to
+include it in the classpath. Solr can be restarted, and the exception
+should be gone. Solr must be started once with the correct schema.xml
+file in place first, for the example/solr-webapp/webapp/WEB-INF/lib
+directory to exist.</p>
+<p>To determine the ideal JTS version for Solr server, first check the
+version of Spatial4j in use by the Solr cluster, then determine the
+version of JTS against which that Spatial4j version was compiled.
+Spatial4j declares its target JTS version in the <a href="https://search.maven.org/#search|gav|1|g%3A%22com.spatial4j%22%20AND%20a%3A%22spatial4j%22">pom for the <code>com.spatial4j:spatial4j</code> artifact</a>.
+Copy the JTS jar to the server/solr-webapp/webapp/WEB-INF/lib directory
+in your solr installation.</p>
+<h2 id="advanced-solr-configuration">Advanced Solr Configuration</h2>
+<h3 id="dse-search">DSE Search</h3>
+<p>This section covers installation and configuration of JanusGraph with
+DataStax Enterprise (DSE) Search. There are multiple ways to install
+DSE, but this section focuses on DSE’s binary tarball install option on
+Linux. Most of the steps in this section can be generalized to the other
+install options for DSE.</p>
+<p>Install DataStax Enterprise as directed by the page <a href="https://www.datastax.com/documentation/datastax_enterprise/4.5/datastax_enterprise/install/installTARdse.html">Installing DataStax Enterprise using the binary tarball</a>.</p>
+<p>Export <code>DSE_HOME</code> and append to <code>PATH</code> in your shell environment. Here’s
+an example using Bash syntax:
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">DSE_HOME</span><span class="o">=</span>/path/to/dse-version.number
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DSE_HOME</span><span class="s2">&quot;</span>/bin:<span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p>Install JTS for Solr. The appropriate version varies with the Spatial4j
+version. As of DSE 4.5.2, the appropriate version is 1.13.
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$DSE_HOME</span>/resources/solr/lib
+curl -O <span class="s1">&#39;http://central.maven.org/maven2/com/vividsolutions/jts/1.13/jts-1.13.jar&#39;</span>
+</code></pre></div></p>
+<p>Start DSE Cassandra and Solr in a single background daemon:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># The &quot;dse-data&quot; path below was chosen to match the</span>
+<span class="c1"># &quot;Installing DataStax Enterprise using the binary tarball&quot;</span>
+<span class="c1"># documentation page from DataStax.  The exact path is not</span>
+<span class="c1"># significant.</span>
+dse cassandra -s -Ddse.solr.data.dir<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DSE_HOME</span><span class="s2">&quot;</span>/dse-data/solr
+</code></pre></div>
+
+<p>The previous command will write some startup information to the console
+and to the logfile path <code>log4j.appender.R.File</code> configured in
+<code>$DSE_HOME/resources/cassandra/conf/log4j-server.properties</code>.</p>
+<p>Once DSE with Cassandra and Solr has started normally, check the cluster
+health with <code>nodetool status</code>. A single-instance ring should show one
+node with flags *U*p and *N*ormal:</p>
+<div class="highlight"><pre><span></span><code>nodetool status
+Note: Ownership information does not include topology<span class="p">;</span> <span class="k">for</span> <span class="nb">complete</span> information, specify a <span class="nv">keyspace</span>
+<span class="o">=</span> Datacenter: Solr
+<span class="nv">Status</span><span class="o">=</span>Up/Down
+<span class="p">|</span>/ <span class="nv">State</span><span class="o">=</span>Normal/Leaving/Joining/Moving
+--  Address    Load       Owns   Host ID                               Token                                    Rack
+UN  <span class="m">127</span>.0.0.1  <span class="m">99</span>.89 KB   <span class="m">100</span>.0%  5484ef7b-ebce-4560-80f0-cbdcd9e9f496  -7317038863489909889                     rack1
+</code></pre></div>
+
+<p>Next, switch to Gremlin Console and open a JanusGraph database against
+the DSE instance. This will create JanusGraph’s keyspace and column
+families.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$JANUSGRAPH_HOME</span>
+bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> JanusGraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/janusgraph-cql-solr.properties&#39;</span><span class="o">)</span>
+<span class="o">==</span>&gt;janusgraph<span class="o">[</span>cql:<span class="o">[</span><span class="m">127</span>.0.0.1<span class="o">]]</span>
+gremlin&gt; <span class="nv">g</span> <span class="o">=</span> graph.traversal<span class="o">()</span>
+<span class="o">==</span>&gt;graphtraversalsource<span class="o">[</span>janusgraph<span class="o">[</span>cql:<span class="o">[</span><span class="m">127</span>.0.0.1<span class="o">]]</span>, standard<span class="o">]</span>
+gremlin&gt;
+</code></pre></div>
+
+<p>Keep this Gremlin Console open. We’ll take a break now to install a Solr
+core. Then we’ll come back to this console to load some sample data.</p>
+<p>Next, upload configuration files for JanusGraph’s Solr collection, then
+create the core in DSE:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Change to the directory where JanusGraph was extracted.  Later commands</span>
+<span class="c1"># use relative paths to the Solr config files shipped with the JanusGraph</span>
+<span class="c1"># distribution.</span>
+<span class="nb">cd</span> <span class="nv">$JANUSGRAPH_HOME</span>
+
+<span class="c1"># The name must be URL safe and should contain one dot/full-stop</span>
+<span class="c1"># character. The part of the name after the dot must not conflict with</span>
+<span class="c1"># any of JanusGraph&#39;s internal CF names.  Starting the part after the dot</span>
+<span class="c1"># &quot;solr&quot; will avoid a conflict with JanusGraph&#39;s internal CF names.</span>
+<span class="nv">CORE_NAME</span><span class="o">=</span>janusgraph.solr1
+<span class="c1"># Where to upload collection configuration and send CoreAdmin requests.</span>
+<span class="nv">SOLR_HOST</span><span class="o">=</span>localhost:8983
+
+<span class="c1"># The value of index.[X].solr.http-urls in JanusGraph&#39;s config file</span>
+<span class="c1"># should match $SOLR_HOST and $CORE_NAME.  For example, given the</span>
+<span class="c1"># $CORE_NAME and $SOLR_HOST values above, JanusGraph&#39;s config file would</span>
+<span class="c1"># contain (assuming &quot;search&quot; is the desired index alias):</span>
+<span class="c1">#</span>
+<span class="c1"># index.search.solr.http-urls=http://localhost:8983/solr/janusgraph.solr1</span>
+<span class="c1">#</span>
+<span class="c1"># The stock JanusGraph config file conf/janusgraph-cql-solr.properties</span>
+<span class="c1"># ships with this http-urls value.</span>
+
+<span class="c1"># Upload Solr config files to DSE Search daemon</span>
+<span class="k">for</span> xml in conf/solr/<span class="o">{</span>solrconfig, schema, elevate<span class="o">}</span>.xml <span class="p">;</span> <span class="k">do</span>
+    curl -v http://<span class="s2">&quot;</span><span class="nv">$SOLR_HOST</span><span class="s2">&quot;</span>/solr/resource/<span class="s2">&quot;</span><span class="nv">$CORE_NAME</span><span class="s2">/</span><span class="nv">$xml</span><span class="s2">&quot;</span> <span class="se">\</span>
+      --data-binary @<span class="s2">&quot;</span><span class="nv">$xml</span><span class="s2">&quot;</span> -H <span class="s1">&#39;Content-type:text/xml; charset=utf-8&#39;</span>
+<span class="k">done</span>
+<span class="k">for</span> txt in conf/solr/<span class="o">{</span>protwords, stopwords, synonyms<span class="o">}</span>.txt <span class="p">;</span> <span class="k">do</span>
+    curl -v http://<span class="s2">&quot;</span><span class="nv">$SOLR_HOST</span><span class="s2">&quot;</span>/solr/resource/<span class="s2">&quot;</span><span class="nv">$CORE_NAME</span><span class="s2">/</span><span class="nv">$txt</span><span class="s2">&quot;</span> <span class="se">\</span>
+      --data-binary @<span class="s2">&quot;</span><span class="nv">$txt</span><span class="s2">&quot;</span> -H <span class="s1">&#39;Content-type:text/plain; charset=utf-8&#39;</span>
+<span class="k">done</span>
+sleep <span class="m">5</span>
+
+<span class="c1"># Create core using the Solr config files just uploaded above</span>
+curl <span class="s2">&quot;http://&quot;</span><span class="nv">$SOLR_HOST</span><span class="s2">&quot;/solr/admin/cores?action=CREATE&amp;name=</span><span class="nv">$CORE_NAME</span><span class="s2">&quot;</span>
+sleep <span class="m">5</span>
+
+<span class="c1"># Retrieve and print the status of the core we just created</span>
+curl <span class="s2">&quot;http://localhost:8983/solr/admin/cores?action=STATUS&amp;core=</span><span class="nv">$CORE_NAME</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p>Now the JanusGraph database and backing Solr core are ready for use. We
+can test it out with the <a href="../..#getting-started">Graph of the Gods</a> dataset.
+Picking up the Gremlin Console session started above:
+<div class="highlight"><pre><span></span><code><span class="c1">// Assuming graph = JanusGraphFactory.open(&#39;conf/janusgraph-cql-solr.properties&#39;)...</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">GraphOfTheGodsFactory</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">graph</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+</code></pre></div></p>
+<p>Now we can run any of the queries described in <a href="../..#getting-started">Getting started</a>.
+Queries involving text and geo predicates will be served by Solr. For
+more verbose reporting from JanusGraph and the Solr client, run
+<code>gremlin.sh -l DEBUG</code> and issue some index-backed queries.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../elasticsearch/" title="Elasticsearch" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Elasticsearch
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../lucene/" title="Apache Lucene" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Apache Lucene
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3319 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Janusgraph cfg - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#attributescustom" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Janusgraph cfg
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" title="Gremlin Query Language" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/index-admin/" title="Index Management" class="md-nav__link">
+      Index Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributescustom" class="md-nav__link">
+    attributes.custom *
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    cache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster" class="md-nav__link">
+    cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computer" class="md-nav__link">
+    computer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph" class="md-nav__link">
+    graph
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gremlin" class="md-nav__link">
+    gremlin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ids" class="md-nav__link">
+    ids
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idsauthority" class="md-nav__link">
+    ids.authority
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    index *
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexxelasticsearch" class="md-nav__link">
+    index.[X].elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexxelasticsearchcreate" class="md-nav__link">
+    index.[X].elasticsearch.create
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexxsolr" class="md-nav__link">
+    index.[X].solr
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    log *
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    metrics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricsconsole" class="md-nav__link">
+    metrics.console
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricscsv" class="md-nav__link">
+    metrics.csv
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricsganglia" class="md-nav__link">
+    metrics.ganglia
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricsgraphite" class="md-nav__link">
+    metrics.graphite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricsjmx" class="md-nav__link">
+    metrics.jmx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricsslf4j" class="md-nav__link">
+    metrics.slf4j
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query" class="md-nav__link">
+    query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    schema
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    storage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storageberkeleyje" class="md-nav__link">
+    storage.berkeleyje
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecassandra" class="md-nav__link">
+    storage.cassandra
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecassandraastyanax" class="md-nav__link">
+    storage.cassandra.astyanax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecassandrassl" class="md-nav__link">
+    storage.cassandra.ssl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecassandrassltruststore" class="md-nav__link">
+    storage.cassandra.ssl.truststore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecassandrathriftcpool" class="md-nav__link">
+    storage.cassandra.thrift.cpool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecql" class="md-nav__link">
+    storage.cql
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecqlssl" class="md-nav__link">
+    storage.cql.ssl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagecqlssltruststore" class="md-nav__link">
+    storage.cql.ssl.truststore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagehbase" class="md-nav__link">
+    storage.hbase
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagelock" class="md-nav__link">
+    storage.lock
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storagemeta" class="md-nav__link">
+    storage.meta *
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tx" class="md-nav__link">
+    tx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#txrecovery" class="md-nav__link">
+    tx.recovery
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.2/docs/basics/janusgraph-cfg.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Janusgraph cfg</h1>
+                
+                <h3 id="attributescustom">attributes.custom *</h3>
+<p>Custom attribute serialization and handling</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attributes.custom.[X].attribute-class</td>
+<td>Class of the custom attribute to be registered</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>attributes.custom.[X].serializer-class</td>
+<td>Class of the custom attribute serializer to be registered</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cache">cache</h3>
+<p>Configuration options that modify JanusGraph's caching behavior</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cache.db-cache</td>
+<td>Whether to enable JanusGraph's database-level cache, which is shared across all transactions. Enabling this option speeds up traversals by holding hot graph elements in memory, but also increases the likelihood of reading stale data.  Disabling it forces each transaction to independently fetch graph elements from storage before reading/writing them.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>cache.db-cache-clean-wait</td>
+<td>How long, in milliseconds, database-level cache will keep entries after flushing them.  This option is only useful on distributed storage backends that are capable of acknowledging writes without necessarily making them immediately visible.</td>
+<td>Integer</td>
+<td>50</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>cache.db-cache-size</td>
+<td>Size of JanusGraph's database level cache.  Values between 0 and 1 are interpreted as a percentage of VM heap, while larger values are interpreted as an absolute size in bytes.</td>
+<td>Double</td>
+<td>0.3</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>cache.db-cache-time</td>
+<td>Default expiration time, in milliseconds, for entries in the database-level cache. Entries are evicted when they reach this age even if the cache has room to spare. Set to 0 to disable expiration (cache entries live forever or until memory pressure triggers eviction when set to 0).</td>
+<td>Long</td>
+<td>10000</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>cache.tx-cache-size</td>
+<td>Maximum size of the transaction-level cache of recently-used vertices.</td>
+<td>Integer</td>
+<td>20000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>cache.tx-dirty-size</td>
+<td>Initial size of the transaction-level cache of uncommitted dirty vertices. This is a performance hint for write-heavy, performance-sensitive transactional workloads. If set, it should roughly match the median vertices modified per transaction.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cluster">cluster</h3>
+<p>Configuration options for multi-machine deployments</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cluster.max-partitions</td>
+<td>The number of virtual partition blocks created in the partitioned graph. This should be larger than the maximum expected number of nodesin the JanusGraph graph cluster. Must be bigger than 1 and a power of 2.</td>
+<td>Integer</td>
+<td>32</td>
+<td>FIXED</td>
+</tr>
+</tbody>
+</table>
+<h3 id="computer">computer</h3>
+<p>GraphComputer related configuration</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>computer.result-mode</td>
+<td>How the graph computer should return the computed results. 'persist' for writing them into the graph, 'localtx' for writing them into the local transaction, or 'none' (default)</td>
+<td>String</td>
+<td>none</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="graph">graph</h3>
+<p>General configuration options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>graph.allow-stale-config</td>
+<td>Whether to allow the local and storage-backend-hosted copies of the configuration to contain conflicting values for options with any of the following types: FIXED, GLOBAL_OFFLINE, GLOBAL.  These types are managed globally through the storage backend and cannot be overridden by changing the local configuration.  This type of conflict usually indicates misconfiguration.  When this option is true, JanusGraph will log these option conflicts, but continue normal operation using the storage-backend-hosted value for each conflicted option.  When this option is false, JanusGraph will log these option conflicts, but then it will throw an exception, refusing to start.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>graph.graphname</td>
+<td>This config option is an optional configuration setting that you may supply when opening a graph. The String value you provide will be the name of your graph. If you use the ConfigurationManagament APIs, then you will be able to access your graph by this String representation using the ConfiguredGraphFactory APIs.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>graph.replace-instance-if-exists</td>
+<td>If a JanusGraph instance with the same instance identifier already exists, the usage of this configuration option results in the opening of this graph anwyay.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>graph.set-vertex-id</td>
+<td>Whether user provided vertex ids should be enabled and JanusGraph's automatic id allocation be disabled. Useful when operating JanusGraph in concert with another storage system that assigns long ids but disables some of JanusGraph's advanced features which can lead to inconsistent data. EXPERT FEATURE - USE WITH GREAT CARE.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>graph.timestamps</td>
+<td>The timestamp resolution to use when writing to storage and indices. Sets the time granularity for the entire graph cluster. To avoid potential inaccuracies, the configured time resolution should match those of the backend systems. Some JanusGraph storage backends declare a preferred timestamp resolution that reflects design constraints in the underlying service. When the backend provides a preferred default, and when this setting is not explicitly declared in the config file, the backend default is used and the general default associated with this setting is ignored.  An explicit declaration of this setting overrides both the general and backend-specific defaults.</td>
+<td>TimestampProviders</td>
+<td>MICRO</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>graph.unique-instance-id</td>
+<td>Unique identifier for this JanusGraph instance.  This must be unique among all instances concurrently accessing the same stores or indexes.  It's automatically generated by concatenating the hostname, process id, and a static (process-wide) counter. Leaving it unset is recommended.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>graph.unique-instance-id-suffix</td>
+<td>When this is set and unique-instance-id is not, this JanusGraph instance's unique identifier is generated by concatenating the hex encoded hostname to the provided number.</td>
+<td>Short</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>graph.use-hostname-for-unique-instance-id</td>
+<td>When this is set, this JanusGraph's unique instance identifier is set to the hostname. If unique-instance-id-suffix is also set, then the identifier is set to <hostname><suffix>.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gremlin">gremlin</h3>
+<p>Gremlin configuration options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gremlin.graph</td>
+<td>The implementation of graph factory that will be used by gremlin server</td>
+<td>String</td>
+<td>org.janusgraph.core.JanusGraphFactory</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ids">ids</h3>
+<p>General configuration options for graph element IDs</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids.block-size</td>
+<td>Globally reserve graph element IDs in chunks of this size.  Setting this too low will make commits frequently block on slow reservation requests.  Setting it too high will result in IDs wasted when a graph instance shuts down with reserved but mostly-unused blocks.</td>
+<td>Integer</td>
+<td>10000</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>ids.flush</td>
+<td>When true, vertices and edges are assigned IDs immediately upon creation.  When false, IDs are assigned only when the transaction commits. Must be disabled for graph partitioning to work.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.num-partitions</td>
+<td>Number of partition block to allocate for placement of vertices</td>
+<td>Integer</td>
+<td>10</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.placement</td>
+<td>Name of the vertex placement strategy or full class name</td>
+<td>String</td>
+<td>simple</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.renew-percentage</td>
+<td>When the most-recently-reserved ID block has only this percentage of its total IDs remaining (expressed as a value between 0 and 1), JanusGraph asynchronously begins reserving another block. This helps avoid transaction commits waiting on ID reservation even if the block size is relatively small.</td>
+<td>Double</td>
+<td>0.3</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.renew-timeout</td>
+<td>The number of milliseconds that the JanusGraph id pool manager will wait before giving up on allocating a new block of ids</td>
+<td>Duration</td>
+<td>120000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.store-name</td>
+<td>The name of the ID KCVStore. IDS_STORE_NAME is meant to be used only for backward compatibility with Titan, and should not be used explicitly in normal operations or in new graphs.</td>
+<td>String</td>
+<td>janusgraph_ids</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="idsauthority">ids.authority</h3>
+<p>Configuration options for graph element ID reservation/allocation</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids.authority.conflict-avoidance-mode</td>
+<td>This setting helps separate JanusGraph instances sharing a single graph storage backend avoid contention when reserving ID blocks, increasing overall throughput.</td>
+<td>ConflictAvoidanceMode</td>
+<td>NONE</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>ids.authority.conflict-avoidance-tag</td>
+<td>Conflict avoidance tag to be used by this JanusGraph instance when allocating IDs</td>
+<td>Integer</td>
+<td>0</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>ids.authority.conflict-avoidance-tag-bits</td>
+<td>Configures the number of bits of JanusGraph-assigned element IDs that are reserved for the conflict avoidance tag</td>
+<td>Integer</td>
+<td>4</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>ids.authority.randomized-conflict-avoidance-retries</td>
+<td>Number of times the system attempts ID block reservations with random conflict avoidance tags before giving up and throwing an exception</td>
+<td>Integer</td>
+<td>5</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.authority.wait-time</td>
+<td>The number of milliseconds the system waits for an ID block reservation to be acknowledged by the storage backend</td>
+<td>Duration</td>
+<td>300 ms</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="index">index *</h3>
+<p>Configuration options for the individual indexing backends</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].backend</td>
+<td>The indexing backend used to extend and optimize JanusGraph's query functionality. This setting is optional.  JanusGraph can use multiple heterogeneous index backends.  Hence, this option can appear more than once, so long as the user-defined name between "index" and "backend" is unique among appearances.Similar to the storage backend, this should be set to one of JanusGraph's built-in shorthand names for its standard index backends (shorthands: lucene, elasticsearch, es, solr) or to the full package and classname of a custom/third-party IndexProvider implementation.</td>
+<td>String</td>
+<td>elasticsearch</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].conf-file</td>
+<td>Path to a configuration file for those indexing backends that require/support a separate config file</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].directory</td>
+<td>Directory to store index data locally</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].hostname</td>
+<td>The hostname or comma-separated list of hostnames of index backend servers.  This is only applicable to some index backends, such as elasticsearch and solr.</td>
+<td>String[]</td>
+<td>127.0.0.1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].index-name</td>
+<td>Name of the index if required by the indexing backend</td>
+<td>String</td>
+<td>janusgraph</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].map-name</td>
+<td>Whether to use the name of the property key as the field name in the index. It must be ensured, that theindexed property key names are valid field names. Renaming the property key will NOT rename the field and its the developers responsibility to avoid field collisions.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>GLOBAL</td>
+</tr>
+<tr>
+<td>index.[X].max-result-set-size</td>
+<td>Maxium number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch</td>
+<td>Integer</td>
+<td>50</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].port</td>
+<td>The port on which to connect to index backend servers</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indexxelasticsearch">index.[X].elasticsearch</h3>
+<p>Elasticsearch index configuration</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].elasticsearch.bulk-refresh</td>
+<td>Elasticsearch bulk API refresh setting used to control when changes made by this request are made visible to search</td>
+<td>String</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.health-request-timeout</td>
+<td>When JanusGraph initializes its ES backend, JanusGraph waits up to this duration for the ES cluster health to reach at least yellow status.  This string should be formatted as a natural number followed by the lowercase letter "s", e.g. 3s or 60s.</td>
+<td>String</td>
+<td>30s</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.interface</td>
+<td>Interface for connecting to Elasticsearch. TRANSPORT_CLIENT and NODE were previously supported, but now are required to migrate to REST_CLIENT. See the JanusGraph upgrade instructions for more details.</td>
+<td>String</td>
+<td>REST_CLIENT</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.max-retry-timeout</td>
+<td>Sets the maximum timeout (in milliseconds) to honour in case of multiple retries of the same request sent using the ElasticSearch Rest Client by JanusGraph.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.scroll-keep-alive</td>
+<td>How long (in secondes) elasticsearch should keep alive the scroll context.</td>
+<td>Integer</td>
+<td>60</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.use-all-field</td>
+<td>Whether JanusGraph should add an "all" field mapping. When enabled field mappings will include a "copy_to" parameter referencing the "all" field. This is supported since Elasticsearch 6.x  and is required when using wildcard fields starting in Elasticsearch 6.x.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.use-deprecated-multitype-index</td>
+<td>Whether JanusGraph should group these indices into a single Elasticsearch index (requires Elasticsearch 5.x or earlier).</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indexxelasticsearchcreate">index.[X].elasticsearch.create</h3>
+<p>Settings related to index creation</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].elasticsearch.create.allow-mapping-update</td>
+<td>Whether JanusGraph should allow a mapping update when registering an index. Only applicable when use-external-mappings is true.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.create.sleep</td>
+<td>How long to sleep, in milliseconds, between the successful completion of a (blocking) index creation request and the first use of that index.  This only applies when creating an index in ES, which typically only happens the first time JanusGraph is started on top of ES. If the index JanusGraph is configured to use already exists, then this setting has no effect.</td>
+<td>Long</td>
+<td>200</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.create.use-external-mappings</td>
+<td>Whether JanusGraph should make use of an external mapping when registering an index.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indexxsolr">index.[X].solr</h3>
+<p>Solr index configuration</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].solr.configset</td>
+<td>If specified, the same solr configSet can be resued for each new Collection that is created in SolrCloud.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.dyn-fields</td>
+<td>Whether to use dynamic fields (which appends the data type to the field name). If dynamic fields is disabledthe user must map field names and define them explicitly in the schema.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.http-compression</td>
+<td>Enable/disable compression on the HTTP connections made to Solr.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.http-connection-timeout</td>
+<td>Solr HTTP connection timeout.</td>
+<td>Integer</td>
+<td>5000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.http-max</td>
+<td>Maximum number of HTTP connections in total to all Solr servers.</td>
+<td>Integer</td>
+<td>100</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.http-max-per-host</td>
+<td>Maximum number of HTTP connections per Solr host.</td>
+<td>Integer</td>
+<td>20</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.http-urls</td>
+<td>List of URLs to use to connect to Solr Servers (LBHttpSolrClient is used), don't add core or collection name to the URL.</td>
+<td>String[]</td>
+<td>http://localhost:8983/solr</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.key-field-names</td>
+<td>Field name that uniquely identifies each document in Solr. Must be specified as a list of <code>collection=field</code>.</td>
+<td>String[]</td>
+<td>(no default value)</td>
+<td>GLOBAL</td>
+</tr>
+<tr>
+<td>index.[X].solr.max-shards-per-node</td>
+<td>Maximum number of shards per node. This applies when creating a new collection which is only supported under the SolrCloud operation mode.</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.mode</td>
+<td>The operation mode for Solr which is either via HTTP (<code>http</code>) or using SolrCloud (<code>cloud</code>)</td>
+<td>String</td>
+<td>cloud</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.num-shards</td>
+<td>Number of shards for a collection. This applies when creating a new collection which is only supported under the SolrCloud operation mode.</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.replication-factor</td>
+<td>Replication factor for a collection. This applies when creating a new collection which is only supported under the SolrCloud operation mode.</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.ttl_field</td>
+<td>Name of the TTL field for Solr collections.</td>
+<td>String</td>
+<td>ttl</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].solr.wait-searcher</td>
+<td>When mutating - wait for the index to reflect new mutations before returning. This can have a negative impact on performance.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>index.[X].solr.zookeeper-url</td>
+<td>URL of the Zookeeper instance coordinating the SolrCloud cluster</td>
+<td>String[]</td>
+<td>localhost:2181</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="log">log *</h3>
+<p>Configuration options for JanusGraph's logging system</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log.[X].backend</td>
+<td>Define the log backed to use</td>
+<td>String</td>
+<td>default</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>log.[X].fixed-partition</td>
+<td>Whether all log entries are written to one fixed partition even if the backend store is partitioned.This can cause imbalanced loads and should only be used on low volume logs</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>log.[X].key-consistent</td>
+<td>Whether to require consistency for log reading and writing messages to the storage backend</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].max-partitions</td>
+<td>The maximum number of partitions to use for logging. Setting up this many actual or virtual partitions. Must be bigger than 0and a power of 2.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>log.[X].max-read-time</td>
+<td>Maximum time in ms to try reading log messages from the backend before failing.</td>
+<td>Duration</td>
+<td>4000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].max-write-time</td>
+<td>Maximum time in ms to try persisting log messages against the backend before failing.</td>
+<td>Duration</td>
+<td>10000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].num-buckets</td>
+<td>The number of buckets to split log entries into for load balancing</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>log.[X].read-batch-size</td>
+<td>Maximum number of log messages to read at a time for logging implementations that read messages in batches</td>
+<td>Integer</td>
+<td>1024</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].read-interval</td>
+<td>Time in ms between message readings from the backend for this logging implementations that read message in batch</td>
+<td>Duration</td>
+<td>5000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].read-lag-time</td>
+<td>Maximum time in ms that it may take for reads to appear in the backend. If a write does not becomevisible in the storage backend in this amount of time, a log reader might miss the message.</td>
+<td>Duration</td>
+<td>500 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].read-threads</td>
+<td>Number of threads to be used in reading and processing log messages</td>
+<td>Integer</td>
+<td>1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].send-batch-size</td>
+<td>Maximum number of log messages to batch up for sending for logging implementations that support batch sending</td>
+<td>Integer</td>
+<td>256</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].send-delay</td>
+<td>Maximum time in ms that messages can be buffered locally before sending in batch</td>
+<td>Duration</td>
+<td>1000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>log.[X].ttl</td>
+<td>Sets a TTL on all log entries, meaningthat all entries added to this log expire after the configured amount of time. Requiresthat the log implementation supports TTL.</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>GLOBAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metrics">metrics</h3>
+<p>Configuration options for metrics reporting</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.enabled</td>
+<td>Whether to enable basic timing and operation count monitoring on backend</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.merge-stores</td>
+<td>Whether to aggregate measurements for the edge store, vertex index, edge index, and ID store</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.prefix</td>
+<td>The default name prefix for Metrics reported by JanusGraph.</td>
+<td>String</td>
+<td>org.janusgraph</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricsconsole">metrics.console</h3>
+<p>Configuration options for metrics reporting to console</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.console.interval</td>
+<td>Time between Metrics reports printing to the console, in milliseconds</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricscsv">metrics.csv</h3>
+<p>Configuration options for metrics reporting to CSV file</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.csv.directory</td>
+<td>Metrics CSV output directory</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.csv.interval</td>
+<td>Time between dumps of CSV files containing Metrics data, in milliseconds</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricsganglia">metrics.ganglia</h3>
+<p>Configuration options for metrics reporting through Ganglia</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.ganglia.addressing-mode</td>
+<td>Whether to communicate to Ganglia via uni- or multicast</td>
+<td>String</td>
+<td>unicast</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.hostname</td>
+<td>The unicast host or multicast group name to which Metrics will send Ganglia data</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.interval</td>
+<td>The number of milliseconds to wait between sending Metrics data to Ganglia</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.port</td>
+<td>The port to which Ganglia data are sent</td>
+<td>Integer</td>
+<td>8649</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.protocol-31</td>
+<td>Whether to send data to Ganglia in the 3.1 protocol format</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.spoof</td>
+<td>If non-null, it must be a valid Gmetric spoof string formatted as an IP:hostname pair. See https://github.com/ganglia/monitor-core/wiki/Gmetric-Spoofing for information about this setting.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.ttl</td>
+<td>The multicast TTL to set on outgoing Ganglia datagrams</td>
+<td>Integer</td>
+<td>1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.ganglia.uuid</td>
+<td>The host UUID to set on outgoing Ganglia datagrams. See https://github.com/ganglia/monitor-core/wiki/UUIDSources for information about this setting.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricsgraphite">metrics.graphite</h3>
+<p>Configuration options for metrics reporting through Graphite</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.graphite.hostname</td>
+<td>The hostname to receive Graphite plaintext protocol metric data</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.graphite.interval</td>
+<td>The number of milliseconds to wait between sending Metrics data</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.graphite.port</td>
+<td>The port to which Graphite data are sent</td>
+<td>Integer</td>
+<td>2003</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.graphite.prefix</td>
+<td>A Graphite-specific prefix for reported metrics</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricsjmx">metrics.jmx</h3>
+<p>Configuration options for metrics reporting through JMX</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.jmx.agentid</td>
+<td>The JMX agentId used by Metrics</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.jmx.domain</td>
+<td>The JMX domain in which to report Metrics</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.jmx.enabled</td>
+<td>Whether to report Metrics through a JMX MBean</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metricsslf4j">metrics.slf4j</h3>
+<p>Configuration options for metrics reporting through slf4j</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metrics.slf4j.interval</td>
+<td>Time between slf4j logging reports of Metrics data, in milliseconds</td>
+<td>Duration</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>metrics.slf4j.logger</td>
+<td>The complete name of the Logger through which Metrics will report via Slf4j</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="query">query</h3>
+<p>Configuration options for query processing</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query.batch</td>
+<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.fast-property</td>
+<td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequentproperty access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.force-index</td>
+<td>Whether JanusGraph should throw an exception if a graph query cannot be answered using an index. Doing solimits the functionality of JanusGraph's graph queries but ensures that slow graph queries are avoided on large graphs. Recommended for production use of JanusGraph.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.ignore-unknown-index-key</td>
+<td>Whether to ignore undefined types encountered in user-provided index queries</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.smart-limit</td>
+<td>Whether the query optimizer should try to guess a smart limit for the query to ensure responsiveness in light of possibly large result sets. Those will be loaded incrementally if this option is enabled.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema">schema</h3>
+<p>Schema related configuration options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema.default</td>
+<td>Configures the DefaultSchemaMaker to be used by this graph. If set to 'none', automatic schema creation is disabled. Defaults to a blueprints compatible schema maker with MULTI edge labels and SINGLE property keys</td>
+<td>String</td>
+<td>default</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage">storage</h3>
+<p>Configuration options for the storage backend.  Some options are applicable only for certain backends.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.backend</td>
+<td>The primary persistence provider used by JanusGraph.  This is required.  It should be set one of JanusGraph's built-in shorthand names for its standard storage backends (shorthands: berkeleyje, cassandrathrift, cassandra, astyanax, embeddedcassandra, cql, hbase, inmemory) or to the full package and classname of a custom/third-party StoreManager implementation.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.batch-loading</td>
+<td>Whether to enable batch loading into the storage backend</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.buffer-size</td>
+<td>Size of the batch in which mutations are persisted</td>
+<td>Integer</td>
+<td>1024</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.conf-file</td>
+<td>Path to a configuration file for those storage backends which require/support a single separate config file.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.connection-timeout</td>
+<td>Default timeout, in milliseconds, when connecting to a remote database instance</td>
+<td>Duration</td>
+<td>10000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.directory</td>
+<td>Storage directory for those storage backends that require local storage.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.drop-on-clear</td>
+<td>Whether to drop the graph database (true) or delete rows (false) when clearing storage. Note that some backends always drop the graph database when clearing storage. Also note that indices are always dropped when clearing storage.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hostname</td>
+<td>The hostname or comma-separated list of hostnames of storage backend servers.  This is only applicable to some storage backends, such as cassandra and hbase.</td>
+<td>String[]</td>
+<td>127.0.0.1</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.page-size</td>
+<td>JanusGraph break requests that may return many results from distributed storage backends into a series of requests for small chunks/pages of results, where each chunk contains up to this many elements.</td>
+<td>Integer</td>
+<td>100</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.parallel-backend-ops</td>
+<td>Whether JanusGraph should attempt to parallelize storage operations</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.password</td>
+<td>Password to authenticate against backend</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.port</td>
+<td>The port on which to connect to storage backend servers. For HBase, it is the Zookeeper port.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.read-only</td>
+<td>Read-only database</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.read-time</td>
+<td>Maximum time (in ms) to wait for a backend read operation to complete successfully. If a backend read operationfails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
+<td>Duration</td>
+<td>10000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.root</td>
+<td>Storage root directory for those storage backends that require local storage. If you do not supply storage.directory and you do supply graph.graphname, then your data will be stored in the directory equivalent to <STORAGE_ROOT>/<GRAPH_NAME>.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.setup-wait</td>
+<td>Time in milliseconds for backend manager to wait for the storage backends to become available when JanusGraph is run in server mode</td>
+<td>Duration</td>
+<td>60000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.transactions</td>
+<td>Enables transactions on storage backends that support them</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.username</td>
+<td>Username to authenticate against backend</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.write-time</td>
+<td>Maximum time (in ms) to wait for a backend write operation to complete successfully. If a backend write operationfails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
+<td>Duration</td>
+<td>100000 ms</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storageberkeleyje">storage.berkeleyje</h3>
+<p>BerkeleyDB JE configuration options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.berkeleyje.cache-percentage</td>
+<td>Percentage of JVM heap reserved for BerkeleyJE's cache</td>
+<td>Integer</td>
+<td>65</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.berkeleyje.isolation-level</td>
+<td>The isolation level used by transactions</td>
+<td>String</td>
+<td>REPEATABLE_READ</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.berkeleyje.lock-mode</td>
+<td>The BDB record lock mode used for read operations</td>
+<td>String</td>
+<td>LockMode.DEFAULT</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecassandra">storage.cassandra</h3>
+<p>Cassandra storage backend options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cassandra.atomic-batch-mutate</td>
+<td>True to use Cassandra atomic batch mutation, false to use non-atomic batches</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.compaction-strategy-class</td>
+<td>The compaction strategy to use for JanusGraph tables</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.compaction-strategy-options</td>
+<td>Compaction strategy options.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form.</td>
+<td>String[]</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.compression</td>
+<td>Whether the storage backend should use compression when storing the data</td>
+<td>Boolean</td>
+<td>true</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.compression-block-size</td>
+<td>The size of the compression blocks in kilobytes</td>
+<td>Integer</td>
+<td>64</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.compression-type</td>
+<td>The sstable_compression value JanusGraph uses when creating column families. This accepts any value allowed by Cassandra's sstable_compression option. Leave this unset to disable sstable_compression on JanusGraph-created CFs.</td>
+<td>String</td>
+<td>LZ4Compressor</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.frame-size-mb</td>
+<td>The thrift frame size in megabytes</td>
+<td>Integer</td>
+<td>15</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.keyspace</td>
+<td>The name of JanusGraph's keyspace.  It will be created if it does not exist. If it is not supplied, but graph.graphname is, then the the keyspace will be set to that.</td>
+<td>String</td>
+<td>janusgraph</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cassandra.read-consistency-level</td>
+<td>The consistency level of read operations against Cassandra</td>
+<td>String</td>
+<td>QUORUM</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.replication-factor</td>
+<td>The number of data replicas (including the original copy) that should be kept. This is only meaningful for storage backends that natively support data replication.</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>storage.cassandra.replication-strategy-class</td>
+<td>The replication strategy to use for JanusGraph keyspace</td>
+<td>String</td>
+<td>org.apache.cassandra.locator.SimpleStrategy</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.replication-strategy-options</td>
+<td>Replication strategy options, e.g. factor or replicas per datacenter.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form.  A replication_factor set here takes precedence over one set with storage.cassandra.replication-factor</td>
+<td>String[]</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cassandra.write-consistency-level</td>
+<td>The consistency level of write operations against Cassandra</td>
+<td>String</td>
+<td>QUORUM</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecassandraastyanax">storage.cassandra.astyanax</h3>
+<p>Astyanax-specific Cassandra options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cassandra.astyanax.cluster-name</td>
+<td>Default name for the Cassandra cluster</td>
+<td>String</td>
+<td>JanusGraph Cluster</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.connection-pool-type</td>
+<td>Astyanax's connection pooler implementation</td>
+<td>String</td>
+<td>TOKEN_AWARE</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.frame-size</td>
+<td>The thrift frame size in mega bytes</td>
+<td>Integer</td>
+<td>15</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.host-supplier</td>
+<td>Host supplier to use when discovery type is set to DISCOVERY_SERVICE or TOKEN_AWARE</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.local-datacenter</td>
+<td>The name of the local or closest Cassandra datacenter.  When set and not whitespace, this value will be passed into ConnectionPoolConfigurationImpl.setLocalDatacenter. When unset or set to whitespace, setLocalDatacenter will not be invoked.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.max-cluster-connections-per-host</td>
+<td>Maximum pooled "cluster" connections per host</td>
+<td>Integer</td>
+<td>3</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.max-connections</td>
+<td>Maximum open connections allowed in the pool (counting all hosts)</td>
+<td>Integer</td>
+<td>-1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.max-connections-per-host</td>
+<td>Maximum pooled connections per host</td>
+<td>Integer</td>
+<td>32</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.max-operations-per-connection</td>
+<td>Maximum number of operations allowed per connection before the connection is closed</td>
+<td>Integer</td>
+<td>100000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.node-discovery-type</td>
+<td>How Astyanax discovers Cassandra cluster nodes</td>
+<td>String</td>
+<td>RING_DESCRIBE</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.read-page-size</td>
+<td>The page size for Cassandra read operations</td>
+<td>Integer</td>
+<td>4096</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.retry-backoff-strategy</td>
+<td>Astyanax's retry backoff strategy with configuration parameters</td>
+<td>String</td>
+<td>com.netflix.astyanax.connectionpool.impl.FixedRetryBackoffStrategy,1000,5000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.retry-delay-slice</td>
+<td>Astyanax's connection pool "retryDelaySlice" parameter</td>
+<td>Integer</td>
+<td>10000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.retry-max-delay-slice</td>
+<td>Astyanax's connection pool "retryMaxDelaySlice" parameter</td>
+<td>Integer</td>
+<td>10</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.retry-policy</td>
+<td>Astyanax's retry policy implementation with configuration parameters</td>
+<td>String</td>
+<td>com.netflix.astyanax.retry.BoundedExponentialBackoff,100,25000,8</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.astyanax.retry-suspend-window</td>
+<td>Astyanax's connection pool "retryMaxDelaySlice" parameter</td>
+<td>Integer</td>
+<td>20000</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecassandrassl">storage.cassandra.ssl</h3>
+<p>Configuration options for SSL</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cassandra.ssl.enabled</td>
+<td>Controls use of the SSL connection to Cassandra</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecassandrassltruststore">storage.cassandra.ssl.truststore</h3>
+<p>Configuration options for SSL Truststore.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cassandra.ssl.truststore.location</td>
+<td>Marks the location of the SSL Truststore.</td>
+<td>String</td>
+<td></td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cassandra.ssl.truststore.password</td>
+<td>The password to access SSL Truststore.</td>
+<td>String</td>
+<td></td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecassandrathriftcpool">storage.cassandra.thrift.cpool</h3>
+<p>Options for the Apache commons-pool connection manager</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cassandra.thrift.cpool.evictor-period</td>
+<td>Approximate number of milliseconds between runs of the idle connection evictor.  Set to -1 to never run the idle connection evictor.</td>
+<td>Long</td>
+<td>30000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.idle-test</td>
+<td>Whether the idle connection evictor validates idle connections and drops those that fail to validate</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.idle-tests-per-eviction-run</td>
+<td>When the value is negative, e.g. -n, roughly one nth of the idle connections are tested per run.  When the value is positive, e.g. n, the min(idle-count, n) connections are tested per run.</td>
+<td>Integer</td>
+<td>0</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.max-active</td>
+<td>Maximum number of concurrently in-use connections (-1 to leave undefined)</td>
+<td>Integer</td>
+<td>16</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.max-idle</td>
+<td>Maximum number of concurrently idle connections (-1 to leave undefined)</td>
+<td>Integer</td>
+<td>4</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.max-total</td>
+<td>Max number of allowed Thrift connections, idle or active (-1 to leave undefined)</td>
+<td>Integer</td>
+<td>-1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.max-wait</td>
+<td>Maximum number of milliseconds to block when storage.cassandra.thrift.cpool.when-exhausted is set to BLOCK.  Has no effect when set to actions besides BLOCK.  Set to -1 to wait indefinitely.</td>
+<td>Long</td>
+<td>-1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.min-evictable-idle-time</td>
+<td>Minimum number of milliseconds a connection must be idle before it is eligible for eviction.  See also storage.cassandra.thrift.cpool.evictor-period.  Set to -1 to never evict idle connections.</td>
+<td>Long</td>
+<td>60000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.min-idle</td>
+<td>Minimum number of idle connections the pool attempts to maintain</td>
+<td>Integer</td>
+<td>0</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cassandra.thrift.cpool.when-exhausted</td>
+<td>What to do when clients concurrently request more active connections than are allowed by the pool.  The value must be one of BLOCK, FAIL, or GROW.</td>
+<td>String</td>
+<td>BLOCK</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecql">storage.cql</h3>
+<p>CQL storage backend options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cql.atomic-batch-mutate</td>
+<td>True to use Cassandra atomic batch mutation, false to use non-atomic batches</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.batch-statement-size</td>
+<td>The number of statements in each batch</td>
+<td>Integer</td>
+<td>20</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.cluster-name</td>
+<td>Default name for the Cassandra cluster</td>
+<td>String</td>
+<td>JanusGraph Cluster</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.compact-storage</td>
+<td>Whether the storage backend should use compact storage on tables. This option is only available for Cassandra 2 and earlier and defaults to true.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.compaction-strategy-class</td>
+<td>The compaction strategy to use for JanusGraph tables</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.compaction-strategy-options</td>
+<td>Compaction strategy options.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form.</td>
+<td>String[]</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.compression</td>
+<td>Whether the storage backend should use compression when storing the data</td>
+<td>Boolean</td>
+<td>true</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.compression-block-size</td>
+<td>The size of the compression blocks in kilobytes</td>
+<td>Integer</td>
+<td>64</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.compression-type</td>
+<td>The sstable_compression value JanusGraph uses when creating column families. This accepts any value allowed by Cassandra's sstable_compression option. Leave this unset to disable sstable_compression on JanusGraph-created CFs.</td>
+<td>String</td>
+<td>LZ4Compressor</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.keyspace</td>
+<td>The name of JanusGraph's keyspace.  It will be created if it does not exist.</td>
+<td>String</td>
+<td>janusgraph</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.local-datacenter</td>
+<td>The name of the local or closest Cassandra datacenter.  When set and not whitespace, this value will be passed into ConnectionPoolConfigurationImpl.setLocalDatacenter. When unset or set to whitespace, setLocalDatacenter will not be invoked.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.only-use-local-consistency-for-system-operations</td>
+<td>True to prevent any system queries from using QUORUM consistency and always use LOCAL_QUORUM instead</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.protocol-version</td>
+<td>The protocol version used to connect to the Cassandra database.  If no value is supplied then the driver will negotiate with the server.</td>
+<td>Integer</td>
+<td>0</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.read-consistency-level</td>
+<td>The consistency level of read operations against Cassandra</td>
+<td>String</td>
+<td>QUORUM</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.replication-factor</td>
+<td>The number of data replicas (including the original copy) that should be kept</td>
+<td>Integer</td>
+<td>1</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>storage.cql.replication-strategy-class</td>
+<td>The replication strategy to use for JanusGraph keyspace</td>
+<td>String</td>
+<td>SimpleStrategy</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.replication-strategy-options</td>
+<td>Replication strategy options, e.g. factor or replicas per datacenter.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form.  A replication_factor set here takes precedence over one set with storage.cql.replication-factor</td>
+<td>String[]</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.cql.write-consistency-level</td>
+<td>The consistency level of write operations against Cassandra</td>
+<td>String</td>
+<td>QUORUM</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecqlssl">storage.cql.ssl</h3>
+<p>Configuration options for SSL</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cql.ssl.enabled</td>
+<td>Controls use of the SSL connection to Cassandra</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecqlssltruststore">storage.cql.ssl.truststore</h3>
+<p>Configuration options for SSL Truststore.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cql.ssl.truststore.location</td>
+<td>Marks the location of the SSL Truststore.</td>
+<td>String</td>
+<td></td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.ssl.truststore.password</td>
+<td>The password to access SSL Truststore.</td>
+<td>String</td>
+<td></td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagehbase">storage.hbase</h3>
+<p>HBase storage options</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.hbase.compat-class</td>
+<td>The package and class name of the HBaseCompat implementation. HBaseCompat masks version-specific HBase API differences. When this option is unset, JanusGraph calls HBase's VersionInfo.getVersion() and loads the matching compat class at runtime.  Setting this option forces JanusGraph to instead reflectively load and instantiate the specified class.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hbase.compression-algorithm</td>
+<td>An HBase Compression.Algorithm enum string which will be applied to newly created column families. The compression algorithm must be installed and available on the HBase cluster.  JanusGraph cannot install and configure new compression algorithms on the HBase cluster by itself.</td>
+<td>String</td>
+<td>GZ</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hbase.region-count</td>
+<td>The number of initial regions set when creating JanusGraph's HBase table</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hbase.regions-per-server</td>
+<td>The number of regions per regionserver to set when creating JanusGraph's HBase table</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hbase.short-cf-names</td>
+<td>Whether to shorten the names of JanusGraph's column families to one-character mnemonics to conserve storage space</td>
+<td>Boolean</td>
+<td>true</td>
+<td>FIXED</td>
+</tr>
+<tr>
+<td>storage.hbase.skip-schema-check</td>
+<td>Assume that JanusGraph's HBase table and column families already exist. When this is true, JanusGraph will not check for the existence of its table/CFs, nor will it attempt to create them under any circumstances.  This is useful when running JanusGraph without HBase admin privileges.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.hbase.table</td>
+<td>The name of the table JanusGraph will use.  When storage.hbase.skip-schema-check is false, JanusGraph will automatically create this table if it does not already exist. If this configuration option is not provided but graph.graphname is, the table will be set to that value.</td>
+<td>String</td>
+<td>janusgraph</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagelock">storage.lock</h3>
+<p>Options for locking on eventually-consistent stores</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.lock.backend</td>
+<td>Locker type to use</td>
+<td>String</td>
+<td>consistentkey</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>storage.lock.clean-expired</td>
+<td>Whether to delete expired locks from the storage backend</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.lock.expiry-time</td>
+<td>Number of milliseconds after which a lock is considered to have expired. Lock applications that were not released are considered expired after this time and released. This value should be larger than the maximum time a transaction can take in order to guarantee that no correctly held applications are expired pre-maturely and as small as possible to avoid dead lock.</td>
+<td>Duration</td>
+<td>300000 ms</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>storage.lock.local-mediator-group</td>
+<td>This option determines the LocalLockMediator instance used for early detection of lock contention between concurrent JanusGraph graph instances within the same process which are connected to the same storage backend.  JanusGraph instances that have the same value for this variable will attempt to discover lock contention among themselves in memory before proceeding with the general-case distributed locking code.  JanusGraph generates an appropriate default value for this option at startup.  Overridding the default is generally only useful in testing.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.lock.retries</td>
+<td>Number of times the system attempts to acquire a lock before giving up and throwing an exception</td>
+<td>Integer</td>
+<td>3</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.lock.wait-time</td>
+<td>Number of milliseconds the system waits for a lock application to be acknowledged by the storage backend. Also, the time waited at the end of all lock applications before verifying that the applications were successful. This value should be a small multiple of the average consistent write time.</td>
+<td>Duration</td>
+<td>100 ms</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagemeta">storage.meta *</h3>
+<p>Meta data to include in storage backend retrievals</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.meta.[X].timestamps</td>
+<td>Whether to include timestamps in retrieved entries for storage backends that automatically annotated entries with timestamps</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL</td>
+</tr>
+<tr>
+<td>storage.meta.[X].ttl</td>
+<td>Whether to include ttl in retrieved entries for storage backends that support storage and retrieval of cell level TTL</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL</td>
+</tr>
+<tr>
+<td>storage.meta.[X].visibility</td>
+<td>Whether to include visibility in retrieved entries for storage backends that support cell level visibility</td>
+<td>Boolean</td>
+<td>true</td>
+<td>GLOBAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tx">tx</h3>
+<p>Configuration options for transaction handling</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tx.log-tx</td>
+<td>Whether transaction mutations should be logged to JanusGraph's write-ahead transaction log which can be used for recovery of partially failed transactions</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL</td>
+</tr>
+<tr>
+<td>tx.max-commit-time</td>
+<td>Maximum time (in ms) that a transaction might take to commit against all backends. This is used by the distributed write-ahead log processing to determine when a transaction can be considered failed (i.e. after this time has elapsed).Must be longer than the maximum allowed write time.</td>
+<td>Duration</td>
+<td>10000 ms</td>
+<td>GLOBAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="txrecovery">tx.recovery</h3>
+<p>Configuration options for transaction recovery processes</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tx.recovery.verbose</td>
+<td>Whether the transaction recovery system should print recovered transactions and other activity to standard output</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1416 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>Gremlin Query Language - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#4caf50">
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gremlin-query-language" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            JanusGraph
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Gremlin Query Language
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../schema/" title="Schema and Data Modeling" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Gremlin Query Language
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Gremlin Query Language" class="md-nav__link md-nav__link--active">
+      Gremlin Query Language
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introductory-traversals" class="md-nav__link">
+    Introductory Traversals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterating-the-traversal" class="md-nav__link">
+    Iterating the Traversal
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../server/" title="JanusGraph Server" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment Scenarios" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+      Things to Consider in a Multi-Node JanusGraph Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cache/" title="JanusGraph Cache" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../transaction-log/" title="Transaction Log" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration-reference/" title="Configuration Reference" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../example-config/" title="Config Example" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-questions/" title="Common Questions" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" title="Technical Limitations" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Index Management
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-management/index-removal/" title="Removal" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Storage Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+      Search Predicates and Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Advanced Topics
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+      Monitoring JanusGraph
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/java/" title="Using Java" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/python/" title="Using Python" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+      Using .Net
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../appendices/" title="Appendices" class="md-nav__link">
+      Appendices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introductory-traversals" class="md-nav__link">
+    Introductory Traversals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterating-the-traversal" class="md-nav__link">
+    Iterating the Traversal
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.3/docs/basics/gremlin.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="gremlin-query-language">Gremlin Query Language</h1>
+<p><img alt="gremlin" src="https://tinkerpop.apache.org/docs/3.2.9/images/gremlin-logo.png" /></p>
+<p><a href="https://tinkerpop.apache.org/gremlin.html">Gremlin</a> is JanusGraph’s
+query language used to retrieve data from and modify data in the graph.
+Gremlin is a path-oriented language which succinctly expresses complex
+graph traversals and mutation operations. Gremlin is a <a href="https://en.wikipedia.org/wiki/Functional_programming">functional
+language</a> whereby
+traversal operators are chained together to form path-like expressions.
+For example, "from Hercules, traverse to his father and then his
+father’s father and return the grandfather’s name."</p>
+<p>Gremlin is a component of <a href="https://tinkerpop.apache.org">Apache
+TinkerPop</a>. It is developed independently
+from JanusGraph and is supported by most graph databases. By building
+applications on top of JanusGraph through the Gremlin query language,
+users avoid vendor-lock in because their application can be migrated to
+other graph databases supporting Gremlin.</p>
+<p>This section is a brief overview of the Gremlin query language. For more
+information on Gremlin, refer to the following resources:</p>
+<ul>
+<li>
+<p><a href="https://kelvinlawrence.net/book/Gremlin-Graph-Guide.html">Practical Gremlin</a>: An online book by Kelvin R. Lawrence providing an in-depth overview of Gremlin and it's interaction with JanusGraph.</p>
+</li>
+<li>
+<p><a href="https://tinkerpop.apache.org/docs/3.3.3/reference/">Complete Gremlin Manual</a>: Reference manual for all of the Gremlin steps.</p>
+</li>
+<li>
+<p><a href="https://tinkerpop.apache.org/docs/3.3.3/tutorials/the-gremlin-console/">Gremlin Console Tutorial</a>: Learn how to use the Gremlin Console effectively to traverse and analyze a graph interactively.</p>
+</li>
+<li>
+<p><a href="https://tinkerpop.apache.org/docs/3.3.3/recipes/">Gremlin Recipes</a>: A collection of best practices and common traversal patterns for Gremlin.</p>
+</li>
+<li>
+<p><a href="https://tinkerpop.apache.org/index.html#language-drivers">Gremlin Language Drivers</a>:
+    Connect to a Gremlin Server with different programming languages,
+    including Go, JavaScript, .NET/C#, PHP, Python, Ruby, Scala, and
+    TypeScript.</p>
+</li>
+<li>
+<p><a href="https://tinkerpop.apache.org/docs/3.3.3/tutorials/gremlin-language-variants/">Gremlin Language Variants</a>: Learn how to embed Gremlin in a host programming language.</p>
+</li>
+<li>
+<p><a href="http://sql2gremlin.com">Gremlin for SQL developers</a>: Learn Gremlin
+    using typical patterns found when querying data with SQL.</p>
+</li>
+</ul>
+<p>In addition to these resources, <a href="../../connecting/">Connecting to JanusGraph</a> explains how Gremlin
+can be used in different programming languages to query a JanusGraph
+Server.</p>
+<h2 id="introductory-traversals">Introductory Traversals</h2>
+<p>A Gremlin query is a chain of operations/functions that are evaluated
+from left to right. A simple grandfather query is provided below over
+the <em>Graph of the Gods</em> dataset discussed in <a href="../..#getting-started">Getting Started</a>.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">saturn</span>
+</code></pre></div></p>
+<p>The query above can be read:</p>
+<ol>
+<li><code>g</code>: for the current graph traversal.</li>
+<li><code>V</code>: for all vertices in the graph</li>
+<li><code>has('name', 'hercules')</code>: filters the vertices down to those with name property "hercules" (there is only one).</li>
+<li><code>out('father')</code>: traverse outgoing father edge’s from Hercules.</li>
+<li>‘out('father')`: traverse outgoing father edge’s from Hercules’ father’s vertex (i.e. Jupiter).</li>
+<li><code>name</code>: get the name property of the "hercules" vertex’s grandfather.</li>
+</ol>
+<p>Taken together, these steps form a path-like traversal query. Each step
+can be decomposed and its results demonstrated. This style of building
+up a traversal/query is useful when constructing larger, complex query
+chains.</p>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span>
+<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">janusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">],</span> <span class="n">standard</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">24</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">16</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">20</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">saturn</span>
+</code></pre></div>
+
+<p>For a sanity check, it is usually good to look at the properties of each
+return, not the assigned long id.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">hercules</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">jupiter</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">saturn</span>
+</code></pre></div></p>
+<p>Note the related traversal that shows the entire father family tree
+branch of Hercules. This more complicated traversal is provided in order
+to demonstrate the flexibility and expressivity of the language. A
+competent grasp of Gremlin provides the JanusGraph user the ability to
+fluently navigate the underlying graph structure.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">)).</span><span class="na">emit</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">jupiter</span>
+<span class="o">==&gt;</span><span class="n">saturn</span>
+</code></pre></div></p>
+<p>Some more traversal examples are provided below.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">hercules</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;hercules&#39;</span><span class="o">).</span><span class="na">next</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">1536</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;father&#39;</span><span class="o">,</span> <span class="s1">&#39;mother&#39;</span><span class="o">).</span><span class="na">label</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">god</span>
+<span class="o">==&gt;</span><span class="n">human</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">label</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">monster</span>
+<span class="o">==&gt;</span><span class="n">monster</span>
+<span class="o">==&gt;</span><span class="n">monster</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">valueMap</span><span class="o">()</span>
+<span class="o">==&gt;{</span><span class="n">name</span><span class="o">=</span><span class="n">nemean</span><span class="o">}</span>
+<span class="o">==&gt;{</span><span class="n">name</span><span class="o">=</span><span class="n">hydra</span><span class="o">}</span>
+<span class="o">==&gt;{</span><span class="n">name</span><span class="o">=</span><span class="n">cerberus</span><span class="o">}</span>
+</code></pre></div>
+Each step (denoted by a separating .) is a function that operates on the objects emitted from the previous step. There are numerous steps in the Gremlin language (see <a href="https://tinkerpop.apache.org/docs/3.3.3/reference/#graph-traversal-steps">Gremlin Steps</a>). By simply changing a step or order of the steps, different traversal semantics are enacted. The example below returns the name of all the people that have battled the same monsters as Hercules who themselves are not Hercules (i.e. "co-battlers" or perhaps, "allies").</p>
+<p>Given that <em>The Graph of the Gods</em> only has one battler (Hercules),
+another battler (for the sake of example) is added to the graph with
+Gremlin showcasing how vertices and edges are added to the graph.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">theseus</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="s1">&#39;human&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">3328</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">theseus</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;theseus&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="kc">null</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">cerberus</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;cerberus&#39;</span><span class="o">).</span><span class="na">next</span><span class="o">()</span>
+<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">2816</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">battle</span> <span class="o">=</span> <span class="n">theseus</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">,</span> <span class="n">cerberus</span><span class="o">,</span> <span class="s1">&#39;time&#39;</span><span class="o">,</span> <span class="mi">22</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">e</span><span class="o">[</span><span class="mi">7</span><span class="n">eo</span><span class="o">-</span><span class="mi">2</span><span class="n">kg</span><span class="o">-</span><span class="n">iz9</span><span class="o">-</span><span class="mi">268</span><span class="o">][</span><span class="mi">3328</span><span class="o">-</span><span class="n">battled</span><span class="o">-&gt;</span><span class="mi">2816</span><span class="o">]</span>
+<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">battle</span><span class="o">.</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;time&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="mi">22</span>
+</code></pre></div></p>
+<p>When adding a vertex, an optional vertex label can be provided. An edge
+label must be specified when adding edges. Properties as key-value pairs
+can be set on both vertices and edges. When a property key is defined
+with SET or LIST cardinality, <code>addProperty</code> must be used when adding a
+respective property to a vertex.
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">hercules</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="s1">&#39;h&#39;</span><span class="o">).</span><span class="na">out</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="s1">&#39;battled&#39;</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="n">neq</span><span class="o">(</span><span class="s1">&#39;h&#39;</span><span class="o">)).</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">theseus</span>
+</code></pre></div></p>
+<p>The example above has 4 chained functions: <code>out</code>, <code>in</code>, <code>except</code>, and
+<code>values</code> (i.e. <code>name</code> is shorthand for <code>values('name')</code>). The function
+signatures of each are itemized below, where <code>V</code> is vertex and <code>U</code> is
+any object, where <code>V</code> is a subset of <code>U</code>.</p>
+<ol>
+<li><code>out: V -&gt; V</code></li>
+<li><code>in: V -&gt; V</code></li>
+<li><code>except: U -&gt; U</code></li>
+<li><code>values: V -&gt; U</code></li>
+</ol>
+<p>When chaining together functions, the incoming type must match the
+outgoing type, where <code>U</code> matches anything. Thus, the "co-battled/ally"
+traversal above is correct.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Gremlin overview presented in this section focused on the
+Gremlin-Groovy language implementation used in the Gremlin Console.
+Refer to <a href="../../connecting/">Connecting to JanusGraph</a> for information about connecting to
+JanusGraph with other languages than Groovy and independent of the
+Gremlin Console.</p>
+</div>
+<h2 id="iterating-the-traversal">Iterating the Traversal</h2>
+<p>One convenient feature of the Gremlin Console is that it automatically iterates all results from a query executed from the gremlin&gt; prompt. This works well within the <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> environment as it shows you the results as a String. As you transition towards writing a Gremlin application, it is important to understand how to iterate a traversal explicitly because your application’s traversals will not iterate automatically. These are some of the common ways to iterate the <a href="https://tinkerpop.apache.org/javadocs/3.3.3/full/org/apache/tinkerpop/gremlin/process/traversal/Traversal.html">Traversal</a>:</p>
+<ul>
+<li><code>iterate()</code> - Zero results are expected or can be ignored.</li>
+<li><code>next()</code> - Get one result. Make sure to check <code>hasNext()</code> first.</li>
+<li><code>next(int n)</code> - Get the next <code>n</code> results. Make sure to check <code>hasNext()</code> first.</li>
+<li><code>toList()</code> - Get all results as a list. If there are no results, an empty list is returned.</li>
+</ul>
+<p>A Java code example is shown below to demonstrate these concepts:
+<div class="highlight"><pre><span></span><code><span class="n">Traversal</span> <span class="n">t</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">V</span><span class="p">().</span><span class="na">has</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;pluto&quot;</span><span class="p">);</span> <span class="c1">// Define a traversal</span>
+<span class="c1">// Note the traversal is not executed/iterated yet</span>
+<span class="n">Vertex</span> <span class="n">pluto</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span> <span class="p">{</span> <span class="c1">// Check if results are available</span>
+    <span class="n">pluto</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">V</span><span class="p">().</span><span class="na">has</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;pluto&quot;</span><span class="p">).</span><span class="na">next</span><span class="p">();</span> <span class="c1">// Get one result</span>
+    <span class="n">g</span><span class="p">.</span><span class="na">V</span><span class="p">(</span><span class="n">pluto</span><span class="p">).</span><span class="na">drop</span><span class="p">().</span><span class="na">iterate</span><span class="p">();</span> <span class="c1">// Execute a traversal to drop pluto from graph</span>
+<span class="p">}</span>
+<span class="c1">// Note the traversal can be cloned for reuse</span>
+<span class="n">Traversal</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="na">asAdmin</span><span class="p">().</span><span class="na">clone</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">tt</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;pluto was not dropped!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Vertex</span><span class="o">&gt;</span> <span class="n">gods</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="na">V</span><span class="p">().</span><span class="na">hasLabel</span><span class="p">(</span><span class="s">&quot;god&quot;</span><span class="p">).</span><span class="na">toList</span><span class="p">();</span> <span class="c1">// Find all the gods</span>
+</code></pre></div></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../schema/" title="Schema and Data Modeling" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Schema and Data Modeling
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../server/" title="JanusGraph Server" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                JanusGraph Server
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
