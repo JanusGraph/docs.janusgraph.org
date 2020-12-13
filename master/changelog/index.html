@@ -2378,10 +2378,12 @@ configuration of Java options using the <code>jvm.options</code> file.</p>
 on Cassandra's JVM configurations, Elasticsearch and the old gremlin-server.sh.</p>
 <h5 id="serialization-of-janusgraph-predicates-has-changed">Serialization of JanusGraph predicates has changed</h5>
 <p>The serialization of JanusGraph predicates has changed in this version for both 
-GraphSON and Gryo. It is therefore necessary to update both the client and 
-the server to this version in parallel as the server will not be able to 
-deserialize a JanusGraph predicate that was serialized by a client prior 
-to version 0.6.0 once it was updated to version 0.6.0.</p>
+GraphSON and Gryo. The newest version of the JanusGraph Driver requires a JanusGraph 
+Server version of 0.6.0 and above. The server includes a fallback for clients with an 
+older driver to make the upgrade to version 0.6.0 easier. This means that the server 
+can be upgraded first without having to update all clients at the same time. The 
+fallback will however be removed in a future version of JanusGraph so clients should 
+also be upgraded.</p>
 <h5 id="graphbinary-is-now-supported">GraphBinary is now supported</h5>
 <p><a href="http://tinkerpop.apache.org/docs/current/dev/io/#graphbinary">GraphBinary</a> is a 
 new binary serialization format from TinkerPop that supersedes Gryo and it will 
