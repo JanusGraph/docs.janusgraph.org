@@ -1389,7 +1389,7 @@
                 
                 
                 <h1 id="janusgraph-server">JanusGraph Server</h1>
-<p>JanusGraph uses the <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#gremlin-server">Gremlin Server</a> 
+<p>JanusGraph uses the <a href="https://tinkerpop.apache.org/docs/3.4.9/reference/#gremlin-server">Gremlin Server</a> 
 engine as the server component to process and answer client queries. 
 When packaged in JanusGraph, Gremlin Server is called JanusGraph Server.</p>
 <p>JanusGraph Server must be started manually in order to use it.
@@ -1494,8 +1494,8 @@ semicolon as the delimiter.
 <span class="n">Display</span> <span class="n">stack</span> <span class="n">trace</span><span class="o">?</span> <span class="o">[</span><span class="n">yN</span><span class="o">]</span>
 </code></pre></div></p>
 <p>Alternatively, you can establish a console with a session by specifying
-<a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#sessions">session</a>
-when creating the connection. A <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#console-sessions">console
+<a href="https://tinkerpop.apache.org/docs/3.4.9/reference/#sessions">session</a>
+when creating the connection. A <a href="https://tinkerpop.apache.org/docs/3.4.9/reference/#console-sessions">console
 session</a>
 allows you to reuse variables across several lines of input.
 <div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml session</span>
@@ -1770,7 +1770,7 @@ should return a 200 and the result of 4 if authentication is configured correctl
 with configuration files for JanusGraph, a version compatible 
 TinkerPop Gremlin Server can be downloaded separately and used with JanusGraph. 
 Get started by downloading the appropriate version of Gremlin Server, 
-which needs to match a version supported by the JanusGraph version in use (3.4.6).</p>
+which needs to match a version supported by the JanusGraph version in use (3.4.9).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Any references to file paths in this section refer to paths under a
@@ -1779,7 +1779,7 @@ distribution with the JanusGraph Server, unless specifically noted.</p>
 </div>
 <p>Configuring a standalone Gremlin Server to work with 
 JanusGraph is similar to configuring the packaged JanusGraph Server. 
-You should be familiar with <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#_configuring_2">graph configuration</a>. 
+You should be familiar with <a href="https://tinkerpop.apache.org/docs/3.4.9/reference/#_configuring_2">graph configuration</a>. 
 Basically, the Gremlin Server yaml file points to graph-specific configuration files 
 that are used to instantiate JanusGraph instances that it will then host. 
 In order to instantiate these Graph instances, 
@@ -1799,7 +1799,7 @@ instantiate <code>JanusGraph</code> objects.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The above command uses Groovy Grape and if it is not configured properly 
-download errors may ensue. Please refer to <a href="https://tinkerpop.apache.org/docs/3.4.6/reference/#gremlin-applications">this section</a>
+download errors may ensue. Please refer to <a href="https://tinkerpop.apache.org/docs/3.4.9/reference/#gremlin-applications">this section</a>
 of the TinkerPop documentation for more information around setting up ~/.groovy/grapeConfig.xml.</p>
 </div>
 <p>Create a file called <code>GREMLIN_SERVER_HOME/conf/janusgraph.properties</code>
