@@ -3091,6 +3091,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>query.optimizer-backend-access</td>
+<td>Whether the optimizer should be allowed to fire backend queries during the optimization phase. Allowing these will give the optimizer a chance to find more efficient execution plan but also increase the optimization overhead.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>query.smart-limit</td>
 <td>Whether the query optimizer should try to guess a smart limit for the query to ensure responsiveness in light of possibly large result sets. Those will be loaded incrementally if this option is enabled.</td>
 <td>Boolean</td>
