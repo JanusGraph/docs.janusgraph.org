@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -10,8 +8,9 @@
       
       
       
+      
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
     
     
       
@@ -19,14 +18,15 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.fe0cca5b.min.css">
-      
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a46bcfb3.min.css">
-      
+      <link rel="stylesheet" href="../assets/stylesheets/main.3b61ea93.min.css">
       
         
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
         
-        <meta name="theme-color" content="#4caf50">
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
       
     
     
@@ -49,7 +49,10 @@
     
     
     
+    
+    
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+      
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -67,7 +70,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href=".." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
       
@@ -78,18 +83,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             JanusGraph
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               Development
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -100,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -141,8 +148,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -150,10 +155,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
       
@@ -183,8 +194,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href=".." title="Introduction" class="md-nav__link">
+    <a href=".." class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -195,21 +207,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     
     <label class="md-nav__link" for="nav-2">
       Getting Started
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Getting Started
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -220,8 +231,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../getting-started/installation/" title="Installation" class="md-nav__link">
+    <a href="../getting-started/installation/" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -232,8 +244,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../getting-started/basic-usage/" title="Basic Usage" class="md-nav__link">
+    <a href="../getting-started/basic-usage/" class="md-nav__link">
       Basic Usage
     </a>
   </li>
@@ -244,8 +257,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../getting-started/architecture/" title="Architectural Overview" class="md-nav__link">
+    <a href="../getting-started/architecture/" class="md-nav__link">
       Architectural Overview
     </a>
   </li>
@@ -261,21 +275,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
       JanusGraph Basics
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -286,8 +299,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/configuration/" title="Configuration" class="md-nav__link">
+    <a href="../basics/configuration/" class="md-nav__link">
       Configuration
     </a>
   </li>
@@ -298,8 +312,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/schema/" title="Schema and Data Modeling" class="md-nav__link">
+    <a href="../basics/schema/" class="md-nav__link">
       Schema and Data Modeling
     </a>
   </li>
@@ -310,8 +325,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/gremlin/" title="Gremlin Query Language" class="md-nav__link">
+    <a href="../basics/gremlin/" class="md-nav__link">
       Gremlin Query Language
     </a>
   </li>
@@ -322,8 +338,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/server/" title="JanusGraph Server" class="md-nav__link">
+    <a href="../basics/server/" class="md-nav__link">
       JanusGraph Server
     </a>
   </li>
@@ -334,8 +351,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/deployment/" title="Deployment Scenarios" class="md-nav__link">
+    <a href="../basics/deployment/" class="md-nav__link">
       Deployment Scenarios
     </a>
   </li>
@@ -346,8 +364,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/configured-graph-factory/" title="ConfiguredGraphFactory" class="md-nav__link">
+    <a href="../basics/configured-graph-factory/" class="md-nav__link">
       ConfiguredGraphFactory
     </a>
   </li>
@@ -358,8 +377,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/multi-node/" title="Things to Consider in a Multi-Node JanusGraph Cluster" class="md-nav__link">
+    <a href="../basics/multi-node/" class="md-nav__link">
       Things to Consider in a Multi-Node JanusGraph Cluster
     </a>
   </li>
@@ -370,8 +390,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/transactions/" title="Transactions" class="md-nav__link">
+    <a href="../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -382,8 +403,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/cache/" title="JanusGraph Cache" class="md-nav__link">
+    <a href="../basics/cache/" class="md-nav__link">
       JanusGraph Cache
     </a>
   </li>
@@ -394,8 +416,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/transaction-log/" title="Transaction Log" class="md-nav__link">
+    <a href="../basics/transaction-log/" class="md-nav__link">
       Transaction Log
     </a>
   </li>
@@ -406,8 +429,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/configuration-reference/" title="Configuration Reference" class="md-nav__link">
+    <a href="../basics/configuration-reference/" class="md-nav__link">
       Configuration Reference
     </a>
   </li>
@@ -418,8 +442,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/example-config/" title="Config Example" class="md-nav__link">
+    <a href="../basics/example-config/" class="md-nav__link">
       Config Example
     </a>
   </li>
@@ -430,8 +455,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/common-questions/" title="Common Questions" class="md-nav__link">
+    <a href="../basics/common-questions/" class="md-nav__link">
       Common Questions
     </a>
   </li>
@@ -442,8 +468,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../basics/technical-limitations/" title="Technical Limitations" class="md-nav__link">
+    <a href="../basics/technical-limitations/" class="md-nav__link">
       Technical Limitations
     </a>
   </li>
@@ -459,21 +486,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
     
     <label class="md-nav__link" for="nav-4">
       Index Management
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Index Management" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Index Management
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -484,8 +510,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-management/index-performance/" title="Indexing for Better Performance" class="md-nav__link">
+    <a href="../index-management/index-performance/" class="md-nav__link">
       Indexing for Better Performance
     </a>
   </li>
@@ -496,8 +523,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-management/index-lifecycle/" title="Index Lifecycle" class="md-nav__link">
+    <a href="../index-management/index-lifecycle/" class="md-nav__link">
       Index Lifecycle
     </a>
   </li>
@@ -508,8 +536,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-management/index-reindexing/" title="Reindexing" class="md-nav__link">
+    <a href="../index-management/index-reindexing/" class="md-nav__link">
       Reindexing
     </a>
   </li>
@@ -520,8 +549,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-management/index-removal/" title="Removal" class="md-nav__link">
+    <a href="../index-management/index-removal/" class="md-nav__link">
       Removal
     </a>
   </li>
@@ -537,21 +567,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     
     <label class="md-nav__link" for="nav-5">
       Storage Backends
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Storage Backends
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -562,8 +591,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/" title="Introduction" class="md-nav__link">
+    <a href="../storage-backend/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -574,8 +604,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/cassandra/" title="Apache Cassandra" class="md-nav__link">
+    <a href="../storage-backend/cassandra/" class="md-nav__link">
       Apache Cassandra
     </a>
   </li>
@@ -586,8 +617,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/hbase/" title="Apache HBase" class="md-nav__link">
+    <a href="../storage-backend/hbase/" class="md-nav__link">
       Apache HBase
     </a>
   </li>
@@ -598,8 +630,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/bigtable/" title="Google Cloud Bigtable" class="md-nav__link">
+    <a href="../storage-backend/bigtable/" class="md-nav__link">
       Google Cloud Bigtable
     </a>
   </li>
@@ -610,8 +643,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/bdb/" title="Oracle Berkeley DB Java Edition" class="md-nav__link">
+    <a href="../storage-backend/bdb/" class="md-nav__link">
       Oracle Berkeley DB Java Edition
     </a>
   </li>
@@ -622,8 +656,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../storage-backend/inmemorybackend/" title="InMemory Storage Backend" class="md-nav__link">
+    <a href="../storage-backend/inmemorybackend/" class="md-nav__link">
       InMemory Storage Backend
     </a>
   </li>
@@ -639,21 +674,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
     
     <label class="md-nav__link" for="nav-6">
       Mixed Index Backends
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Mixed Index Backends
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -664,8 +698,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/" title="Introduction" class="md-nav__link">
+    <a href="../index-backend/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -676,8 +711,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/search-predicates/" title="Search Predicates and Data Types" class="md-nav__link">
+    <a href="../index-backend/search-predicates/" class="md-nav__link">
       Search Predicates and Data Types
     </a>
   </li>
@@ -688,8 +724,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/text-search/" title="Index Parameters and Full-Text Search" class="md-nav__link">
+    <a href="../index-backend/text-search/" class="md-nav__link">
       Index Parameters and Full-Text Search
     </a>
   </li>
@@ -700,8 +737,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/field-mapping/" title="Field Mapping" class="md-nav__link">
+    <a href="../index-backend/field-mapping/" class="md-nav__link">
       Field Mapping
     </a>
   </li>
@@ -712,8 +750,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/direct-index-query/" title="Direct Index Query" class="md-nav__link">
+    <a href="../index-backend/direct-index-query/" class="md-nav__link">
       Direct Index Query
     </a>
   </li>
@@ -724,8 +763,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/elasticsearch/" title="Elasticsearch" class="md-nav__link">
+    <a href="../index-backend/elasticsearch/" class="md-nav__link">
       Elasticsearch
     </a>
   </li>
@@ -736,8 +776,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/solr/" title="Apache Solr" class="md-nav__link">
+    <a href="../index-backend/solr/" class="md-nav__link">
       Apache Solr
     </a>
   </li>
@@ -748,8 +789,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../index-backend/lucene/" title="Apache Lucene" class="md-nav__link">
+    <a href="../index-backend/lucene/" class="md-nav__link">
       Apache Lucene
     </a>
   </li>
@@ -765,21 +807,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
     
     <label class="md-nav__link" for="nav-7">
       Advanced Topics
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Advanced Topics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -790,8 +831,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/advschema/" title="Advanced Schema" class="md-nav__link">
+    <a href="../advanced-topics/advschema/" class="md-nav__link">
       Advanced Schema
     </a>
   </li>
@@ -802,8 +844,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/eventual-consistency/" title="Eventually-Consistent Storage Backends" class="md-nav__link">
+    <a href="../advanced-topics/eventual-consistency/" class="md-nav__link">
       Eventually-Consistent Storage Backends
     </a>
   </li>
@@ -814,8 +857,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/recovery/" title="Failure & Recovery" class="md-nav__link">
+    <a href="../advanced-topics/recovery/" class="md-nav__link">
       Failure & Recovery
     </a>
   </li>
@@ -826,8 +870,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/bulk-loading/" title="Bulk Loading" class="md-nav__link">
+    <a href="../advanced-topics/bulk-loading/" class="md-nav__link">
       Bulk Loading
     </a>
   </li>
@@ -838,8 +883,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/partitioning/" title="Graph Partitioning" class="md-nav__link">
+    <a href="../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
   </li>
@@ -850,8 +896,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/serializer/" title="Datatype and Attribute Serializer Configuration" class="md-nav__link">
+    <a href="../advanced-topics/serializer/" class="md-nav__link">
       Datatype and Attribute Serializer Configuration
     </a>
   </li>
@@ -862,8 +909,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/hadoop/" title="JanusGraph with TinkerPop’s Hadoop-Gremlin" class="md-nav__link">
+    <a href="../advanced-topics/hadoop/" class="md-nav__link">
       JanusGraph with TinkerPop’s Hadoop-Gremlin
     </a>
   </li>
@@ -874,8 +922,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/monitoring/" title="Monitoring JanusGraph" class="md-nav__link">
+    <a href="../advanced-topics/monitoring/" class="md-nav__link">
       Monitoring JanusGraph
     </a>
   </li>
@@ -886,8 +935,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/migrating/" title="Migrating from Titan" class="md-nav__link">
+    <a href="../advanced-topics/migrating/" class="md-nav__link">
       Migrating from Titan
     </a>
   </li>
@@ -898,8 +948,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/data-model/" title="JanusGraph Data model" class="md-nav__link">
+    <a href="../advanced-topics/data-model/" class="md-nav__link">
       JanusGraph Data model
     </a>
   </li>
@@ -910,8 +961,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../advanced-topics/janusgraph-bus/" title="JanusGraph Bus" class="md-nav__link">
+    <a href="../advanced-topics/janusgraph-bus/" class="md-nav__link">
       JanusGraph Bus
     </a>
   </li>
@@ -927,21 +979,20 @@
       
 
 
+
+  
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
     
     <label class="md-nav__link" for="nav-8">
       Connecting to JanusGraph
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="1">
       <label class="md-nav__title" for="nav-8">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Connecting to JanusGraph
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -952,8 +1003,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../connecting/" title="Introduction" class="md-nav__link">
+    <a href="../connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -964,8 +1016,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../connecting/java/" title="Using Java" class="md-nav__link">
+    <a href="../connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -976,8 +1029,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../connecting/python/" title="Using Python" class="md-nav__link">
+    <a href="../connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -988,8 +1042,9 @@
           
 
 
+
   <li class="md-nav__item">
-    <a href="../connecting/dotnet/" title="Using .Net" class="md-nav__link">
+    <a href="../connecting/dotnet/" class="md-nav__link">
       Using .Net
     </a>
   </li>
@@ -1004,6 +1059,7 @@
       
       
 
+
   
 
 
@@ -1014,12 +1070,10 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Development
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Development" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Development
     </a>
     
@@ -1029,9 +1083,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -1143,8 +1195,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../appendices/" title="Appendices" class="md-nav__link">
+    <a href="../appendices/" class="md-nav__link">
       Appendices
     </a>
   </li>
@@ -1155,8 +1208,9 @@
       
 
 
+
   <li class="md-nav__item">
-    <a href="../changelog/" title="Changelog" class="md-nav__link">
+    <a href="../changelog/" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -1169,7 +1223,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1178,9 +1233,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -1295,9 +1348,6 @@
                   <a href="https://github.com/janusgraph/janusgraph/edit/v0.5/docs/development.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
-                
-                
-                  
                 
                 
                   <h1>Development</h1>
@@ -1524,7 +1574,7 @@ JanusGraph.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../connecting/dotnet/" title="Using .Net" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../connecting/dotnet/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1539,7 +1589,7 @@ JanusGraph.</p>
           </a>
         
         
-          <a href="../appendices/" title="Appendices" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../appendices/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -1576,15 +1626,15 @@ JanusGraph.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "../assets/javascripts/worker/search.8c7e0a7e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
