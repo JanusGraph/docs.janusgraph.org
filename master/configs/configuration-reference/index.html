@@ -2420,6 +2420,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>GLOBAL_OFFLINE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.connect-timeout</td>
+<td>Sets the maximum connection timeout (in milliseconds).</td>
+<td>Integer</td>
+<td>1000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.enable_index_names_cache</td>
 <td>Enables cache for generated index store names. It is recommended to always enable index store names cache unless you have more then 50000 indexes per index store.</td>
 <td>Boolean</td>
@@ -2459,6 +2466,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>Whether JanusGraph should setup max_open_scroll_context to maximum value for the cluster or not.</td>
 <td>Boolean</td>
 <td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.socket-timeout</td>
+<td>Sets the maximum socket timeout (in milliseconds).</td>
+<td>Integer</td>
+<td>30000</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
