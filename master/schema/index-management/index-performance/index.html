@@ -1792,8 +1792,10 @@ indexes only vertices labeled <code>god</code>.
 <span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 <span class="c1">//Wait for the index to become available</span>
 <span class="n">ManagementSystem</span><span class="o">.</span><span class="na">awaitGraphIndexStatus</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="s1">&#39;byNameAndLabel&#39;</span><span class="o">).</span><span class="na">call</span><span class="o">()</span>
-<span class="c1">//Reindex the existing data</span>
+<span class="c1">//You can check the indexOnly constraint built just now</span>
 <span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">getIndexOnlyConstraint</span><span class="o">(</span><span class="s2">&quot;byNameAndLabel&quot;</span><span class="o">)</span>
+<span class="c1">//Reindex the existing data</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">mgmt</span><span class="o">.</span><span class="na">getGraphIndex</span><span class="o">(</span><span class="s2">&quot;byNameAndLabel&quot;</span><span class="o">),</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div></p>
