@@ -1732,8 +1732,9 @@ for more information.</p>
 </div>
 <h4 id="rest-client-custom-http-authentication">REST Client Custom HTTP Authentication</h4>
 <p>Additional authentication methods can be implemented by providing your own implementation. The custom authenticator is configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.http.auth.custom.authenticator-class</span><span class="o">=</span><span class="s">fully.qualified.class.Name</span>
-<span class="na">index.search.elasticsearch.elasticsearch.http.auth.custom.authenticator-args</span><span class="o">=</span><span class="s">arg1,arg2,...</span>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.http.auth.type</span><span class="o">=</span><span class="s">custom</span>
+<span class="na">index.search.elasticsearch.http.auth.custom.authenticator-class</span><span class="o">=</span><span class="s">fully.qualified.class.Name</span>
+<span class="na">index.search.elasticsearch.http.auth.custom.authenticator-args</span><span class="o">=</span><span class="s">arg1,arg2,...</span>
 </code></pre></div>
 
 <p>Argument list is optional and can be empty.</p>
