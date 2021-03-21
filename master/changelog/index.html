@@ -1297,6 +1297,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#breaking-change-for-gremlin-eventstrategy-usage" class="md-nav__link">
+    Breaking change for gremlin EventStrategy usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-loggingschemamaker" class="md-nav__link">
     Removal of LoggingSchemaMaker
   </a>
@@ -1906,6 +1913,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-for-gremlin-eventstrategy-usage" class="md-nav__link">
+    Breaking change for gremlin EventStrategy usage
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#removal-of-loggingschemamaker" class="md-nav__link">
@@ -2594,6 +2608,12 @@ use the latest versions of the software.</p>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v0.6.0/janusgraph-full-0.6.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="breaking-change-for-gremlin-eventstrategy-usage">Breaking change for gremlin EventStrategy usage</h5>
+<p>If you are using <a href="https://tinkerpop.apache.org/javadocs/current/full/org/apache/tinkerpop/gremlin/process/traversal/strategy/decoration/EventStrategy.html">EventStrategy</a>,
+please note that now you need to register it every time you start a new transaction.
+An example is available at <a href="https://github.com/JanusGraph/janusgraph/blob/master/janusgraph-test/src/test/java/org/janusgraph/core/ThreadLocalTxLeakTest.java">ThreadLocalTxLeakTest::eventListenersCanBeReusedAcrossTx</a>
+See more background of this breaking change in this
+<a href="https://github.com/JanusGraph/janusgraph/pull/2472">pull request</a>.</p>
 <h5 id="removal-of-loggingschemamaker">Removal of LoggingSchemaMaker</h5>
 <p>The <code>schema.default=logging</code> option is not valid anymore. Use <code>schema.default=default</code>
 and <code>schema.logging=true</code> options together to make application behaviour unaltered,
