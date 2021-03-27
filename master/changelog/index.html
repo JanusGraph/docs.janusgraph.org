@@ -1380,6 +1380,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#automatic-configurations-of-dynamic-graph-binding" class="md-nav__link">
+    Automatic configurations of dynamic graph binding
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2001,6 +2008,13 @@
           <li class="md-nav__item">
   <a href="#datastax-cassandra-driver-upgrade-from-390-to-4110" class="md-nav__link">
     DataStax cassandra driver upgrade from 3.9.0 to 4.11.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-configurations-of-dynamic-graph-binding" class="md-nav__link">
+    Automatic configurations of dynamic graph binding
   </a>
   
 </li>
@@ -2745,6 +2759,40 @@ for a complete list of available Session level and Node level metrics.</p>
 </ul>
 <p><code>storage.cql.local-datacenter</code> is mandatory now and defaults to <code>datacenter1</code>.</p>
 <p>See more new cql configuration options in configuration references under <code>storage.cql</code> section.</p>
+<h5 id="automatic-configurations-of-dynamic-graph-binding">Automatic configurations of dynamic graph binding</h5>
+<p>If the JanusGraphManager is configured, dynamic graph binding will be setup automatically, 
+see <a href="../operations/dynamic-graphs/">Dynamic Graphs</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Breaking changes in the config of the <code>gremlin-server.yaml</code>.</p>
+</div>
+<p>Following, classes are removed and have to be replaced by tinkerpop equivalent:</p>
+<table>
+<thead>
+<tr>
+<th>removed class</th>
+<th>replacement class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>org.janusgraph.channelizers.JanusGraphWebSocketChannelizer</code></td>
+<td><code>org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer</code></td>
+</tr>
+<tr>
+<td><code>org.janusgraph.channelizers.JanusGraphHttpChannelizer</code></td>
+<td><code>org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer</code></td>
+</tr>
+<tr>
+<td><code>org.janusgraph.channelizers.JanusGraphNioChannelizer</code></td>
+<td><code>org.apache.tinkerpop.gremlin.server.channel.NioChannelizer</code></td>
+</tr>
+<tr>
+<td><code>org.janusgraph.channelizers.JanusGraphWsAndHttpChannelizer</code></td>
+<td><code>org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="version-053-release-date-december-24-2020">Version 0.5.3 (Release Date: December 24, 2020)</h3>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Maven</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>

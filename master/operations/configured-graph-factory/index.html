@@ -1627,9 +1627,19 @@ data.</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>To ensure all graph representations are consistent across all JanusGraph nodes in your cluster, this removes the graph from the <code>JanusGraphManager</code> graph cache on every node in the cluster, assuming each node has been properly configured to use the <code>JanusGraphManager</code>. Learn more about this feature and how to configure your server to use said feature <a href="../dynamic-graphs/#graph-reference-consistency">here</a>.</p>
+<p>To ensure all graph representations are consistent across all JanusGraph 
+nodes in your cluster, this removes the graph from the <code>JanusGraphManager</code> 
+graph cache on every node in the cluster, assuming each node has been 
+properly configured to use the <code>JanusGraphManager</code>. Learn more about this 
+feature and how to configure your server to use said feature <a href="../dynamic-graphs/#graph-reference-consistency">here</a>.</p>
 </div>
 <h2 id="configuring-janusgraph-server-for-configuredgraphfactory">Configuring JanusGraph Server for ConfiguredGraphFactory</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with JanusGraph v0.6.0, every JanusGraph Server is started with 
+the JanusGraphManager, if <code>ConfigurationManagementGraph</code>is configured in 
+the <code>graphs</code> section and the default GraphManager is not overwritten.</p>
+</div>
 <p>To be able to use the <code>ConfiguredGraphFactory</code>, you must configure your
 server to use the <code>ConfigurationManagementGraph</code> APIs. To do this, you
 have to inject a graph variable named "ConfigurationManagementGraph" in

@@ -741,13 +741,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#set-up" class="md-nav__link">
-    Set Up
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#using-tinkerpops-withremote-functionality" class="md-nav__link">
     Using TinkerPop’s withRemote Functionality
   </a>
@@ -1301,13 +1294,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#set-up" class="md-nav__link">
-    Set Up
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#using-tinkerpops-withremote-functionality" class="md-nav__link">
     Using TinkerPop’s withRemote Functionality
   </a>
@@ -1408,36 +1394,12 @@ graph’s traversal reference on the <code>GremlinExecutor</code>.</p>
 reference by their string bindings, on every node in your JanusGraph
 cluster. This is particularly important to be able to work with Gremlin
 Server clients and use <a href="#using-tinkerpops-withremote-functionality">TinkerPops’s withRemote functionality</a>.</p>
-<h4 id="set-up">Set Up</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>To set up your cluster to bind dynamically created graphs and their
-traversal references, you must:</p>
-<ol>
-<li>
-<p>Configure each node to use the
-    <a href="../configured-graph-factory/#configuring-JanusGraph-server-for-configuredgraphfactory">ConfiguredGraphFactory</a>.</p>
-</li>
-<li>
-<p>Configure each node to use a <code>JanusGraphChannelizer</code>, which injects
-    lower-level Gremlin Server components, like the GremlinExecutor,
-    into the JanusGraph project, giving us greater control of the
-    Gremlin Server.</p>
-</li>
-</ol>
-<p>To configure each node to use a <code>JanusGraphChannelizer</code>, we must update
-the <code>gremlin-server.yaml</code> to do so:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">channelizer</span><span class="o">:</span> <span class="n">org</span><span class="o">.</span><span class="na">janusgraph</span><span class="o">.</span><span class="na">channelizers</span><span class="o">.</span><span class="na">JanusGraphWebSocketChannelizer</span>
-</code></pre></div>
-
-
-<p>There are a few channelizers you can choose from:</p>
-<ol>
-<li>org.janusgraph.channelizers.JanusGraphWebSocketChannelizer</li>
-<li>org.janusgraph.channelizers.JanusGraphHttpChannelizer</li>
-<li>org.janusgraph.channelizers.JanusGraphNioChannelizer</li>
-<li>org.janusgraph.channelizers.JanusGraphWsAndHttpChannelizer</li>
-</ol>
-<p>All of the channelizers share the exact same functionality as their
-TinkerPop counterparts.</p>
+traversal references, you must configure each node to use 
+the <a href="../configured-graph-factory/#configuring-janusgraph-server-for-configuredgraphfactory">ConfiguredGraphFactory</a>.</p>
+</div>
 <h3 id="using-tinkerpops-withremote-functionality">Using TinkerPop’s withRemote Functionality</h3>
 <p>Since traversal references are bound on the JanusGraph servers, we can
 make use of <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#connecting-via-remotegraph">TinkerPop’s withRemote
