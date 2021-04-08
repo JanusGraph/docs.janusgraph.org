@@ -3217,6 +3217,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.cql.speculative-retry</td>
+<td>The speculative retry policy. One of: NONE, ALWAYS, <X>percentile, <N>ms.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>FIXED</td>
+</tr>
+<tr>
 <td>storage.cql.use-external-locking</td>
 <td>True to prevent JanusGraph from using its own locking mechanism. Setting this to true eliminates redundant checks when using an external locking mechanism outside of JanusGraph. Be aware that when use-external-locking is set to true, that failure to employ a locking algorithm which locks all columns that participate in a transaction upfront and unlocks them when the transaction ends, will result in a 'read uncommitted' transaction isolation level guarantee. If set to true without an appropriate external locking mechanism in place side effects such as dirty/non-repeatable/phantom reads should be expected.</td>
 <td>Boolean</td>
