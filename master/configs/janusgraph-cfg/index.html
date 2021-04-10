@@ -3161,10 +3161,31 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>FIXED</td>
 </tr>
 <tr>
+<td>storage.cql.metadata-schema-enabled</td>
+<td>Whether schema metadata is enabled.</td>
+<td>Boolean</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.metadata-token-map-enabled</td>
+<td>Whether token metadata is enabled. If disabled, partitioner-name must be provided.</td>
+<td>Boolean</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.cql.only-use-local-consistency-for-system-operations</td>
 <td>True to prevent any system queries from using QUORUM consistency and always use LOCAL_QUORUM instead</td>
 <td>Boolean</td>
 <td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.partitioner-name</td>
+<td>The name of Cassandra cluster's partitioner. It will be retrieved by client if not provided. If provided, it must match the cluster's partitioner name. It can be the full class name such as <code>org.apache.cassandra.dht.ByteOrderedPartitioner</code> or the simple name such as <code>ByteOrderedPartitioner</code></td>
+<td>String</td>
+<td>(no default value)</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
