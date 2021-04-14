@@ -3738,21 +3738,21 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>storage.meta.[X].timestamps</td>
-<td>Whether to include timestamps in retrieved entries for storage backends that automatically annotated entries with timestamps</td>
+<td>Whether to include timestamps in retrieved entries for storage backends that automatically annotated entries with timestamps. If enabled, timestamp can be retrieved by <code>element.value(ImplicitKey.TIMESTAMP.name())</code> or equivalently, <code>element.value("~timestamp")</code>.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>GLOBAL</td>
 </tr>
 <tr>
 <td>storage.meta.[X].ttl</td>
-<td>Whether to include ttl in retrieved entries for storage backends that support storage and retrieval of cell level TTL</td>
+<td>Whether to include ttl in retrieved entries for storage backends that support storage and retrieval of cell level TTL. If enabled, ttl can be retrieved by <code>element.value(ImplicitKey.TTL.name())</code> or equivalently, <code>element.value("~ttl")</code>.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>GLOBAL</td>
 </tr>
 <tr>
 <td>storage.meta.[X].visibility</td>
-<td>Whether to include visibility in retrieved entries for storage backends that support cell level visibility</td>
+<td>Whether to include visibility in retrieved entries for storage backends that support cell level visibility. If enabled, visibility can be retrieved by <code>element.value(ImplicitKey.VISIBILITY.name())</code> or equivalently, <code>element.value("~visibility")</code>.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>GLOBAL</td>
