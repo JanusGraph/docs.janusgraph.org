@@ -1304,8 +1304,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disable-smart-limit-by-default" class="md-nav__link">
-    Disable smart-limit by default
+  <a href="#disable-smart-limit-by-default-and-change-hard_max_limit" class="md-nav__link">
+    Disable smart-limit by default and change HARD_MAX_LIMIT
   </a>
   
 </li>
@@ -1936,8 +1936,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disable-smart-limit-by-default" class="md-nav__link">
-    Disable smart-limit by default
+  <a href="#disable-smart-limit-by-default-and-change-hard_max_limit" class="md-nav__link">
+    Disable smart-limit by default and change HARD_MAX_LIMIT
   </a>
   
 </li>
@@ -2642,14 +2642,28 @@ please note that now you need to register it every time you start a new transact
 An example is available at <a href="https://github.com/JanusGraph/janusgraph/blob/master/janusgraph-test/src/test/java/org/janusgraph/core/ThreadLocalTxLeakTest.java">ThreadLocalTxLeakTest::eventListenersCanBeReusedAcrossTx</a>
 See more background of this breaking change in this
 <a href="https://github.com/JanusGraph/janusgraph/pull/2472">pull request</a>.</p>
-<h5 id="disable-smart-limit-by-default">Disable smart-limit by default</h5>
+<h5 id="disable-smart-limit-by-default-and-change-hard_max_limit">Disable smart-limit by default and change HARD_MAX_LIMIT</h5>
 <p>Prior to 0.6.0, <code>smart-limit</code> is enabled by default. It tries to guess a small limit
-for each query internally, and if more results are required by user, it queries
-backend again with a larger limit, and repeats until either results are exhausted or
-user stops the query. However, this is not the same as paging mechanism. All interim
-results will be fetched again in next round, making the whole query costly. Until
-janusgraph can fully utilize the paging capacity provided by backends (e.g. Elasticsearch
-scroll), this option is recommended to be turned off.</p>
+for each graph centric query (e.g. <code>g.V().has("prop", "value")</code>) internally, and if more
+results are required by user, it queries backend again with a larger limit, and repeats
+until either results are exhausted or user stops the query. However, this is not the
+same as paging mechanism. All interim results will be fetched again in next round, making
+the whole query costly. Even worse, if your data backend does not return results in a consistent order,
+then some entries might be missing in the final results. Until JanusGraph can fully utilize
+the paging capacity provided by backends (e.g. Elasticsearch scroll), this option is
+recommended to be turned off. The exception is when you have a large number of results
+but you only need a few of them, then enabling <code>smart-limit</code> can reduce latency and memory
+usage. An example would be:</p>
+<div class="highlight"><pre><span></span><code>Iterator&lt;Vertex&gt; iter = graph.traversal().V().has(&quot;prop&quot;, &quot;value&quot;);
+while (iter.hasNext()) {
+    Vertex v = iter.next();
+    if (canStop()) break;
+}
+</code></pre></div>
+
+<p>Prior to 0.6.0, even if <code>smart-limit</code> is disabled, JanusGraph adds a <code>HARD_MAX_LIMIT</code> that
+is equivalent to 100,000 to avoid fetching too many results at a time. This limit is now
+configurable, and by default, it's Integer.MAX_VALUE which can be interpreted as no limit.</p>
 <h5 id="removal-of-loggingschemamaker">Removal of LoggingSchemaMaker</h5>
 <p>The <code>schema.default=logging</code> option is not valid anymore. Use <code>schema.default=default</code>
 and <code>schema.logging=true</code> options together to make application behaviour unaltered,

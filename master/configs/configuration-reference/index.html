@@ -3222,6 +3222,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>query.hard-max-limit</td>
+<td>If smart-limit is disabled and no limit is given in the query, query optimizer adds a limit in light of possibly large result sets. It works in the same way as smart-limit except that hard-max-limit is usually a large number. Default value is Integer.MAX_VALUE which effectively disables this behavior. This option does not take effect when smart-limit is enabled.</td>
+<td>Integer</td>
+<td>2147483647</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>query.ignore-unknown-index-key</td>
 <td>Whether to ignore undefined types encountered in user-provided index queries</td>
 <td>Boolean</td>
