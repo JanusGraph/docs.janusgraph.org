@@ -1394,6 +1394,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#breaking-change-lucene-and-solr-fuzzy-predicates" class="md-nav__link">
+    Breaking change Lucene and Solr fuzzy predicates
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2029,6 +2036,13 @@
           <li class="md-nav__item">
   <a href="#automatic-configurations-of-dynamic-graph-binding" class="md-nav__link">
     Automatic configurations of dynamic graph binding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-lucene-and-solr-fuzzy-predicates" class="md-nav__link">
+    Breaking change Lucene and Solr fuzzy predicates
   </a>
   
 </li>
@@ -2821,6 +2835,88 @@ see <a href="../operations/dynamic-graphs/">Dynamic Graphs</a>.</p>
 <tr>
 <td><code>org.janusgraph.channelizers.JanusGraphWsAndHttpChannelizer</code></td>
 <td><code>org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer</code></td>
+</tr>
+</tbody>
+</table>
+<h5 id="breaking-change-lucene-and-solr-fuzzy-predicates">Breaking change Lucene and Solr fuzzy predicates</h5>
+<p>The text predicates <code>text.textFuzzy</code> and <code>text.textContainsFuzzy</code> have been updated in both the Lucene and Solr indexing
+backends to align with JanusGraph and Elastic. These predicates now inspect the query length to determine the Levenshtein
+distance, where previously they used the backend's default max distance of 2:</p>
+<ul>
+<li>0 for strings of one or two characters (exact match)</li>
+<li>1 for strings of three, four or five characters</li>
+<li>2 for strings of more than five characters</li>
+</ul>
+<p><strong>Change Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>text</th>
+<th>query</th>
+<th>previous result</th>
+<th>new result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ah</td>
+<td>ah</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>ah</td>
+<td>ai</td>
+<td>true</td>
+<td><strong>false</strong></td>
+</tr>
+<tr>
+<td>hop</td>
+<td>hop</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>hop</td>
+<td>hap</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>hop</td>
+<td>hoop</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>hop</td>
+<td>hooop</td>
+<td>true</td>
+<td><strong>false</strong></td>
+</tr>
+<tr>
+<td>surprises</td>
+<td>surprises</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>surprises</td>
+<td>surprizes</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>surprises</td>
+<td>surpprises</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>surprises</td>
+<td>surpprisess</td>
+<td>false</td>
+<td>false</td>
 </tr>
 </tbody>
 </table>

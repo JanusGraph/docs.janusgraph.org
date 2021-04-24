@@ -1390,15 +1390,24 @@ Boolean and UUID data types support the <code>eq</code> and <code>neq</code> com
 <ul>
 <li>Text search predicates which match against the individual words inside a text string after it has been tokenized. These predicates are not case sensitive.<ul>
 <li><code>textContains</code>: is true if (at least) one word inside the text string matches the query string</li>
+<li><code>textNotContains</code>: is true if no words inside the text string match the query string</li>
 <li><code>textContainsPrefix</code>: is true if (at least) one word inside the text string begins with the query string</li>
+<li><code>textNotContainsPrefix</code>: is true if no words inside the text string begin with the query string</li>
 <li><code>textContainsRegex</code>: is true if (at least) one word inside the text string matches the given regular expression</li>
-<li><code>textContainsFuzzy</code>: is true if (at least) one word inside the text string is similar to the query String (based on Levenshtein edit distance)</li>
+<li><code>textNotContainsRegex</code>: is true if no words inside the text string match the given regular expression</li>
+<li><code>textContainsFuzzy</code>: is true if (at least) one word inside the text string is similar to the query string (based on Levenshtein edit distance)</li>
+<li><code>textNotContainsFuzzy</code>:  is true if no words inside the text string are similar to the query string (based on Levenshtein edit distance)</li>
+<li><code>textContainsPhrase</code>: is true if the text string contains the exact sequence of words in the query string</li>
+<li><code>textNotContainsPhrase</code>:  is true if the text string does not contain the sequence of words in the query string</li>
 </ul>
 </li>
 <li>String search predicates which match against the entire string value<ul>
 <li><code>textPrefix</code>: if the string value starts with the given query string</li>
+<li><code>textNotPrefix</code>: if the string value does not start with the given query string</li>
 <li><code>textRegex</code>: if the string value matches the given regular expression in its entirety</li>
+<li><code>textNotRegex</code>: if the string value does not match the given regular expression in its entirety</li>
 <li><code>textFuzzy</code>: if the string value is similar to the given query string (based on Levenshtein edit distance)</li>
+<li><code>textNotFuzzy</code>: if the string value is not similar to the given query string (based on Levenshtein edit distance)</li>
 </ul>
 </li>
 </ul>

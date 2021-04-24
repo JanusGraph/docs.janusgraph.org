@@ -1423,6 +1423,15 @@ Full-text search is case-insensitive.</p>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContainsFuzzy</span><span class="o">(</span><span class="s1">&#39;unicorn&#39;</span><span class="o">))</span>
 </code></pre></div>
 
+<p>The Elasticsearch backend extends this functionality and includes support for negations
+of the above predicates, as well as phrase matching:</p>
+<ul>
+<li><code>textNotContains</code>: is true if no words inside the text string match the query string</li>
+<li><code>textNotContainsPrefix</code>: is true if no words inside the text string begin with the query string</li>
+<li><code>textNotContainsRegex</code>: is true if no words inside the text string match the given regular expression</li>
+<li><code>textNotContainsFuzzy</code>:  is true if no words inside the text string are similar to the query string (based on Levenshtein edit distance)</li>
+<li><code>textNotContainsPhrase</code>:  is true if the text string does not contain the sequence of words in the query string</li>
+</ul>
 <p>String search predicates (see below) may be used in queries, but those
 require filtering in memory which can be very costly.</p>
 <h3 id="string-search">String Search</h3>
@@ -1460,6 +1469,13 @@ String search is case-sensitive.</p>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;bookname&#39;</span><span class="o">,</span> <span class="n">textFuzzy</span><span class="o">(</span><span class="s1">&#39;unicorn&#39;</span><span class="o">))</span>
 </code></pre></div>
 
+<p>The Elasticsearch backend extends this functionality and includes support for negations
+of the above text predicates:</p>
+<ul>
+<li><code>textNotPrefix</code>: if the string value does not start with the given query string</li>
+<li><code>textNotRegex</code>: if the string value does not match the given regular expression in its entirety</li>
+<li><code>textNotFuzzy</code>: if the string value is not similar to the given query string (based on Levenshtein edit distance)</li>
+</ul>
 <p>Full-text search predicates may be used in queries, but those require
 filtering in memory which can be very costly.</p>
 <h3 id="full-text-and-string-search">Full text and string search</h3>
