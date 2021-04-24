@@ -1311,6 +1311,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#add-experimental-support-for-java-11" class="md-nav__link">
+    Add experimental support for Java 11
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-loggingschemamaker" class="md-nav__link">
     Removal of LoggingSchemaMaker
   </a>
@@ -1938,6 +1945,13 @@
           <li class="md-nav__item">
   <a href="#disable-smart-limit-by-default-and-change-hard_max_limit" class="md-nav__link">
     Disable smart-limit by default and change HARD_MAX_LIMIT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-experimental-support-for-java-11" class="md-nav__link">
+    Add experimental support for Java 11
   </a>
   
 </li>
@@ -2664,6 +2678,9 @@ while (iter.hasNext()) {
 <p>Prior to 0.6.0, even if <code>smart-limit</code> is disabled, JanusGraph adds a <code>HARD_MAX_LIMIT</code> that
 is equivalent to 100,000 to avoid fetching too many results at a time. This limit is now
 configurable, and by default, it's Integer.MAX_VALUE which can be interpreted as no limit.</p>
+<h5 id="add-experimental-support-for-java-11">Add experimental support for Java 11</h5>
+<p>We started to work on support for Java 11. We would like to get feedback,
+if everything is working as expected after upgrading to Java 11.</p>
 <h5 id="removal-of-loggingschemamaker">Removal of LoggingSchemaMaker</h5>
 <p>The <code>schema.default=logging</code> option is not valid anymore. Use <code>schema.default=default</code>
 and <code>schema.logging=true</code> options together to make application behaviour unaltered,
