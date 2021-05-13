@@ -288,9 +288,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-the-gremlin-server" class="md-nav__link">
-    Running the Gremlin Server
+  <a href="#running-the-janusgraph-server" class="md-nav__link">
+    Running the JanusGraph Server
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1308,9 +1328,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-the-gremlin-server" class="md-nav__link">
-    Running the Gremlin Server
+  <a href="#running-the-janusgraph-server" class="md-nav__link">
+    Running the JanusGraph Server
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1420,7 +1460,7 @@ gremlin&gt;
 <p>The Gremlin Console interprets commands using <a href="https://www.groovy-lang.org/">Apache Groovy</a>, which is a superset of Java.
 Gremlin-Groovy extends Groovy by providing a set of methods for basic and advanced graph traversal funcionality.
 For a deeper dive into Gremlin language's features, please refer to our <a href="../gremlin/">introduction to Gremlin</a>.</p>
-<h3 id="running-the-gremlin-server">Running the Gremlin Server</h3>
+<h3 id="running-the-janusgraph-server">Running the JanusGraph Server</h3>
 <p>In most real-world use cases, queries to a database will not be run from the exact same server the data is stored on.
 Instead, there will be some sort of client-server hierarchy in which the server runs the database and handles requests while multiple clients create these requests and thereby read and write entries within the database independently of one another.
 This behavior can also be achieved with JanusGraph.</p>
@@ -1438,8 +1478,6 @@ or
 No search backend is used by default, so mixed indices aren't supported as search backend isn't specified 
 (Make sure you are using <code>GraphOfTheGodsFactory.loadWithoutMixedIndex(graph, true)</code> instead of <code>GraphOfTheGodsFactory.load(graph)</code> if you follow <a href="../basic-usage/">Basic Usage example</a>).
 For further information about storage backends, visit the <a href="../../storage-backend/">corresponding section</a> of the documentation.</p>
-<p>You are also encouraged to look into <code>janusgraph.sh</code>, which by defaults starts a more sophisticated server than <code>janusgraph-server.sh</code>.
-Further documentation on server configuration can be found in the <a href="../../operations/server/#using-the-pre-packaged-distribution">JanusGraph Server</a> section. (This requires to download <code>janusgraph-full-0.6.0.zip</code> instead of the default <code>janusgraph-0.6.0.zip</code>.)</p>
 </div>
 <p>A Gremlin server is now running on your local machine and waiting for clients to connect on the default port <code>8182</code>.
 To instantiate a client -- as done before -- run the <code>gremlin.sh</code> script.
@@ -1459,6 +1497,64 @@ As a result, further commands will still be executed locally unless preceeded by
 <p>To forward every command to the remote server, use the <code>:remote console</code> command.
 Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#console-remote-console">TinkerPop reference docs</a></p>
 </div>
+<h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with 0.5.1, this requires to download <code>janusgraph-full-0.6.0.zip</code> instead of the default <code>janusgraph-0.6.0.zip</code>.</p>
+</div>
+<p>The JanusGraph
+<a href="https://github.com/JanusGraph/janusgraph/releases">release</a> comes
+pre-configured to run JanusGraph Server out of the box leveraging a
+sample Cassandra and Elasticsearch configuration to allow users to get
+started quickly with JanusGraph Server. This configuration defaults to
+client applications that can connect to JanusGraph Server via WebSocket
+with a custom subprotocol. There are a number of clients developed in
+different languages to help support the subprotocol. The most familiar
+client to use the WebSocket interface is the Gremlin Console. The
+quick-start bundle is not intended to be representative of a production
+installation, but does provide a way to perform development with
+JanusGraph Server, run tests and see how the components are wired
+together. To use this default configuration:</p>
+<ul>
+<li>
+<p>Download a copy of the current <code>janusgraph-full-$VERSION.zip</code> file from
+    the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases
+    page</a></p>
+</li>
+<li>
+<p>Unzip it and enter the <code>janusgraph--full-$VERSION</code> directory</p>
+</li>
+<li>
+<p>Run <code>bin/janusgraph.sh start</code>. This step will start Gremlin Server
+    with Cassandra/ES forked into a separate process. Note for security
+    reasons Elasticsearch and therefore <code>janusgraph.sh</code> must be run
+    under a non-root account.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ bin/janusgraph.sh start
+Forking Cassandra...
+Running <span class="sb">`</span>nodetool statusthrift<span class="sb">`</span>.. OK <span class="o">(</span>returned <span class="nb">exit</span> status <span class="m">0</span> and printed string <span class="s2">&quot;running&quot;</span><span class="o">)</span>.
+Forking Elasticsearch...
+Connecting to Elasticsearch <span class="o">(</span><span class="m">127</span>.0.0.1:9300<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:9300<span class="o">)</span>.
+Forking Gremlin-Server...
+Connecting to Gremlin-Server <span class="o">(</span><span class="m">127</span>.0.0.1:8182<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:8182<span class="o">)</span>.
+Run gremlin.sh to connect.
+</code></pre></div>
+
+<h4 id="cleaning-up-after-the-pre-packaged-distribution">Cleaning up after the Pre-Packaged Distribution</h4>
+<p>If you want to start fresh and remove the database and logs you can use
+the clean command with <code>janusgraph.sh</code>. The server should be stopped
+before running the clean operation.
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/
+$ ./bin/janusgraph.sh stop
+Killing Gremlin-Server <span class="o">(</span>pid <span class="m">91505</span><span class="o">)</span>...
+Killing Elasticsearch <span class="o">(</span>pid <span class="m">91402</span><span class="o">)</span>...
+Killing Cassandra <span class="o">(</span>pid <span class="m">91219</span><span class="o">)</span>...
+$ ./bin/janusgraph.sh clean
+Are you sure you want to delete all stored data and logs? <span class="o">[</span>y/N<span class="o">]</span> y
+Deleted data in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/db
+Deleted logs in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/log
+</code></pre></div></p>
                 
               
               

@@ -687,42 +687,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
-    Getting Started
+  <a href="#starting-a-janusgraph-server" class="md-nav__link">
+    Starting a JanusGraph Server
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Starting a JanusGraph Server">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
-    Using the Pre-Packaged Distribution
+  <a href="#usage-of-janusgraph-serversh" class="md-nav__link">
+    Usage of janusgraph-server.sh
   </a>
   
-    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#connecting-to-gremlin-server" class="md-nav__link">
-    Connecting to Gremlin Server
+  <a href="#env-variables" class="md-nav__link">
+    Env variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-jvmoptions" class="md-nav__link">
+    Configure jvm.options
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
-    Cleaning up after the Pre-Packaged Distribution
-  </a>
   
 </li>
       
@@ -780,26 +774,6 @@
   <a href="#authentication-over-http-and-websocket" class="md-nav__link">
     Authentication over HTTP and WebSocket
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-tinkerpop-gremlin-server-with-janusgraph" class="md-nav__link">
-    Using TinkerPop Gremlin Server with JanusGraph
-  </a>
-  
-    <nav class="md-nav" aria-label="Using TinkerPop Gremlin Server with JanusGraph">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#connecting-to-janusgraph-via-gremlin-server" class="md-nav__link">
-    Connecting to JanusGraph via Gremlin Server
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1381,42 +1355,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
-    Getting Started
+  <a href="#starting-a-janusgraph-server" class="md-nav__link">
+    Starting a JanusGraph Server
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Starting a JanusGraph Server">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
-    Using the Pre-Packaged Distribution
+  <a href="#usage-of-janusgraph-serversh" class="md-nav__link">
+    Usage of janusgraph-server.sh
   </a>
   
-    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#connecting-to-gremlin-server" class="md-nav__link">
-    Connecting to Gremlin Server
+  <a href="#env-variables" class="md-nav__link">
+    Env variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-jvmoptions" class="md-nav__link">
+    Configure jvm.options
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
-    Cleaning up after the Pre-Packaged Distribution
-  </a>
   
 </li>
       
@@ -1477,26 +1445,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#using-tinkerpop-gremlin-server-with-janusgraph" class="md-nav__link">
-    Using TinkerPop Gremlin Server with JanusGraph
-  </a>
-  
-    <nav class="md-nav" aria-label="Using TinkerPop Gremlin Server with JanusGraph">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#connecting-to-janusgraph-via-gremlin-server" class="md-nav__link">
-    Connecting to JanusGraph via Gremlin Server
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1528,8 +1476,8 @@
                 
                 <h1 id="janusgraph-server">JanusGraph Server</h1>
 <p>JanusGraph uses the <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#gremlin-server">Gremlin Server</a> 
-engine as the server component to process and answer client queries. 
-When packaged in JanusGraph, Gremlin Server is called JanusGraph Server.</p>
+engine as the server component to process and answer client queries and extends it with convenience features for JanusGraph. 
+From now on, we will call this JanusGraph Server.</p>
 <p>JanusGraph Server must be started manually in order to use it.
 JanusGraph Server provides a way to remotely execute Gremlin traversals
 against one or more JanusGraph instances hosted within it. This section
@@ -1537,133 +1485,204 @@ will describe how to use the WebSocket configuration, as well as
 describe how to configure JanusGraph Server to handle HTTP endpoint
 interactions. For information about how to connect to a JanusGraph
 Server from different languages refer to <a href="../../interactions/connecting/">Connecting to JanusGraph</a>.</p>
-<h2 id="getting-started">Getting Started</h2>
-<h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Starting with 0.5.1, this is just included in the full package version.</p>
-</div>
-<p>The JanusGraph
-<a href="https://github.com/JanusGraph/janusgraph/releases">release</a> comes
-pre-configured to run JanusGraph Server out of the box leveraging a
-sample Cassandra and Elasticsearch configuration to allow users to get
-started quickly with JanusGraph Server. This configuration defaults to
-client applications that can connect to JanusGraph Server via WebSocket
-with a custom subprotocol. There are a number of clients developed in
-different languages to help support the subprotocol. The most familiar
-client to use the WebSocket interface is the Gremlin Console. The
-quick-start bundle is not intended to be representative of a production
-installation, but does provide a way to perform development with
-JanusGraph Server, run tests and see how the components are wired
-together. To use this default configuration:</p>
-<ul>
-<li>
-<p>Download a copy of the current <code>janusgraph-$VERSION.zip</code> file from
-    the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases
-    page</a></p>
-</li>
-<li>
-<p>Unzip it and enter the <code>janusgraph-$VERSION</code> directory</p>
-</li>
-<li>
-<p>Run <code>bin/janusgraph.sh start</code>. This step will start Gremlin Server
-    with Cassandra/ES forked into a separate process. Note for security
-    reasons Elasticsearch and therefore <code>janusgraph.sh</code> must be run
-    under a non-root account.</p>
-</li>
-</ul>
-<div class="highlight"><pre><span></span><code>$ bin/janusgraph.sh start
-Forking Cassandra...
-Running <span class="sb">`</span>nodetool statusthrift<span class="sb">`</span>.. OK <span class="o">(</span>returned <span class="nb">exit</span> status <span class="m">0</span> and printed string <span class="s2">&quot;running&quot;</span><span class="o">)</span>.
-Forking Elasticsearch...
-Connecting to Elasticsearch <span class="o">(</span><span class="m">127</span>.0.0.1:9300<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:9300<span class="o">)</span>.
-Forking Gremlin-Server...
-Connecting to Gremlin-Server <span class="o">(</span><span class="m">127</span>.0.0.1:8182<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:8182<span class="o">)</span>.
-Run gremlin.sh to connect.
+<h2 id="starting-a-janusgraph-server">Starting a JanusGraph Server</h2>
+<p>JanusGraph Server comes packaged with a script called <code>bin/janusgraph-server.sh</code> to get it started:
+<div class="highlight"><pre><span></span><code>$ ./bin/janusgraph-server.sh console
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/var/lib/janusgraph/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/var/lib/janusgraph/lib/logback-classic-1.1.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+0    [main] INFO  org.janusgraph.graphdb.server.JanusGraphServer  -                                                                       
+   mmm                                mmm                       #     
+     #   mmm   m mm   m   m   mmm   m&quot;   &quot;  m mm   mmm   mmmm   # mm  
+     #  &quot;   #  #&quot;  #  #   #  #   &quot;  #   mm  #&quot;  &quot; &quot;   #  #&quot; &quot;#  #&quot;  # 
+     #  m&quot;&quot;&quot;#  #   #  #   #   &quot;&quot;&quot;m  #    #  #     m&quot;&quot;&quot;#  #   #  #   # 
+ &quot;mmm&quot;  &quot;mm&quot;#  #   #  &quot;mm&quot;#  &quot;mmm&quot;   &quot;mmm&quot;  #     &quot;mm&quot;#  ##m#&quot;  #   # 
+                                                         #            
+                                                         &quot;            
+[...]
+2240 [gremlin-server-boss-1] INFO  org.apache.tinkerpop.gremlin.server.GremlinServer  - Channel started at port 8182.
+</code></pre></div></p>
+<p>JanusGraph Server is configured by the provided YAML file <code>conf/gremlin-server/gremlin-server.yaml</code>. 
+That file tells JanusGraph Server many things and is based on the Gremlin Server config, see <a href="https://tinkerpop.apache.org/docs/current/reference/#gremlin-server">Gremlin Server</a>.</p>
+<h3 id="usage-of-janusgraph-serversh">Usage of janusgraph-server.sh</h3>
+<p>The JanusGraph Server can be started in the foreground with stdout logging or detached. </p>
+<div class="highlight"><pre><span></span><code>$ ./bin/janusgraph-server.sh
+Usage: ./bin/janusgraph-server.sh {start|stop|restart|status|console|usage &lt;group&gt; &lt;artifact&gt; &lt;version&gt;|&lt;conf file&gt;}
+
+    start           Start the server in the background using conf/gremlin-server/gremlin-server.yaml as the
+                    default configuration file
+    stop            Stop the server
+    restart         Stop and start the server
+    status          Check if the server is running using the pid file
+    console         Start the server in the foreground using conf/gremlin-server/gremlin-server.yaml as the
+                    default configuration file
+    usage           Print out this help message
+
+If using a custom YAML configuration file then specify it as the only argument for a JanusGraph
+Server to run in the foreground or specify it via the JANUSGRAPH_YAML environment variable.
 </code></pre></div>
 
-<h4 id="connecting-to-gremlin-server">Connecting to Gremlin Server</h4>
-<p>After running <code>janusgraph.sh</code>, Gremlin Server will be ready to listen
-for WebSocket connections. The easiest way to test the connection is
-with Gremlin Console.</p>
-<p>Start Gremlin Console with bin/gremlin.sh and use the :remote and :&gt; commands to issue Gremlin to Gremlin Server:</p>
-<div class="highlight"><pre><span></span><code>$  bin/gremlin.sh
-         <span class="se">\,</span>,,/
-         <span class="o">(</span>o o<span class="o">)</span>
------oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
-plugin activated: tinkerpop.server
-plugin activated: tinkerpop.hadoop
-plugin activated: tinkerpop.utilities
-plugin activated: janusgraph.imports
-plugin activated: tinkerpop.tinkergraph
-gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
-<span class="o">==</span>&gt;Connected - localhost/127.0.0.1:8182
-gremlin&gt; :&gt; graph.addVertex<span class="o">(</span><span class="s2">&quot;name&quot;</span>, <span class="s2">&quot;stephen&quot;</span><span class="o">)</span>
-<span class="o">==</span>&gt;v<span class="o">[</span><span class="m">256</span><span class="o">]</span>
-gremlin&gt; :&gt; g.V<span class="o">()</span>.values<span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
-<span class="o">==</span>&gt;stephen
+<h3 id="env-variables">Env variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JANUSGRAPH_HOME</code></td>
+<td>Root directory of a default janusgraph installation.</td>
+<td>(default directory below janusgraph-server.sh)</td>
+</tr>
+<tr>
+<td><code>$JANUSGRAPH_CONF</code></td>
+<td>Config directory containing all kinds of server and graph configs.</td>
+<td><code>$JANUSGRAPH_HOME/conf</code></td>
+</tr>
+<tr>
+<td><code>$LOG_DIR</code></td>
+<td>Log directory</td>
+<td><code>"$JANUSGRAPH_HOME/logs"</code></td>
+</tr>
+<tr>
+<td><code>$LOG_FILE</code></td>
+<td>Default log file</td>
+<td><code>"$LOG_DIR/janusgraph.log"</code></td>
+</tr>
+<tr>
+<td><code>$PID_DIR</code></td>
+<td></td>
+<td><code>"$JANUSGRAPH_HOME/run"</code></td>
+</tr>
+<tr>
+<td><code>$PID_FILE</code></td>
+<td></td>
+<td><code>"$PID_DIR/janusgraph.pid"</code></td>
+</tr>
+<tr>
+<td><code>$JANUSGRAPH_YAML</code></td>
+<td>JanusGraph Server config path</td>
+<td><code>"$JANUSGRAPH_CONF/gremlin-server/gremlin-server.yaml"</code></td>
+</tr>
+<tr>
+<td><code>$JANUSGRAPH_LIB</code></td>
+<td>JanusGraph library directory</td>
+<td><code>"$JANUSGRAPH_HOME/lib"</code></td>
+</tr>
+<tr>
+<td><code>$JAVA_HOME</code></td>
+<td>If not set java home fallback to <code>java</code>.</td>
+<td>NOT_SET</td>
+</tr>
+<tr>
+<td><code>$JAVA_OPTIONS_FILE</code></td>
+<td></td>
+<td><code>"$JANUSGRAPH_CONF/jvm.options"</code></td>
+</tr>
+<tr>
+<td><code>$JAVA_OPTIONS</code></td>
+<td></td>
+<td>NOT_SET</td>
+</tr>
+<tr>
+<td><code>$CP</code></td>
+<td>Can be used to override the classpath's. (expert mode)</td>
+<td>NOT_SET</td>
+</tr>
+<tr>
+<td><code>$DEBUG</code></td>
+<td>If you enable debug by creating this env, bash debug will be enabled.</td>
+<td>NOT_SET</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configure-jvmoptions">Configure jvm.options</h3>
+<p>JanusGraph runs on the JVM which is configureable for special use cases. Therefore, JanusGraph provides a <code>jvm.options</code> file with some default options.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copyright 2020 JanusGraph Authors</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1">#################</span>
+<span class="c1"># HEAP SETTINGS #</span>
+<span class="c1">#################</span>
+
+-Xms4096m
+-Xmx4096m
+
+
+<span class="c1">########################</span>
+<span class="c1"># GENERAL JVM SETTINGS #</span>
+<span class="c1">########################</span>
+
+
+<span class="c1"># enable thread priorities, primarily so we can give periodic tasks</span>
+<span class="c1"># a lower priority to avoid interfering with client workload</span>
+-XX:+UseThreadPriorities
+
+<span class="c1"># allows lowering thread priority without being root on linux - probably</span>
+<span class="c1"># not necessary on Windows but doesn&#39;t harm anything.</span>
+<span class="c1"># see http://tech.stolsvik.com/2010/01/linux-java-thread-priorities-workar</span>
+-XX:ThreadPriorityPolicy<span class="o">=</span><span class="m">42</span>
+
+<span class="c1"># Enable heap-dump if there&#39;s an OOM</span>
+-XX:+HeapDumpOnOutOfMemoryError
+
+<span class="c1"># Per-thread stack size.</span>
+-Xss256k
+
+<span class="c1"># Make sure all memory is faulted and zeroed on startup.</span>
+<span class="c1"># This helps prevent soft faults in containers and makes</span>
+<span class="c1"># transparent hugepage allocation more effective.</span>
+-XX:+AlwaysPreTouch
+
+<span class="c1"># Enable thread-local allocation blocks and allow the JVM to automatically</span>
+<span class="c1"># resize them at runtime.</span>
+-XX:+UseTLAB
+-XX:+ResizeTLAB
+-XX:+UseNUMA
+
+
+<span class="c1">####################</span>
+<span class="c1"># GREMLIN SETTINGS #</span>
+<span class="c1">####################</span>
+
+-Dgremlin.io.kryoShimService<span class="o">=</span>org.janusgraph.hadoop.serialize.JanusGraphKryoShimService
+
+
+<span class="c1">#################</span>
+<span class="c1">#  GC SETTINGS  #</span>
+<span class="c1">#################</span>
+
+<span class="c1">### CMS Settings</span>
+
+-XX:+UseParNewGC
+-XX:+UseConcMarkSweepGC
+-XX:+CMSParallelRemarkEnabled
+-XX:SurvivorRatio<span class="o">=</span><span class="m">8</span>
+-XX:MaxTenuringThreshold<span class="o">=</span><span class="m">1</span>
+-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">75</span>
+-XX:+UseCMSInitiatingOccupancyOnly
+-XX:CMSWaitDuration<span class="o">=</span><span class="m">10000</span>
+-XX:+CMSParallelInitialMarkEnabled
+-XX:+CMSEdenChunksRecordAlways
+-XX:+CMSClassUnloadingEnabled
 </code></pre></div>
 
-<p>The <code>:remote</code> command tells the console to configure a remote connection
-to Gremlin Server using the <code>conf/remote.yaml</code> file to connect. That
-file points to a Gremlin Server instance running on <code>localhost</code>. The
-<code>:&gt;</code> is the "submit" command which sends the Gremlin on that line to the
-currently active remote.
-Instead of prefixing every single script with <code>:&gt;</code>, the command <code>:remote console</code> can
-be executed once to implicitly send all subsequent scripts to the current remote connection.
-By default remote connections are sessionless,
-meaning that each line sent in the console is interpreted as a single
-request. Multiple statements can be sent on a single line using a
-semicolon as the delimiter.
-<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml</span>
-<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
-<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="n">localhost</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span>
-<span class="o">==&gt;</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]]</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span>
-<span class="o">==&gt;</span><span class="n">graphtraversalsource</span><span class="o">[</span><span class="n">standardjanusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">]],</span> <span class="n">standard</span><span class="o">]</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">()</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;Chris&quot;</span>
-<span class="o">==&gt;</span><span class="n">Chris</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">user</span><span class="o">)</span>
-<span class="n">No</span> <span class="n">such</span> <span class="nl">property:</span> <span class="n">user</span> <span class="k">for</span> <span class="nl">class:</span> <span class="n">Script21</span>
-<span class="n">Type</span> <span class="s1">&#39;:help&#39;</span> <span class="n">or</span> <span class="s1">&#39;:h&#39;</span> <span class="k">for</span> <span class="n">help</span><span class="o">.</span>
-<span class="n">Display</span> <span class="n">stack</span> <span class="n">trace</span><span class="o">?</span> <span class="o">[</span><span class="n">yN</span><span class="o">]</span>
-</code></pre></div></p>
-<p>Alternatively, you can establish a console with a session by specifying
-<a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#sessions">session</a>
-when creating the connection. A <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#console-sessions">console
-session</a>
-allows you to reuse variables across several lines of input.
-<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml session</span>
-<span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">-[</span><span class="mi">9</span><span class="n">acf239e</span><span class="o">-</span><span class="n">a3ed</span><span class="o">-</span><span class="mi">4301</span><span class="o">-</span><span class="n">b33f</span><span class="o">-</span><span class="mi">55</span><span class="n">c911e04052</span><span class="o">]</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">console</span>
-<span class="o">==&gt;</span><span class="n">All</span> <span class="n">scripts</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">Gremlin</span> <span class="n">Server</span> <span class="o">-</span> <span class="o">[</span><span class="n">localhost</span><span class="o">/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span><span class="o">]-[</span><span class="mi">9</span><span class="n">acf239e</span><span class="o">-</span><span class="n">a3ed</span><span class="o">-</span><span class="mi">4301</span><span class="o">-</span><span class="n">b33f</span><span class="o">-</span><span class="mi">55</span><span class="n">c911e04052</span><span class="o">]</span> <span class="o">-</span> <span class="n">type</span> <span class="s1">&#39;:remote console&#39;</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">local</span> <span class="n">mode</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">()</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;Chris&quot;</span>
-<span class="o">==&gt;</span><span class="n">Chris</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">user</span>
-<span class="o">==&gt;</span><span class="n">Chris</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="n">user</span><span class="o">)</span>
-<span class="o">==&gt;</span><span class="n">v</span><span class="o">[</span><span class="mi">4344</span><span class="o">]</span>
-<span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">values</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">)</span>
-<span class="o">==&gt;</span><span class="n">Chris</span>
-</code></pre></div></p>
-<h2 id="cleaning-up-after-the-pre-packaged-distribution">Cleaning up after the Pre-Packaged Distribution</h2>
-<p>If you want to start fresh and remove the database and logs you can use
-the clean command with <code>janusgraph.sh</code>. The server should be stopped
-before running the clean operation.
-<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/
-$ ./bin/janusgraph.sh stop
-Killing Gremlin-Server <span class="o">(</span>pid <span class="m">91505</span><span class="o">)</span>...
-Killing Elasticsearch <span class="o">(</span>pid <span class="m">91402</span><span class="o">)</span>...
-Killing Cassandra <span class="o">(</span>pid <span class="m">91219</span><span class="o">)</span>...
-$ ./bin/janusgraph.sh clean
-Are you sure you want to delete all stored data and logs? <span class="o">[</span>y/N<span class="o">]</span> y
-Deleted data in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/db
-Deleted logs in /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/log
-</code></pre></div></p>
 <h2 id="janusgraph-server-as-a-websocket-endpoint">JanusGraph Server as a WebSocket Endpoint</h2>
 <p>The default configuration described in <a href="#getting-started">Getting Started</a> 
 is already a WebSocket configuration.
@@ -1903,159 +1922,11 @@ should return a 200 and the result of 4 if authentication is configured correctl
 <div class="highlight"><pre><span></span><code>curl -v http://localhost:8182/session -XPOST -d <span class="s1">&#39;{&quot;gremlin&quot;: &quot;g.V().count()&quot;}&#39;</span> -H <span class="s2">&quot;Authorization: Token dXNlcjoxNTA5NTQ2NjI0NDUzOkhrclhYaGhRVG9KTnVSRXJ5U2VpdndhalJRcVBtWEpSMzh5WldqRTM4MW89&quot;</span>
 </code></pre></div>
 
-<h3 id="using-tinkerpop-gremlin-server-with-janusgraph">Using TinkerPop Gremlin Server with JanusGraph</h3>
-<p>Since JanusGraph Server is a TinkerPop Gremlin Server packaged 
-with configuration files for JanusGraph, a version compatible 
-TinkerPop Gremlin Server can be downloaded separately and used with JanusGraph. 
-Get started by downloading the appropriate version of Gremlin Server, 
-which needs to match a version supported by the JanusGraph version in use (3.4.10).</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Any references to file paths in this section refer to paths under a
-TinkerPop distribution for Gremlin Server and not a JanusGraph
-distribution with the JanusGraph Server, unless specifically noted.</p>
-</div>
-<p>Configuring a standalone Gremlin Server to work with 
-JanusGraph is similar to configuring the packaged JanusGraph Server. 
-You should be familiar with <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#_configuring_2">graph configuration</a>. 
-Basically, the Gremlin Server yaml file points to graph-specific configuration files 
-that are used to instantiate JanusGraph instances that it will then host. 
-In order to instantiate these Graph instances, 
-Gremlin Server requires that the appropriate libraries and dependencies 
-for the JanusGraph be available on its classpath.</p>
-<p>For purposes of demonstration, these instructions will outline how to
-configure the BerkeleyDB backend for JanusGraph in Gremlin Server. As
-stated earlier, Gremlin Server needs JanusGraph dependencies on its
-classpath. Invoke the following command replacing <code>$VERSION</code> with the
-version of JanusGraph to use:</p>
-<div class="highlight"><pre><span></span><code>bin/gremlin-server.sh -i org.janusgraph janusgraph-all <span class="nv">$VERSION</span>
-</code></pre></div>
-
-<p>When this process completes, Gremlin Server should now have all the
-JanusGraph dependencies available to it and will thus be able to
-instantiate <code>JanusGraph</code> objects.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The above command uses Groovy Grape and if it is not configured properly 
-download errors may ensue. Please refer to <a href="https://tinkerpop.apache.org/docs/3.4.10/reference/#gremlin-applications">this section</a>
-of the TinkerPop documentation for more information around setting up ~/.groovy/grapeConfig.xml.</p>
-</div>
-<p>Create a file called <code>GREMLIN_SERVER_HOME/conf/janusgraph.properties</code>
-with the following contents:
-<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
-<span class="na">storage.backend</span><span class="o">=</span><span class="s">berkeleyje</span>
-<span class="na">storage.directory</span><span class="o">=</span><span class="s">db/berkeley</span>
-</code></pre></div></p>
-<p>Configuration of other backends is similar. See
-<a href="../../storage-backend/">Storage Backends</a>. If using Cassandra, then use Cassandra
-configuration options in the <code>janusgraph.properties</code> file. The only
-important piece to leave unchanged is the <code>gremlin.graph</code> setting which
-should always use <code>JanusGraphFactory</code>. This setting tells Gremlin Server
-how to instantiate a <code>JanusGraph</code> instance.</p>
-<p>Next create a file called
-<code>GREMLIN_SERVER_HOME/conf/gremlin-server-janusgraph.yaml</code> that has the
-following contents:
-<div class="highlight"><pre><span></span><code><span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
-<span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8182</span>
-<span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">  graph</span><span class="p">:</span> <span class="nv">conf/janusgraph.properties</span><span class="p p-Indicator">}</span>
-<span class="nt">scriptEngines</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">  gremlin-groovy</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">    plugins</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">classImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math</span><span class="p p-Indicator">],</span><span class="nt"> methodImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math#*</span><span class="p p-Indicator">]},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">files</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">scripts/empty-sample.groovy</span><span class="p p-Indicator">]}}}}</span>
-<span class="nt">serializers</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
-  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> serializeResultToString</span><span class="p">:</span> <span class="nv">true</span> <span class="p p-Indicator">}}</span>
-  <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
-<span class="nt">metrics</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">  slf4jReporter</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">enabled</span><span class="p">:</span> <span class="nv">true</span><span class="p p-Indicator">,</span><span class="nt"> interval</span><span class="p">:</span> <span class="nv">180000</span><span class="p p-Indicator">}}</span>
-</code></pre></div></p>
-<p><strong>There are several important parts to this configuration file as they relate to JanusGraph.</strong></p>
-<ol>
-<li>
-<p>In the <code>graphs</code> map, there is a key called <code>graph</code> and its value is
-    <code>conf/janusgraph.properties</code>. This tells Gremlin Server to
-    instantiate a <code>Graph</code> instance called "graph" and use the
-    <code>conf/janusgraph.properties</code> file to configure it. The "graph" key
-    becomes the unique name for the <code>Graph</code> instance in Gremlin Server
-    and it can be referenced as such in the scripts submitted to it.</p>
-</li>
-<li>
-<p>In the <code>plugins</code> list, there is a reference to
-    <code>JanusGraphGremlinPlugin</code>, which tells Gremlin Server to initialize
-    the "JanusGraph Plugin". The "JanusGraph Plugin" will auto-import
-    JanusGraph specific classes for usage in scripts.</p>
-</li>
-<li>
-<p>Note the <code>scripts</code> key and the reference to
-    <code>scripts/janusgraph.groovy</code>. This Groovy file is an initialization
-    script for Gremlin Server and that particular ScriptEngine. Create
-    <code>scripts/janusgraph.groovy</code> with the following contents:</p>
-</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="kt">def</span> <span class="n">globals</span> <span class="o">=</span> <span class="o">[:]</span>
-<span class="n">globals</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="n">g</span> <span class="o">:</span> <span class="n">graph</span><span class="o">.</span><span class="na">traversal</span><span class="o">()]</span>
-</code></pre></div>
-
-<p>The above script creates a <code>Map</code> called <code>globals</code> and assigns to it a
-key/value pair. The key is <code>g</code> and its value is a <code>TraversalSource</code>
-generated from <code>graph</code>, which was configured for Gremlin Server in its
-configuration file. At this point, there are now two global variables
-available to scripts provided to Gremlin Server - <code>graph</code> and <code>g</code>.</p>
-<p>At this point, Gremlin Server is configured and can be used to connect
-to a new or existing JanusGraph database. To start the server:
-<div class="highlight"><pre><span></span><code>$ bin/gremlin-server.sh conf/gremlin-server-janusgraph.yaml
-<span class="o">[</span>INFO<span class="o">]</span> GremlinServer -
-         <span class="se">\,</span>,,/
-         <span class="o">(</span>o o<span class="o">)</span>
------oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
-
-<span class="o">[</span>INFO<span class="o">]</span> GremlinServer - Configuring Gremlin Server from conf/gremlin-server-janusgraph.yaml
-<span class="o">[</span>INFO<span class="o">]</span> MetricManager - Configured Metrics Slf4jReporter configured with <span class="nv">interval</span><span class="o">=</span>180000ms and <span class="nv">loggerName</span><span class="o">=</span>org.apache.tinkerpop.gremlin.server.Settings<span class="nv">$Slf4jReporterMetrics</span>
-<span class="o">[</span>INFO<span class="o">]</span> GraphDatabaseConfiguration - Set default timestamp provider MICRO
-<span class="o">[</span>INFO<span class="o">]</span> GraphDatabaseConfiguration - Generated unique-instance-id<span class="o">=</span>7f0000016240-ubuntu1
-<span class="o">[</span>INFO<span class="o">]</span> Backend - Initiated backend operations thread pool of size <span class="m">8</span>
-<span class="o">[</span>INFO<span class="o">]</span> KCVSLog<span class="nv">$MessagePuller</span> - Loaded unidentified ReadMarker start <span class="nb">time</span> <span class="m">2015</span>-10-02T12:28:24.411Z into org.janusgraph.diskstorage.log.kcvs.KCVSLog<span class="nv">$MessagePuller</span>@35399441
-<span class="o">[</span>INFO<span class="o">]</span> GraphManager - Graph <span class="o">[</span>graph<span class="o">]</span> was successfully configured via <span class="o">[</span>conf/janusgraph.properties<span class="o">]</span>.
-<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - Initialized Gremlin thread pool.  Threads in pool named with pattern gremlin-*
-<span class="o">[</span>INFO<span class="o">]</span> ScriptEngines - Loaded gremlin-groovy ScriptEngine
-<span class="o">[</span>INFO<span class="o">]</span> GremlinExecutor - Initialized gremlin-groovy ScriptEngine with scripts/janusgraph.groovy
-<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - Initialized GremlinExecutor and configured ScriptEngines.
-<span class="o">[</span>INFO<span class="o">]</span> ServerGremlinExecutor - A GraphTraversalSource is now bound to <span class="o">[</span>g<span class="o">]</span> with graphtraversalsource<span class="o">[</span>standardjanusgraph<span class="o">[</span>berkeleyje:db/berkeley<span class="o">]</span>, standard<span class="o">]</span>
-<span class="o">[</span>INFO<span class="o">]</span> AbstractChannelizer - Configured application/vnd.gremlin-v3.0+gryo with org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0
-<span class="o">[</span>INFO<span class="o">]</span> AbstractChannelizer - Configured application/vnd.gremlin-v3.0+gryo-stringd with org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0
-<span class="o">[</span>INFO<span class="o">]</span> GremlinServer<span class="nv">$1</span> - Gremlin Server configured with worker thread pool of <span class="m">1</span>, gremlin pool of <span class="m">8</span> and boss thread pool of <span class="m">1</span>.
-<span class="o">[</span>INFO<span class="o">]</span> GremlinServer<span class="nv">$1</span> - Channel started at port <span class="m">8182</span>.
-</code></pre></div></p>
-<p>The following section explains how to connect to the running server.</p>
-<h4 id="connecting-to-janusgraph-via-gremlin-server">Connecting to JanusGraph via Gremlin Server</h4>
-<p>Gremlin Server will be ready to listen for WebSocket connections when it
-is started. The easiest way to test the connection is with Gremlin
-Console.</p>
-<p>Follow the instructions here <a href="../../interactions/connecting/">Connecting to Gremlin Server</a> to verify the Gremlin
-Server is working.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>A difference you should understand is that when working with
-JanusGraph Server, the Gremlin Console is started from underneath the
-JanusGraph distribution and when following the test instructions here
-for a standalone Gremlin Server, the Gremlin Console is started from
-under the TinkerPop distribution.</p>
-</div>
-<div class="highlight"><pre><span></span><code><span class="n">GryoMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">GryoMapper</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">addRegistry</span><span class="p">(</span><span class="n">JanusGraphIoRegistry</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">).</span><span class="na">create</span><span class="p">();</span>
-<span class="n">Cluster</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">serializer</span><span class="p">(</span><span class="k">new</span> <span class="n">GryoMessageSerializerV3d0</span><span class="p">(</span><span class="n">mapper</span><span class="p">)).</span><span class="na">create</span><span class="p">();</span>
-<span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">.</span><span class="na">connect</span><span class="p">();</span>
-<span class="n">client</span><span class="p">.</span><span class="na">submit</span><span class="p">(</span><span class="s">&quot;g.V()&quot;</span><span class="p">).</span><span class="na">all</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
-</code></pre></div>
-
-<p>By adding the <code>JanusGraphIoRegistry</code> to the
-<code>org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</code>, the
-driver will know how to properly deserialize custom data types returned
-by JanusGraph.</p>
 <h2 id="extending-janusgraph-server">Extending JanusGraph Server</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We currently are refactoring JanusGraph Server. If you like to get information or want to give input, see <a href="https://github.com/JanusGraph/janusgraph/issues/2119">issue #2119</a>.</p>
+</div>
 <p>It is possible to extend Gremlin Server with other means of
 communication by implementing the interfaces that it provides and
 leverage this with JanusGraph. See more details in the appropriate
