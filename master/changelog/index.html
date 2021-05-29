@@ -1297,6 +1297,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#breaking-change-for-configuration-objects" class="md-nav__link">
+    Breaking change for Configuration objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-for-gremlin-server-configs" class="md-nav__link">
+    Breaking change for gremlin server configs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#breaking-change-for-gremlin-eventstrategy-usage" class="md-nav__link">
     Breaking change for gremlin EventStrategy usage
   </a>
@@ -1941,6 +1955,20 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-for-configuration-objects" class="md-nav__link">
+    Breaking change for Configuration objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-for-gremlin-server-configs" class="md-nav__link">
+    Breaking change for gremlin server configs
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#breaking-change-for-gremlin-eventstrategy-usage" class="md-nav__link">
@@ -2648,7 +2676,7 @@ use the latest versions of the software.</p>
 <li>Elasticsearch 6.0.1, 6.6.0, 7.12.0</li>
 <li>Apache Lucene 8.6.0</li>
 <li>Apache Solr 7.7.2, 8.5.2</li>
-<li>Apache TinkerPop 3.4.10</li>
+<li>Apache TinkerPop 3.5.0</li>
 <li>Java 1.8</li>
 </ul>
 <h4 id="changes">Changes</h4>
@@ -2664,6 +2692,19 @@ use the latest versions of the software.</p>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v0.6.0/janusgraph-full-0.6.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="breaking-change-for-configuration-objects">Breaking change for Configuration objects</h5>
+<p>Prior to JanusGraph 0.6.0, <code>Configuration</code> objects were from the Apache <code>commons-configuration</code> library.
+To comply with the <a href="http://tinkerpop.apache.org/docs/3.5.0-SNAPSHOT/upgrade/#_versions_and_dependencies">TinkerPop change</a>,
+JanusGraph now uses the <code>commons-configuration2</code> library. A typical usage of configuration object is to
+create configuration using <code>ConfigurationGraphFactory</code>. Now you would need to use the new configuration2 library.
+Please refer to the
+<a href="https://commons.apache.org/proper/commons-configuration/userguide/upgradeto2_0.html">commons-configuration 2.0 migration guide</a>
+for details. Note that this very likely does not affect gremlin console usage, since the new library
+is auto-imported, and the basic APIs remain the same. For java code usage, you need to import
+configuration2 library rather than the old configuration library.</p>
+<h5 id="breaking-change-for-gremlin-server-configs">Breaking change for gremlin server configs</h5>
+<p><code>scriptEvaluationTimeout</code> is renamed to <code>evaluationTimeout</code>. You can refer to <code>conf/gremlin-server/gremlin-server.yaml</code>
+for example.</p>
 <h5 id="breaking-change-for-gremlin-eventstrategy-usage">Breaking change for gremlin EventStrategy usage</h5>
 <p>If you are using <a href="https://tinkerpop.apache.org/javadocs/current/full/org/apache/tinkerpop/gremlin/process/traversal/strategy/decoration/EventStrategy.html">EventStrategy</a>,
 please note that now you need to register it every time you start a new transaction.
