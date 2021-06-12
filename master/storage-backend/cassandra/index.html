@@ -921,6 +921,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
+    Deploying on Amazon Keyspaces (Experimental)
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces (Experimental)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-credentials" class="md-nav__link">
+    Creating Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ssltls" class="md-nav__link">
+    Setting up SSL/TLS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-problems" class="md-nav__link">
+    Known Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deploying-on-amazon-ec2" class="md-nav__link">
     Deploying on Amazon EC2
   </a>
@@ -1412,6 +1453,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
+    Deploying on Amazon Keyspaces (Experimental)
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces (Experimental)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-credentials" class="md-nav__link">
+    Creating Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ssltls" class="md-nav__link">
+    Setting up SSL/TLS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-problems" class="md-nav__link">
+    Known Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deploying-on-amazon-ec2" class="md-nav__link">
     Deploying on Amazon EC2
   </a>
@@ -1650,6 +1732,117 @@ In general, higher levels are more consistent and robust but have higher latency
 However, note that all these vertices and/or edges will be loaded into
 memory which can cause <code>OutOfMemoryException</code>. Use <a href="../../advanced-topics/hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> to
 iterate over all vertices or edges in large graphs effectively.</p>
+<h2 id="deploying-on-amazon-keyspaces-experimental">Deploying on Amazon Keyspaces (Experimental)</h2>
+<blockquote>
+<p>Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed
+Apache Cassandra–compatible database service. Amazon Keyspaces is serverless, so you
+pay for only the resources you use and the service can automatically scale tables up
+and down in response to application traffic.</p>
+<p>—  <a href="https://aws.amazon.com/keyspaces/">Amazon Keyspaces</a></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The support for Amazon Keyspaces is experimental. We discourage usage in production
+systems unless you have thoroughly tested it against your use case.</p>
+</div>
+<p>Follow these steps to set up a Amazon Keyspaces cluster and deploy JanusGraph over it.
+Prior to these instructions, make sure you have already followed
+<a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/accessing.html">this guide</a>
+to sign up for AWS and set up your identity and access management.</p>
+<h3 id="creating-credentials">Creating Credentials</h3>
+<p>You would need to generate service-specific credentials. See
+<a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/programmatic.credentials.html#programmatic.credentials.ssc">this guide</a>
+for more details.</p>
+<p>After your service-specific credential is generated, you would get an output similar to
+the following:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;ServiceSpecificCredential&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;CreateDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-09T16:12:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceName&quot;</span><span class="p">:</span> <span class="s2">&quot;cassandra.amazonaws.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceUserName&quot;</span><span class="p">:</span> <span class="s2">&quot;alice-at-111122223333&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServicePassword&quot;</span><span class="p">:</span> <span class="s2">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceSpecificCredentialId&quot;</span><span class="p">:</span> <span class="s2">&quot;ACCAYFI33SINPGJEBYESF&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;UserName&quot;</span><span class="p">:</span> <span class="s2">&quot;alice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Status&quot;</span><span class="p">:</span> <span class="s2">&quot;Active&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Please save <code>ServiceUserName</code> and <code>ServicePassword</code> in a secure location and you would
+need them in JanusGraph config later.</p>
+<h3 id="setting-up-ssltls">Setting up SSL/TLS</h3>
+<ol>
+<li>Download the Starfield digital certificate using the following command</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl https://certs.secureserver.net/repository/sf-class2-root.crt -O
+</code></pre></div>
+
+<ol>
+<li>Convert the Starfield digital certificate to a trustStore file</li>
+</ol>
+<div class="highlight"><pre><span></span><code>openssl x509 -outform der -in sf-class2-root.crt -out temp_file.der
+keytool -import -alias cassandra -keystore cassandra_truststore.jks -file temp_file.der
+</code></pre></div>
+
+<p>Now you would see a <code>cassandra_truststore.jks</code> file generated locally. You would need this file
+and your truststore password later.</p>
+<p>For more details, see <a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/using_java_driver.html">this doc</a>.
+Note that you don't need to follow every step of that doc, since it is written for users who connect to Amazon
+Keyspaces using a Java client directly.
+.</p>
+<h3 id="configurations">Configurations</h3>
+<p>Below is a complete sample of configuration. Unlike standard Apache Cassandra or
+ScyllaDB, Amazon Keyspaces only supports a subset of functionalities. Therefore,
+some specific configurations are needed.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Basic settings for CQL</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.hostname</span><span class="o">=</span><span class="s">cassandra.&lt;your-datacenter, e.g. ap-east-1&gt;.amazonaws.com</span>
+<span class="na">storage.port</span><span class="o">=</span><span class="s">9142</span>
+<span class="na">storage.username</span><span class="o">=</span><span class="s">&lt;your-service-username&gt;</span>
+<span class="na">storage.password</span><span class="o">=</span><span class="s">&lt;your-service-password&gt;</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">janusgraph</span>
+<span class="na">storage.cql.local-datacenter</span><span class="o">=</span><span class="s">&lt;your-datacenter, e.g. ap-east-1&gt;</span>
+
+<span class="c"># SSL related settings</span>
+<span class="na">storage.cql.ssl.enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">storage.cql.ssl.truststore.location</span><span class="o">=</span><span class="s">&lt;your-trust-store-location&gt;</span>
+<span class="na">storage.cql.ssl.truststore.password</span><span class="o">=</span><span class="s">&lt;your-trust-store-password&gt;</span>
+
+<span class="c"># Amazon Keyspaces does not support user-generated timestamps</span>
+<span class="c"># Thus, the below config must be turned off</span>
+<span class="na">graph.assign-timestamp</span><span class="o">=</span><span class="s">false</span>
+
+<span class="c"># Amazon Keyspaces only supports LOCAL QUORUM consistency</span>
+<span class="na">storage.cql.only-use-local-consistency-for-system-operations</span><span class="o">=</span><span class="s">true</span>
+<span class="na">storage.cql.read-consistency-level</span><span class="o">=</span><span class="s">LOCAL_QUORUM</span>
+<span class="na">storage.cql.write-consistency-level</span><span class="o">=</span><span class="s">LOCAL_QUORUM</span>
+<span class="na">log.janusgraph.key-consistent</span><span class="o">=</span><span class="s">true</span>
+<span class="na">log.tx.key-consistent</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c"># Amazon Keyspaces does not have metadata available to clients</span>
+<span class="c"># Thus, we need to tell JanusGraph that metadata are disabled,</span>
+<span class="c"># and provide a hint of which partitioner AWS is using.</span>
+<span class="na">storage.cql.metadata-schema-enabled</span><span class="o">=</span><span class="s">false</span>
+<span class="na">storage.cql.metadata-token-map-enabled</span><span class="o">=</span><span class="s">false</span>
+<span class="na">storage.cql.partitioner-name</span><span class="o">=</span><span class="s">DefaultPartitioner</span>
+</code></pre></div>
+
+<p>Now you should be able to open the graph via gremlin console
+or java code, using the above configuration file.</p>
+<h3 id="known-problems">Known Problems</h3>
+<ul>
+<li>Amazon Keyspaces creates tables on-demand. If you are connecting to it the first time, you
+would likely see error message like
+    <div class="highlight"><pre><span></span><code>unconfigured table janusgraph.system_properties
+</code></pre></div>
+    At the same time, you should be able to see the same table getting created on Amazon Keyspaces console UI.
+    The creation process typically takes a few seconds. Once the creation is done, you could open
+    the graph again, and the error will be gone. Unfortunately, you would <em>have to</em> follow the same process
+    for all tables. Alternatively, you could create the tables on AWS manually, if you are familiar with
+    JanusGraph. Typically nine tables are needed: <code>edgestore</code>, <code>edgestore_lock_</code>, <code>graphindex</code>, <code>graphindex_lock_</code>,
+    <code>janusgraph_ids</code>, <code>system_properties</code>, <code>system_properties_lock_</code>, <code>systemlog</code>, and <code>txlog</code>.</li>
+</ul>
 <h2 id="deploying-on-amazon-ec2">Deploying on Amazon EC2</h2>
 <blockquote>
 <p>Amazon Elastic Compute Cloud (Amazon EC2) is a web service that
@@ -1657,6 +1850,10 @@ provides resizable compute capacity in the cloud. It is designed to
 make web-scale computing easier for developers.</p>
 <p>—  <a href="http://aws.amazon.com/ec2/">Amazon EC2</a></p>
 </blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The below documentation might be partially out-of-date.</p>
+</div>
 <p>Follow these steps to setup a Cassandra cluster on EC2 and deploy
 JanusGraph over Cassandra. To follow these instructions, you need an
 Amazon AWS account with established authentication credentials and some
