@@ -1060,6 +1060,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../operations/batch-processing/" class="md-nav__link">
+      Batch Processing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../operations/bulk-loading/" class="md-nav__link">
       Bulk Loading
     </a>
@@ -3254,6 +3267,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Threshold of deciding whether to use brute force enumeration algorithm or fast approximation algorithm for selecting suitable indexes. Selecting optimal indexes for a query is a NP-complete set cover problem. When number of suitable index candidates is no larger than threshold, JanusGraph uses brute force search with exponential time complexity to ensure the best combination of indexes is selected. Only effective when <code>threshold-based</code> index select strategy is chosen.</td>
 <td>Integer</td>
 <td>10</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.limit-batch-size</td>
+<td>Configure a maximum batch size for queries against the storage backend. This can be used to ensure responsiveness if batches tend to grow very large. The used batch size is equivalent to the barrier size of a preceding barrier() step. If a step has no preceding barrier(), the default barrier of TinkerPop will be inserted. This option only takes effect if query.batch is enabled.</td>
+<td>Boolean</td>
+<td>false</td>
 <td>MASKABLE</td>
 </tr>
 <tr>

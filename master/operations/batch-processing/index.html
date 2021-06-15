@@ -14,7 +14,7 @@
     
     
       
-        <title>Bulk Loading - JanusGraph</title>
+        <title>Batch Processing - JanusGraph</title>
       
     
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#bulk-loading" class="md-skip">
+        <a href="#batch-processing" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Bulk Loading
+              Batch Processing
             
           </span>
         </div>
@@ -706,19 +706,6 @@
           
 
 
-
-  <li class="md-nav__item">
-    <a href="../batch-processing/" class="md-nav__link">
-      Batch Processing
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
   
 
 
@@ -730,12 +717,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Bulk Loading
+        Batch Processing
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      Bulk Loading
+      Batch Processing
     </a>
     
       
@@ -752,90 +739,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+  <a href="#no-batch-processing" class="md-nav__link">
+    No Batch Processing
   </a>
   
-    <nav class="md-nav" aria-label="Configuration Options">
+    <nav class="md-nav" aria-label="No Batch Processing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#batch-loading" class="md-nav__link">
-    Batch Loading
+  <a href="#use-this-configuration-in-use-cases-where-for-example" class="md-nav__link">
+    Use this configuration in use cases where for example ...
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#optimizing-id-allocation" class="md-nav__link">
-    Optimizing ID Allocation
-  </a>
-  
-    <nav class="md-nav" aria-label="Optimizing ID Allocation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#id-block-size" class="md-nav__link">
-    ID Block Size
+  <a href="#possible-limitations" class="md-nav__link">
+    Possible limitations
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#id-acquisition-process" class="md-nav__link">
-    ID Acquisition Process
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimizing-writes-and-reads" class="md-nav__link">
-    Optimizing Writes and Reads
-  </a>
-  
-    <nav class="md-nav" aria-label="Optimizing Writes and Reads">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buffer-size" class="md-nav__link">
-    Buffer Size
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read-and-write-robustness" class="md-nav__link">
-    Read and Write Robustness
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#strategies" class="md-nav__link">
-    Strategies
-  </a>
-  
-    <nav class="md-nav" aria-label="Strategies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parallelizing-the-load" class="md-nav__link">
-    Parallelizing the Load
+  <a href="#steps-to-explicitly-configure-this-option" class="md-nav__link">
+    Steps to explicitly configure this option:
   </a>
   
 </li>
@@ -846,9 +773,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#qa" class="md-nav__link">
-    Q&amp;A
+  <a href="#unrestricted-batch-processing" class="md-nav__link">
+    Unrestricted Batch Processing
   </a>
+  
+    <nav class="md-nav" aria-label="Unrestricted Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_1" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_1" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_1" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limited-batch-processing" class="md-nav__link">
+    Limited Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Limited Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-batch-size" class="md-nav__link">
+    Configuring the batch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_2" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_2" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_2" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -856,6 +851,19 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../bulk-loading/" class="md-nav__link">
+      Bulk Loading
+    </a>
   </li>
 
         
@@ -1366,90 +1374,30 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+  <a href="#no-batch-processing" class="md-nav__link">
+    No Batch Processing
   </a>
   
-    <nav class="md-nav" aria-label="Configuration Options">
+    <nav class="md-nav" aria-label="No Batch Processing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#batch-loading" class="md-nav__link">
-    Batch Loading
+  <a href="#use-this-configuration-in-use-cases-where-for-example" class="md-nav__link">
+    Use this configuration in use cases where for example ...
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#optimizing-id-allocation" class="md-nav__link">
-    Optimizing ID Allocation
-  </a>
-  
-    <nav class="md-nav" aria-label="Optimizing ID Allocation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#id-block-size" class="md-nav__link">
-    ID Block Size
+  <a href="#possible-limitations" class="md-nav__link">
+    Possible limitations
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#id-acquisition-process" class="md-nav__link">
-    ID Acquisition Process
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimizing-writes-and-reads" class="md-nav__link">
-    Optimizing Writes and Reads
-  </a>
-  
-    <nav class="md-nav" aria-label="Optimizing Writes and Reads">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buffer-size" class="md-nav__link">
-    Buffer Size
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read-and-write-robustness" class="md-nav__link">
-    Read and Write Robustness
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#strategies" class="md-nav__link">
-    Strategies
-  </a>
-  
-    <nav class="md-nav" aria-label="Strategies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parallelizing-the-load" class="md-nav__link">
-    Parallelizing the Load
+  <a href="#steps-to-explicitly-configure-this-option" class="md-nav__link">
+    Steps to explicitly configure this option:
   </a>
   
 </li>
@@ -1460,9 +1408,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#qa" class="md-nav__link">
-    Q&amp;A
+  <a href="#unrestricted-batch-processing" class="md-nav__link">
+    Unrestricted Batch Processing
   </a>
+  
+    <nav class="md-nav" aria-label="Unrestricted Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_1" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_1" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_1" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limited-batch-processing" class="md-nav__link">
+    Limited Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Limited Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-batch-size" class="md-nav__link">
+    Configuring the batch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_2" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_2" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_2" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1478,195 +1494,145 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/operations/bulk-loading.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/operations/batch-processing.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="bulk-loading">Bulk Loading</h1>
-<p>There are a number of configuration options and tools that make
-ingesting large amounts of graph data into JanusGraph more efficient.
-Such ingestion is referred to as <em>bulk loading</em> in contrast to the
-default <em>transactional loading</em> where small amounts of data are added
-through individual transactions.</p>
-<p>There are a number of use cases for bulk loading data into JanusGraph,
-including:</p>
+                <h1 id="batch-processing">Batch Processing</h1>
+<p>In order to answer queries, JanusGraph has to perform queries
+against the storage backend.
+In general, there are two ways of doing this:</p>
 <ul>
-<li>
-<p>Introducing JanusGraph into an existing environment with existing
-    data and migrating or duplicating this data into a new JanusGraph
-    cluster.</p>
-</li>
-<li>
-<p>Using JanusGraph as an end point of an
-    <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load">ETL</a>
-    process.</p>
-</li>
-<li>
-<p>Adding an existing or external graph datasets (e.g. publicly
-    available <a href="https://www.w3.org/wiki/DataSetRDFDumps">RDF datasets</a>) to a running
-    JanusGraph cluster.</p>
-</li>
-<li>
-<p>Updating a JanusGraph graph with results from a graph analytics job.</p>
-</li>
+<li>Once data from the backend is needed, execute a backend
+  query and continue with the result.</li>
+<li>Maintain a list of what data is needed.
+  Once the list reaches a certain size, execute a batched
+  backend query to fetch all of it at once.</li>
 </ul>
-<p>This page describes configuration options and tools that make bulk
-loading more efficient in JanusGraph. Please observe the limitations and
-assumptions for each option carefully before proceeding to avoid data
-loss or data corruption.</p>
-<p>This documentation focuses on JanusGraph specific optimization. In
-addition, consider improving the chosen storage backend and (optional)
-index backend for high write performance. Please refer to the
-documentation of the respective backend for more information.</p>
-<h2 id="configuration-options">Configuration Options</h2>
-<h3 id="batch-loading">Batch Loading</h3>
-<p>Enabling the <code>storage.batch-loading</code> configuration option will have the
-biggest positive impact on bulk loading times for most applications.
-Enabling batch loading disables JanusGraph internal consistency checks
-in a number of places. Most importantly, it disables locking. In other
-words, JanusGraph assumes that the data to be loaded into JanusGraph is
-consistent with the graph and hence disables its own checks in the
-interest of performance.</p>
-<p>In many bulk loading scenarios it is significantly cheaper to ensure
-data consistency prior to loading the data than ensuring data
-consistency while loading it into the database. The
-<code>storage.batch-loading</code> configuration option exists because of this
-observation.</p>
-<p>For example, consider the use case of bulk loading existing user
-profiles into JanusGraph. Furthermore, assume that the username property
-key has a unique composite index defined on it, i.e. usernames must be
-unique across the entire graph. If the user profiles are imported from
-another database, username uniqueness might already guaranteed. If not,
-it is simple to sort the profiles by name and filter out duplicates or
-writing a Hadoop job that does such filtering. Now, we can enable
-<code>storage.batch-loading</code> which significantly reduces the bulk loading
-time because JanusGraph does not have to check for every added user
-whether the name already exists in the database.</p>
-<p><strong>Important</strong>: Enabling <code>storage.batch-loading</code> requires the user to
-ensure that the loaded data is internally consistent and consistent with
-any data already in the graph. In particular, concurrent type creation
-can lead to severe data integrity issues when batch loading is enabled.
-Hence, we <strong>strongly</strong> encourage disabling automatic type creation by
-setting <code>schema.default = none</code> in the graph configuration.</p>
-<h3 id="optimizing-id-allocation">Optimizing ID Allocation</h3>
-<h4 id="id-block-size">ID Block Size</h4>
-<p>Each newly added vertex or edge is assigned a unique id. JanusGraph’s id
-pool manager acquires ids in blocks for a particular JanusGraph
-instance. The id block acquisition process is expensive because it needs
-to guarantee globally unique assignment of blocks. Increasing
-<code>ids.block-size</code> reduces the number of acquisitions but potentially
-leaves many ids unassigned and hence wasted. For transactional workloads
-the default block size is reasonable, but during bulk loading vertices
-and edges are added much more frequently and in rapid succession. Hence,
-it is generally advisable to increase the block size by a factor of 10
-or more depending on the number of vertices to be added per machine.</p>
-<p><strong>Rule of thumb</strong>: Set <code>ids.block-size</code> to the number of vertices you
-expect to add per JanusGraph instance per hour.</p>
-<p><strong>Important:</strong> All JanusGraph instances MUST be configured with the same
-value for <code>ids.block-size</code> to ensure proper id allocation. Hence, be
-careful to shut down all JanusGraph instances prior to changing this
+<p>The first option tends to be more responsive and consume less
+memory because the query can emit the first results very early
+without waiting for larger batches of queries to complete.
+This is also the option that JanusGraph uses by default.
+The second option can be configured in multiple ways which are
+explained below.</p>
+<h2 id="no-batch-processing">No Batch Processing</h2>
+<p>This is the default configuration of JanusGraph.
+In terms of graph traversals, the execution of queries is
+loosely coupled to the principle of Depth-First-Search.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example">Use this configuration in use cases where for example ...</h3>
+<ul>
+<li>... each query only accesses few vertices of the graph.</li>
+<li>... your application does not need the <em>full</em> result set
+  immediately but rather requires a low latency for the first
+  results to arrive.</li>
+</ul>
+<h3 id="possible-limitations">Possible limitations</h3>
+<ul>
+<li>Traversing large neighborhoods can make the query slow.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch</code> is set to <code>false</code></li>
+</ul>
+<h2 id="unrestricted-batch-processing">Unrestricted Batch Processing</h2>
+<p>Using this configuration, each step which traverses the Graph
+starting from a vertex (so e.g. <code>in()</code>, <code>outE()</code> and <code>values()</code>
+but not <code>inV()</code> or <code>otherV()</code> and also not <code>valueMap()</code>, see
+<a href="https://github.com/JanusGraph/janusgraph/issues/2444">#2444</a>)
+becomes a blocking operator which means that it produces no
+results until all the results of the previous step are known.
+Only then, a single backend query is executed and the results
+are passed to the next step. Manual <code>barrier()</code> steps do not
+affect this in any meaningful way.
+This way of execution can be thought of as a
+Breadth-First-Search.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example_1">Use this configuration in use cases where for example ...</h3>
+<ul>
+<li>... your queries are likely to access multiple vertices in
+  each step.</li>
+<li>... there is a significant network latency between JanusGraph
+  and the storage backend.</li>
+</ul>
+<h3 id="possible-limitations_1">Possible limitations</h3>
+<ul>
+<li>Increased memory consumption</li>
+<li>If limit steps occur late in the query, there might be an
+  unnecessary overhead produced by the steps before the limit
+  step.</li>
+<li>Performing very large backend queries could stress the
+  storage backend.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option_1">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch</code> is set to <code>true</code></li>
+<li>Ensure <code>query.limit-batch-size</code> is set to <code>false</code></li>
+</ul>
+<h2 id="limited-batch-processing">Limited Batch Processing</h2>
+<p>Using this configuration, each step which traverses the Graph
+starting from a vertex (so e.g. <code>in()</code>, <code>outE()</code> and <code>values()</code>
+but not <code>inV()</code> or <code>otherV()</code>) aggregates a number of vertices
+first, before executing a batched backend query.
+This aggregation phase and backend query phase will repeat
+until all vertices are processed.
+In contrast to <em>unrestricted batch processing</em> where one batch
+corresponds to one step in the query, this approach can
+construct multiple batches per step.</p>
+<h3 id="configuring-the-batch-size">Configuring the batch size</h3>
+<p>Although batch size does not necessarily need to be configured,
+it can provide an additional tuning parameter to improve the
+performance of a query.
+By default, the batch size of <a href="https://tinkerpop.apache.org/docs/current/reference/#barrier-step">TinkerPop's barrier step</a>
+will be used, which is currently at 2500.
+The batch size of each vertex step can be individually
+configured by prepending a <code>barrier(&lt;size&gt;)</code> step.
+For example, in the query below, the first <code>out()</code> step would
+use the default batch size of 2500 and the second <code>out()</code> step
+would use a manually configured batch size of 1234:
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">out</span><span class="o">().</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">out</span><span class="o">()</span>
+</code></pre></div>
+Using the same mechanism, the limit can also be increased or
+even effectively disabled by configuring an arbitrarily high
 value.</p>
-<h4 id="id-acquisition-process">ID Acquisition Process</h4>
-<p>When id blocks are frequently allocated by many JanusGraph instances in
-parallel, allocation conflicts between instances will inevitably arise
-and slow down the allocation process. In addition, the increased write
-load due to bulk loading may further slow down the process to the point
-where JanusGraph considers it failed and throws an exception. There are
-three configuration options that can be tuned to avoid this.</p>
-<p>1) <code>ids.authority.wait-time</code> configures the time in milliseconds the id
-pool manager waits for an id block application to be acknowledged by the
-storage backend. The shorter this time, the more likely it is that an
-application will fail on a congested storage cluster.</p>
-<p><strong>Rule of thumb</strong>: Set this to the sum of the 95th percentile read and
-write times measured on the storage backend cluster under load.
-<strong>Important</strong>: This value should be the same across all JanusGraph
-instances.</p>
-<p>2) <code>ids.renew-timeout</code> configures the number of milliseconds
-JanusGraph’s id pool manager will wait in total while attempting to
-acquire a new id block before failing.</p>
-<p><strong>Rule of thumb</strong>: Set this value to be as large feasible to not have to
-wait too long for unrecoverable failures. The only downside of
-increasing it is that JanusGraph will try for a long time on an
-unavailable storage backend cluster.</p>
-<h3 id="optimizing-writes-and-reads">Optimizing Writes and Reads</h3>
-<h4 id="buffer-size">Buffer Size</h4>
-<p>JanusGraph buffers writes and executes them in small batches to reduce
-the number of requests against the storage backend. The size of these
-batches is controlled by <code>storage.buffer-size</code>. When executing a lot of
-writes in a short period of time, it is possible that the storage
-backend can become overloaded with write requests. In that case,
-increasing <code>storage.buffer-size</code> can avoid failure by increasing the
-number of writes per request and thereby lowering the number of
-requests.</p>
-<p>However, increasing the buffer size increases the latency of the write
-request and its likelihood of failure. Hence, it is not advisable to
-increase this setting for transactional loads and one should carefully
-experiment with this setting during bulk loading.</p>
-<h4 id="read-and-write-robustness">Read and Write Robustness</h4>
-<p>During bulk loading, the load on the cluster typically increases making
-it more likely for read and write operations to fail (in particular if
-the buffer size is increased as described above).
-<code>storage.read-attempts</code> and <code>storage.write-attempts</code> configure how many
-times JanusGraph will attempt to execute a read or write operation
-against the storage backend before giving up. If it is expected that
-there is a high load on the backend during bulk loading, it is generally
-advisable to increase these configuration options.</p>
-<p><code>storage.attempt-wait</code> specifies the number of milliseconds that
-JanusGraph will wait before re-attempting a failed backend operation. A
-higher value can ensure that operation re-tries do not further increase
-the load on the backend.</p>
-<h2 id="strategies">Strategies</h2>
-<h3 id="parallelizing-the-load">Parallelizing the Load</h3>
-<p>By parallelizing the bulk loading across multiple machines, the load
-time can be greatly reduced if JanusGraph’s storage backend cluster is
-large enough to serve the additional requests. This is essentially the
-approach <a href="../../advanced-topics/hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> takes to bulk loading data into JanusGraph
-using MapReduce.</p>
-<p>If Hadoop cannot be used for parallelizing the bulk loading process,
-here are some high level guidelines for effectively parallelizing the
-loading process:</p>
+<p>For local traversals which start with a vertex step, the limit
+is best configured outside the local traversal, as seen below:
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">out</span><span class="o">().</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="n">__</span><span class="o">.</span><span class="na">out</span><span class="o">())</span>
+</code></pre></div>
+The reason this is necessary is that traversers enter local
+traversals one by one. As part of the local traversal, the
+<code>barrier(1234)</code> step would not be allowed to aggregate multiple
+traversers.</p>
+<p>A special case applies to <code>repeat()</code> steps.
+Because the local traversal of a <code>repeat()</code> step has two inputs
+(first, the step before the <code>repeat()</code> step and second, the
+last step of the repeated traversal, which feeds the result
+back to the beginning), two limits can be configured here.
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">__</span><span class="o">.</span><span class="na">barrier</span><span class="o">(</span><span class="mi">2345</span><span class="o">).</span><span class="na">out</span><span class="o">()).</span><span class="na">times</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+</code></pre></div>
+Because the local traversal's output is also the input for the
+next iteration, the <code>barrier(1234)</code> step in front of the local
+traversal can only aggregate traversers once they enter the
+<code>repeat</code> step for the first time. For each iteration, the inner
+<code>barrier(2345)</code> is used to aggregate traversers from the
+previous iteration.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example_2">Use this configuration in use cases where for example ...</h3>
 <ul>
-<li>
-<p>In some cases, the graph data can be decomposed into multiple
-    disconnected subgraphs. Those subgraphs can be loaded independently
-    in parallel across multiple machines (for instance, using BatchGraph
-    as described above).</p>
-</li>
-<li>
-<p>If the graph cannot be decomposed, it is often beneficial to load in
-    multiple steps where the last two steps can be parallelized across
-    multiple machines:</p>
-<ol>
-<li>
-<p>Make sure the vertex and edge data sets are de-duplicated and
-    consistent.</p>
-</li>
-<li>
-<p>Set <code>batch-loading=true</code>. Possibly optimize additional
-    configuration settings described above.</p>
-</li>
-<li>
-<p>Add all the vertices with their properties to the graph (but no
-    edges). Maintain a (distributed) map from vertex id (as defined
-    by the loaded data) to JanusGraph’s internal vertex id (i.e.
-    <code>vertex.getId()</code>) which is a 64 bit long id.</p>
-</li>
-<li>
-<p>Add all the edges using the map to look-up JanusGraph’s vertex
-    id and retrieving the vertices using that id.</p>
-</li>
-</ol>
-</li>
+<li>... your need to dynamically switch between the previously
+  mentioned workloads.</li>
 </ul>
-<h2 id="qa">Q&amp;A</h2>
+<h3 id="possible-limitations_2">Possible limitations</h3>
 <ul>
-<li><strong>What should I do to avoid the following exception during
-    batch-loading:</strong>
-    <code>java.io.IOException: ID renewal thread on partition [X] did not complete in time.</code>?
-    This exception is mostly likely caused by repeated time-outs during
-    the id allocation phase due to highly stressed storage backend.
-    Refer to the section on <em>ID Allocation Optimization</em> above.</li>
+<li>Increased memory consumption</li>
+<li>The performance of queries depends on the configured batch
+  size.
+  If you switch to this configuration, make sure that the
+  latency and throughput of your queries meet your
+  requirements and if not, tweak the batch size accordingly.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option_2">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch</code> is set to <code>true</code></li>
+<li>Ensure <code>query.limit-batch-size</code> is set to <code>true</code></li>
 </ul>
                 
               
@@ -1686,7 +1652,7 @@ loading process:</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../batch-processing/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../dynamic-graphs/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1695,19 +1661,19 @@ loading process:</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Batch Processing
+                Dynamic Graphs
               </div>
             </div>
           </a>
         
         
-          <a href="../cache/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../bulk-loading/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                JanusGraph Cache
+                Bulk Loading
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
