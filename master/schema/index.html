@@ -1741,6 +1741,29 @@ one. However, note that this would not affect vertices, edges, or
 properties previously written with the existing type. Redefining
 existing graph elements is not supported online and must be accomplished
 through a batch graph transformation.</p>
+<p>Be careful that if you change a property name that is part of some
+mixed index, you shall not reuse that property name in the same index.
+For example, the following code will fail.</p>
+<div class="highlight"><pre><span></span><code><span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="p">.</span><span class="na">makePropertyKey</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">).</span><span class="na">dataType</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">make</span><span class="p">()</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">buildIndex</span><span class="p">(</span><span class="s">&quot;nameIndex&quot;</span><span class="p">,</span> <span class="n">Vertex</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">addKey</span><span class="p">(</span><span class="n">name</span><span class="p">).</span><span class="na">buildMixedIndex</span><span class="p">(</span><span class="s">&quot;search&quot;</span><span class="p">)</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">()</span>
+
+<span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">()</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">changeName</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getPropertyKey</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">),</span> <span class="s">&quot;oldName&quot;</span><span class="p">);</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="p">.</span><span class="na">makePropertyKey</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">).</span><span class="na">dataType</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">make</span><span class="p">()</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">addIndexKey</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;nameIndex&quot;</span><span class="p">),</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">()</span>
+
+<span class="c1">// the following query will throw an exception</span>
+<span class="n">graph</span><span class="p">.</span><span class="na">traversal</span><span class="p">().</span><span class="na">V</span><span class="p">().</span><span class="na">has</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="n">textContains</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">)).</span><span class="na">hasNext</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The reason is, JanusGraph does not attempt to alter the field name stored
+in the mixed index backend when you call <code>mgmt.changeName</code>. Instead, JanusGraph
+maintains a dual mapping between property name and index field name. If you
+create a new index using the old name and add it to the same index, conflicts
+will occur because JanusGraph cannot figure out which property should the index
+field map to.</p>
 <h2 id="schema-constraints">Schema Constraints</h2>
 <p>The definition of the schema allows users to configure explicit property and connection constraints. Properties can be bound to specific vertex label and/or edge labels. Moreover, connection constraints allow users to explicitly define which two vertex labels can be connected by an edge label. These constraints can be used to ensure that a graph matches a given domain model. For example for the graph of the gods, a <code>god</code> can be a brother of another <code>god</code>, but not of a <code>monster</code> and a <code>god</code> can have a property <code>age</code>, but <code>location</code> can not have a property <code>age</code>. These constraints are disabled by default.</p>
 <p>Enable these schema constraints by setting <code>schema.constraints=true</code>. This setting depends on the setting <code>schema.default</code>. If config <code>schema.default</code> is set to <code>none</code>, then an <code>IllegalArgumentException</code> is thrown for schema constraint violations. If <code>schema.default</code> is not set <code>none</code>, schema constraints are automatically created, but no exception is thrown.
