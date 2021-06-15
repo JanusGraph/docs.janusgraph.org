@@ -1677,8 +1677,11 @@ the addition of an edge, vertex or the setting of a property. The
 <code>DefaultSchemaMaker</code> configured for the JanusGraph graph defines such
 types.</p>
 <p>By default, implicitly created edge labels have multiplicity MULTI and
-implicitly created property keys have cardinality SINGLE and data type
-<code>Object.class</code>. Users can control automatic schema element creation by
+implicitly created property keys have cardinality SINGLE. Data types of
+implicitly created property keys are inferred as long as they are natively
+supported by JanusGraph. <code>Object.class</code> is used if and only if the given value
+is not any of the <code>Native JanusGraph Data Types</code>.
+Users can control automatic schema element creation by
 implementing and registering their own <code>DefaultSchemaMaker</code>.</p>
 <p>When defining a cardinality for a vertex property which differs from SINGLE, 
 the cardinality should be used for all values of the vertex property in the 
