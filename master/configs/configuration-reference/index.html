@@ -3412,6 +3412,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.parallel-backend-ops-thread-pool-size</td>
+<td>Thread pool size which is used for parallel requests when storage.parallel-backend-ops is enabled. If not set the pool size will be equal to number of processors multiplied by 2.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.password</td>
 <td>Password to authenticate against backend</td>
 <td>String</td>
