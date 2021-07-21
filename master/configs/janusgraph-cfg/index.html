@@ -1157,6 +1157,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+      ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
       Technical Limitations
     </a>
@@ -1447,6 +1460,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storagecqlexecutor-service" class="md-nav__link">
+    storage.cql.executor-service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storagecqlmetrics" class="md-nav__link">
     storage.cql.metrics
   </a>
@@ -1505,6 +1525,13 @@
         <li class="md-nav__item">
   <a href="#storagemeta" class="md-nav__link">
     storage.meta *
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storageparallel-backend-executor-service" class="md-nav__link">
+    storage.parallel-backend-executor-service
   </a>
   
 </li>
@@ -2976,13 +3003,6 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
-<td>storage.parallel-backend-ops-thread-pool-size</td>
-<td>Thread pool size which is used for parallel requests when storage.parallel-backend-ops is enabled. If not set the pool size will be equal to number of processors multiplied by 2.</td>
-<td>Integer</td>
-<td>(no default value)</td>
-<td>MASKABLE</td>
-</tr>
-<tr>
 <td>storage.password</td>
 <td>Password to authenticate against backend</td>
 <td>String</td>
@@ -3305,6 +3325,49 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>String</td>
 <td>QUORUM</td>
 <td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecqlexecutor-service">storage.cql.executor-service</h3>
+<p>Configuration options for CQL executor service which is used to process CQL queries.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cql.executor-service.class</td>
+<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool size of <code>max-pool-size</code> size; <code>cached</code> - cached thread pool size;</td>
+<td>String</td>
+<td>fixed</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.executor-service.core-pool-size</td>
+<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Integer</td>
+<td>10</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.executor-service.keep-alive-time</td>
+<td>Keep alive time in milliseconds for executor service. When the number of threads is greater than the <code>core-pool-size</code>, this is the maximum time that excess idle threads will wait for new tasks before terminating. Ignored for <code>fixed</code> executor service and may be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Long</td>
+<td>60000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.executor-service.max-pool-size</td>
+<td>Maximum pool size for executor service. Ignored for <code>fixed</code> and <code>cached</code> executor services. May be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Integer</td>
+<td>2147483647</td>
+<td>LOCAL</td>
 </tr>
 </tbody>
 </table>
@@ -3804,6 +3867,49 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Boolean</td>
 <td>true</td>
 <td>GLOBAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storageparallel-backend-executor-service">storage.parallel-backend-executor-service</h3>
+<p>Configuration options for executor service which is used for parallel requests when <code>storage.parallel-backend-ops</code> is enabled.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.parallel-backend-executor-service.class</td>
+<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool size of <code>max-pool-size</code> size; <code>cached</code> - cached thread pool size;</td>
+<td>String</td>
+<td>fixed</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.parallel-backend-executor-service.core-pool-size</td>
+<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).If not set the core pool size will be equal to number of processors multiplied by 2.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.parallel-backend-executor-service.keep-alive-time</td>
+<td>Keep alive time in milliseconds for executor service. When the number of threads is greater than the <code>core-pool-size</code>, this is the maximum time that excess idle threads will wait for new tasks before terminating. Ignored for <code>fixed</code> executor service and may be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Long</td>
+<td>60000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.parallel-backend-executor-service.max-pool-size</td>
+<td>Maximum pool size for executor service. Ignored for <code>fixed</code> and <code>cached</code> executor services. May be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Integer</td>
+<td>2147483647</td>
+<td>LOCAL</td>
 </tr>
 </tbody>
 </table>

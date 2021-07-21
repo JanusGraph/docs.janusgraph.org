@@ -14,7 +14,7 @@
     
     
       
-        <title>Technical Limitations - JanusGraph</title>
+        <title>ExecutorService - JanusGraph</title>
       
     
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technical-limitations" class="md-skip">
+        <a href="#backend-executorservice" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Technical Limitations
+              ExecutorService
             
           </span>
         </div>
@@ -1157,19 +1157,6 @@
           
 
 
-
-  <li class="md-nav__item">
-    <a href="../executor-service/" class="md-nav__link">
-      ExecutorService
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
   
 
 
@@ -1181,12 +1168,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Technical Limitations
+        ExecutorService
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      Technical Limitations
+      ExecutorService
     </a>
     
       
@@ -1203,77 +1190,9 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#design-limitations" class="md-nav__link">
-    Design Limitations
+  <a href="#custom-executorservice" class="md-nav__link">
+    Custom ExecutorService
   </a>
-  
-    <nav class="md-nav" aria-label="Design Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#size-limitation" class="md-nav__link">
-    Size Limitation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#datatype-definitions" class="md-nav__link">
-    DataType Definitions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edge-retrievals-are-ologk" class="md-nav__link">
-    Edge Retrievals are O(log(k))
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#type-definitions-cannot-be-changed" class="md-nav__link">
-    Type Definitions cannot be changed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reserved-keywords" class="md-nav__link">
-    Reserved Keywords
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporary-limitations" class="md-nav__link">
-    Temporary Limitations
-  </a>
-  
-    <nav class="md-nav" aria-label="Temporary Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#limited-mixed-index-support" class="md-nav__link">
-    Limited Mixed Index Support
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#batch-loading-speed" class="md-nav__link">
-    Batch Loading Speed
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1281,6 +1200,19 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../technical-limitations/" class="md-nav__link">
+      Technical Limitations
+    </a>
   </li>
 
         
@@ -1353,77 +1285,9 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#design-limitations" class="md-nav__link">
-    Design Limitations
+  <a href="#custom-executorservice" class="md-nav__link">
+    Custom ExecutorService
   </a>
-  
-    <nav class="md-nav" aria-label="Design Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#size-limitation" class="md-nav__link">
-    Size Limitation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#datatype-definitions" class="md-nav__link">
-    DataType Definitions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edge-retrievals-are-ologk" class="md-nav__link">
-    Edge Retrievals are O(log(k))
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#type-definitions-cannot-be-changed" class="md-nav__link">
-    Type Definitions cannot be changed
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reserved-keywords" class="md-nav__link">
-    Reserved Keywords
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporary-limitations" class="md-nav__link">
-    Temporary Limitations
-  </a>
-  
-    <nav class="md-nav" aria-label="Temporary Limitations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#limited-mixed-index-support" class="md-nav__link">
-    Limited Mixed Index Support
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#batch-loading-speed" class="md-nav__link">
-    Batch Loading Speed
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1439,98 +1303,40 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/advanced-topics/technical-limitations.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/advanced-topics/executor-service.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="technical-limitations">Technical Limitations</h1>
-<p>There are various limitations and "gotchas" that one should be aware of
-when using JanusGraph. Some of these limitations are necessary design
-choices and others are issues that will be rectified as JanusGraph
-development continues. Finally, the last section provides solutions to
-common issues.</p>
-<h2 id="design-limitations">Design Limitations</h2>
-<p>These limitations reflect long-term tradeoffs design tradeoffs which are
-either difficult or impractical to change. These limitations are
-unlikely to be removed in the near future.</p>
-<h3 id="size-limitation">Size Limitation</h3>
-<p>JanusGraph can store up to a quintillion edges (2^60) and half as many
-vertices. That limitation is imposed by JanusGraph’s id scheme.</p>
-<h3 id="datatype-definitions">DataType Definitions</h3>
-<p>When declaring the data type of a property key using <code>dataType(Class)</code>
-JanusGraph will enforce that all properties for that key have the
-declared type, unless that type is <code>Object.class</code>. This is an equality
-type check, meaning that sub-classes will not be allowed. For instance,
-one cannot declare the data type to be <code>Number.class</code> and use <code>Integer</code>
-or <code>Long</code>. For efficiency reasons, the type needs to match exactly.
-Hence, use <code>Object.class</code> as the data type for type flexibility. In all
-other cases, declare the actual data type to benefit from increased
-performance and type safety.</p>
-<h3 id="edge-retrievals-are-ologk">Edge Retrievals are O(log(k))</h3>
-<p>Retrieving an edge by id, e.g <code>tx.getEdge(edge.getId())</code>, is not a
-constant time operation because it requires an index call on one of its
-adjacent vertices. Hence, the cost of retrieving an individual edge by
-its id is <code>O(log(k))</code> where <code>k</code> is the number of incident edges on the
-adjacent vertex. JanusGraph will attempt to pick the adjacent vertex
-with the smaller degree.</p>
-<p>This also applies to index retrievals for edges via a standard or
-external index.</p>
-<h3 id="type-definitions-cannot-be-changed">Type Definitions cannot be changed</h3>
-<p>The definition of an edge label, property key, or vertex label cannot be
-changed once it has been committed to the graph. However, a type can be
-renamed and new types can be created at runtime to accommodate an
-evolving schema.</p>
-<h3 id="reserved-keywords">Reserved Keywords</h3>
-<p>There are certain keywords that JanusGraph uses internally for types
-that cannot be used otherwise. These types include vertex labels, edge
-labels, and property keys. The following are keywords that cannot be
-used:</p>
+                <h1 id="backend-executorservice">Backend ExecutorService</h1>
+<p>By default JanusGraph uses <code>ExecutorService</code> to process some queries in parallel 
+(see <code>storage.parallel-backend-ops</code> configuration option).<br />
+JanusGraph allows to configure the executor service which is used via configuration options 
+provided in <code>storage.parallel-backend-executor-service</code> configuration section.</p>
+<p>Currently JanusGraph has the next ExecutorService implementations which can be used (controlled via 
+<code>storage.parallel-backend-executor-service.class</code>):</p>
 <ul>
-<li>
-<p>vertex</p>
-</li>
-<li>
-<p>element</p>
-</li>
-<li>
-<p>edge</p>
-</li>
-<li>
-<p>property</p>
-</li>
-<li>
-<p>label</p>
-</li>
-<li>
-<p>key</p>
-</li>
+<li><code>fixed</code> - fixed thread pool size;</li>
+<li><code>cached</code> - cached thread pool size;</li>
+<li>Custom ExecutorService;</li>
 </ul>
-<p>For example, if you attempt to create a vertex with the label of
-<code>property</code>, you will receive an exception regarding protected system
-types.</p>
-<h2 id="temporary-limitations">Temporary Limitations</h2>
-<p>These are limitations in JanusGraph’s current implementation. These
-limitations could reasonably be removed in upcoming versions of
-JanusGraph.</p>
-<h3 id="limited-mixed-index-support">Limited Mixed Index Support</h3>
-<p>Mixed indexes only support a subset of the data types that JanusGraph
-supports. See <a href="../../interactions/search-predicates/#data-type-support">Mixed Index Data Types</a> for a current
-listing. Also, mixed indexes do not currently support property keys with
-SET or LIST cardinality.</p>
-<h3 id="batch-loading-speed">Batch Loading Speed</h3>
-<p>JanusGraph provides a batch loading mode that can be enabled through the
-<a href="../../configs/configuration-reference/">graph configuration</a>. However, this batch mode only
-facilitates faster loading into the storage backend, it does not use
-storage backend specific batch loading techniques that prepare the data
-in memory for disk storage. As such, batch loading in JanusGraph is
-currently slower than batch loading modes provided by single machine
-databases. <a href="../../operations/bulk-loading/">Bulk Loading</a> contains information on speeding up
-batch loading in JanusGraph.</p>
-<p>Another limitation related to batch loading is the failure to load
-millions of edges into a single vertex at once or in a short time of
-period. Such <strong>supernode loading</strong> can fail for some storage backends.
-This limitation also applies to dense index entries.</p>
+<h2 id="custom-executorservice">Custom ExecutorService</h2>
+<p>To use custom <code>ExecutorService</code> the configuration option <code>storage.parallel-backend-executor-service.class</code> must be 
+provided which must be the full class name of the <code>ExecutorService</code> implementation class.</p>
+<p>The provided class which implements <code>ExecutorService</code> must have either a public constructor with
+<a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/latest/org/janusgraph/diskstorage/configuration/ExecutorServiceConfiguration.html">ExecutorServiceConfiguration</a>
+argument (preferred constructor) or a public parameterless constructor. 
+When both constructors are available the constructor with <code>ExecutorServiceConfiguration</code> argument will be used.</p>
+<p>When custom <code>ExecutorService</code> is provided with <code>ExecutorServiceConfiguration</code> it isn't required to 
+use any of the configuration options provided in <code>ExecutorServiceConfiguration</code> but sometimes it is
+convenient to use the provided configurations. The configuration options provided in <code>ExecutorServiceConfiguration</code> 
+are typically those configuration options which are provided via configurations from <code>storage.parallel-backend-executor-service</code>.</p>
+<h1 id="cassandra-backend-executorservice">Cassandra backend ExecutorService</h1>
+<p>Apart from the general executor service mentioned in the previous section, Cassandra backend uses an additional 
+<code>ExecutorService</code> to process CQL queries. The rules by which the Cassandra backend <code>ExecutorService</code> is built are the 
+same as the rules which are used to build parallel backend queries <code>ExecutorService</code> (described above). 
+The only difference is that the configuration for Cassandra backend <code>ExecutorService</code> are provided via configuration 
+options under <code>storage.cql.executor-service</code>.</p>
                 
               
               
@@ -1549,7 +1355,7 @@ This limitation also applies to dense index entries.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../executor-service/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../janusgraph-bus/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1558,19 +1364,19 @@ This limitation also applies to dense index entries.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                ExecutorService
+                JanusGraph Bus
               </div>
             </div>
           </a>
         
         
-          <a href="../../common-questions/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../technical-limitations/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Common Questions
+                Technical Limitations
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
