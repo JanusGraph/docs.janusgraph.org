@@ -3827,10 +3827,10 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.lock.wait-time</td>
-<td>Number of milliseconds the system waits for a lock application to be acknowledged by the storage backend. Also, the time waited at the end of all lock applications before verifying that the applications were successful. This value should be a small multiple of the average consistent write time.</td>
+<td>Number of milliseconds the system waits for a lock application to be acknowledged by the storage backend. Also, the time waited at the end of all lock applications before verifying that the applications were successful. This value should be a small multiple of the average consistent write time. Although this value is maskable, it is highly recommended to use the same value across JanusGraph instances in production environments.</td>
 <td>Duration</td>
 <td>100 ms</td>
-<td>GLOBAL_OFFLINE</td>
+<td>MASKABLE</td>
 </tr>
 </tbody>
 </table>
