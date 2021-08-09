@@ -1333,10 +1333,23 @@ convenient to use the provided configurations. The configuration options provide
 are typically those configuration options which are provided via configurations from <code>storage.parallel-backend-executor-service</code>.</p>
 <h1 id="cassandra-backend-executorservice">Cassandra backend ExecutorService</h1>
 <p>Apart from the general executor service mentioned in the previous section, Cassandra backend uses an additional 
-<code>ExecutorService</code> to process CQL queries. The rules by which the Cassandra backend <code>ExecutorService</code> is built are the 
+<code>ExecutorService</code> to process CQL queries by default (see <code>storage.cql.executor-service.enabled</code> configuration option).<br />
+The rules by which the Cassandra backend <code>ExecutorService</code> is built are the 
 same as the rules which are used to build parallel backend queries <code>ExecutorService</code> (described above). 
 The only difference is that the configuration for Cassandra backend <code>ExecutorService</code> are provided via configuration 
-options under <code>storage.cql.executor-service</code>.</p>
+options under <code>storage.cql.executor-service</code>.<br />
+Disabling CQL executor service reduces overhead of thread pool but requires the user to tune maximum throughput thoroughly.<br />
+With disabled CQL executor service the parallelism will be controlled internally by the CQL driver via the next properties: 
+<code>storage.cql.max-requests-per-connection</code>, <code>storage.cql.local-max-connections-per-host</code>, <code>storage.cql.remote-max-connections-per-host</code>. </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It is recommended to disable CQL executor service in a production environment and properly configure maximum throughput. 
+CQL executor service does not provide any benefits other than limiting the amount of parallel requests per JanusGraph instance.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Improper tuning of maximum throughput might result in failures under heavy workloads.</p>
+</div>
                 
               
               

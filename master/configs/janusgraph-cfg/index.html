@@ -3356,6 +3356,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>LOCAL</td>
 </tr>
 <tr>
+<td>storage.cql.executor-service.enabled</td>
+<td>Whether to use CQL executor service to process queries or not. If not used, the parallelism will be controlled internally by the CQL driver via <code>storage.cql.max-requests-per-connection</code> parameter which may be preferable in production environments. Disabling executor service reduces overhead of thread pool but might be more difficult to tune.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>storage.cql.executor-service.keep-alive-time</td>
 <td>Keep alive time in milliseconds for executor service. When the number of threads is greater than the <code>core-pool-size</code>, this is the maximum time that excess idle threads will wait for new tasks before terminating. Ignored for <code>fixed</code> executor service and may be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
 <td>Long</td>
