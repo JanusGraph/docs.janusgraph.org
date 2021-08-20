@@ -2882,6 +2882,8 @@ for a complete list of available Session level and Node level metrics.</p>
 <li><code>remote-max-requests-per-connection</code></li>
 <li><code>cluster-name</code></li>
 </ul>
+<p><code>storage.connection-timeout</code> is now used to control initial connection timeout to CQL storage and not request timeouts. 
+Please, use <code>storage.cql.request-timeout</code> to configure request timeouts instead.</p>
 <p>New cql configuration options should be used for upgrade:</p>
 <ul>
 <li><code>max-requests-per-connection</code></li>

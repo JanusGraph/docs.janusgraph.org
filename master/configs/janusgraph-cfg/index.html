@@ -3299,6 +3299,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>FIXED</td>
 </tr>
 <tr>
+<td>storage.cql.request-timeout</td>
+<td>Timeout for CQL requests in milliseconds. See DataStax Java Driver option <code>basic.request.timeout</code> for more information.</td>
+<td>Long</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.cql.session-leak-threshold</td>
 <td>The maximum number of live sessions that are allowed to coexist in a given VM until the warning starts to log for every new session. If the value is less than or equal to 0, the feature is disabled: no warning will be issued. See DataStax Java Driver option <code>advanced.session-leak.threshold</code> for more information.</td>
 <td>Integer</td>
