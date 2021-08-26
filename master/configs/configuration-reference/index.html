@@ -742,6 +742,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#storagecqlinternal" class="md-nav__link">
+    storage.cql.internal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#storagecqlmetrics" class="md-nav__link">
     storage.cql.metrics
   </a>
@@ -1854,6 +1861,13 @@
           <li class="md-nav__item">
   <a href="#storagecqlexecutor-service" class="md-nav__link">
     storage.cql.executor-service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storagecqlinternal" class="md-nav__link">
+    storage.cql.internal
   </a>
   
 </li>
@@ -3839,6 +3853,56 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Integer</td>
 <td>2147483647</td>
 <td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagecqlinternal">storage.cql.internal</h3>
+<p>Advanced configuration of internal DataStax driver. Notice, all available configurations will be composed in the order. Non specified configurations will be skipped. By default only base configuration is enabled (which has the smallest priority. It means that you can overwrite any configuration used in base programmatic configuration by using any other configuration type). The configurations are composed in the next order (sorted by priority in descending order): <code>file-configuration</code>, <code>resource-configuration</code>, <code>string-configuration</code>, <code>url-configuration</code>, <code>base-programmatic-configuration</code> (which is controlled by <code>base-programmatic-configuration-enabled</code> property). Configurations with higher priority always overwrite configurations with lower priority. I.e. if the same configuration parameter is used in both <code>file-configuration</code> and <code>string-configuration</code> the configuration parameter from <code>file-configuration</code> will be used and configuration parameter from <code>string-configuration</code> will be ignored. See available configuration options and configurations structure here: https://docs.datastax.com/en/developer/java-driver/4.13/manual/core/configuration/reference/</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.cql.internal.base-programmatic-configuration-enabled</td>
+<td>Whether to use main programmatic configuration provided by JanusGraph properties or not. We don't recommend to disable this property unless you want to disable usage of all storage.cql properties and use default configurations or other configurations. If programmatic configuration options miss some important configuration options you can provide those missing configurations with other configuration types which will be applied with programmatic configuration (see other configuration types in this section). For most use cases this option should always be <code>true</code>. JanusGraph behaviour might be unpredictable when using unspecified configuration options.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.internal.file-configuration</td>
+<td>Path to file with DataStax configuration.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.cql.internal.resource-configuration</td>
+<td>Classpath resource with DataStax configuration.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.internal.string-configuration</td>
+<td>String representing DataStax configuration.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.internal.url-configuration</td>
+<td>Url where to get DataStax configuration.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
 </tr>
 </tbody>
 </table>
