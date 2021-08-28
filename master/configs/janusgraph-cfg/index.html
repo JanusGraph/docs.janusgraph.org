@@ -3397,6 +3397,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>2147483647</td>
 <td>LOCAL</td>
 </tr>
+<tr>
+<td>storage.cql.executor-service.max-shutdown-wait-time</td>
+<td>Max shutdown wait time in milliseconds for executor service threads to be finished during shutdown. After this time threads will be interrupted (signalled with interrupt) without any additional wait time.</td>
+<td>Long</td>
+<td>60000</td>
+<td>LOCAL</td>
+</tr>
 </tbody>
 </table>
 <h3 id="storagecqlinternal">storage.cql.internal</h3>
@@ -3987,6 +3994,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Maximum pool size for executor service. Ignored for <code>fixed</code> and <code>cached</code> executor services. May be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
 <td>Integer</td>
 <td>2147483647</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.parallel-backend-executor-service.max-shutdown-wait-time</td>
+<td>Max shutdown wait time in milliseconds for executor service threads to be finished during shutdown. After this time threads will be interrupted (signalled with interrupt) without any additional wait time.</td>
+<td>Long</td>
+<td>60000</td>
 <td>LOCAL</td>
 </tr>
 </tbody>
