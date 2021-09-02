@@ -1535,19 +1535,22 @@ That file tells JanusGraph Server many things and is based on the Gremlin Server
 <h3 id="usage-of-janusgraph-serversh">Usage of janusgraph-server.sh</h3>
 <p>The JanusGraph Server can be started in the foreground with stdout logging or detached. </p>
 <div class="highlight"><pre><span></span><code>$ ./bin/janusgraph-server.sh
-Usage: ./bin/janusgraph-server.sh {start|stop|restart|status|console|usage &lt;group&gt; &lt;artifact&gt; &lt;version&gt;|&lt;conf file&gt;}
+Usage: ./bin/janusgraph-server.sh {start [conf file]|stop|restart [conf file]|status|console|usage &lt;group&gt; &lt;artifact&gt; &lt;version&gt;|&lt;conf file&gt;}
 
-    start           Start the server in the background using conf/gremlin-server/gremlin-server.yaml as the
-                    default configuration file
+    start           Start the server in the background. Configuration file can be specified as a second argument
+                    or as JANUSGRAPH_YAML environment variable. If configuration file is not specified
+                    or has invalid path than JanusGraph server will try to use the default configuration file
+                    at relative location conf/gremlin-server/gremlin-server.yaml
     stop            Stop the server
-    restart         Stop and start the server
-    status          Check if the server is running using the pid file
-    console         Start the server in the foreground using conf/gremlin-server/gremlin-server.yaml as the
-                    default configuration file
+    restart         Stop and start the server. To use previously used configuration it should be specified again
+                    as described in &quot;start&quot; command
+    status          Check if the server is running
+    console         Start the server in the foreground. Same rules are applied for configurations as described
+                    in &quot;start&quot; command
     usage           Print out this help message
 
-If using a custom YAML configuration file then specify it as the only argument for a JanusGraph
-Server to run in the foreground or specify it via the JANUSGRAPH_YAML environment variable.
+In case command is not specified and the configuration is specified as the first argument, JanusGraph Server will
+ be started in the foreground using the specified configuration (same as with &quot;console&quot; command).
 </code></pre></div>
 
 <h3 id="env-variables">Env variables</h3>
@@ -1628,7 +1631,7 @@ Server to run in the foreground or specify it via the JANUSGRAPH_YAML environmen
 </tbody>
 </table>
 <h3 id="configure-jvmoptions">Configure jvm.options</h3>
-<p>JanusGraph runs on the JVM which is configureable for special use cases. Therefore, JanusGraph provides a <code>jvm.options</code> file with some default options.</p>
+<p>JanusGraph runs on the JVM which is configurable for special use cases. Therefore, JanusGraph provides a <code>jvm.options</code> file with some default options.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Copyright 2020 JanusGraph Authors</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
