@@ -3364,7 +3364,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>storage.cql.executor-service.class</td>
-<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool size of <code>max-pool-size</code> size; <code>cached</code> - cached thread pool size;</td>
+<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool of size <code>core-pool-size</code>; <code>cached</code> - cached thread pool;</td>
 <td>String</td>
 <td>fixed</td>
 <td>LOCAL</td>
@@ -3970,7 +3970,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>storage.parallel-backend-executor-service.class</td>
-<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool size of <code>max-pool-size</code> size; <code>cached</code> - cached thread pool size;</td>
+<td>The implementation of <code>ExecutorService</code> to use. The full name of the class which extends <code>ExecutorService</code> which has either a public constructor with <code>ExecutorServiceConfiguration</code> argument (preferred constructor) or a public parameterless constructor. Other accepted options are: <code>fixed</code> - fixed thread pool of size <code>core-pool-size</code>; <code>cached</code> - cached thread pool;</td>
 <td>String</td>
 <td>fixed</td>
 <td>LOCAL</td>
