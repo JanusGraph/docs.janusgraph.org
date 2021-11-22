@@ -10,7 +10,7 @@
       
       
       <link rel="shortcut icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.3">
     
     
       
@@ -1477,7 +1477,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">3</span>
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from Cassandra <span class="m">3</span>
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cql.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
@@ -1504,7 +1504,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">2</span>
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from Cassandra <span class="m">2</span>
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cassandra.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cassandrainputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
@@ -1531,7 +1531,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from HBase
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from HBase
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-hbase.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
@@ -1732,7 +1732,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">3</span>
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from Cassandra <span class="m">3</span>
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cql-standalone-cluster.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cqlinputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
@@ -1759,7 +1759,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from Cassandra <span class="m">2</span>
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from Cassandra <span class="m">2</span>
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-cassandra-standalone-cluster.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>cassandrainputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark
@@ -1786,7 +1786,7 @@ gremlin&gt; :plugin use tinkerpop.hadoop
 <span class="o">==</span>&gt;tinkerpop.hadoop activated
 gremlin&gt; :plugin use tinkerpop.spark
 <span class="o">==</span>&gt;tinkerpop.spark activated
-gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading in from HBase
+gremlin&gt; // <span class="m">1</span>. Open a the graph <span class="k">for</span> OLAP processing reading <span class="k">in</span> from HBase
 gremlin&gt; <span class="nv">graph</span> <span class="o">=</span> GraphFactory.open<span class="o">(</span><span class="s1">&#39;conf/hadoop-graph/read-hbase-standalone-cluster.properties&#39;</span><span class="o">)</span>
 <span class="o">==</span>&gt;hadoopgraph<span class="o">[</span>hbaseinputformat-&gt;gryooutputformat<span class="o">]</span>
 gremlin&gt; // <span class="m">2</span>. Configure the traversal to run with Spark

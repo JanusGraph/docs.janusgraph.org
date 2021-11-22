@@ -10,7 +10,7 @@
       
       
       <link rel="shortcut icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.3">
     
     
       
@@ -1980,11 +1980,11 @@ create the core in DSE:</p>
 <span class="c1"># ships with this http-urls value.</span>
 
 <span class="c1"># Upload Solr config files to DSE Search daemon</span>
-<span class="k">for</span> xml in conf/solr/<span class="o">{</span>solrconfig, schema, elevate<span class="o">}</span>.xml <span class="p">;</span> <span class="k">do</span>
+<span class="k">for</span> xml <span class="k">in</span> conf/solr/<span class="o">{</span>solrconfig, schema, elevate<span class="o">}</span>.xml <span class="p">;</span> <span class="k">do</span>
     curl -v http://<span class="s2">&quot;</span><span class="nv">$SOLR_HOST</span><span class="s2">&quot;</span>/solr/resource/<span class="s2">&quot;</span><span class="nv">$CORE_NAME</span><span class="s2">/</span><span class="nv">$xml</span><span class="s2">&quot;</span> <span class="se">\</span>
       --data-binary @<span class="s2">&quot;</span><span class="nv">$xml</span><span class="s2">&quot;</span> -H <span class="s1">&#39;Content-type:text/xml; charset=utf-8&#39;</span>
 <span class="k">done</span>
-<span class="k">for</span> txt in conf/solr/<span class="o">{</span>protwords, stopwords, synonyms<span class="o">}</span>.txt <span class="p">;</span> <span class="k">do</span>
+<span class="k">for</span> txt <span class="k">in</span> conf/solr/<span class="o">{</span>protwords, stopwords, synonyms<span class="o">}</span>.txt <span class="p">;</span> <span class="k">do</span>
     curl -v http://<span class="s2">&quot;</span><span class="nv">$SOLR_HOST</span><span class="s2">&quot;</span>/solr/resource/<span class="s2">&quot;</span><span class="nv">$CORE_NAME</span><span class="s2">/</span><span class="nv">$txt</span><span class="s2">&quot;</span> <span class="se">\</span>
       --data-binary @<span class="s2">&quot;</span><span class="nv">$txt</span><span class="s2">&quot;</span> -H <span class="s1">&#39;Content-type:text/plain; charset=utf-8&#39;</span>
 <span class="k">done</span>
