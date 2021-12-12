@@ -934,6 +934,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deploying-on-datastax-astra" class="md-nav__link">
+    Deploying on DataStax Astra
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
     Deploying on Amazon Keyspaces (Experimental)
   </a>
@@ -1479,6 +1486,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#deploying-on-datastax-astra" class="md-nav__link">
+    Deploying on DataStax Astra
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
     Deploying on Amazon Keyspaces (Experimental)
   </a>
@@ -1758,6 +1772,44 @@ In general, higher levels are more consistent and robust but have higher latency
 However, note that all these vertices and/or edges will be loaded into
 memory which can cause <code>OutOfMemoryException</code>. Use <a href="../../advanced-topics/hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> to
 iterate over all vertices or edges in large graphs effectively.</p>
+<h2 id="deploying-on-datastax-astra">Deploying on DataStax Astra</h2>
+<blockquote>
+<p>Astra DB simplifies cloud-native Cassandra application development. It reduces deployment time from weeks to minutes,
+and delivers an unprecedented combination of serverless, pay-as-you-go pricing with the freedom and agility of
+multi-cloud and open source.</p>
+<p>—  <a href="https://www.datastax.com/products/datastax-astra">DataStax Astra</a></p>
+</blockquote>
+<p><a href="https://docs.datastax.com/en/astra/aws/doc/dscloud/astra/dscloudObtainingCredentials.html">Download</a> the secure-connect zipped bundle for your Astra database.</p>
+<p>Unzip your copy of <code>secure-connect-your_astra_db.zip</code> which will contain the following files:</p>
+<ul>
+<li><code>ca.crt</code></li>
+<li><code>cert</code></li>
+<li><code>cert.pfx</code></li>
+<li><code>config.json</code></li>
+<li><code>cqlshrc</code></li>
+<li><code>identity.jks</code></li>
+<li><code>key</code></li>
+<li><code>trustStore.jks</code></li>
+</ul>
+<p>The <code>config.json</code> file contains the following:</p>
+<ul>
+<li><code>host</code> - the contact point for the CQL driver</li>
+<li><code>port</code> - the CQL client port</li>
+<li><code>keyspace</code> - the name of the keyspace you created</li>
+<li><code>trustStoreLocation</code> - trustStore.jks is the truststore</li>
+<li><code>trustStorePassword</code> - your truststore password</li>
+<li><code>keyStoreLocation</code> - identity.jks is the keystore</li>
+<li><code>keyStorePassword</code> - your keystore password</li>
+</ul>
+<p>Using the information above, you will need to configure the following:</p>
+<ul>
+<li><code>storage.hostname</code></li>
+<li><code>storage.port</code></li>
+<li><code>storage.username</code></li>
+<li><code>storage.password</code></li>
+<li><code>storage.cql.keyspace</code></li>
+<li><code>storage.cql.ssl.*</code></li>
+</ul>
 <h2 id="deploying-on-amazon-keyspaces-experimental">Deploying on Amazon Keyspaces (Experimental)</h2>
 <blockquote>
 <p>Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed
