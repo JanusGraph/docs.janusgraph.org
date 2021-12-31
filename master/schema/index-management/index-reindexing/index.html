@@ -670,16 +670,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-a-reindex-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing a Reindex job on JanusGraphManagement
+  <a href="#executing-a-reindex-job-on-managementsystem" class="md-nav__link">
+    Executing a Reindex job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing a Reindex job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing a Reindex job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1409,16 +1409,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-a-reindex-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing a Reindex job on JanusGraphManagement
+  <a href="#executing-a-reindex-job-on-managementsystem" class="md-nav__link">
+    Executing a Reindex job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing a Reindex job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing a Reindex job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1609,19 +1609,26 @@ against the Cassandra storage backend.
 <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;conf/janusgraph-cql-es.properties&quot;</span><span class="o">)</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;desc&quot;</span><span class="o">,</span> <span class="n">containsText</span><span class="o">(</span><span class="s2">&quot;baz&quot;</span><span class="o">))</span>
 </code></pre></div></p>
-<h2 id="executing-a-reindex-job-on-janusgraphmanagement">Executing a Reindex job on JanusGraphManagement</h2>
-<p>To run a reindex job on JanusGraphManagement, invoke
-<code>JanusGraphManagement.updateIndex</code> with the <code>SchemaAction.REINDEX</code>
+<h2 id="executing-a-reindex-job-on-managementsystem">Executing a Reindex job on ManagementSystem</h2>
+<p>To run a reindex job on ManagementSystem, invoke
+<code>ManagementSystem.updateIndex</code> with the <code>SchemaAction.REINDEX</code>
 argument. For example:
 <div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">getGraphIndex</span><span class="o">(</span><span class="s1">&#39;indexName&#39;</span><span class="o">)</span>
 <span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
 <span class="n">m</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div></p>
-<h3 id="example-for-janusgraphmanagement">Example for JanusGraphManagement</h3>
+<p>ManagementSystem uses a local thread pool to run reindexing
+jobs concurrently. By default, the concurrency level equals
+the number of available processors. If you want to change the
+concurrency level, you can add a parameter like this:
+<div class="highlight"><pre><span></span><code><span class="c1">// only use one thread to run reindexing</span>
+<span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
+</code></pre></div></p>
+<h3 id="example-for-managementsystem">Example for ManagementSystem</h3>
 <p>The following loads some sample data into a BerkeleyDB-backed JanusGraph
 database, defines an index after the fact, reindexes using
-JanusGraphManagement, and finally enables and uses the index:
+ManagementSystem, and finally enables and uses the index:
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">org.janusgraph.graphdb.database.management.ManagementSystem</span>
 
 <span class="c1">// Load some data from a file without any predefined schema</span>

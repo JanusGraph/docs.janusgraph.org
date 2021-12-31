@@ -676,16 +676,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-an-index-removal-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing an Index Removal job on JanusGraphManagement
+  <a href="#executing-an-index-removal-job-on-managementsystem" class="md-nav__link">
+    Executing an Index Removal job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing an Index Removal job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing an Index Removal job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1368,16 +1368,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-an-index-removal-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing an Index Removal job on JanusGraphManagement
+  <a href="#executing-an-index-removal-job-on-managementsystem" class="md-nav__link">
+    Executing an Index Removal job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing an Index Removal job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing an Index Removal job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1447,10 +1447,10 @@ the wait-for-<code>DISABLED</code> step:
 execution frameworks for its removal:</p>
 <ul>
 <li>MapReduce</li>
-<li>JanusGraphManagement</li>
+<li>ManagementSystem</li>
 </ul>
 <p>Index removal on MapReduce supports large, horizontally-distributed
-databases. Index removal on JanusGraphManagement spawns a single-machine
+databases. Index removal on ManagementSystem spawns a single-machine
 OLAP job. This is intended for convenience and speed on those databases
 small enough to be handled by one machine.</p>
 <p>Index removal requires:</p>
@@ -1515,19 +1515,26 @@ using this class:</p>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="s1">&#39;jupiter&#39;</span><span class="o">)</span>
 </code></pre></div>
 
-<h2 id="executing-an-index-removal-job-on-janusgraphmanagement">Executing an Index Removal job on JanusGraphManagement</h2>
-<p>To run an index removal job on JanusGraphManagement, invoke
-<code>JanusGraphManagement.updateIndex</code> with the <code>SchemaAction.REMOVE_INDEX</code>
+<h2 id="executing-an-index-removal-job-on-managementsystem">Executing an Index Removal job on ManagementSystem</h2>
+<p>To run an index removal job on ManagementSystem, invoke
+<code>ManagementSystem.updateIndex</code> with the <code>SchemaAction.REMOVE_INDEX</code>
 argument. For example:
 <div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">getGraphIndex</span><span class="o">(</span><span class="s1">&#39;indexName&#39;</span><span class="o">)</span>
 <span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REMOVE_INDEX</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
 <span class="n">m</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div></p>
-<h3 id="example-for-janusgraphmanagement">Example for JanusGraphManagement</h3>
+<p>Similar to reindex, ManagementSystem uses a local thread pool to
+execute index removal job concurrently. The concurrency level is
+equal to the number of available processors. If you want to change the
+default concurrency level, you can add a parameter as follows:
+<div class="highlight"><pre><span></span><code><span class="c1">// Use only one thread to execute index removal job</span>
+<span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REMOVE_INDEX</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
+</code></pre></div></p>
+<h3 id="example-for-managementsystem">Example for ManagementSystem</h3>
 <p>The following loads some indexed sample data into a BerkeleyDB-backed
 JanusGraph database, then disables and removes the index through
-JanusGraphManagement:
+ManagementSystem:
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">org.janusgraph.graphdb.database.management.ManagementSystem</span>
 
 <span class="c1">// Load the &quot;Graph of the Gods&quot; sample data</span>
