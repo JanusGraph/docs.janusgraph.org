@@ -1330,6 +1330,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#breaking-change-for-geoshape-graphbinary-serialization" class="md-nav__link">
+    Breaking change for Geoshape GraphBinary serialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2106,6 +2113,13 @@
           <li class="md-nav__item">
   <a href="#drop-support-for-hbase-1" class="md-nav__link">
     Drop support for HBase 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-change-for-geoshape-graphbinary-serialization" class="md-nav__link">
+    Breaking change for Geoshape GraphBinary serialization
   </a>
   
 </li>
@@ -2974,6 +2988,18 @@ use the latest versions of the software.</p>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
 <h5 id="drop-support-for-hbase-1">Drop support for HBase 1</h5>
 <p>We are dropping support for HBase 1.</p>
+<h5 id="breaking-change-for-geoshape-graphbinary-serialization">Breaking change for Geoshape GraphBinary serialization</h5>
+<p>Support for the <a href="http://tinkerpop.apache.org/docs/3.5.1/dev/io/#graphbinary">GraphBinary</a> serialization format was
+added in JanusGraph 0.6.0. This also included support to serialize Geoshapes via GraphBinary. The implementation of the
+Geoshape serializer was unfortunately closely tied to the Java library <code>Spatial4j</code> that we are using to implement
+Geoshapes in Java. This made it very complicated to add support for GraphBinary in other languages than Java. To make
+it easier to support GraphBinary in non-Java environments like .NET, we have completely reimplemented the GraphBinary
+serialization of Geoshapes in this version.</p>
+<p>This is a breaking change for users who have already adopted GraphBinary and who are using Geoshapes. It is necessary
+to update JanusGraph Server and all (Java) clients that use GraphBinary at the same time since JanusGraph Server with
+an older version will not be able to read a Geoshape created by a client that is already on version 1.0.0 and vice
+versa.
+Users who do not use GraphBinary yet or who are not using Geoshapes are not affected by this change.</p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="classesinterfaces">Classes/Interfaces</h6>
 <ul>
@@ -3084,7 +3110,7 @@ database service provided by Amazon. See <a href="https://docs.janusgraph.org/st
 for more details.</p>
 <h5 id="breaking-change-for-configuration-objects">Breaking change for Configuration objects</h5>
 <p>Prior to JanusGraph 0.6.0, <code>Configuration</code> objects were from the Apache <code>commons-configuration</code> library.
-To comply with the <a href="http://tinkerpop.apache.org/docs/3.5.0-SNAPSHOT/upgrade/#_versions_and_dependencies">TinkerPop change</a>,
+To comply with the <a href="http://tinkerpop.apache.org/docs/3.5.0/upgrade/#_versions_and_dependencies">TinkerPop change</a>,
 JanusGraph now uses the <code>commons-configuration2</code> library. A typical usage of configuration object is to
 create configuration using <code>ConfigurationGraphFactory</code>. Now you would need to use the new configuration2 library.
 Please refer to the
@@ -3155,6 +3181,11 @@ after the keyword <code>serializers</code>. This will add the support on the ser
 <p class="admonition-title">Note</p>
 <p>The java driver is the only driver that currently supports GraphBinary, 
 see <a href="../interactions/connecting/java/">Connecting to JanusGraph using Java</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Version 1.0.0 adds a breaking change to GraphBinary for Geoshape serialization,
+see <a href="#breaking-change-for-geoshape-graphbinary-serialization">the 1.0.0 changelog for more information</a>.</p>
 </div>
 <h5 id="new-index-selection-algorithm">New index selection algorithm</h5>
 <p>In version 0.6.0, the index selection algorithm has changed. If the number of possible
