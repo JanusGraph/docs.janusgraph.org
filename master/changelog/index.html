@@ -1356,6 +1356,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#remove-support-for-old-serialization-format-of-janusgraph-predicates" class="md-nav__link">
+    Remove support for old serialization format of JanusGraph predicates
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2141,6 +2148,13 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-support-for-old-serialization-format-of-janusgraph-predicates" class="md-nav__link">
+    Remove support for old serialization format of JanusGraph predicates
+  </a>
   
 </li>
         
@@ -3011,6 +3025,9 @@ Users who do not use GraphBinary yet or who are not using Geoshapes are not affe
 <li>SchemaProvider interface</li>
 <li>VertexLabelDefinition class</li>
 </ul>
+<h5 id="remove-support-for-old-serialization-format-of-janusgraph-predicates">Remove support for old serialization format of JanusGraph predicates</h5>
+<p>We are dropping support for old serialization format of JanusGraph predicates. The old predicates serialization format is only used by client older than 0.6. 
+The change only affects Gryo and GraphSON.</p>
 <h3 id="version-061-release-date">Version 0.6.1 (Release Date: ???)</h3>
 <div class="tabbed-set" data-tabs="18:2">
 <input name="__tabbed_18" type="radio" id="__tabbed_18_1" checked="checked" /><label for="__tabbed_18_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
