@@ -807,9 +807,59 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Management System
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Management System
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#schema-management" class="md-nav__link">
+    Schema Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-management" class="md-nav__link">
+    Index Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-management" class="md-nav__link">
+    Consistency Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ghost-vertex-removal" class="md-nav__link">
+    Ghost Vertex Removal
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -1249,6 +1299,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#schema-management" class="md-nav__link">
+    Schema Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-management" class="md-nav__link">
+    Index Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-management" class="md-nav__link">
+    Consistency Management
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ghost-vertex-removal" class="md-nav__link">
+    Ghost Vertex Removal
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1265,20 +1351,48 @@
                 
                 
                 <h1 id="management-system">Management System</h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This site is massivly under development.</p>
-</div>
-<p>This section will describe how to interact with the ManagementSystem. 
-Therefore, if you want interact with the ManagementSystem checkout the 
-JanusGraph <a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.0.0">API documentation</a> which shows all core APIs exposed by JanusGraph. </p>
-<p>You can checkout the schema and index management pages for some examples, see <a href="../../schema/">schema management</a> and <a href="../../schema/index-management/index-lifecycle/">index management</a>.</p>
+<p>JanusGraph Management System provides methods to define, update, and inspect the schema of
+a JanusGraph graph, and more. Checkout the
+JanusGraph Management <a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.0.0/org/janusgraph/core/schema/JanusGraphManagement.html">API documentation</a>
+for all core APIs available.</p>
+<p>JanusGraph Management System behaves like a transaction in that it opens a transactional scope. As such, it needs to
+be closed via its commit or rollback methods, unless otherwise specified.
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="c1">// do something</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We <strong>strongly</strong> encourage all users of JanusGraph to use the Gremlin query
-language for any queries executed on JanusGraph and to not use
-JanusGraph’s APIs outside of the management system.</p>
+<p>We <strong>strongly</strong> encourage all users of JanusGraph not to use JanusGraph’s APIs outside of the management system,
+and always use standard Gremlin query language for any queries.</p>
 </div>
+<h2 id="schema-management">Schema Management</h2>
+<p>Management System allows you to view, update, and create vertex labels, edge labels, and property keys.
+See <a href="../../schema/">schema management</a> for details.</p>
+<h2 id="index-management">Index Management</h2>
+<p>Management System allows you to manage both vertex-centric indexes and graph indexes. See
+<a href="../../schema/index-management/index-performance/">index management</a> for details.</p>
+<h2 id="consistency-management">Consistency Management</h2>
+<p>Management System allows you to set the consistency level of individual schema elements. See
+<a href="../../advanced-topics/eventual-consistency/">Eventual Consistency</a> for details.</p>
+<h2 id="ghost-vertex-removal">Ghost Vertex Removal</h2>
+<p>Management System allows you to purge <a href="../../advanced-topics/eventual-consistency/#ghost-vertices">ghost vertices</a>
+in the graph. It uses a local thread pool to initiate multiple threads to scan your entire graph, detecting and
+purging ghost vertices as well as their incident edges, leveraging
+<a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.0.0/org/janusgraph/graphdb/olap/job/GhostVertexRemover.html">GhostVertexRemover</a>
+By default, the concurrency level is the number of available
+processors on your machine. You can also configure the number of threads as shown in the example below. If your graph
+is huge, you could consider running GhostVertexRemover on a MapReduce cluster.
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="c1">// by default, concurrency level = the number of available processors</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">removeGhostVertices</span><span class="o">().</span><span class="na">get</span><span class="o">()</span>
+<span class="c1">// alternatively, you could also configure the concurrency</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">removeGhostVertices</span><span class="o">(</span><span class="mi">4</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
+<span class="c1">// it is not necessary to commit here, since GhostVertexRemover commits</span>
+<span class="c1">// periodically and automatically, but it is a good habit to do so</span>
+<span class="c1">// calling rollback() won&#39;t really rollback the ghost vertex removal process</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div></p>
                 
               
               
