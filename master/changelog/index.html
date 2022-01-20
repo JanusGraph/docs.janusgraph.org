@@ -1370,6 +1370,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upgrade-of-log4j-to-version-2" class="md-nav__link">
+    Upgrade of log4j to version 2
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2168,6 +2175,13 @@
           <li class="md-nav__item">
   <a href="#remove-support-for-old-serialization-format-of-janusgraph-predicates" class="md-nav__link">
     Remove support for old serialization format of JanusGraph predicates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-of-log4j-to-version-2" class="md-nav__link">
+    Upgrade of log4j to version 2
   </a>
   
 </li>
@@ -3060,6 +3074,13 @@ Users who do not use GraphBinary yet or who are not using Geoshapes are not affe
 <h5 id="remove-support-for-old-serialization-format-of-janusgraph-predicates">Remove support for old serialization format of JanusGraph predicates</h5>
 <p>We are dropping support for old serialization format of JanusGraph predicates. The old predicates serialization format is only used by client older than 0.6. 
 The change only affects Gryo and GraphSON.</p>
+<h5 id="upgrade-of-log4j-to-version-2">Upgrade of log4j to version 2</h5>
+<p>This change requires a new log4j configuration. You can find an example configuration in <code>conf/log4j2-server.xml</code>. As a result of the changed configuration format, 
+we clean up all configurations. This could lead to unexpected new log lines. Please open an issue, if you see any unwanted log line.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Log4j is only used for standalone server deployments and JanusGraph testing.</p>
+</div>
 <h3 id="version-061-release-date">Version 0.6.1 (Release Date: ???)</h3>
 <div class="tabbed-set" data-tabs="18:2">
 <input name="__tabbed_18" type="radio" id="__tabbed_18_1" checked="checked" /><label for="__tabbed_18_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
