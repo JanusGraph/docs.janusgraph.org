@@ -938,6 +938,26 @@
     Deploying on DataStax Astra
   </a>
   
+    <nav class="md-nav" aria-label="Deploying on DataStax Astra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-string-configuration" class="md-nav__link">
+    Internal string configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-file-configuration" class="md-nav__link">
+    Internal file configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1490,6 +1510,26 @@
     Deploying on DataStax Astra
   </a>
   
+    <nav class="md-nav" aria-label="Deploying on DataStax Astra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-string-configuration" class="md-nav__link">
+    Internal string configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-file-configuration" class="md-nav__link">
+    Internal file configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1779,37 +1819,50 @@ and delivers an unprecedented combination of serverless, pay-as-you-go pricing w
 multi-cloud and open source.</p>
 <p>—  <a href="https://www.datastax.com/products/datastax-astra">DataStax Astra</a></p>
 </blockquote>
-<p><a href="https://docs.datastax.com/en/astra/aws/doc/dscloud/astra/dscloudObtainingCredentials.html">Download</a> the secure-connect zipped bundle for your Astra database.</p>
-<p>Unzip your copy of <code>secure-connect-your_astra_db.zip</code> which will contain the following files:</p>
-<ul>
-<li><code>ca.crt</code></li>
-<li><code>cert</code></li>
-<li><code>cert.pfx</code></li>
-<li><code>config.json</code></li>
-<li><code>cqlshrc</code></li>
-<li><code>identity.jks</code></li>
-<li><code>key</code></li>
-<li><code>trustStore.jks</code></li>
-</ul>
-<p>The <code>config.json</code> file contains the following:</p>
-<ul>
-<li><code>host</code> - the contact point for the CQL driver</li>
-<li><code>port</code> - the CQL client port</li>
-<li><code>keyspace</code> - the name of the keyspace you created</li>
-<li><code>trustStoreLocation</code> - trustStore.jks is the truststore</li>
-<li><code>trustStorePassword</code> - your truststore password</li>
-<li><code>keyStoreLocation</code> - identity.jks is the keystore</li>
-<li><code>keyStorePassword</code> - your keystore password</li>
-</ul>
-<p>Using the information above, you will need to configure the following:</p>
-<ul>
-<li><code>storage.hostname</code></li>
-<li><code>storage.port</code></li>
-<li><code>storage.username</code></li>
-<li><code>storage.password</code></li>
-<li><code>storage.cql.keyspace</code></li>
-<li><code>storage.cql.ssl.*</code></li>
-</ul>
+<p><a href="https://docs.datastax.com/en/astra/docs/obtaining-database-credentials.html">Download</a> the secure-connect zipped bundle for your Astra database.</p>
+<p>While connecting to Astra DB from JanusGraph, it is preferred to make use of the secure bundle connection file
+as-is without extracting it. There are multiple ways in which a secure bundle connection file can be passed on to
+the JanusGraph configuration to connect to Astra DB using the DataStax driver.</p>
+<h3 id="internal-string-configuration">Internal string configuration</h3>
+<p>Set the property <code>storage.cql.internal.string-configuration</code> to <code>datastax-java-driver { basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt; }</code>
+and set the username, password and keyspace details.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">&lt;keyspace name which was created in AstraDB&gt;</span>
+<span class="na">storage.username</span><span class="o">=</span><span class="s">&lt;clientID&gt;</span>
+<span class="na">storage.password</span><span class="o">=</span><span class="s">&lt;clientSecret&gt;</span>
+<span class="na">storage.cql.internal.string-configuration</span><span class="o">=</span><span class="s">datastax-java-driver { basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt; }</span>
+</code></pre></div></p>
+<p>Also, you can set a jvm argument to pass the secure bundle file as shown below and remove that property
+<code>(storage.cql.internal.string-configuration)</code> from the list above.</p>
+<p><code>-Ddatastax-java-driver.basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt;</code></p>
+<h3 id="internal-file-configuration">Internal file configuration</h3>
+<p>Set the property <code>storage.cql.internal.file-configuration</code> to an external configuration file if you would like to
+externalize the astra connection related properties to a separate file and specify the secure bundle and credentials information on that file.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">&lt;keyspace-name&gt;</span>
+<span class="c"># Link to the external file that DataStax driver understands</span>
+<span class="na">storage.cql.internal.file-configuration</span><span class="o">=</span><span class="s">&lt;path-to-astra.conf&gt;</span>
+</code></pre></div>
+astra.conf (external file)
+<div class="highlight"><pre><span></span><code>datastax-java-driver {
+  basic.cloud {
+    secure-connect-bundle = &quot;&lt;path-to-secure-bundle-zip-file&gt;&quot;
+  }
+  advanced.auth-provider {
+    class = PlainTextAuthProvider
+    username = &quot;&lt;clientID&gt;&quot;
+    password = &quot;&lt;clientSecret&gt;&quot;
+  }
+}
+</code></pre></div></p>
+<p>Note: Client id and Client secret need to be generated and copied from your Astra Account
+as per this <a href="https://docs.datastax.com/en/astra/docs/manage-application-tokens.html">doc</a>.</p>
+<p>To learn more about different configuration options of DataStax driver, please refer to the DataStax driver configuration
+<a href="https://docs.datastax.com/en/developer/java-driver/latest/manual/core/configuration/">documentation</a>.</p>
 <h2 id="deploying-on-amazon-keyspaces-experimental">Deploying on Amazon Keyspaces (Experimental)</h2>
 <blockquote>
 <p>Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed
