@@ -1384,6 +1384,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-support-for-java-11" class="md-nav__link">
+    Add support for Java 11
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2196,6 +2203,13 @@
           <li class="md-nav__item">
   <a href="#upgrade-of-log4j-to-version-2" class="md-nav__link">
     Upgrade of log4j to version 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-support-for-java-11" class="md-nav__link">
+    Add support for Java 11
   </a>
   
 </li>
@@ -3027,7 +3041,7 @@ use the latest versions of the software.</p>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
 <li>Apache TinkerPop 3.5.1</li>
-<li>Java 1.8</li>
+<li>Java 8, 11</li>
 </ul>
 <h4 id="changes">Changes</h4>
 <p>For more information on features and bug fixes in 1.0.0, see the GitHub milestone:</p>
@@ -3096,6 +3110,12 @@ we clean up all configurations. This could lead to unexpected new log lines. Ple
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Log4j is only used for standalone server deployments and JanusGraph testing.</p>
+</div>
+<h5 id="add-support-for-java-11">Add support for Java 11</h5>
+<p>JanusGraph now officially supports Java 11 in addition to Java 8. We encourage everyone to update to Java 11.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The distribution zip archives are however still built with Java 8 since the full distribution includes Cassandra which will only support Java 11 in version 4.</p>
 </div>
 <h3 id="version-061-release-date-january-18-2022">Version 0.6.1 (Release Date: January 18, 2022)</h3>
 <div class="tabbed-set" data-tabs="18:2">
