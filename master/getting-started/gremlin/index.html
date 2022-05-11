@@ -1345,13 +1345,13 @@ information on Gremlin, refer to the following resources:</p>
 <p><a href="https://kelvinlawrence.net/book/Gremlin-Graph-Guide.html">Practical Gremlin</a>: An online book by Kelvin R. Lawrence providing an in-depth overview of Gremlin and it's interaction with JanusGraph.</p>
 </li>
 <li>
-<p><a href="https://tinkerpop.apache.org/docs/3.5.1/reference/">Complete Gremlin Manual</a>: Reference manual for all of the Gremlin steps.</p>
+<p><a href="https://tinkerpop.apache.org/docs/3.5.3/reference/">Complete Gremlin Manual</a>: Reference manual for all of the Gremlin steps.</p>
 </li>
 <li>
-<p><a href="https://tinkerpop.apache.org/docs/3.5.1/tutorials/the-gremlin-console/">Gremlin Console Tutorial</a>: Learn how to use the Gremlin Console effectively to traverse and analyze a graph interactively.</p>
+<p><a href="https://tinkerpop.apache.org/docs/3.5.3/tutorials/the-gremlin-console/">Gremlin Console Tutorial</a>: Learn how to use the Gremlin Console effectively to traverse and analyze a graph interactively.</p>
 </li>
 <li>
-<p><a href="https://tinkerpop.apache.org/docs/3.5.1/recipes/">Gremlin Recipes</a>: A collection of best practices and common traversal patterns for Gremlin.</p>
+<p><a href="https://tinkerpop.apache.org/docs/3.5.3/recipes/">Gremlin Recipes</a>: A collection of best practices and common traversal patterns for Gremlin.</p>
 </li>
 <li>
 <p><a href="https://tinkerpop.apache.org/index.html#language-drivers">Gremlin Language Drivers</a>:
@@ -1360,7 +1360,7 @@ information on Gremlin, refer to the following resources:</p>
     TypeScript.</p>
 </li>
 <li>
-<p><a href="https://tinkerpop.apache.org/docs/3.5.1/tutorials/gremlin-language-variants/">Gremlin Language Variants</a>: Learn how to embed Gremlin in a host programming language.</p>
+<p><a href="https://tinkerpop.apache.org/docs/3.5.3/tutorials/gremlin-language-variants/">Gremlin Language Variants</a>: Learn how to embed Gremlin in a host programming language.</p>
 </li>
 <li>
 <p><a href="http://sql2gremlin.com">Gremlin for SQL developers</a>: Learn Gremlin
@@ -1435,7 +1435,7 @@ fluently navigate the underlying graph structure.
 <span class="o">==&gt;{</span><span class="n">name</span><span class="o">=</span><span class="n">hydra</span><span class="o">}</span>
 <span class="o">==&gt;{</span><span class="n">name</span><span class="o">=</span><span class="n">cerberus</span><span class="o">}</span>
 </code></pre></div>
-Each step (denoted by a separating .) is a function that operates on the objects emitted from the previous step. There are numerous steps in the Gremlin language (see <a href="https://tinkerpop.apache.org/docs/3.5.1/reference/#graph-traversal-steps">Gremlin Steps</a>). By simply changing a step or order of the steps, different traversal semantics are enacted. The example below returns the name of all the people that have battled the same monsters as Hercules who themselves are not Hercules (i.e. "co-battlers" or perhaps, "allies").</p>
+Each step (denoted by a separating .) is a function that operates on the objects emitted from the previous step. There are numerous steps in the Gremlin language (see <a href="https://tinkerpop.apache.org/docs/3.5.3/reference/#graph-traversal-steps">Gremlin Steps</a>). By simply changing a step or order of the steps, different traversal semantics are enacted. The example below returns the name of all the people that have battled the same monsters as Hercules who themselves are not Hercules (i.e. "co-battlers" or perhaps, "allies").</p>
 <p>Given that <em>The Graph of the Gods</em> only has one battler (Hercules),
 another battler (for the sake of example) is added to the graph with
 Gremlin showcasing how vertices and edges are added to the graph.
@@ -1480,7 +1480,7 @@ JanusGraph with other languages than Groovy and independent of the
 Gremlin Console.</p>
 </div>
 <h2 id="iterating-the-traversal">Iterating the Traversal</h2>
-<p>One convenient feature of the Gremlin Console is that it automatically iterates all results from a query executed from the gremlin&gt; prompt. This works well within the <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> environment as it shows you the results as a String. As you transition towards writing a Gremlin application, it is important to understand how to iterate a traversal explicitly because your application’s traversals will not iterate automatically. These are some of the common ways to iterate the <a href="https://tinkerpop.apache.org/javadocs/3.5.1/full/org/apache/tinkerpop/gremlin/process/traversal/Traversal.html">Traversal</a>:</p>
+<p>One convenient feature of the Gremlin Console is that it automatically iterates all results from a query executed from the gremlin&gt; prompt. This works well within the <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> environment as it shows you the results as a String. As you transition towards writing a Gremlin application, it is important to understand how to iterate a traversal explicitly because your application’s traversals will not iterate automatically. These are some of the common ways to iterate the <a href="https://tinkerpop.apache.org/javadocs/3.5.3/full/org/apache/tinkerpop/gremlin/process/traversal/Traversal.html">Traversal</a>:</p>
 <ul>
 <li><code>iterate()</code> - Zero results are expected or can be ignored.</li>
 <li><code>next()</code> - Get one result. Make sure to check <code>hasNext()</code> first.</li>
