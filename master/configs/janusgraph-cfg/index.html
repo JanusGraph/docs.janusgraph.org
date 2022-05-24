@@ -3570,14 +3570,14 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>storage.cql.netty.admin-size</td>
-<td>The number of threads for the event loop group used for admin tasks not related to request I/O (handle cluster events, refresh metadata, schedule reconnections, etc.). If this is set to 0, the driver will use <code>Runtime.getRuntime().availableProcessors() * 2</code>.</td>
+<td>The number of threads for the event loop group used for admin tasks not related to request I/O (handle cluster events, refresh metadata, schedule reconnections, etc.). If this is not set, the driver will use 2.</td>
 <td>Integer</td>
 <td>(no default value)</td>
 <td>LOCAL</td>
 </tr>
 <tr>
 <td>storage.cql.netty.io-size</td>
-<td>The number of threads for the event loop group used for I/O operations (reading and writing to Cassandra nodes). If this is set to 0, the driver will use <code>Runtime.getRuntime().availableProcessors() * 2</code>.</td>
+<td>The number of threads for the event loop group used for I/O operations (reading and writing to Cassandra nodes). If this is not set, the driver will use <code>Runtime.getRuntime().availableProcessors() * 2</code>.</td>
 <td>Integer</td>
 <td>(no default value)</td>
 <td>LOCAL</td>
