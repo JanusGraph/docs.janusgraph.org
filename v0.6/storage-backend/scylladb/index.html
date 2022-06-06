@@ -14,7 +14,7 @@
     
     
       
-        <title>Apache HBase - JanusGraph</title>
+        <title>ScyllaDB - JanusGraph</title>
       
     
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#apache-hbase" class="md-skip">
+        <a href="#scylladb" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Apache HBase
+              ScyllaDB
             
           </span>
         </div>
@@ -865,97 +865,11 @@
           
 
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Apache HBase
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../hbase/" class="md-nav__link">
       Apache HBase
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#hbase-setup" class="md-nav__link">
-    HBase Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="HBase Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#local-server-mode" class="md-nav__link">
-    Local Server Mode
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remote-server-mode" class="md-nav__link">
-    Remote Server Mode
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remote-server-mode-with-gremlin-server" class="md-nav__link">
-    Remote Server Mode with Gremlin Server
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hbase-specific-configuration" class="md-nav__link">
-    HBase Specific Configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-graph-operations" class="md-nav__link">
-    Global Graph Operations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tips-and-tricks-for-managing-an-hbase-cluster" class="md-nav__link">
-    Tips and Tricks for Managing an HBase Cluster
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -977,11 +891,62 @@
           
 
 
+  
 
-  <li class="md-nav__item">
-    <a href="../scylladb/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ScyllaDB
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       ScyllaDB
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scylladb-setup-and-connection" class="md-nav__link">
+    ScyllaDB Setup and Connection
+  </a>
+  
+    <nav class="md-nav" aria-label="ScyllaDB Setup and Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-tutorial" class="md-nav__link">
+    Step by Step Tutorial
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1346,57 +1311,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hbase-setup" class="md-nav__link">
-    HBase Setup
+  <a href="#scylladb-setup-and-connection" class="md-nav__link">
+    ScyllaDB Setup and Connection
   </a>
   
-    <nav class="md-nav" aria-label="HBase Setup">
+    <nav class="md-nav" aria-label="ScyllaDB Setup and Connection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#local-server-mode" class="md-nav__link">
-    Local Server Mode
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remote-server-mode" class="md-nav__link">
-    Remote Server Mode
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remote-server-mode-with-gremlin-server" class="md-nav__link">
-    Remote Server Mode with Gremlin Server
+  <a href="#step-by-step-tutorial" class="md-nav__link">
+    Step by Step Tutorial
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hbase-specific-configuration" class="md-nav__link">
-    HBase Specific Configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-graph-operations" class="md-nav__link">
-    Global Graph Operations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tips-and-tricks-for-managing-an-hbase-cluster" class="md-nav__link">
-    Tips and Tricks for Managing an HBase Cluster
-  </a>
   
 </li>
       
@@ -1412,180 +1342,35 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/storage-backend/hbase.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/storage-backend/scylladb.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="apache-hbase">Apache HBase</h1>
-<p><img alt="" src="https://hbase.apache.org/images/hbase_logo.png" /></p>
+                <h1 id="scylladb">ScyllaDB</h1>
+<p><img alt="" src="../scylladb.svg" /></p>
 <blockquote>
-<p>Apache HBase is an open-source, distributed, versioned, non-relational
-database modeled after <a href="https://static.googleusercontent.com/media/research.google.com/en/us/archive/bigtable-osdi06.pdf">Google’s Bigtable: A Distributed Storage
-System for Structured Data by Chang et
-al.</a>
-Just as Bigtable leverages the distributed data storage provided by
-the Google File System, Apache HBase provides Bigtable-like
-capabilities on top of Hadoop and HDFS.</p>
-<p>—  <a href="https://hbase.apache.org/">Apache HBase Homepage</a></p>
+<p>ScyllaDB is a NoSQL database with a close-to-the-hardware, shared-nothing approach that optimizes raw performance, fully utilizes modern multi-core servers, and minimizes the overhead to DevOps. ScyllaDB is API-compatible with both Cassandra and DynamoDB, yet is much faster, more consistent, and with a lower TCO.</p>
+<p>—  <a href="https://www.scylladb.com/">ScyllaDB
+Homepage</a></p>
 </blockquote>
-<h2 id="hbase-setup">HBase Setup</h2>
-<p>The following sections outline the various ways in which JanusGraph can
-be used in concert with Apache HBase.</p>
-<h3 id="local-server-mode">Local Server Mode</h3>
-<p><img alt="" src="../modes-local.png" /></p>
-<p>HBase can be run as a standalone database on the same local host as
-JanusGraph and the end-user application. In this model, JanusGraph and
-HBase communicate with one another via a <code>localhost</code> socket. Running
-JanusGraph over HBase requires the following setup steps:</p>
+<h2 id="scylladb-setup-and-connection">ScyllaDB Setup and Connection</h2>
+<p>ScyllaDB is fully compatible with Cassandra. To use it as the data storage layer:</p>
+<ol>
+<li>Spin up a Scylla cluster. You can do this using Scylla Cloud, using Docker, running Scylla in the cloud or on-prem. You can see a step-by-step guide on how to <a href="https://university.scylladb.com/courses/scylla-essentials-overview/lessons/high-availability/topic/consistency-level-demo-part-1/">spin up a three node Scylla cluster using Docker</a> in this lesson.</li>
+<li>Run JanusGraph with “cql” as the storage.backend. </li>
+<li>Specify the IP address of one of the Scylla nodes in your cluster as the storage.hostname.</li>
+</ol>
+<h3 id="step-by-step-tutorial">Step by Step Tutorial</h3>
+<p><a href="https://university.scylladb.com/courses/the-mutant-monitoring-system-training-course/lessons/a-graph-data-system-powered-by-scylladb-and-janusgraph/">This Scylla University lesson provides step-by-step instructions for using JanusGraph with ScyllaDB</a> as the data storage layer. The main steps in the lesson are:</p>
 <ul>
-<li>
-<p>Download and extract a stable HBase from
-    <a href="https://www.apache.org/dyn/closer.cgi/hbase/stable/">https://www.apache.org/dyn/closer.cgi/hbase/stable/</a>.</p>
-</li>
-<li>
-<p>Start HBase by invoking the <code>start-hbase.sh</code> script in the <em>bin</em>
-    directory inside the extracted HBase directory. To stop HBase, use
-    <code>stop-hbase.sh</code>.
-<div class="highlight"><pre><span></span><code>$ ./bin/start-hbase.sh
-starting master, logging to ../logs/hbase-master-machine-name.local.out
-</code></pre></div></p>
-</li>
+<li>Spinning up a virtual machine </li>
+<li>Installing the prerequisites</li>
+<li>Running the JanusGraph server (using Docker)</li>
+<li>Running a Gremlin Console to connect to the new server (also in Docker)</li>
+<li>Spinning up a three-node Scylla Cluster and setting it as the data storage for the JanusGraph server</li>
+<li>Performing some basic graph operations</li>
 </ul>
-<p>Now, you can create an HBase JanusGraph as follows:
-<div class="highlight"><pre><span></span><code><span class="n">JanusGraph</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
-    <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;hbase&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">open</span><span class="p">();</span>
-</code></pre></div></p>
-<p>Note, that you do not need to specify a hostname since a localhost
-connection is attempted by default. Also, in the Gremlin Console, you
-can not define the type of the variables <code>conf</code> and <code>g</code>. Therefore,
-simply leave off the type declaration.</p>
-<h3 id="remote-server-mode">Remote Server Mode</h3>
-<p><img alt="" src="../modes-distributed.png" /></p>
-<p>When the graph needs to scale beyond the confines of a single machine,
-then HBase and JanusGraph are logically separated into different
-machines. In this model, the HBase cluster maintains the graph
-representation and any number of JanusGraph instances maintain
-socket-based read/write access to the HBase cluster. The end-user
-application can directly interact with JanusGraph within the same JVM as
-JanusGraph.</p>
-<p>For example, suppose we have a running HBase cluster with a ZooKeeper
-quorum composed of three machines at IP address 77.77.77.77,
-77.77.77.78, and 77.77.77.79, then connecting JanusGraph with the
-cluster is accomplished as follows:
-<div class="highlight"><pre><span></span><code><span class="n">JanusGraph</span> <span class="n">g</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
-    <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;hbase&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;77.77.77.77, 77.77.77.78, 77.77.77.79&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">open</span><span class="p">();</span>
-</code></pre></div></p>
-<p><code>storage.hostname</code> accepts a comma separated list of IP addresses and
-hostname for any subset of machines in the HBase cluster JanusGraph
-should connect to. Also, in the Gremlin Console, you can not define the
-type of the variables <code>conf</code> and <code>g</code>. Therefore, simply leave off the
-type declaration.</p>
-<h3 id="remote-server-mode-with-gremlin-server">Remote Server Mode with Gremlin Server</h3>
-<p><img alt="" src="../modes-rexster.png" /></p>
-<p>Finally, Gremlin Server can be wrapped around each JanusGraph instance
-defined in the previous subsection. In this way, the end-user
-application need not be a Java-based application as it can communicate
-with Gremlin Server as a client. This type of deployment is great for
-polyglot architectures where various components written in different
-languages need to reference and compute on the graph.</p>
-<div class="codehilite"><pre><span></span><code><span class="c">http://gremlin-server.janusgraph.machine1/mygraph/vertices/1</span>
-<span class="c">http://gremlin-server.janusgraph.machine2/mygraph/tp/gremlin?script=g.v(1).out(&#39;follows&#39;).out(&#39;created&#39;)</span>
-</code></pre></div>
-
-
-<p>In this case, each Gremlin Server would be configured to connect to the
-HBase cluster. The following shows the graph specific fragment of the
-Gremlin Server configuration. Refer to <a href="../../operations/server/">JanusGraph Server</a> for a complete
-example and more information on how to configure the server.</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span>
-<span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">  g</span><span class="p">:</span> <span class="nv">conf/janusgraph-hbase.properties</span>
-<span class="p p-Indicator">}</span>
-<span class="nt">scriptEngines</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">  gremlin-groovy</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">    plugins</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">classImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math</span><span class="p p-Indicator">],</span><span class="nt"> methodImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math#*</span><span class="p p-Indicator">]},</span>
-<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">files</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">scripts/empty-sample.groovy</span><span class="p p-Indicator">]}}}}</span>
-<span class="nn">...</span>
-</code></pre></div>
-
-<h2 id="hbase-specific-configuration">HBase Specific Configuration</h2>
-<p>Refer to <a href="../../configs/configuration-reference/">Configuration Reference</a> for a complete listing of all HBase specific
-configuration options in addition to the general JanusGraph
-configuration options.</p>
-<p>When configuring HBase it is recommended to consider the following HBase
-specific configuration options:</p>
-<ul>
-<li><strong>storage.hbase.table</strong>: Name of the HBase table in which to store
-    the JanusGraph graph. Allows multiple JanusGraph graphs to co-exist
-    in the same HBase cluster.</li>
-</ul>
-<p>Please refer to the <a href="https://hbase.apache.org/book/config.files.html">HBase configuration
-documentation</a> for more
-HBase configuration options and their description. By prefixing the
-respective HBase configuration option with <code>storage.hbase.ext</code> in the
-JanusGraph configuration it will be passed on to HBase at initialization
-time. For example, to use the znode /hbase-secure for HBase, set the
-property: <code>storage.hbase.ext.zookeeper.znode.parent=/hbase-secure</code>. The
-prefix allows arbitrary HBase configuration options to be configured
-through JanusGraph.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>HBase backend uses millisecond for timestamps. In JanusGraph 0.2.0 and
-earlier, if the <code>graph.timestamps</code> property is not explicitly set, the
-default is <code>MICRO</code>. In this case, the <code>graph.timestamps</code> property must
-be explicitly set to <code>MILLI</code>. Do not set the <code>graph.timestamps</code>
-property to another value in any cases.</p>
-</div>
-<h2 id="global-graph-operations">Global Graph Operations</h2>
-<p>JanusGraph over HBase supports global vertex and edge iteration.
-However, note that all these vertices and/or edges will be loaded into
-memory which can cause <code>OutOfMemoryException</code>. Use <a href="../../advanced-topics/hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> to
-iterate over all vertices or edges in large graphs effectively.</p>
-<h2 id="tips-and-tricks-for-managing-an-hbase-cluster">Tips and Tricks for Managing an HBase Cluster</h2>
-<p>The <a href="https://hbase.apache.org/book.html#shell">HBase shell</a> on the
-master server can be used to get an overall status check of the cluster.
-<div class="highlight"><pre><span></span><code><span class="nv">$HBASE_HOME</span>/bin/hbase shell
-</code></pre></div></p>
-<p>From the shell, the following commands are generally useful for
-understanding the status of the cluster.</p>
-<div class="highlight"><pre><span></span><code>status <span class="s1">&#39;janusgraph&#39;</span>
-status <span class="s1">&#39;simple&#39;</span>
-status <span class="s1">&#39;detailed&#39;</span>
-</code></pre></div>
-
-<p>The above commands can identify if a region server has gone down. If so,
-it is possible to <code>ssh</code> into the failed region server machines and do
-the following:</p>
-<div class="highlight"><pre><span></span><code>sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh stop regionserver
-sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh start regionserver
-</code></pre></div>
-
-<p>The use of <a href="https://code.google.com/p/parallel-ssh/">pssh</a> can make this
-process easy as there is no need to log into each machine individually
-to run the commands. Put the IP addresses of the regionservers into a
-<code>hosts.txt</code> file and then execute the following.</p>
-<div class="highlight"><pre><span></span><code>pssh -h host.txt sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh stop regionserver
-pssh -h host.txt sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh start regionserver
-</code></pre></div>
-
-<p>Next, sometimes you need to restart the master server (e.g. connection
-refused exceptions). To do so, on the master execute the following:</p>
-<div class="highlight"><pre><span></span><code>sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh stop master
-sudo -u hadoop <span class="nv">$HBASE_HOME</span>/bin/hbase-daemon.sh start master
-</code></pre></div>
-
-<p>Finally, if an HBase cluster has already been deployed and more memory
-is required of the master or region servers, simply edit the
-<code>$HBASE_HOME/conf/hbase-env.sh</code> files on the respective machines with
-requisite <code>-Xmx -Xms</code> parameters. Once edited, stop/start the master
-and/or region servers as described previous.</p>
                 
               
               
@@ -1604,7 +1389,7 @@ and/or region servers as described previous.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../cassandra/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../bigtable/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1613,19 +1398,19 @@ and/or region servers as described previous.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Apache Cassandra
+                Google Cloud Bigtable
               </div>
             </div>
           </a>
         
         
-          <a href="../bigtable/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../bdb/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Google Cloud Bigtable
+                Oracle Berkeley DB Java Edition
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
