@@ -1544,7 +1544,7 @@ thread-independent transaction, use the <code>createThreadedTx()</code> method.
 <span class="n">threads</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">threads</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
     <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="k">new</span> <span class="n">Thread</span><span class="o">({</span>
-        <span class="n">println</span><span class="o">(</span><span class="s2">&quot;Do something with &#39;threadedGraph&#39;&#39;&quot;</span><span class="o">);</span>
+        <span class="n">println</span><span class="o">(</span><span class="s2">&quot;Do something with &#39;threadedGraph&#39;&quot;</span><span class="o">);</span>
     <span class="o">});</span>
     <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
 <span class="o">}</span>

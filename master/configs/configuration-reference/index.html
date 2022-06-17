@@ -2224,7 +2224,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>graph.replace-instance-if-exists</td>
-<td>If a JanusGraph instance with the same instance identifier already exists, the usage of this configuration option results in the opening of this graph anwyay.</td>
+<td>If a JanusGraph instance with the same instance identifier already exists, the usage of this configuration option results in the opening of this graph anyway.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>LOCAL</td>
@@ -3038,7 +3038,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>log.[X].read-lag-time</td>
-<td>Maximum time in ms that it may take for reads to appear in the backend. If a write does not becomevisible in the storage backend in this amount of time, a log reader might miss the message.</td>
+<td>Maximum time in ms that it may take for reads to appear in the backend. If a write does not become visible in the storage backend in this amount of time, a log reader might miss the message.</td>
 <td>Duration</td>
 <td>500 ms</td>
 <td>MASKABLE</td>
@@ -3066,7 +3066,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>log.[X].ttl</td>
-<td>Sets a TTL on all log entries, meaningthat all entries added to this log expire after the configured amount of time. Requiresthat the log implementation supports TTL.</td>
+<td>Sets a TTL on all log entries, meaning that all entries added to this log expire after the configured amount of time. Requires that the log implementation supports TTL.</td>
 <td>Duration</td>
 <td>(no default value)</td>
 <td>GLOBAL</td>
@@ -3304,7 +3304,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.force-index</td>
-<td>Whether JanusGraph should throw an exception if a graph query cannot be answered using an index. Doing solimits the functionality of JanusGraph's graph queries but ensures that slow graph queries are avoided on large graphs. Recommended for production use of JanusGraph.</td>
+<td>Whether JanusGraph should throw an exception if a graph query cannot be answered using an index. Doing so limits the functionality of JanusGraph's graph queries but ensures that slow graph queries are avoided on large graphs. Recommended for production use of JanusGraph.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>MASKABLE</td>
@@ -3502,7 +3502,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.read-time</td>
-<td>Maximum time (in ms) to wait for a backend read operation to complete successfully. If a backend read operationfails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
+<td>Maximum time (in ms) to wait for a backend read operation to complete successfully. If a backend read operation fails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
 <td>Duration</td>
 <td>10000 ms</td>
 <td>MASKABLE</td>
@@ -3537,7 +3537,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.write-time</td>
-<td>Maximum time (in ms) to wait for a backend write operation to complete successfully. If a backend write operationfails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
+<td>Maximum time (in ms) to wait for a backend write operation to complete successfully. If a backend write operation fails temporarily, JanusGraph will backoff exponentially and retry the operation until the wait time has been exhausted.</td>
 <td>Duration</td>
 <td>100000 ms</td>
 <td>MASKABLE</td>
