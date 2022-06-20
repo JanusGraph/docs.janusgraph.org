@@ -1803,6 +1803,10 @@ until:
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
 <span class="n">map</span><span class="p">);</span>
 
+<span class="c1">// We can verify the configuration was updated by</span>
+<span class="c1">// retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
 <span class="c1">// We are now guaranteed to use the updated configuration</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 </code></pre></div>
@@ -1824,6 +1828,10 @@ until:
 <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.elasticsearch.transport-scheme&quot;</span><span class="p">,</span> <span class="s">&quot;http&quot;</span><span class="p">);</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
 <span class="n">map</span><span class="p">);</span>
+
+<span class="c1">// We can verify the configuration was updated by</span>
+<span class="c1">// retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 
 <span class="c1">// We are now guaranteed to use the updated configuration</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
@@ -1851,7 +1859,10 @@ configuration that has been updated:
 
 <span class="c1">// Recreate</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
-<span class="c1">// Now this graph&#39;s configuration is guaranteed to be updated</span>
+
+<span class="c1">// Now this graph&#39;s configuration is guaranteed to be updated.</span>
+<span class="c1">// We can verify it by retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 </code></pre></div></p>
 <h2 id="janusgraphmanager">JanusGraphManager</h2>
 <p>The <code>JanusGraphManager</code> is a <code>Singleton</code> adhering to the TinkerPop
