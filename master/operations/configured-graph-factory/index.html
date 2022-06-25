@@ -1801,7 +1801,7 @@ until:
 <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">();</span>
 <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;10.0.0.1&quot;</span><span class="p">);</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
-<span class="n">map</span><span class="p">);</span>
+<span class="k">new</span> <span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
 
 <span class="c1">// We can verify the configuration was updated by</span>
 <span class="c1">// retrieving the configuration for this graph</span>
@@ -1827,7 +1827,7 @@ until:
 <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
 <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.elasticsearch.transport-scheme&quot;</span><span class="p">,</span> <span class="s">&quot;http&quot;</span><span class="p">);</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
-<span class="n">map</span><span class="p">);</span>
+<span class="k">new</span> <span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
 
 <span class="c1">// We can verify the configuration was updated by</span>
 <span class="c1">// retrieving the configuration for this graph</span>
