@@ -553,6 +553,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#graphscript-eval" class="md-nav__link">
+    graph.script-eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gremlin" class="md-nav__link">
     gremlin
   </a>
@@ -1690,6 +1697,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#graphscript-eval" class="md-nav__link">
+    graph.script-eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gremlin" class="md-nav__link">
     gremlin
   </a>
@@ -2270,6 +2284,35 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>Boolean</td>
 <td>false</td>
 <td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="graphscript-eval">graph.script-eval</h3>
+<p>Configuration options for gremlin script engine.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>graph.script-eval.enabled</td>
+<td>Whether to enable Gremlin script evaluation. If it is enabled, a gremlin script engine will be instantiated together with the JanusGraph instance, with which one can use <code>eval</code> method to evaluate a gremlin script in plain string format. This is usually only useful when JanusGraph is used as an embedded Java library.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>graph.script-eval.engine</td>
+<td>Full class name of script engine that implements <code>GremlinScriptEngine</code> interface. Following shorthands can be used: <br> - <code>GremlinLangScriptEngine</code> (A script engine that only accepts standard gremlin queries. Anything else including lambda function is not accepted. We recommend using this because it's generally safer, but it is not guaranteed that it has no security problem.)- <code>GremlinGroovyScriptEngine</code> (A script engine that accepts arbitrary groovy code. This can be dangerous and you should use it at your own risk. See https://tinkerpop.apache.org/docs/current/reference/#script-execution for potential security problems.)</td>
+<td>String</td>
+<td>GremlinLangScriptEngine</td>
+<td>MASKABLE</td>
 </tr>
 </tbody>
 </table>
