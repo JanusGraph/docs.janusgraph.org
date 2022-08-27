@@ -1389,8 +1389,8 @@ pointers to further resources.</p>
 
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-driver:1.0.0&quot;</span>
-<span class="n">compile</span> <span class="s2">&quot;org.apache.tinkerpop:gremlin-driver:3.5.3&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span> <span class="s2">&quot;org.janusgraph:janusgraph-driver:1.0.0&quot;</span>
+<span class="n">implementation</span> <span class="s2">&quot;org.apache.tinkerpop:gremlin-driver:3.5.3&quot;</span>
 </code></pre></div>
 
 </div>
@@ -1410,7 +1410,7 @@ gremlin.remote.driver.sourceName=g
 <div class="highlight"><pre><span></span><code><span class="nt">hosts</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">localhost</span><span class="p p-Indicator">]</span>
 <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8182</span>
 <span class="nt">serializer</span><span class="p">:</span> <span class="p p-Indicator">{</span> 
-<span class="nt">    className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV1d0</span><span class="p p-Indicator">,</span>
+<span class="nt">    className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GraphBinaryMessageSerializerV1</span><span class="p p-Indicator">,</span>
 <span class="nt">    config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
 </code></pre></div>
 

@@ -1367,7 +1367,7 @@ names affected by this are: <code>all</code>, <code>and</code>, <code>as</code>,
 <li>
 <p>Create a <code>GraphTraversalSource</code> which is the basis for all Gremlin
     traversals:
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gremlin_python.process.anonymous_traversal_source</span> <span class="kn">import</span> <span class="n">traversal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gremlin_python.process.anonymous_traversal</span> <span class="kn">import</span> <span class="n">traversal</span>
 
 <span class="n">connection</span> <span class="o">=</span> <span class="n">DriverRemoteConnection</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8182/gremlin&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>
 <span class="c1"># The connection should be closed on shut down to close open connections with connection.close()</span>
@@ -1377,8 +1377,8 @@ names affected by this are: <code>all</code>, <code>and</code>, <code>as</code>,
 </li>
 <li>
 <p>Execute a simple traversal:
-<div class="highlight"><pre><span></span><code><span class="n">herculesAge</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">V</span><span class="p">()</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;hercules&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hercules is </span><span class="si">{}</span><span class="s1"> years old.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">herculesAge</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">hercules_age</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">V</span><span class="p">()</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;hercules&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hercules is </span><span class="si">{</span><span class="n">hercules_age</span><span class="si">}</span><span class="s1"> years old.&#39;</span><span class="p">)</span>
 </code></pre></div>
     <code>next()</code> is a terminal step that submits the traversal to the
     Gremlin Server and returns a single result.</p>
