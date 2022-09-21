@@ -1470,7 +1470,10 @@ it may look like:
 <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
 <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password</span>
 <span class="nt">connectionPool</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> enableSsl</span><span class="p">:</span> <span class="nv">true</span> <span class="p p-Indicator">}</span>
-<span class="nt">serializer</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> className</span><span class="p">:</span> <span class="nv">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0</span><span class="p p-Indicator">,</span><span class="nt"> config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">}}</span>
+<span class="nt">serializer</span><span class="p">:</span> 
+    <span class="nt">className</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">org.apache.tinkerpop.gremlin.driver.ser.GraphBinaryMessageSerializerV1</span>
+    <span class="nt">config</span><span class="p">:</span> 
+        <span class="nt">ioRegistries</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry</span><span class="p p-Indicator">]</span>
 </code></pre></div></p>
                 
               
