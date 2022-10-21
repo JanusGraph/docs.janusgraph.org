@@ -1411,6 +1411,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mixed-index-aggregation-optimization" class="md-nav__link">
+    Mixed index aggregation optimization
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2291,6 +2298,13 @@
           <li class="md-nav__item">
   <a href="#drop-support-for" class="md-nav__link">
     Drop support for
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixed-index-aggregation-optimization" class="md-nav__link">
+    Mixed index aggregation optimization
   </a>
   
 </li>
@@ -3259,6 +3273,10 @@ we clean up all configurations. This could lead to unexpected new log lines. Ple
 </div>
 <h5 id="drop-support-for">Drop support for</h5>
 <p>Preparation for TinkerPop 3.6.</p>
+<h5 id="mixed-index-aggregation-optimization">Mixed index aggregation optimization</h5>
+<p>A new optimization has been added to compute aggregations (min, max, sum and avg) using mixed index engine (if the aggregation function follows an indexed query).
+If the index backend is Elasticsearch, a <code>double</code> value is used to hold the result. As a result, aggregations on long numbers greater than 2^53 are approximate.
+In this case, if the accurate result is essential, the optimization can be disabled by removing the strategy <code>JanusGraphMixedIndexAggStrategy</code>: <code>g.traversal().withoutStrategies(JanusGraphMixedIndexAggStrategy.class)</code>.</p>
 <h3 id="version-063-release-date">Version 0.6.3 (Release Date: ???)</h3>
 <div class="tabbed-set" data-tabs="18:2">
 <input name="__tabbed_18" type="radio" id="__tabbed_18_1" checked="checked" /><label for="__tabbed_18_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
