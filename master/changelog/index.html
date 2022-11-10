@@ -1336,6 +1336,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#removal-of-cassandra-all-dependency" class="md-nav__link">
+    Removal of cassandra-all dependency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#drop-support-for-hbase-1" class="md-nav__link">
     Drop support for HBase 1
   </a>
@@ -2225,6 +2232,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#removal-of-cassandra-all-dependency" class="md-nav__link">
+    Removal of cassandra-all dependency
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#drop-support-for-hbase-1" class="md-nav__link">
@@ -3210,6 +3224,10 @@ use the latest versions of the software.</p>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.0.0/janusgraph-full-1.0.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="removal-of-cassandra-all-dependency">Removal of cassandra-all dependency</h5>
+<p>JanusGraph had a dependency on cassandra-all only for some Hadoop-related classes. We moved these few classes into 
+a new module cassandra-hadoop-util to reduce the dependencies of JanusGraph. If you are running JanusGraph with 
+an embeded Cassandra, you have to exclude the <code>cassandra-hadoop-util</code> from <code>janusgraph-cql</code>.</p>
 <h5 id="drop-support-for-hbase-1">Drop support for HBase 1</h5>
 <p>We are dropping support for HBase 1.</p>
 <h5 id="drop-support-for-solr-7">Drop support for Solr 7</h5>
