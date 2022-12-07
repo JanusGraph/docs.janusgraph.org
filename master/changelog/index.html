@@ -1364,6 +1364,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#configuredgraphfactory-now-creates-separate-indices-per-graph-in-elasticsearch" class="md-nav__link">
+    ConfiguredGraphFactory now creates separate indices per graph in Elasticsearch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2257,6 +2264,13 @@
           <li class="md-nav__item">
   <a href="#breaking-change-for-geoshape-graphbinary-serialization" class="md-nav__link">
     Breaking change for Geoshape GraphBinary serialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuredgraphfactory-now-creates-separate-indices-per-graph-in-elasticsearch" class="md-nav__link">
+    ConfiguredGraphFactory now creates separate indices per graph in Elasticsearch
   </a>
   
 </li>
@@ -3244,6 +3258,13 @@ to update JanusGraph Server and all (Java) clients that use GraphBinary at the s
 an older version will not be able to read a Geoshape created by a client that is already on version 1.0.0 and vice
 versa.
 Users who do not use GraphBinary yet or who are not using Geoshapes are not affected by this change.</p>
+<h5 id="configuredgraphfactory-now-creates-separate-indices-per-graph-in-elasticsearch">ConfiguredGraphFactory now creates separate indices per graph in Elasticsearch</h5>
+<p>If the ConfiguredGraphFactory is used together with Elasticsearch as the index backend, then the same Elasticsearch
+index is used for all graphs (if the same index names were used across different graphs).
+Now it is possible to let JanusGraph create the index names dynamically by using the <code>graph.graphname</code> if no <code>index.name</code>
+is provided in the template configuration. This is exactly like it was already the case for the CQL keyspace name for
+example.</p>
+<p>Users who don't want to use this feature can simply continue providing the <code>index.name</code> in the template configuration.</p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>
