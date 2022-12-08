@@ -1189,6 +1189,19 @@
   </li>
 
         
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/commit-releases/" class="md-nav__link">
+      Snapshot Releases
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1315,13 +1328,6 @@
   
     <nav class="md-nav" aria-label="Building JanusGraph">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#depending-on-janusgraph-snapshots" class="md-nav__link">
-    Depending on JanusGraph Snapshots
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#faqs" class="md-nav__link">
@@ -1452,13 +1458,6 @@
   
     <nav class="md-nav" aria-label="Building JanusGraph">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#depending-on-janusgraph-snapshots" class="md-nav__link">
-    Depending on JanusGraph Snapshots
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#faqs" class="md-nav__link">
@@ -1638,57 +1637,6 @@ will perform the following tasks:</p>
     significant amount of of time (&gt; 1 hour).</p>
 </li>
 </ol>
-<h3 id="depending-on-janusgraph-snapshots">Depending on JanusGraph Snapshots</h3>
-<p>For developing against the most current version of JanusGraph, depend on
-JanusGraph snapshot releases. Note, that these releases are development
-releases and therefore unstable and likely to change. Unless one is
-interested in the most recent development status of JanusGraph, we
-recommend to use the stable JanusGraph release instead.</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Maven</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>
-
-</div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:1.0.0-SNAPSHOT&quot;</span>
-</code></pre></div>
-
-</div>
-</div>
-<p>Check the <a href="https://github.com/JanusGraph/janusgraph/tree/master">master branch</a> for the
-most current release version. SNAPSHOTs will be available through the
-<a href="https://oss.sonatype.org/content/repositories/snapshots/org/janusgraph/">Sonatype repository</a>.</p>
-<p>When adding this dependency, be sure to add the following repository to build file:</p>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Maven</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;repository&gt;</span>
-  <span class="nt">&lt;id&gt;</span>ossrh<span class="nt">&lt;/id&gt;</span>
-  <span class="nt">&lt;name&gt;</span>Sonatype Nexus Snapshots<span class="nt">&lt;/name&gt;</span>
-  <span class="nt">&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
-  <span class="nt">&lt;releases&gt;</span>
-    <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-  <span class="nt">&lt;/releases&gt;</span>
-  <span class="nt">&lt;snapshots&gt;</span>
-    <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-  <span class="nt">&lt;/snapshots&gt;</span>
-<span class="nt">&lt;/repository&gt;</span>
-</code></pre></div>
-
-</div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Gradle</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="n">maven</span> <span class="o">{</span>
-  <span class="n">url</span> <span class="s2">&quot;https://oss.sonatype.org/content/repositories/snapshots&quot;</span>
-  <span class="n">mavenContent</span> <span class="o">{</span>
-    <span class="n">snapshotsOnly</span><span class="o">()</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-
-</div>
-</div>
 <h3 id="faqs">FAQs</h3>
 <p><strong>Maven build causes dozens of "[WARNING] We have a duplicate…"
 errors</strong></p>
