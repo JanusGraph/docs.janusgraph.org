@@ -3396,6 +3396,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>FIXED</td>
 </tr>
 <tr>
+<td>storage.cql.ttl-enabled</td>
+<td>Whether TTL should be enabled or not. Must be turned off if the storage does not support TTL. Amazon Keyspace, for example, does not support TTL by default unless otherwise enabled.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>storage.cql.use-external-locking</td>
 <td>True to prevent JanusGraph from using its own locking mechanism. Setting this to true eliminates redundant checks when using an external locking mechanism outside of JanusGraph. Be aware that when use-external-locking is set to true, that failure to employ a locking algorithm which locks all columns that participate in a transaction upfront and unlocks them when the transaction ends, will result in a 'read uncommitted' transaction isolation level guarantee. If set to true without an appropriate external locking mechanism in place side effects such as dirty/non-repeatable/phantom reads should be expected.</td>
 <td>Boolean</td>
