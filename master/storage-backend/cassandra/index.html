@@ -961,11 +961,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
-    Deploying on Amazon Keyspaces (Experimental)
+  <a href="#deploying-on-amazon-keyspaces" class="md-nav__link">
+    Deploying on Amazon Keyspaces
   </a>
   
-    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces (Experimental)">
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1559,11 +1559,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploying-on-amazon-keyspaces-experimental" class="md-nav__link">
-    Deploying on Amazon Keyspaces (Experimental)
+  <a href="#deploying-on-amazon-keyspaces" class="md-nav__link">
+    Deploying on Amazon Keyspaces
   </a>
   
-    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces (Experimental)">
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1888,7 +1888,7 @@ astra.conf (external file)
 as per this <a href="https://docs.datastax.com/en/astra/docs/manage-application-tokens.html">doc</a>.</p>
 <p>To learn more about different configuration options of DataStax driver, please refer to the DataStax driver configuration
 <a href="https://docs.datastax.com/en/developer/java-driver/latest/manual/core/configuration/">documentation</a>.</p>
-<h2 id="deploying-on-amazon-keyspaces-experimental">Deploying on Amazon Keyspaces (Experimental)</h2>
+<h2 id="deploying-on-amazon-keyspaces">Deploying on Amazon Keyspaces</h2>
 <blockquote>
 <p>Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed
 Apache Cassandra–compatible database service. Amazon Keyspaces is serverless, so you
@@ -1969,6 +1969,13 @@ some specific configurations are needed.</p>
 <span class="c"># Thus, the below config must be turned off</span>
 <span class="na">graph.assign-timestamp</span><span class="o">=</span><span class="s">false</span>
 
+<span class="c"># We strongly recommend you to turn on this config. It will</span>
+<span class="c"># prohibit all full-scan attempts. This is because Amazon keyspace</span>
+<span class="c"># diverges from Apache Cassandra and might result in incomplete</span>
+<span class="c"># results when a full-scan is executed. See issue #3390 for more</span>
+<span class="c"># details</span>
+<span class="na">query.force-index</span><span class="o">=</span><span class="s">true</span>
+
 <span class="c"># Amazon Keyspaces only supports LOCAL QUORUM consistency</span>
 <span class="na">storage.cql.only-use-local-consistency-for-system-operations</span><span class="o">=</span><span class="s">true</span>
 <span class="na">storage.cql.read-consistency-level</span><span class="o">=</span><span class="s">LOCAL_QUORUM</span>
@@ -1978,10 +1985,12 @@ some specific configurations are needed.</p>
 
 <span class="c"># Amazon Keyspaces does not have metadata available to clients</span>
 <span class="c"># Thus, we need to tell JanusGraph that metadata are disabled,</span>
-<span class="c"># and provide a hint of which partitioner AWS is using.</span>
+<span class="c"># and provide a hint of which partitioner AWS is using. Valid</span>
+<span class="c"># partitioner-names are: Murmur3Partitioner, RandomPartitioner,</span>
+<span class="c"># and DefaultPartitioner</span>
 <span class="na">storage.cql.metadata-schema-enabled</span><span class="o">=</span><span class="s">false</span>
 <span class="na">storage.cql.metadata-token-map-enabled</span><span class="o">=</span><span class="s">false</span>
-<span class="na">storage.cql.partitioner-name</span><span class="o">=</span><span class="s">DefaultPartitioner</span>
+<span class="na">storage.cql.partitioner-name</span><span class="o">=</span><span class="s">Murmur3Partitioner</span>
 </code></pre></div>
 
 <p>Now you should be able to open the graph via gremlin console
