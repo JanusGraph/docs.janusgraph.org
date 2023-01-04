@@ -1360,34 +1360,34 @@ JanusGraph features without relying on official JanusGraph releases.
   commit releases and official releases.</p>
 <h2 id="maven-repository-artifacts">Maven repository artifacts</h2>
 <p>Both official and commit release are deployed to Sonatype OSS and are available in Sonatype Maven Central Repository 
-under different group ids.</p>
-<p>Official JanusGraph releases have the next groupId: <code>org.janusgraph</code>.<br />
-Dependencies example:
-<superfences><input name="__tabbed_%(index)s" type="radio" id="__tabbed_%(index)s_%(tab_index)s" %(state)s/><label for="__tabbed_%(index)s_%(tab_index)s">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+under the same group id <code>org.janusgraph</code>, but with different artifact id format.  </p>
+<p>Official JanusGraph releases have the next format for artifact id: <code>MAJOR.MINOR.PATCH</code>.<br />
+Dependencies example:</p>
+<div class="tabbed-set" data-tabs="1:2">
+<input name="__tabbed_1" type="radio" id="__tabbed_1_1" checked="checked" /><label for="__tabbed_1_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>0.6.2<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div></superfences></p>
-<div class="tabbed-set" data-tabs="1:1">
-<input name="__tabbed_1" type="radio" id="__tabbed_1_1" checked="checked" /><label for="__tabbed_1_1">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.2&quot;</span>
+</code></pre></div></div>
+<input name="__tabbed_1" type="radio" id="__tabbed_1_2" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.2&quot;</span>
 </code></pre></div></div>
 </div>
-<p>Commit JanusGraph releases have the next groupId: <code>org.janusgraph.commit</code>.<br />
-Artifact id for commit releases have the next format: <code>FOLLOWING_VERSION-DATE-TIME.COMMIT</code>.<br />
-- <code>FOLLOWING_VERSION</code> is the upcoming official version to be used after release is finalized (i.e. <code>0.6.3</code> if the current latest release is <code>0.6.2</code>).
+<p>Artifact id for commit releases have the next format: <code>FOLLOWING_VERSION-DATE-TIME.COMMIT</code>.<br />
+- <code>FOLLOWING_VERSION</code> is the upcoming official version to be used after release is finalized (i.e. <code>0.6.3</code> if the current latest release is <code>0.6.2</code>). 
+It has <code>MAJOR.MINOR.PATCH</code> format.
 - <code>DATE</code> - date of the commit release in <code>yyyyMMdd</code> format.
 - <code>TIME</code> - time of the commit release in <code>HHmmss</code> format.
 - <code>COMMIT</code> - short commit hash of the commit used in the release.</p>
-<p>Dependencies example:
-<superfences><input name="__tabbed_%(index)s" type="radio" id="__tabbed_%(index)s_%(tab_index)s" %(state)s/><label for="__tabbed_%(index)s_%(tab_index)s">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.janusgraph.commit<span class="nt">&lt;/groupId&gt;</span>
+<p>Dependencies example:</p>
+<div class="tabbed-set" data-tabs="2:2">
+<input name="__tabbed_2" type="radio" id="__tabbed_2_1" checked="checked" /><label for="__tabbed_2_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>0.6.3-20221207-100250.39839b810<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div></superfences></p>
-<div class="tabbed-set" data-tabs="2:1">
-<input name="__tabbed_2" type="radio" id="__tabbed_2_1" checked="checked" /><label for="__tabbed_2_1">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph.commit:janusgraph-core:0.6.3-20221207-100250.39839b810&quot;</span>
+</code></pre></div></div>
+<input name="__tabbed_2" type="radio" id="__tabbed_2_2" /><label for="__tabbed_2_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.3-20221207-100250.39839b810&quot;</span>
 </code></pre></div></div>
 </div>
 <h2 id="janusgraph-distribution-builds">JanusGraph distribution builds</h2>
@@ -1395,8 +1395,8 @@ Artifact id for commit releases have the next format: <code>FOLLOWING_VERSION-DA
 provided for all commits.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-</div>
 <p>GitHub allows to download distribution builds only for authenticated GitHub users.</p>
+</div>
 <p>To access the distribution build bundle for any commit, please open the commit you are interested in and select its
 <code>CI Release</code> details. For example:
 <img alt="" src="../github_release_ci.png" /></p>
@@ -1405,10 +1405,10 @@ file named <code>distribution-builds</code>. This will download <code>distributi
 <img alt="" src="../github_distribution_builds.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-</div>
 <p>Old snapshot distribution builds are expiring in GitHub due to timing and memory limits. It's not guaranteed that
 the snapshot distribution build downloaded yesterday is available today. We encourage to use either official release
 distribution builds or newer snapshot distribution builds.</p>
+</div>
 <p>If you see expired distribution builds or don't see any distribution builds for a specific commit, it means that it isn't
 available to be downloaded anymore. Thus, the distribution builds from newer commits should be used.
 <img alt="" src="../github_expired_distribution_builds.png" /></p>
