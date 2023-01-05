@@ -1351,13 +1351,15 @@
                 <h1 id="snapshot-releases">Snapshot releases</h1>
 <p>In addition to official JanusGraph releases, JanusGraph publishes 
 releases for each commit. The commit releases allow users to use latest
-JanusGraph features without relying on official JanusGraph releases.
-- Official JanusGraph releases are better tested and usually come with finalized
-  changes which signals that the used features are most likely to be stable for long term.
-- Commit releases are not manually verified but instead verified by main CI tests as
+JanusGraph features without relying on official JanusGraph releases.</p>
+<ul>
+<li>Official JanusGraph releases are better tested and usually come with finalized
+  changes which signals that the used features are most likely to be stable for long term.</li>
+<li>Commit releases are not manually verified but instead verified by main CI tests as
   well as scheduled full CI tests (once per week). New features in commit releases are not
   guaranteed to be compatible between commits. Thus, you may expect more breaking changes between
-  commit releases and official releases.</p>
+  commit releases and official releases.</li>
+</ul>
 <h2 id="maven-repository-artifacts">Maven repository artifacts</h2>
 <p>Both official and commit release are deployed to Sonatype OSS and are available in Sonatype Maven Central Repository 
 under the same group id <code>org.janusgraph</code>, but with different artifact id format.  </p>
@@ -1373,21 +1375,23 @@ Dependencies example:</p>
 <input name="__tabbed_1" type="radio" id="__tabbed_1_2" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.2&quot;</span>
 </code></pre></div></div>
 </div>
-<p>Artifact id for commit releases have the next format: <code>FOLLOWING_VERSION-DATE-TIME.COMMIT</code>.<br />
-- <code>FOLLOWING_VERSION</code> is the upcoming official version to be used after release is finalized (i.e. <code>0.6.3</code> if the current latest release is <code>0.6.2</code>). 
-It has <code>MAJOR.MINOR.PATCH</code> format.
-- <code>DATE</code> - date of the commit release in <code>yyyyMMdd</code> format.
-- <code>TIME</code> - time of the commit release in <code>HHmmss</code> format.
-- <code>COMMIT</code> - short commit hash of the commit used in the release.</p>
+<p>Artifact id for commit releases have the next format: <code>FOLLOWING_VERSION-DATE-TIME.COMMIT</code>.  </p>
+<ul>
+<li><code>FOLLOWING_VERSION</code> is the upcoming official version to be used after release is finalized (i.e. <code>0.6.3</code> if the current latest release is <code>0.6.2</code>). 
+It has <code>MAJOR.MINOR.PATCH</code> format.</li>
+<li><code>DATE</code> - date of the commit release in <code>yyyyMMdd</code> format.</li>
+<li><code>TIME</code> - time of the commit release in <code>HHmmss</code> format.</li>
+<li><code>COMMIT</code> - short commit hash of the commit used in the release.</li>
+</ul>
 <p>Dependencies example:</p>
 <div class="tabbed-set" data-tabs="2:2">
 <input name="__tabbed_2" type="radio" id="__tabbed_2_1" checked="checked" /><label for="__tabbed_2_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>janusgraph-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.6.3-20221207-100250.39839b810<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.6.3-20230104-164606.a49366e<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
-<input name="__tabbed_2" type="radio" id="__tabbed_2_2" /><label for="__tabbed_2_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.3-20221207-100250.39839b810&quot;</span>
+<input name="__tabbed_2" type="radio" id="__tabbed_2_2" /><label for="__tabbed_2_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-core:0.6.3-20230104-164606.a49366e&quot;</span>
 </code></pre></div></div>
 </div>
 <h2 id="janusgraph-distribution-builds">JanusGraph distribution builds</h2>
