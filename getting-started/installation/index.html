@@ -270,6 +270,26 @@
     Running JanusGraph inside a Docker container
   </a>
   
+    <nav class="md-nav" aria-label="Running JanusGraph inside a Docker container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-inside-another-docker-container" class="md-nav__link">
+    Running Gremlin Console inside another Docker container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-on-bare-metal" class="md-nav__link">
+    Running Gremlin Console on Bare-metal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1362,6 +1382,26 @@
     Running JanusGraph inside a Docker container
   </a>
   
+    <nav class="md-nav" aria-label="Running JanusGraph inside a Docker container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-inside-another-docker-container" class="md-nav__link">
+    Running Gremlin Console inside another Docker container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-on-bare-metal" class="md-nav__link">
+    Running Gremlin Console on Bare-metal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1433,10 +1473,14 @@
 <p>For virtualization and easy access, JanusGraph provides a <a href="https://hub.docker.com/r/janusgraph/janusgraph">Docker image</a>.
 Docker makes it easier to run servers and clients on a single machine without dealing with multiple installations.
 For instructions on installing and using Docker, please refer to the <a href="https://docker.com/get-started">docker guide</a>.
-Let's try running a simple JanusGraph instance in Docker:
-<div class="highlight"><pre><span></span><code>$ docker run -it -p <span class="m">8182</span>:8182 janusgraph/janusgraph
+With JanusGraph Server running in one container, we can either run the client in another container, or on our bare-metal machine.
+In the examples below, we use Gremlin Console as the client.</p>
+<h3 id="running-gremlin-console-inside-another-docker-container">Running Gremlin Console inside another Docker container</h3>
+<p>Let's start by running a simple JanusGraph instance in Docker:</p>
+<div class="highlight"><pre><span></span><code>$ docker run --name janusgraph-default janusgraph/janusgraph:latest
 </code></pre></div>
-We run the image interactively and request Docker to make the container's port <code>8182</code> available for us to see.
+
+<p>The above command launches a JanusGraph Server instance. We name the container so that we can link a second container to it.
 The server may need a few seconds to start up so be patient and wait for the corresponding log messages to appear.</p>
 <details class="note"><summary>Example log</summary><div class="highlight"><pre><span></span><code>SLF4J: Class path contains multiple SLF4J bindings.
 SLF4J: Found binding in [jar:file:/opt/janusgraph/lib/slf4j-log4j12-1.7.12.jar!/org/slf4j/impl/StaticLoggerBinder.class]
@@ -1457,21 +1501,8 @@ SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
 </code></pre></div>
 
 </details>
-<p>We can now start a Gremlin Console on our local device and try to connect to the new server:
-<div class="highlight"><pre><span></span><code>$ bin/gremlin.sh
-
-         <span class="se">\,</span>,,/
-         <span class="o">(</span>o o<span class="o">)</span>
------oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
-gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
-<span class="o">==</span>&gt;Configured localhost/127.0.0.1:8182
-</code></pre></div>
-Notice that the client side of this works exactly the same as before when running both the client and server locally without Docker.</p>
-<p>Conveniently, it's also possible to run both the server and the client within separate Docker containers.
-We therefore instantiate a container for the server:
-<div class="highlight"><pre><span></span><code>$ docker run --name janusgraph-default janusgraph/janusgraph:latest
-</code></pre></div>
-We can now instruct Docker to start a second container for the client and link it to the already running server.
+<p>We can now instruct Docker to start a second container for the client and link it to the already running server. Here we
+use Gremlin Console (<code>gremlin.sh</code>) as the client.</p>
 <div class="highlight"><pre><span></span><code>$ docker run --rm --link janusgraph-default:janusgraph -e <span class="nv">GREMLIN_REMOTE_HOSTS</span><span class="o">=</span>janusgraph <span class="se">\</span>
     -it janusgraph/janusgraph:latest ./bin/gremlin.sh
 
@@ -1481,8 +1512,38 @@ We can now instruct Docker to start a second container for the client and link i
 gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
 <span class="o">==</span>&gt;Configured janusgraph/172.17.0.2:8182
 </code></pre></div>
-Notice how it's not necessary to bind any ports in order to make this example work.
-For further reading, see the <a href="../../operations/server/">JanusGraph Server</a> section as well as the <a href="https://github.com/JanusGraph/janusgraph-docker/blob/master/README.md">JanusGraph Docker documentation</a>.</p>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The above command only establishes the connection to the server.
+It does not forward the following commands to the server by default!
+As a result, further commands will still be executed locally unless preceeded by <code>:&gt;</code>.</p>
+<p>To forward every command to the remote server, use the <code>:remote console</code> command.
+Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.5.3/reference/#console-remote-console">TinkerPop reference docs</a></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Due to a known <a href="https://github.com/JanusGraph/janusgraph-docker/issues/123">issue</a>, <code>gremlin.sh</code> won't work in ARM
+containers.</p>
+</div>
+<h3 id="running-gremlin-console-on-bare-metal">Running Gremlin Console on Bare-metal</h3>
+<p>We can also run the Gremlin Console on our bare-metal machine. To make the server able to communicate with the gremlin
+console, we need to expose the 8182 port when launching JanusGraph Server:</p>
+<div class="highlight"><pre><span></span><code>$ docker run -it -p <span class="m">8182</span>:8182 janusgraph/janusgraph
+</code></pre></div>
+
+<p>We can now start a Gremlin Console and try to connect to the server. We need to download the released zip archive and
+launch the gremlin console (see <a href="./#local-installation">local installation</a> section for details):</p>
+<div class="highlight"><pre><span></span><code>$ bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
+<span class="o">==</span>&gt;Configured localhost/127.0.0.1:8182
+</code></pre></div>
+
+<p>For further reading, see the <a href="../../operations/server/">JanusGraph Server</a> section as well as the <a href="https://github.com/JanusGraph/janusgraph-docker/blob/master/README.md">JanusGraph Docker documentation</a>.</p>
 <h2 id="local-installation">Local Installation</h2>
 <p>In order to run JanusGraph, Java 8 SE is required.
 Make sure the <code>$JAVA_HOME</code> environment variable points to the correct location where either JRE or JDK is installed.
@@ -1541,14 +1602,6 @@ This is done by using the <code>:remote</code> command:
 </code></pre></div>
 As you can probably tell from the log, the client and server are running on the same machine in this case.
 When using a different setup, all you have to do is modify the parameters in the <code>conf/remote.yaml</code> file.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The above command only establishes the connection to the server.
-It does not forward the following commands to the server by default!
-As a result, further commands will still be executed locally unless preceeded by <code>:&gt;</code>.</p>
-<p>To forward every command to the remote server, use the <code>:remote console</code> command.
-Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.5.3/reference/#console-remote-console">TinkerPop reference docs</a></p>
-</div>
 <h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
