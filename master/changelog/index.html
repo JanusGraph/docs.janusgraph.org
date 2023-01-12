@@ -1349,6 +1349,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#new-index-management" class="md-nav__link">
+    New index management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#add-support-for-java-11" class="md-nav__link">
     Add support for Java 11
   </a>
@@ -2252,6 +2259,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-index-management" class="md-nav__link">
+    New index management
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#add-support-for-java-11" class="md-nav__link">
@@ -3260,6 +3274,9 @@ More information can be found in this GitHub issue:
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.0.0/janusgraph-full-1.0.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="new-index-management">New index management</h5>
+<p>The index management has received an overhaul which enables proper index removal.
+The schema action <code>REMOVE_INDEX</code> is no longer available and has been replaced by <code>DISCARD_INDEX</code>.</p>
 <h5 id="add-support-for-java-11">Add support for Java 11</h5>
 <p>JanusGraph now officially supports Java 11 in addition to Java 8. We encourage everyone to update to Java 11.</p>
 <div class="admonition note">

@@ -1566,7 +1566,7 @@ the steps to run a reindex job using this class:</p>
 <li>If the index has not yet been enabled, enable it through <code>JanusGraphManagement</code></li>
 </ul>
 <p>This class implements an <code>updateIndex</code> method that supports only the
-<code>REINDEX</code> and <code>REMOVE_INDEX</code> actions for its <code>SchemaAction</code> parameter.
+<code>REINDEX</code> and <code>DISCARD_INDEX</code> actions for its <code>SchemaAction</code> parameter.
 The class starts a Hadoop MapReduce job using the Hadoop configuration
 and jars on the classpath. Both Hadoop 1 and 2 are supported. This class
 gets metadata about the index and storage backend (e.g. the Cassandra
@@ -1687,7 +1687,7 @@ ManagementSystem, and finally enables and uses the index:
 <span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">)</span>
 <span class="n">m</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 
-<span class="c1">// Enable the index</span>
+<span class="c1">// Wait for the index to be enabled</span>
 <span class="n">ManagementSystem</span><span class="o">.</span><span class="na">awaitGraphIndexStatus</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="s1">&#39;names&#39;</span><span class="o">).</span><span class="na">status</span><span class="o">(</span><span class="n">SchemaStatus</span><span class="o">.</span><span class="na">ENABLED</span><span class="o">).</span><span class="na">call</span><span class="o">()</span>
 
 <span class="c1">// Run a query -- JanusGraph will use the new index, no planner warning</span>
@@ -1707,10 +1707,10 @@ ManagementSystem, and finally enables and uses the index:
 built, the job might fail with an exception like one of the following:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">The</span> <span class="k">index</span> <span class="n">mixedExample</span> <span class="k">is</span> <span class="k">in</span> <span class="n">an</span> <span class="n">invalid</span> <span class="k">state</span> <span class="k">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">indexed</span><span class="p">.</span>
 <span class="n">The</span> <span class="n">following</span> <span class="k">index</span> <span class="n">keys</span> <span class="n">have</span> <span class="n">invalid</span> <span class="n">status</span><span class="p">:</span> <span class="k">desc</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span>
-<span class="p">(</span><span class="n">status</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">])</span>
+<span class="p">(</span><span class="n">status</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">,</span> <span class="n">DISABLED</span><span class="p">])</span>
 
 <span class="n">The</span> <span class="k">index</span> <span class="n">mixedExample</span> <span class="k">is</span> <span class="k">in</span> <span class="n">an</span> <span class="n">invalid</span> <span class="k">state</span> <span class="k">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">indexed</span><span class="p">.</span>
-<span class="n">The</span> <span class="k">index</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span><span class="p">,</span> <span class="n">but</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">]</span> <span class="k">is</span> <span class="n">required</span>
+<span class="n">The</span> <span class="k">index</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span><span class="p">,</span> <span class="n">but</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">,</span> <span class="n">DISABLED</span><span class="p">]</span> <span class="k">is</span> <span class="n">required</span>
 </code></pre></div>
 
 
