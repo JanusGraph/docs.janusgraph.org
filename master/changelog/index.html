@@ -3331,10 +3331,11 @@ Users who do not use GraphBinary yet or who are not using Geoshapes are not affe
 <h5 id="configuredgraphfactory-now-creates-separate-indices-per-graph-in-elasticsearch">ConfiguredGraphFactory now creates separate indices per graph in Elasticsearch</h5>
 <p>If the ConfiguredGraphFactory is used together with Elasticsearch as the index backend, then the same Elasticsearch
 index is used for all graphs (if the same index names were used across different graphs).
-Now it is possible to let JanusGraph create the index names dynamically by using the <code>graph.graphname</code> if no <code>index.name</code>
-is provided in the template configuration. This is exactly like it was already the case for the CQL keyspace name for
-example.</p>
-<p>Users who don't want to use this feature can simply continue providing the <code>index.name</code> in the template configuration.</p>
+Now it is possible to let JanusGraph create the index names dynamically by using the <code>graph.graphname</code> if no
+<code>index.[X].index-name</code> is provided in the template configuration. This is exactly like it was already the case for the
+CQL keyspace name for example.</p>
+<p>Users who don't want to use this feature can simply continue providing the index name via <code>index.[X].index-name</code> in the
+template configuration.</p>
 <h5 id="remove-support-for-old-serialization-format-of-janusgraph-predicates">Remove support for old serialization format of JanusGraph predicates</h5>
 <p>We are dropping support for old serialization format of JanusGraph predicates. The old predicates serialization format is only used by client older than 0.6.
 The change only affects GraphSON.</p>
