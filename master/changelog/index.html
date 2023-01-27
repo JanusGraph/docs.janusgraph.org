@@ -1452,6 +1452,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
+    Add support for ElasticSearch 8
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2364,6 +2371,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
+    Add support for ElasticSearch 8
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3135,7 +3149,7 @@ use the latest versions of the software.</p>
 <td>3.11.z, 4.0.z</td>
 <td>2.5.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
-<td>6.y, 7.y</td>
+<td>6.y, 7.y, 8.y</td>
 <td>8.y</td>
 <td>3.6.z</td>
 <td>3.2.z</td>
@@ -3240,7 +3254,7 @@ use the latest versions of the software.</p>
 <li>Apache Cassandra 3.11.10, 4.0.6</li>
 <li>Apache HBase 2.5.0</li>
 <li>Oracle BerkeleyJE 7.5.11</li>
-<li>Elasticsearch 6.0.1, 6.6.0, 7.17.5</li>
+<li>Elasticsearch 6.0.1, 6.6.0, 7.17.8, 8.6.0</li>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
 <li>Apache TinkerPop 3.6.1</li>
@@ -3357,6 +3371,18 @@ In this case, if the accurate result is essential, the optimization can be disab
 <li>RemovableRelationIterator class</li>
 <li>ImmutableConfiguration class</li>
 </ul>
+<h5 id="add-support-for-elasticsearch-8">Add support for ElasticSearch 8</h5>
+<p>JanusGraph now supports ElasticSearch 8. <br />
+Notice, <code>Mapping.PREFIX_TREE</code> mapping is no longer available for Geoshape mappings using new ElasticSearch 8 indices.<br />
+<code>Mapping.PREFIX_TREE</code> is still supported in ElasticSearch 6, ElasticSearch 7, Solr, Lucene.   <br />
+For ElasticSearch the new Geoshape mapping was added <code>Mapping.BKD</code>.<br />
+It's recommended to use <code>Mapping.BKD</code> mapping due to better performance characteristics over <code>Mapping.PREFIX_TREE</code>. <br />
+The downside of <code>Mapping.BKD</code> is that it doesn't support Circle shapes. Thus, JanusGraph provides BKD Circle processors 
+to convert Circle into other shapes for indexing but use Circle at the storage level. More information about 
+Circle processors available under configuration namespace <code>index.[X].bkd-circle-processor</code>.  <br />
+ElasticSearch 8 doesn't allow creating new indexes with <code>Mapping.PREFIX_TREE</code> mapping, but the existing indices 
+using <code>Mapping.PREFIX_TREE</code> will work in ElasticSearch 8 after migration. See 
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/migrating-8.0.html#geo-shape-strategy">ElasticSearch 8 migration guide</a>.</p>
 <h3 id="version-063-release-date">Version 0.6.3 (Release Date: ???)</h3>
 <div class="tabbed-set" data-tabs="18:2">
 <input name="__tabbed_18" type="radio" id="__tabbed_18_1" checked="checked" /><label for="__tabbed_18_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
