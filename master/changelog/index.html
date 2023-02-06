@@ -1398,6 +1398,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#batch-processing-enabled-by-default" class="md-nav__link">
+    Batch Processing enabled by default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#breaking-change-for-geoshape-graphbinary-serialization" class="md-nav__link">
     Breaking change for Geoshape GraphBinary serialization
   </a>
@@ -2312,6 +2319,13 @@
           <li class="md-nav__item">
   <a href="#drop-support-for-gryo-messageserializer" class="md-nav__link">
     Drop support for Gryo MessageSerializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-enabled-by-default" class="md-nav__link">
+    Batch Processing enabled by default
   </a>
   
 </li>
@@ -3316,6 +3330,19 @@ an embeded Cassandra, you have to exclude the <code>cassandra-hadoop-util</code>
 <p>Support for Gryo MessageSerializer <a href="https://tinkerpop.apache.org/docs/3.6.1/upgrade/#_removed_gryo_messageserializers">has been dropped in TinkerPop 3.6.0</a>
 and we therefore also no longer support it in JanusGraph.
 GraphBinary is now used as the default MessageSerializer.hb</p>
+<h5 id="batch-processing-enabled-by-default">Batch Processing enabled by default</h5>
+<p><a href="https://docs.janusgraph.org/operations/batch-processing/">Batch processing</a> allows JanusGraph to fetch a batch of
+vertices from the storage backend together instead of requesting each vertex individually which leads to a high number
+of backend queries.
+This was however disabled by default in JanusGraph because these batches could become much larger than what was needed
+for the traversal and therefore have a negative performance impact for some traversals.
+That is why an improved batch processing mode was added in JanusGraph 0.6.0 that limits the size of these batches
+retrieved from the storage backend, called
+<a href="https://docs.janusgraph.org/operations/batch-processing/#limited-batch-processing"><em>Limited Batch Processing</em></a>.
+This mode therefore solves the problem of having potentially unlimited batch sizes.
+That is why we now enable this mode by default as most users should benefit from this limited batch processing.</p>
+<p>If you want to continue using JanusGraph without batch processing, then you have to manually disable it by setting
+<code>query.batch</code> to <code>false</code>.</p>
 <h5 id="breaking-change-for-geoshape-graphbinary-serialization">Breaking change for Geoshape GraphBinary serialization</h5>
 <p>Support for the <a href="http://tinkerpop.apache.org/docs/3.6.1/dev/io/#graphbinary">GraphBinary</a> serialization format was
 added in JanusGraph 0.6.0. This also included support to serialize Geoshapes via GraphBinary. The implementation of the

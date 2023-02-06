@@ -2978,7 +2978,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>query.batch</td>
 <td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend.</td>
 <td>Boolean</td>
-<td>false</td>
+<td>true</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
@@ -3034,7 +3034,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>query.limit-batch-size</td>
 <td>Configure a maximum batch size for queries against the storage backend. This can be used to ensure responsiveness if batches tend to grow very large. The used batch size is equivalent to the barrier size of a preceding barrier() step. If a step has no preceding barrier(), the default barrier of TinkerPop will be inserted. This option only takes effect if query.batch is enabled.</td>
 <td>Boolean</td>
-<td>false</td>
+<td>true</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
