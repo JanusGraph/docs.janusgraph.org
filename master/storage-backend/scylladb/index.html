@@ -943,6 +943,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#usage-of-scylla-optimized-driver" class="md-nav__link">
+    Usage of Scylla optimized driver
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage of Scylla optimized driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-scylla-driver-in-janusgraph-server-provided-via-the-standard-distribution-builds" class="md-nav__link">
+    Using Scylla driver in JanusGraph Server provided via the standard distribution builds
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1343,6 +1363,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#usage-of-scylla-optimized-driver" class="md-nav__link">
+    Usage of Scylla optimized driver
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage of Scylla optimized driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-scylla-driver-in-janusgraph-server-provided-via-the-standard-distribution-builds" class="md-nav__link">
+    Using Scylla driver in JanusGraph Server provided via the standard distribution builds
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1384,6 +1424,65 @@ Homepage</a></p>
 <li>Spinning up a three-node Scylla Cluster and setting it as the data storage for the JanusGraph server</li>
 <li>Performing some basic graph operations</li>
 </ul>
+<h2 id="usage-of-scylla-optimized-driver">Usage of Scylla optimized driver</h2>
+<p>JanusGraph provides <code>scylla</code> <code>storage.backend</code> options in addition to generic <code>cql</code> option.<br />
+ScyllaDB can work using any of those storage options, but the dedicated <code>scylla</code> backend is better optimized 
+for ScyllaDB. Thus, it's recommended to use <code>scylla</code> backend option with ScyllaDB whenever possible.<br />
+<code>scylla</code> storage option is included in <code>janusgraph-scylla</code> library but this library isn't shipped via <code>janusgraph-all</code> 
+and this library is not part of the provided JanusGraph distributions.<br />
+To make <code>scylla</code> option available in JanusGraph it's necessary to replace <code>org.janusgraph:janusgraph-cql</code> 
+with <code>org.janusgraph:janusgraph-scylla</code> if JanusGraph is used in Embedded Mode.   </p>
+<p>In case <code>janusgraph-all</code> dependency is used instead of explicit JanusGraph dependencies then the replacement to
+<code>org.janusgraph:janusgraph-scylla</code> can be done like below.</p>
+<div class="tabbed-set" data-tabs="1:2">
+<input name="__tabbed_1" type="radio" id="__tabbed_1_1" checked="checked" /><label for="__tabbed_1_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!-- Exclude `janusgraph-cql` from `janusgraph-all` --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>janusgraph-all<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;exclusions&gt;</span>
+            <span class="nt">&lt;exclusion&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>janusgraph-cql<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;/exclusion&gt;</span>
+        <span class="nt">&lt;/exclusions&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="c">&lt;!-- Include `janusgraph-scylla` --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>janusgraph-scylla<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+<input name="__tabbed_1" type="radio" id="__tabbed_1_2" /><label for="__tabbed_1_2">Gradle</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="cm">/* Exclude `janusgraph-cql` from `janusgraph-all` */</span>
+<span class="n">compile</span><span class="o">(</span><span class="s2">&quot;org.janusgraph:janusgraph-all:1.0.0&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">exclude</span> <span class="nl">group:</span> <span class="s1">&#39;org.janusgraph&#39;</span><span class="o">,</span> <span class="nl">module:</span> <span class="s1">&#39;janusgraph-cql&#39;</span>
+<span class="o">}</span>
+<span class="cm">/* Include `janusgraph-scylla` */</span>
+<span class="n">compile</span> <span class="s2">&quot;org.janusgraph:janusgraph-scylla:1.0.0&quot;</span>
+</code></pre></div></div>
+</div>
+<h4 id="using-scylla-driver-in-janusgraph-server-provided-via-the-standard-distribution-builds">Using Scylla driver in JanusGraph Server provided via the standard distribution builds</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The manual process described below is temporary and should be replaced by automated process after the issue
+<a href="https://github.com/JanusGraph/janusgraph/issues/3580">janusgraph/janusgraph#3580</a> is resolved.</p>
+</div>
+<p>In case <code>scylla</code> storage option is needed to be used in JanusGraph distribution then it's necessary to replace the next libraries 
+in <code>lib</code> directory (all libraries can be downloaded via Maven Central Repository). 
+- <code>org.janusgraph:janusgraph-cql</code> with <code>org.janusgraph:janusgraph-scylla</code>
+- <code>org.janusgraph:cassandra-hadoop-util</code> with <code>org.janusgraph:scylla-hadoop-util</code>
+- <code>com.datastax.oss:java-driver-core</code> with <code>com.scylladb:java-driver-core</code>
+- <code>com.datastax.oss:java-driver-query-builder</code> with <code>com.scylladb:java-driver-query-builder</code>
+- <code>com.datastax.cassandra:cassandra-driver-core</code> with <code>com.scylladb:scylla-driver-core</code></p>
+<p>The versions of <code>com.scylladb:java-driver-core</code> and <code>com.scylladb:java-driver-query-builder</code> should be equal to the 
+version found in <code>pom.xml</code> of <code>org.janusgraph:janusgraph-scylla</code>. The version of <code>com.scylladb:scylla-driver-core</code> should 
+be equal to the version found in <code>org.janusgraph:scylla-hadoop-util</code>.</p>
+<p>After replacement is done it will be possible to use <code>scylla</code> as <code>storage.backend</code> options which will use the optimized 
+Scylla driver.</p>
                 
               
               

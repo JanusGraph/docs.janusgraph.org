@@ -1433,6 +1433,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
+    Add support for ElasticSearch 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-support-for-scylladb-driver" class="md-nav__link">
+    Add support for ScyllaDB driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -1456,13 +1470,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
-    Add support for ElasticSearch 8
-  </a>
   
 </li>
         
@@ -2359,6 +2366,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
+    Add support for ElasticSearch 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-support-for-scylladb-driver" class="md-nav__link">
+    Add support for ScyllaDB driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2382,13 +2403,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-support-for-elasticsearch-8" class="md-nav__link">
-    Add support for ElasticSearch 8
-  </a>
   
 </li>
         
@@ -3137,6 +3151,7 @@ use the latest versions of the software.</p>
 <th>Cassandra</th>
 <th>HBase</th>
 <th>Bigtable</th>
+<th>ScyllaDB</th>
 <th>Elasticsearch</th>
 <th>Solr</th>
 <th>TinkerPop</th>
@@ -3151,6 +3166,7 @@ use the latest versions of the software.</p>
 <td>3.0.z, 3.11.z</td>
 <td>1.6.z, 2.2.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
+<td>N/A</td>
 <td>6.y, 7.y</td>
 <td>7.y, 8.y</td>
 <td>3.5.z</td>
@@ -3163,6 +3179,7 @@ use the latest versions of the software.</p>
 <td>3.11.z, 4.0.z</td>
 <td>2.5.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
+<td>5.y</td>
 <td>6.y, 7.y, 8.y</td>
 <td>8.y</td>
 <td>3.6.z</td>
@@ -3171,6 +3188,12 @@ use the latest versions of the software.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Even so ScyllaDB is marked as <code>N/A</code> prior version 1.0.0 it was actually supported using <code>cql</code> storage option. 
+The only difference is that from version 1.0.0 JanusGraph officially supports ScyllaDB using <code>scylla</code> and <code>cql</code> 
+storage options and have extended test coverage for ScyllaDB. </p>
+</div>
 <h4 id="end-of-life">End-of-Life</h4>
 <p>The versions of JanusGraph listed below are outdated and will no longer receive bugfixes.</p>
 <table>
@@ -3181,6 +3204,7 @@ use the latest versions of the software.</p>
 <th>Cassandra</th>
 <th>HBase</th>
 <th>Bigtable</th>
+<th>ScyllaDB</th>
 <th>Elasticsearch</th>
 <th>Solr</th>
 <th>TinkerPop</th>
@@ -3195,6 +3219,7 @@ use the latest versions of the software.</p>
 <td>1.2.z, 2.0.z, 2.1.z</td>
 <td>0.98.z, 1.0.z, 1.1.z, 1.2.z</td>
 <td>0.9.z, 1.0.0-preZ, 1.0.0</td>
+<td>N/A</td>
 <td>1.5.z</td>
 <td>5.2.z</td>
 <td>3.2.z</td>
@@ -3207,6 +3232,7 @@ use the latest versions of the software.</p>
 <td>1.2.z, 2.0.z, 2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
 <td>0.98.z, 1.0.z, 1.1.z, 1.2.z, 1.3.z</td>
 <td>0.9.z, 1.0.0-preZ, 1.0.0</td>
+<td>N/A</td>
 <td>1.5-1.7.z, 2.3-2.4.z, 5.y, 6.y</td>
 <td>5.2-5.5.z, 6.2-6.6.z, 7.y</td>
 <td>3.2.z</td>
@@ -3219,6 +3245,7 @@ use the latest versions of the software.</p>
 <td>1.2.z, 2.0.z, 2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
 <td>1.0.z, 1.1.z, 1.2.z, 1.3.z, 1.4.z</td>
 <td>1.0.0, 1.1.0, 1.1.2, 1.2.0, 1.3.0, 1.4.0</td>
+<td>N/A</td>
 <td>1.5-1.7.z, 2.3-2.4.z, 5.y, 6.y</td>
 <td>5.2-5.5.z, 6.2-6.6.z, 7.y</td>
 <td>3.3.z</td>
@@ -3230,6 +3257,7 @@ use the latest versions of the software.</p>
 <td>2</td>
 <td>2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
 <td>1.2.z, 1.3.z, 1.4.z, 2.1.z</td>
+<td>N/A</td>
 <td>N/A</td>
 <td>5.y, 6.y</td>
 <td>7.y</td>
@@ -3243,6 +3271,7 @@ use the latest versions of the software.</p>
 <td>2.1.z, 2.2.z, 3.0.z, 3.11.z</td>
 <td>1.2.z, 1.3.z, 1.4.z, 2.1.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
+<td>N/A</td>
 <td>6.y, 7.y</td>
 <td>7.y</td>
 <td>3.4.z</td>
@@ -3268,6 +3297,7 @@ use the latest versions of the software.</p>
 <li>Apache Cassandra 3.11.10, 4.0.6</li>
 <li>Apache HBase 2.5.0</li>
 <li>Oracle BerkeleyJE 7.5.11</li>
+<li>ScyllaDB 5.1.4</li>
 <li>Elasticsearch 6.0.1, 6.6.0, 7.17.8, 8.6.0</li>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
@@ -3370,6 +3400,27 @@ The change only affects GraphSON.</p>
 <p>A new optimization has been added to compute aggregations (min, max, sum and avg) using mixed index engine (if the aggregation function follows an indexed query).
 If the index backend is Elasticsearch, a <code>double</code> value is used to hold the result. As a result, aggregations on long numbers greater than 2^53 are approximate.
 In this case, if the accurate result is essential, the optimization can be disabled by removing the strategy <code>JanusGraphMixedIndexAggStrategy</code>: <code>g.traversal().withoutStrategies(JanusGraphMixedIndexAggStrategy.class)</code>.</p>
+<h5 id="add-support-for-elasticsearch-8">Add support for ElasticSearch 8</h5>
+<p>JanusGraph now supports ElasticSearch 8. <br />
+Notice, <code>Mapping.PREFIX_TREE</code> mapping is no longer available for Geoshape mappings using new ElasticSearch 8 indices.<br />
+<code>Mapping.PREFIX_TREE</code> is still supported in ElasticSearch 6, ElasticSearch 7, Solr, Lucene.   <br />
+For ElasticSearch the new Geoshape mapping was added <code>Mapping.BKD</code>.<br />
+It's recommended to use <code>Mapping.BKD</code> mapping due to better performance characteristics over <code>Mapping.PREFIX_TREE</code>. <br />
+The downside of <code>Mapping.BKD</code> is that it doesn't support Circle shapes. Thus, JanusGraph provides BKD Circle processors
+to convert Circle into other shapes for indexing but use Circle at the storage level. More information about
+Circle processors available under configuration namespace <code>index.[X].bkd-circle-processor</code>.  <br />
+ElasticSearch 8 doesn't allow creating new indexes with <code>Mapping.PREFIX_TREE</code> mapping, but the existing indices
+using <code>Mapping.PREFIX_TREE</code> will work in ElasticSearch 8 after migration. See
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/migrating-8.0.html#geo-shape-strategy">ElasticSearch 8 migration guide</a>.</p>
+<h5 id="add-support-for-scylladb-driver">Add support for ScyllaDB driver</h5>
+<p>A new module <code>janusgraph-scylla</code> provides ability to run JanusGraph with ScyllaDB Driver which is an optimized
+fork version of DataStax Java Driver for ScyllaDB storage backend. <br />
+For ScyllaDB storage backend you can use either <code>janusgraph-scylla</code> or <code>janusgraph-cql</code> (which is a general CQL storage
+driver implementation). That said, it's recommended to use <code>janusgraph-scylla</code> for ScyllaDB due to the provided internal
+optimizations (more about ScyllaDB driver optimizations can be found <a href="https://docs.scylladb.com/stable/using-scylla/drivers/cql-drivers/scylla-java-driver.html">here</a>).</p>
+<p>Notice that <code>janusgraph-cql</code> and <code>janusgraph-scylla</code> are mutually exclusive. Use only one module at a time and never
+provide both dependencies in the same classpath. See <a href="../storage-backend/scylladb/">ScyllaDB Storage Backend documentation</a> for more
+information about how to make <code>scylla</code> <code>storage.backend</code> options available.</p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>
@@ -3399,18 +3450,6 @@ In this case, if the accurate result is essential, the optimization can be disab
 <li>RemovableRelationIterator class</li>
 <li>ImmutableConfiguration class</li>
 </ul>
-<h5 id="add-support-for-elasticsearch-8">Add support for ElasticSearch 8</h5>
-<p>JanusGraph now supports ElasticSearch 8. <br />
-Notice, <code>Mapping.PREFIX_TREE</code> mapping is no longer available for Geoshape mappings using new ElasticSearch 8 indices.<br />
-<code>Mapping.PREFIX_TREE</code> is still supported in ElasticSearch 6, ElasticSearch 7, Solr, Lucene.   <br />
-For ElasticSearch the new Geoshape mapping was added <code>Mapping.BKD</code>.<br />
-It's recommended to use <code>Mapping.BKD</code> mapping due to better performance characteristics over <code>Mapping.PREFIX_TREE</code>. <br />
-The downside of <code>Mapping.BKD</code> is that it doesn't support Circle shapes. Thus, JanusGraph provides BKD Circle processors 
-to convert Circle into other shapes for indexing but use Circle at the storage level. More information about 
-Circle processors available under configuration namespace <code>index.[X].bkd-circle-processor</code>.  <br />
-ElasticSearch 8 doesn't allow creating new indexes with <code>Mapping.PREFIX_TREE</code> mapping, but the existing indices 
-using <code>Mapping.PREFIX_TREE</code> will work in ElasticSearch 8 after migration. See 
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/migrating-8.0.html#geo-shape-strategy">ElasticSearch 8 migration guide</a>.</p>
 <h3 id="version-063-release-date">Version 0.6.3 (Release Date: ???)</h3>
 <div class="tabbed-set" data-tabs="18:2">
 <input name="__tabbed_18" type="radio" id="__tabbed_18_1" checked="checked" /><label for="__tabbed_18_1">Maven</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
