@@ -3449,21 +3449,21 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.cql.replication-factor</td>
-<td>The number of data replicas (including the original copy) that should be kept</td>
+<td>The number of data replicas (including the original copy) that should be kept. This options is used when storage.cql.replication-strategy-class is set to SimpleStrategy</td>
 <td>Integer</td>
 <td>1</td>
 <td>GLOBAL_OFFLINE</td>
 </tr>
 <tr>
 <td>storage.cql.replication-strategy-class</td>
-<td>The replication strategy to use for JanusGraph keyspace</td>
+<td>The replication strategy to use for JanusGraph keyspace. Available strategies: SimpleStrategy,NetworkTopologyStrategy.</td>
 <td>String</td>
 <td>SimpleStrategy</td>
 <td>FIXED</td>
 </tr>
 <tr>
 <td>storage.cql.replication-strategy-options</td>
-<td>Replication strategy options, e.g. factor or replicas per datacenter.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form.  A replication_factor set here takes precedence over one set with storage.cql.replication-factor</td>
+<td>Replication strategy options, e.g. factor or replicas per datacenter.  This list is interpreted as a map.  It must have an even number of elements in [key,val,key,val,...] form. This options is used when storage.cql.replication-strategy-class is set to NetworkTopologyStrategy. <code>replication_factor</code> can be used to specify a replication factor.</td>
 <td>String[]</td>
 <td>(no default value)</td>
 <td>FIXED</td>
