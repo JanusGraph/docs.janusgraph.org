@@ -1202,6 +1202,19 @@
     Log Configuration
   </a>
   
+    <nav class="md-nav" aria-label="Log Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-storage-backend" class="md-nav__link">
+    Custom storage backend
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1382,6 +1395,19 @@
   <a href="#log-configuration" class="md-nav__link">
     Log Configuration
   </a>
+  
+    <nav class="md-nav" aria-label="Log Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-storage-backend" class="md-nav__link">
+    Custom storage backend
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1569,6 +1595,39 @@ configuration of the number of threads to be used, the number of log
 records read in each batch, the read interval, and whether the
 transaction change records should automatically expire and be removed
 from the log after a configurable amount of time (TTL).</p>
+<p>An example configuration for user transaction log could look like below:</p>
+<div class="highlight"><pre><span></span><code><span class="na">log.user.backend</span><span class="o">=</span><span class="s">default</span>
+<span class="na">log.user.fixed-partition</span><span class="o">=</span><span class="s">false</span>
+<span class="na">log.user.max-read-time</span><span class="o">=</span><span class="s">10000 ms</span>
+<span class="na">log.user.max-write-time</span><span class="o">=</span><span class="s">5000 ms</span>
+<span class="na">log.user.read-batch-size</span><span class="o">=</span><span class="s">1024</span>
+<span class="na">log.user.read-interval</span><span class="o">=</span><span class="s">3000 ms</span>
+<span class="na">log.user.read-lag-time</span><span class="o">=</span><span class="s">2000 ms</span>
+<span class="na">log.user.read-threads</span><span class="o">=</span><span class="s">1</span>
+<span class="na">log.user.send-batch-size</span><span class="o">=</span><span class="s">256</span>
+<span class="na">log.user.send-delay</span><span class="o">=</span><span class="s">0 ms</span>
+<span class="na">log.user.ttl</span><span class="o">=</span><span class="s">120000 ms</span>
+</code></pre></div>
+
+<h4 id="custom-storage-backend">Custom storage backend</h4>
+<p>By default JanusGraph supports a single log backend implementation which is defined 
+by a reserved shortcut <code>default</code> in <code>log.user.backend</code> configuration option and has 
+the following class implementation <code>org.janusgraph.diskstorage.log.kcvs.KCVSLogManager</code>.  </p>
+<p><code>KCVSLogManager</code> reuses the graph's storage backend (defined by <code>storage.backend</code>) to store all logs.<br />
+Usually for default management-only operations the default storage backend is good enough to manage logs 
+and custom log storage backend is not necessary.<br />
+That said, in case User Transaction Log is used the underlying graph's storage backend might be far from optimal 
+in highly loaded applications for <code>log.user</code> log and a better storage might be preferred (i.e. Kafka or else). <br />
+Thus, JanusGraph allows providing custom log implementations via <code>log.[x].backend</code> option.<br />
+The custom log implementation needs to implement <code>org.janusgraph.diskstorage.log.LogManager</code> interface and the 
+implementation class has to have a public constructor which accepts <code>org.janusgraph.diskstorage.configuration.Configuration</code> 
+as a single parameter. </p>
+<p>The main purpose of that <code>LogManager</code> implementation is to open new logging implementations which extend 
+<code>org.janusgraph.diskstorage.log.Log</code> interface. 
+For example, logs opened by <code>KCVSLogManager</code> have <code>org.janusgraph.diskstorage.log.kcvs.KCVSLog</code> implementations 
+which manage logs inside graph's storage backend but the user may implement <code>Log</code> which uses Kafka storage backend or else.  </p>
+<p>To specify any custom log implementation it's necessary to provide full class path of the <code>LogManager</code> implementing class 
+via <code>log.[x].backend</code> configuration option.</p>
                 
               
               

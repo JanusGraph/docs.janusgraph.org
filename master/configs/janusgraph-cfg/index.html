@@ -2668,7 +2668,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>log.[X].backend</td>
-<td>Define the log backed to use</td>
+<td>Define the log backend to use. A reserved shortcut <code>default</code> can be used to use graph's storage backend to manage logs. A custom log implementation can be specified by providing full class path which implements <code>org.janusgraph.diskstorage.log.LogManager</code> and accepts a single parameter <code>org.janusgraph.diskstorage.configuration.Configuration</code> in the public constructor.</td>
 <td>String</td>
 <td>default</td>
 <td>GLOBAL_OFFLINE</td>
