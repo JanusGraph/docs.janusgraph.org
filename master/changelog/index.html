@@ -1454,6 +1454,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#disable-cql-executorservice-by-default" class="md-nav__link">
+    Disable CQL ExecutorService by default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2389,6 +2396,13 @@
           <li class="md-nav__item">
   <a href="#add-support-for-scylladb-driver" class="md-nav__link">
     Add support for ScyllaDB driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-cql-executorservice-by-default" class="md-nav__link">
+    Disable CQL ExecutorService by default
   </a>
   
 </li>
@@ -3455,6 +3469,13 @@ optimizations (more about ScyllaDB driver optimizations can be found <a href="ht
 <p>Notice that <code>janusgraph-cql</code> and <code>janusgraph-scylla</code> are mutually exclusive. Use only one module at a time and never
 provide both dependencies in the same classpath. See <a href="../storage-backend/scylladb/">ScyllaDB Storage Backend documentation</a> for more
 information about how to make <code>scylla</code> <code>storage.backend</code> options available.</p>
+<h5 id="disable-cql-executorservice-by-default">Disable CQL ExecutorService by default</h5>
+<p>Previously CQL ExecutorService was enabled by default mostly for historical reasons.<br />
+CQL ExecutorService managed by JanusGraph adds additional overhead without bringing any usefulness other than 
+limiting amount of parallel queries which can (and should) be controlled via the underlying CQL driver.  </p>
+<p>In case previous behaviour is desired then <code>storage.cql.executor-service.enabled</code> configuration option should be set to <code>true</code>, 
+but it's recommended to tune CQL queries parallelism using CQL driver configuration options (like <code>storage.cql.max-requests-per-connection</code>, 
+<code>storage.cql.local-max-connections-per-host</code>) and / or <code>storage.parallel-backend-ops.*</code> configuration options.  </p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>
