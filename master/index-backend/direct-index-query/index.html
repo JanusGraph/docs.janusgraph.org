@@ -1493,9 +1493,17 @@ Elasticsearch and Solr provide a shortcut that does not involve
 retrieving and ranking all documents. This shortcut is exposed through
 the ".vertexTotals()", ".edgeTotals()", and ".propertyTotals()" methods.</p>
 <p>The totals can be retrieved using the same query syntax as the
-indexQuery builder, but size is overwritten to be 0.
+indexQuery builder.
 <div class="highlight"><pre><span></span><code><span class="n">graph</span><span class="o">.</span><span class="na">indexQuery</span><span class="o">(</span><span class="s2">&quot;vertexByText&quot;</span><span class="o">,</span> <span class="s2">&quot;v.text:(farm uncle berry)&quot;</span><span class="o">).</span><span class="na">vertexTotals</span><span class="o">()</span>
 </code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In JanusGraph versions earlier than 1.0.0 provided <code>limit</code> and <code>offset</code> was ignored
+for any <code>totals</code> queries. Starting from JanusGraph 1.0.0 provided <code>limit</code> and <code>offset</code> are
+applied to the final <code>totals</code> result (<code>vertexTotals()</code>, <code>edgeTotals()</code>, <code>propertyTotals()</code> as well
+as internal JanusGraph method <code>IndexProvider.totals</code>). This was made to have consistent behaviour between
+<code>totals</code> and <code>stream</code> direct index queries.</p>
+</div>
 <h2 id="gotchas">Gotchas</h2>
 <h3 id="property-key-names">Property Key Names</h3>
 <p>Names of property keys that contain non-alphanumeric characters must be

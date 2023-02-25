@@ -1356,6 +1356,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#totals-for-direct-index-queries-now-applies-provided-offset-and-limit" class="md-nav__link">
+    totals for direct index queries now applies provided offset and limit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#add-support-for-java-11" class="md-nav__link">
     Add support for Java 11
   </a>
@@ -2284,6 +2291,13 @@
           <li class="md-nav__item">
   <a href="#new-index-management" class="md-nav__link">
     New index management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#totals-for-direct-index-queries-now-applies-provided-offset-and-limit" class="md-nav__link">
+    totals for direct index queries now applies provided offset and limit
   </a>
   
 </li>
@@ -3335,6 +3349,26 @@ More information can be found in this GitHub issue:
 <h5 id="new-index-management">New index management</h5>
 <p>The index management has received an overhaul which enables proper index removal.
 The schema action <code>REMOVE_INDEX</code> is no longer available and has been replaced by <code>DISCARD_INDEX</code>.</p>
+<h5 id="totals-for-direct-index-queries-now-applies-provided-offset-and-limit"><code>totals</code> for direct index queries now applies provided offset and limit</h5>
+<p>Direct index queries which search count for totals (<code>vertexTotals</code>, <code>edgeTotals</code>, <code>propertyTotals</code> and direct execution of 
+<code>IndexProvider.totals</code>) now apply provided <code>limit</code> and <code>offset</code>. Previously provided <code>limit</code> and <code>offset</code> were ignored.  <br />
+For example, previously the following query would return <code>500</code> if there were <code>500</code> indexed elements: </p>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">indexQuery</span><span class="o">(</span><span class="s2">&quot;textIndex&quot;</span><span class="o">,</span> <span class="s2">&quot;v.\&quot;text\&quot;:fooBar&quot;</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">vertexTotals</span><span class="o">()</span>
+</code></pre></div>
+
+<p>Now the above query will return <code>10</code> elements because we limited the result to <code>10</code> elements only.
+Same applies to <code>offset</code>. Previously the following query would return <code>500</code> if there were <code>500</code> indexed elements:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">indexQuery</span><span class="o">(</span><span class="s2">&quot;textIndex&quot;</span><span class="o">,</span> <span class="s2">&quot;v.\&quot;text\&quot;:fooBar&quot;</span><span class="o">).</span><span class="na">offset</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">vertexTotals</span><span class="o">()</span>
+</code></pre></div>
+
+<p>Now the above query will return <code>490</code> as a result because we skip count of the first <code>10</code> elements.  <br />
+<code>offset</code> provided with <code>limit</code> will apply <code>offset</code> first and <code>limit</code> last.<br />
+For example, the above query will return <code>10</code> elements now if there were <code>500</code> indexed elements:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">indexQuery</span><span class="o">(</span><span class="s2">&quot;textIndex&quot;</span><span class="o">,</span> <span class="s2">&quot;v.\&quot;text\&quot;:fooBar&quot;</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">offset</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">vertexTotals</span><span class="o">()</span>
+</code></pre></div>
+
+<p>The new logic is applied similarly to Direct Index Queries <code>vertexTotals()</code>, <code>edgeTotals()</code>, <code>propertyTotals()</code> as well 
+as internal JanusGraph method <code>IndexProvider.totals</code>.</p>
 <h5 id="add-support-for-java-11">Add support for Java 11</h5>
 <p>JanusGraph now officially supports Java 11 in addition to Java 8. We encourage everyone to update to Java 11.</p>
 <div class="admonition note">
