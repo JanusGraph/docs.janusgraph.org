@@ -1521,11 +1521,6 @@ As a result, further commands will still be executed locally unless preceeded by
 <p>To forward every command to the remote server, use the <code>:remote console</code> command.
 Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.6.2/reference/#console-remote-console">TinkerPop reference docs</a></p>
 </div>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Due to a known <a href="https://github.com/JanusGraph/janusgraph-docker/issues/123">issue</a>, <code>gremlin.sh</code> won't work in ARM
-containers.</p>
-</div>
 <h3 id="running-gremlin-console-on-bare-metal">Running Gremlin Console on Bare-metal</h3>
 <p>We can also run the Gremlin Console on our bare-metal machine. To make the server able to communicate with the gremlin
 console, we need to expose the 8182 port when launching JanusGraph Server:</p>
