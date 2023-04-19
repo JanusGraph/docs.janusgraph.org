@@ -1458,7 +1458,15 @@ whereas <code>user</code> is a normal label. This configuration is beneficial fo
 situations where there are thousands of products but millions of users
 and one records transactions between users and products. In that case,
 the product vertices will have a very high degree and the popular
-products turns into hot spots if they are not partitioned.</p>
+products turns into hot spots if they are not partitioned. However,
+products that don't have high degree are also partitioned,
+causing unnecessary overhead.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Vertex partition feature has high overhead and is not production-ready.
+We generally discourage usage of this feature. For more detail,
+see <a href="https://github.com/JanusGraph/janusgraph/discussions/2717">Discussion#2717</a>.</p>
+</div>
 <h2 id="graph-partitioning-faq">Graph Partitioning FAQ</h2>
 <h3 id="random-vs-explicit-partitioning">Random vs. Explicit Partitioning</h3>
 <p>When the graph is small or accommodated by a few storage instances, it
