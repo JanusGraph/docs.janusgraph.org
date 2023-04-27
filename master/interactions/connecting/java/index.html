@@ -1455,7 +1455,7 @@ used directly from a Java application through the dependency <code>janusgraph-dr
 <h2 id="consideration-for-accessing-the-management-api">Consideration for Accessing the Management API</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We are working to replace the Management API with a language acoustic solution, see <a href="../../../operations/management/">Management System</a></p>
+<p>We are working to replace the Management API with a language agnostic solution, see <a href="../../../operations/management/">Management System</a></p>
 </div>
 <p>The described connection uses <a href="http://tinkerpop.apache.org/docs/current/dev/io/#graphbinary">GraphBinary</a> and the <code>janusgraph-driver</code> which doesn't allow accessing the internal JanusGraph components such as <code>ManagementSystem</code>. To access the <code>ManagementSystem</code>, you have to submit java-based scripts, see <a href="https://tinkerpop.apache.org/docs/current/reference/#gremlin-java-scripts">Submitting Scripts</a>, or directly accessing JanusGraph by local opening a JanusGraph instance.</p>
                 
