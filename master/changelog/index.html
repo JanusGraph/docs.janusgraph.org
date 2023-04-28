@@ -1092,6 +1092,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1347,6 +1360,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-vertex-id-support" class="md-nav__link">
+    String vertex ID support
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#new-index-management" class="md-nav__link">
@@ -2294,6 +2314,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-vertex-id-support" class="md-nav__link">
+    String vertex ID support
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#new-index-management" class="md-nav__link">
@@ -3360,6 +3387,11 @@ More information can be found in this GitHub issue:
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.0.0/janusgraph-full-1.0.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="string-vertex-id-support">String vertex ID support</h5>
+<p>Users now can use custom string vertex ids. See <a href="../advanced-topics/custom-vertex-id/">Custom Vertex ID</a> documentation. Prior
+to this change, JanusGraph automatically casts IDs of string type to long type if possible. Now this
+auto conversion is disabled. If you have a vertex with ID 1234, <code>g.V("1234")</code> would no longer help you
+find the vertex - you would have to do <code>g.V(1234)</code> now.</p>
 <h5 id="new-index-management">New index management</h5>
 <p>The index management has received an overhaul which enables proper index removal.
 The schema action <code>REMOVE_INDEX</code> is no longer available and has been replaced by <code>DISCARD_INDEX</code>.</p>
