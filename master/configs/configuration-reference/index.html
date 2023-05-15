@@ -3536,10 +3536,17 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
-<td>query.limit-batch-size</td>
+<td>query.limited-batch</td>
 <td>Configure a maximum batch size for queries against the storage backend. This can be used to ensure responsiveness if batches tend to grow very large. The used batch size is equivalent to the barrier size of a preceding barrier() step. If a step has no preceding barrier(), the default barrier of TinkerPop will be inserted. This option only takes effect if query.batch is enabled.</td>
 <td>Boolean</td>
 <td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.limited-batch-size</td>
+<td>Default batch size (barrier() step size) for queries. This size is applied only for cases where <code>LazyBarrierStrategy</code> strategy didn't apply <code>barrier</code> step and where user didn't apply barrier step either. This option is used only when <code>query.limited-batch</code> is <code>true</code>. Notice, value <code>2147483647</code> is considered to be unlimited.</td>
+<td>Integer</td>
+<td>2500</td>
 <td>MASKABLE</td>
 </tr>
 <tr>

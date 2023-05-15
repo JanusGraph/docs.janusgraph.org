@@ -1625,7 +1625,7 @@ Breadth-First-Search.</p>
 <h3 id="steps-to-explicitly-configure-this-option_1">Steps to explicitly configure this option:</h3>
 <ul>
 <li>Ensure <code>query.batch</code> is set to <code>true</code></li>
-<li>Ensure <code>query.limit-batch-size</code> is set to <code>false</code></li>
+<li>Ensure <code>query.limited-batch</code> is set to <code>false</code></li>
 </ul>
 <h2 id="limited-batch-processing">Limited Batch Processing</h2>
 <p>Using this configuration, each step which traverses the Graph
@@ -1642,8 +1642,11 @@ construct multiple batches per step.</p>
 <p>Although batch size does not necessarily need to be configured,
 it can provide an additional tuning parameter to improve the
 performance of a query.
-By default, the batch size of <a href="https://tinkerpop.apache.org/docs/current/reference/#barrier-step">TinkerPop's barrier step</a>
-will be used, which is currently at 2500.
+By default, the batch size for <a href="https://tinkerpop.apache.org/docs/current/reference/#barrier-step">TinkerPop's barrier step</a>
+will be provided by <code>LazyBarrierStrategy</code>, which is currently at <code>2500</code>. 
+For batchable cases where <code>LazyBarrierStrategy</code> doesn't inject any <code>barrier</code> steps,
+the barrier step will be ingected with the size configured via <code>query.limited-batch-size</code> 
+(which defaults to <code>2500</code>, same as with <code>LazyBarrierStrategy</code>).<br />
 The batch size of each vertex step can be individually
 configured by prepending a <code>barrier(&lt;size&gt;)</code> step.
 For example, in the query below, the first <code>out()</code> step would
@@ -1692,7 +1695,7 @@ previous iteration.</p>
 <h3 id="steps-to-explicitly-configure-this-option_2">Steps to explicitly configure this option:</h3>
 <ul>
 <li>Ensure <code>query.batch</code> is set to <code>true</code></li>
-<li>Ensure <code>query.limit-batch-size</code> is set to <code>true</code></li>
+<li>Ensure <code>query.limited-batch</code> is set to <code>true</code></li>
 </ul>
                 
               

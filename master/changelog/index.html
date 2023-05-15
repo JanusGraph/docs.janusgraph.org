@@ -3547,6 +3547,10 @@ This mode therefore solves the problem of having potentially unlimited batch siz
 That is why we now enable this mode by default as most users should benefit from this limited batch processing.</p>
 <p>If you want to continue using JanusGraph without batch processing, then you have to manually disable it by setting
 <code>query.batch</code> to <code>false</code>.</p>
+<p><code>limit-batch-size</code> configuration option is changed to <code>limited-batch</code>. 
+A new configuration option <code>limited-batch-size</code> exists to configure default barrier step size for batch processing 
+for batch cases when <code>LazyBarrierStrategy</code> not applied <code>.barrier</code> step and no user-provided barrier step exists for 
+batchable query part. Notice, that <code>limited-batch-size</code> is only used when <code>limited-batch</code> is <code>true</code>.  </p>
 <h5 id="breaking-change-for-geoshape-graphbinary-serialization">Breaking change for Geoshape GraphBinary serialization</h5>
 <p>Support for the <a href="http://tinkerpop.apache.org/docs/3.6.1/dev/io/#graphbinary">GraphBinary</a> serialization format was
 added in JanusGraph 0.6.0. This also included support to serialize Geoshapes via GraphBinary. The implementation of the
