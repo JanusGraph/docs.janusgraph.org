@@ -1474,8 +1474,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disable-cql-executorservice-by-default" class="md-nav__link">
-    Disable CQL ExecutorService by default
+  <a href="#cql-executorservice-purpose-change" class="md-nav__link">
+    CQL ExecutorService purpose change
   </a>
   
 </li>
@@ -2475,8 +2475,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disable-cql-executorservice-by-default" class="md-nav__link">
-    Disable CQL ExecutorService by default
+  <a href="#cql-executorservice-purpose-change" class="md-nav__link">
+    CQL ExecutorService purpose change
   </a>
   
 </li>
@@ -3450,7 +3450,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li>Elasticsearch 6.0.1, 6.6.0, 7.17.8, 8.6.0</li>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
-<li>Apache TinkerPop 3.6.2</li>
+<li>Apache TinkerPop 3.6.4</li>
 <li>Java 8, 11</li>
 </ul>
 <div class="admonition note">
@@ -3599,13 +3599,14 @@ optimizations (more about ScyllaDB driver optimizations can be found <a href="ht
 <p>Notice that <code>janusgraph-cql</code> and <code>janusgraph-scylla</code> are mutually exclusive. Use only one module at a time and never
 provide both dependencies in the same classpath. See <a href="../storage-backend/scylladb/">ScyllaDB Storage Backend documentation</a> for more
 information about how to make <code>scylla</code> <code>storage.backend</code> options available.</p>
-<h5 id="disable-cql-executorservice-by-default">Disable CQL ExecutorService by default</h5>
-<p>Previously CQL ExecutorService was enabled by default mostly for historical reasons.<br />
-CQL ExecutorService managed by JanusGraph adds additional overhead without bringing any usefulness other than 
-limiting amount of parallel queries which can (and should) be controlled via the underlying CQL driver.  </p>
-<p>In case previous behaviour is desired then <code>storage.cql.executor-service.enabled</code> configuration option should be set to <code>true</code>, 
-but it's recommended to tune CQL queries parallelism using CQL driver configuration options (like <code>storage.cql.max-requests-per-connection</code>, 
-<code>storage.cql.local-max-connections-per-host</code>) and / or <code>storage.parallel-backend-ops.*</code> configuration options.  </p>
+<h5 id="cql-executorservice-purpose-change">CQL ExecutorService purpose change</h5>
+<p>Previously CQL ExecutorService was used to control parallelism of both CQL IO operations and results deserialization. 
+Starting from JanusGraph 1.0.0 CQL ExecutorService is now used for CQL results deserialization only. All CQL IO operations 
+are now using internal async approach.<br />
+The default pool size is now set to have a value of <code>number of cores multiplied by 2</code>. This ExecutorService is now 
+mandatory and cannot be disabled. The default ExecutorService core pool size is not recommended to be changed as 
+the default value is considered to be optimal unless users want to artificially limit parallelism of CQL results deserialization 
+jobs.</p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>

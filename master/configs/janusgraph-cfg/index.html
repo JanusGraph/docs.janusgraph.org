@@ -3335,6 +3335,20 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.cql.back-pressure-class</td>
+<td>The implementation of <code>QueryBackPressure</code> to use. The full name of the class which extends <code>QueryBackPressure</code> which has either a public constructor with <code>Configuration janusGraphConfiguration</code> and <code>Integer backPressureLimit</code> arguments (preferred constructor) or a public constructor with <code>Configuration janusGraphConfiguration</code> argument (second preferred constructor) or a public parameterless constructor. Other accepted options are:<br> <code>semaphore</code> - fair semaphore based back pressure implementation of <code>back-pressure-limit</code> limit size (preferred implementation);<br> <code>semaphoreReleaseProtected</code> - fair semaphore based back pressure implementation of <code>back-pressure-limit</code> limit size with protected releasing logic (meant to be used for testing);<br> <code>passAll</code> - turned off back pressure (it is recommended to tune CQL driver for the ongoing workload when this implementation is used);</td>
+<td>String</td>
+<td>semaphore</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.back-pressure-limit</td>
+<td>The maximum number of concurrent requests which are allowed to be processed by CQL driver. If no value is provided or the value is set to <code>0</code> then the value will be calculated based on CQL driver session provided parameters by using formula [advanced.connection.max-requests-per-connection * advanced.connection.pool.local.size * available_nodes_amount]. It's not recommended to use any value which is above this limit because it may result in CQL driver overload but it's suggested to have a lower value to keep the driver healthy under pressure. In situations when remote nodes connections are in use then the bigger value might be relevant as well to improve parallelism.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.cql.batch-statement-size</td>
 <td>The number of statements in each batch</td>
 <td>Integer</td>
@@ -3547,7 +3561,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tbody>
 </table>
 <h3 id="storagecqlexecutor-service">storage.cql.executor-service</h3>
-<p>Configuration options for CQL executor service which is used to process CQL queries.</p>
+<p>Configuration options for CQL executor service which is used to process deserialization of CQL queries.</p>
 <table>
 <thead>
 <tr>
@@ -3568,16 +3582,9 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.cql.executor-service.core-pool-size</td>
-<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).</td>
+<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).If not set or set to -1 the core pool size will be equal to number of processors multiplied by 2.</td>
 <td>Integer</td>
-<td>10</td>
-<td>LOCAL</td>
-</tr>
-<tr>
-<td>storage.cql.executor-service.enabled</td>
-<td>Whether to use CQL executor service to process queries or not. If not used, the parallelism will be controlled internally by the CQL driver via <code>storage.cql.max-requests-per-connection</code> parameter which may be preferable in production environments. Disabling executor service reduces overhead of thread pool but might be more difficult to tune.</td>
-<td>Boolean</td>
-<td>false</td>
+<td>(no default value)</td>
 <td>LOCAL</td>
 </tr>
 <tr>
@@ -4167,7 +4174,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>storage.parallel-backend-executor-service.core-pool-size</td>
-<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).If not set the core pool size will be equal to number of processors multiplied by 2.</td>
+<td>Core pool size for executor service. May be ignored if custom executor service is used (depending on the implementation of the executor service).If not set or set to -1 the core pool size will be equal to number of processors multiplied by 2.</td>
 <td>Integer</td>
 <td>(no default value)</td>
 <td>LOCAL</td>

@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#backend-executorservice" class="md-skip">
+        <a href="#executorservice" class="md-skip">
           Skip to content
         </a>
       
@@ -1216,8 +1216,28 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#backend-executorservice" class="md-nav__link">
+    Backend ExecutorService
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend ExecutorService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#custom-executorservice" class="md-nav__link">
     Custom ExecutorService
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra-backend-executorservice" class="md-nav__link">
+    Cassandra backend ExecutorService
   </a>
   
 </li>
@@ -1324,8 +1344,28 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#backend-executorservice" class="md-nav__link">
+    Backend ExecutorService
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend ExecutorService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#custom-executorservice" class="md-nav__link">
     Custom ExecutorService
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra-backend-executorservice" class="md-nav__link">
+    Cassandra backend ExecutorService
   </a>
   
 </li>
@@ -1347,19 +1387,27 @@
                   </a>
                 
                 
-                <h1 id="backend-executorservice">Backend ExecutorService</h1>
-<p>By default JanusGraph uses <code>ExecutorService</code> to process some queries in parallel 
-(see <code>storage.parallel-backend-ops</code> configuration option).<br />
-JanusGraph allows to configure the executor service which is used via configuration options 
+                <h1 id="executorservice">ExecutorService</h1>
+<h2 id="backend-executorservice">Backend ExecutorService</h2>
+<p>By default, JanusGraph uses <code>ExecutorService</code> to process some queries in parallel for storage backend implementations 
+which don't support multi-key queries (see <code>storage.parallel-backend-ops</code> configuration option). </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Officially supported backends: <code>Cassandra</code>, <code>HBase</code>, <code>ScyllaDB</code>, <code>Bigtable</code> have multi-key queries support. Thus, 
+these backend implementations ignore <code>storage.parallel-backend-ops</code> configuration and instead use multi-key queries.<br />
+<code>BerkeleyDB</code> and <code>in-memory</code> storage backends don't have multi-key queries support. Thus, backend-ops executor 
+service can be used for such storage backends.</p>
+</div>
+<p>JanusGraph allows to configure the executor service which is used via configuration options 
 provided in <code>storage.parallel-backend-executor-service</code> configuration section.</p>
-<p>Currently JanusGraph has the next ExecutorService implementations which can be used (controlled via 
+<p>Currently, JanusGraph has the following ExecutorService implementations which can be used (controlled via 
 <code>storage.parallel-backend-executor-service.class</code>):</p>
 <ul>
 <li><code>fixed</code> - fixed thread pool size;</li>
 <li><code>cached</code> - cached thread pool size;</li>
 <li>Custom ExecutorService;</li>
 </ul>
-<h2 id="custom-executorservice">Custom ExecutorService</h2>
+<h4 id="custom-executorservice">Custom ExecutorService</h4>
 <p>To use custom <code>ExecutorService</code> the configuration option <code>storage.parallel-backend-executor-service.class</code> must be 
 provided which must be the full class name of the <code>ExecutorService</code> implementation class.</p>
 <p>The provided class which implements <code>ExecutorService</code> must have either a public constructor with
@@ -1370,24 +1418,21 @@ When both constructors are available the constructor with <code>ExecutorServiceC
 use any of the configuration options provided in <code>ExecutorServiceConfiguration</code> but sometimes it is
 convenient to use the provided configurations. The configuration options provided in <code>ExecutorServiceConfiguration</code> 
 are typically those configuration options which are provided via configurations from <code>storage.parallel-backend-executor-service</code>.</p>
-<h1 id="cassandra-backend-executorservice">Cassandra backend ExecutorService</h1>
-<p>Apart from the general executor service mentioned in the previous section, Cassandra backend uses an additional 
-<code>ExecutorService</code> to process CQL queries by default (see <code>storage.cql.executor-service.enabled</code> configuration option).<br />
+<h2 id="cassandra-backend-executorservice">Cassandra backend ExecutorService</h2>
+<p>Although Cassandra backend doesn't use <code>storage.parallel-backend-executor-service</code> due to having multi-key queries support, it 
+has its own internal ExecutorService for queries deserialization processing.<br />
+Usually it's not recommended to configure this executor service because it's considered to be optimal by default.<br />
+In case when the default executor service doesn't fit user's use-case for any reason, the configuration options under 
+<code>storage.cql.executor-service</code> can be used to modify it.<br />
 The rules by which the Cassandra backend <code>ExecutorService</code> is built are the 
 same as the rules which are used to build parallel backend queries <code>ExecutorService</code> (described above). 
 The only difference is that the configuration for Cassandra backend <code>ExecutorService</code> are provided via configuration 
-options under <code>storage.cql.executor-service</code>.<br />
-Disabling CQL executor service reduces overhead of thread pool but requires the user to tune maximum throughput thoroughly.<br />
-With disabled CQL executor service the parallelism will be controlled internally by the CQL driver via the next properties: 
-<code>storage.cql.max-requests-per-connection</code>, <code>storage.cql.local-max-connections-per-host</code>, <code>storage.cql.remote-max-connections-per-host</code>. </p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>It is recommended to disable CQL executor service in a production environment and properly configure maximum throughput. 
-CQL executor service does not provide any benefits other than limiting the amount of parallel requests per JanusGraph instance.</p>
-</div>
+options under <code>storage.cql.executor-service</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Improper tuning of maximum throughput might result in failures under heavy workloads.</p>
+<p>By default, <code>storage.cql.executor-service</code> is configured to have a core pool size of number of processors multiplied 
+by 2. It's recommended to always use the default value unless there is a reason to artificially limit parallelism for 
+CQL slice query deserialization.</p>
 </div>
                 
               
