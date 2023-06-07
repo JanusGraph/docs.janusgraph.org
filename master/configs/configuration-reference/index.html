@@ -3507,13 +3507,6 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </thead>
 <tbody>
 <tr>
-<td>query.batch-property-prefetch</td>
-<td>Whether to do a batched pre-fetch of all properties on adjacent vertices against the storage backend prior to evaluating a has condition against those vertices. Because these vertex properties will be loaded into the transaction-level cache of recently-used vertices when the condition is evaluated this can lead to significant performance improvement if there are many edges to adjacent vertices and there is a non-trivial latency to the backend.</td>
-<td>Boolean</td>
-<td>false</td>
-<td>MASKABLE</td>
-</tr>
-<tr>
 <td>query.fast-property</td>
 <td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequent property access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties</td>
 <td>Boolean</td>
@@ -3590,6 +3583,62 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.batch.has-step-mode</td>
+<td>Properties pre-fetching mode for <code>has</code> step. Used only when query.batch.enabled is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> Pre-fetch all vertex properties on any property access<br>- <code>required_properties_only</code> Pre-fetch necessary vertex properties for the whole chain of foldable <code>has</code> steps<br>- <code>required_and_next_properties</code> Prefetch the same properties as with <code>required_properties_only</code> mode, but also prefetch</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>properties which may be needed in the next properties access step like <code>values</code>, <code>properties,</code> <code>valueMap</code>, or <code>elementMap</code>.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>In case the next step is not one of those properties access steps then this mode behaves same as <code>required_properties_only</code>.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>In case the next step is one of the properties access steps with limited scope of properties, those properties will be</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pre-fetched together in the same multi-query.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>In case the next step is one of the properties access steps with unspecified scope of property keys then this mode</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> Prefetch the same properties as with <code>required_properties_only</code>, but in case the next step is not</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, or <code>elementMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
+<td>String</td>
+<td>required_and_next_properties</td>
+<td>MASKABLE</td>
+<td></td>
 </tr>
 <tr>
 <td>query.batch.limited</td>

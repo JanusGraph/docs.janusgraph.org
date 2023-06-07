@@ -1826,7 +1826,7 @@ when the query is accessing many vertices.  </p>
 <p>Batched query processing takes into account two types of steps:</p>
 <ol>
 <li>Batch compatible step. This is the step which will execute batch requests. Currently, the list of such steps
-    is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>values()</code>, <code>properties()</code>.</li>
+    is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>has()</code>, <code>values()</code>, <code>properties()</code>.</li>
 <li>Parent step. This is a parent step which has local traversals with the same start. Such parent steps also implement the 
     interface <code>TraversalParent</code>. There are many such steps, but as for an example those could be: <code>and(...)</code>, <code>or(...)</code>, 
     <code>not(...)</code>, <code>order().by(...)</code>, <code>project("valueA", "valueB", "valueC").by(...).by(...).by(...)</code>, <code>union(..., ..., ...)</code>,
