@@ -3100,7 +3100,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td></td>
 </tr>
 <tr>
-<td>properties which may be needed in the next properties access step like <code>values</code>, <code>properties,</code> <code>valueMap</code>, or <code>elementMap</code>.</td>
+<td>properties which may be needed in the next properties access step like <code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code>.</td>
 <td></td>
 <td></td>
 <td></td>
@@ -3135,14 +3135,14 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td></td>
 </tr>
 <tr>
-<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> Prefetch the same properties as with <code>required_properties_only</code>, but in case the next step is not</td>
+<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> Prefetch the same properties as with <code>required_and_next_properties</code>, but in case the next step is not</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, or <code>elementMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
+<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
 <td>String</td>
 <td>required_and_next_properties</td>
 <td>MASKABLE</td>
