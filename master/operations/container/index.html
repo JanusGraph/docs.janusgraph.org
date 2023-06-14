@@ -1990,30 +1990,41 @@ janusgraph-mount <span class="p">|</span> chown: changing ownership of <span cla
 <thead>
 <tr>
 <th align="left">Tag</th>
-<th align="left">Support level</th>
+<th align="left">Config</th>
+<th>Support level</th>
 <th>Docker base image</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">latest</td>
-<td align="left"><ul><li>latest JanusGraph release</li><li>no breaking changes guarantees</li></ul></td>
+<td align="left">latest JanusGraph release</td>
+<td>no breaking changes guarantees</td>
 <td>eclipse-temurin:11-jre</td>
 </tr>
 <tr>
 <td align="left">x.x</td>
-<td align="left"><ul><li>newest patch-level version of JanusGraph</li><li>expect breaking changes</li></ul></td>
-<td>eclipse-temurin:8-jre</td>
+<td align="left">newest patch-level version of JanusGraph</td>
+<td>expect breaking changes</td>
+<td>eclipse-temurin:11-jre</td>
 </tr>
 <tr>
-<td align="left">x.x.x</td>
-<td align="left"><ul><li>defined JanusGraph version</li><li>breaking changes are only in this repo</li></ul></td>
-<td>eclipse-temurin:8-jre</td>
+<td align="left">x.x.x, x.x.x-revision</td>
+<td align="left">defined JanusGraph version</td>
+<td>static tag</td>
+<td>eclipse-temurin:11-jre</td>
 </tr>
 <tr>
-<td align="left">x.x.x-revision</td>
-<td align="left"><ul><li>defined JanusGraph version</li><li>defined commit in JanusGraph repo</li></ul></td>
-<td>eclipse-temurin:8-jre</td>
+<td align="left">x.x.x-SNAPSHOT</td>
+<td align="left">latest snapshot build</td>
+<td>expect breaking changes</td>
+<td>eclipse-temurin:11-jre</td>
+</tr>
+<tr>
+<td align="left">x.x.x-SNAPSHOT-revision</td>
+<td align="left">latest snapshot build</td>
+<td>static tag</td>
+<td>eclipse-temurin:11-jre</td>
 </tr>
 </tbody>
 </table>
