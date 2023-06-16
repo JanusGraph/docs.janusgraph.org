@@ -3016,10 +3016,31 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>query.fast-property</td>
-<td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequent property access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties</td>
+<td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequent property access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>This setting is applicable to direct vertex properties access (like <code>vertex.properties("foo")</code> but not to <code>vertex.properties("foo","bar")</code> because the latter case is not a singular property access).</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>This setting is not applicable to the next Gremlin steps: <code>valueMap</code>, <code>propertyMap</code>, <code>elementMap</code>, <code>properties</code>, <code>values</code> (configuration option <code>query.batch.properties-mode</code> should be used to configure their behavior).</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>When <code>true</code> this setting overwrites <code>query.batch.has-step-mode</code> to <code>all_properties</code> unless <code>none</code> mode is used.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
+<td></td>
 </tr>
 <tr>
 <td>query.force-index</td>
@@ -3094,7 +3115,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.batch.has-step-mode</td>
-<td>Properties pre-fetching mode for <code>has</code> step. Used only when query.batch.enabled is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> Pre-fetch all vertex properties on any property access<br>- <code>required_properties_only</code> Pre-fetch necessary vertex properties for the whole chain of foldable <code>has</code> steps<br>- <code>required_and_next_properties</code> Prefetch the same properties as with <code>required_properties_only</code> mode, but also prefetch</td>
+<td>Properties pre-fetching mode for <code>has</code> step. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> - Pre-fetch all vertex properties on any property access (fetches all vertex properties in a single slice query)<br>- <code>required_properties_only</code> - Pre-fetch necessary vertex properties for the whole chain of foldable <code>has</code> steps (uses a separate slice query per each required property)<br>- <code>required_and_next_properties</code> - Prefetch the same properties as with <code>required_properties_only</code> mode, but also prefetch</td>
 <td></td>
 <td></td>
 <td></td>
@@ -3135,14 +3156,14 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td></td>
 </tr>
 <tr>
-<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> Prefetch the same properties as with <code>required_and_next_properties</code>, but in case the next step is not</td>
+<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> - Prefetch the same properties as with <code>required_and_next_properties</code>, but in case the next step is not</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
+<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> - Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
 <td>String</td>
 <td>required_and_next_properties</td>
 <td>MASKABLE</td>
@@ -3163,8 +3184,15 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>query.batch.properties-mode</td>
+<td>Properties pre-fetching mode for <code>values</code>, <code>properties</code>, <code>valueMap</code>, <code>propertyMap</code>, <code>elementMap</code> steps. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> - Pre-fetch all vertex properties on non-singular property access (fetches all vertex properties in a single slice query). On single property access this mode behaves the same as <code>required_properties_only</code> mode.<br>- <code>required_properties_only</code> - Pre-fetch necessary vertex properties only (uses a separate slice query per each required property)<br>- <code>none</code> - Skips vertex properties pre-fetching optimization.<br></td>
+<td>String</td>
+<td>required_properties_only</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>query.batch.repeat-step-mode</td>
-<td>Batch mode for <code>repeat</code> step. Used only when query.batch.enabled is <code>true</code>.<br>These modes are controlling how the child steps with batch support are behaving if they placed to the start of the <code>repeat</code>, <code>emit</code>, or <code>until</code> traversals.<br>Supported modes:<br>- <code>closest_repeat_parent</code> Child start steps are receiving vertices for batching from the closest <code>repeat</code> step parent only.<br>- <code>all_repeat_parents</code> Child start steps are receiving vertices for batching from all <code>repeat</code> step parents.<br>- <code>starts_only_of_all_repeat_parents</code> Child start steps are receiving vertices for batching from the closest <code>repeat</code> step parent (both for the parent start and for next iterations) and also from all <code>repeat</code> step parents for the parent start.</td>
+<td>Batch mode for <code>repeat</code> step. Used only when query.batch.enabled is <code>true</code>.<br>These modes are controlling how the child steps with batch support are behaving if they are placed to the start of the <code>repeat</code>, <code>emit</code>, or <code>until</code> traversals.<br>Supported modes:<br>- <code>closest_repeat_parent</code> - Child start steps are receiving vertices for batching from the closest <code>repeat</code> step parent only.<br>- <code>all_repeat_parents</code> - Child start steps are receiving vertices for batching from all <code>repeat</code> step parents.<br>- <code>starts_only_of_all_repeat_parents</code> - Child start steps are receiving vertices for batching from the closest <code>repeat</code> step parent (both for the parent start and for next iterations) and also from all <code>repeat</code> step parents for the parent start.</td>
 <td>String</td>
 <td>all_repeat_parents</td>
 <td>MASKABLE</td>

@@ -909,6 +909,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-properties" class="md-nav__link">
+    Batch processing for properties
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1650,6 +1657,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-properties" class="md-nav__link">
+    Batch processing for properties
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1826,7 +1840,8 @@ when the query is accessing many vertices.  </p>
 <p>Batched query processing takes into account two types of steps:</p>
 <ol>
 <li>Batch compatible step. This is the step which will execute batch requests. Currently, the list of such steps
-    is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>has()</code>, <code>values()</code>, <code>properties()</code>.</li>
+    is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>has()</code>, <code>values()</code>, <code>properties()</code>, <code>valueMap()</code>,
+    <code>propertyMap()</code>, <code>elementMap()</code>.</li>
 <li>Parent step. This is a parent step which has local traversals with the same start. Such parent steps also implement the 
     interface <code>TraversalParent</code>. There are many such steps, but as for an example those could be: <code>and(...)</code>, <code>or(...)</code>, 
     <code>not(...)</code>, <code>order().by(...)</code>, <code>project("valueA", "valueB", "valueC").by(...).by(...).by(...)</code>, <code>union(..., ..., ...)</code>,
@@ -1961,6 +1976,22 @@ cycle end could potentially be fetched into the transaction cache. It would mean
 step, but not between those local traversals. Also, JanusGraph doesn't register start of the <code>match</code> step with any 
 of the local traversals of the <code>match</code> step. Thus, performance for <code>match</code> step might be limited. This is a temporary 
 limitation until this feature is implemented (<a href="https://github.com/JanusGraph/janusgraph/issues/3788">see issue #3788</a>).</p>
+<h4 id="batch-processing-for-properties">Batch processing for properties</h4>
+<p>Some of the Gremlin steps with enabled optimization may prefetch vertex properties in batches. 
+As for now, JanusGraph uses slice queries to query part of the row data. A single-slice query contains 
+the start key and the end key to define a slice of data JanusGraph is interested in.<br />
+As JanusGraph doesn't support multi-range slice queries right now it can either fetch a single property 
+in a single Slice query or all properties in a single slice query. Thus, users have to decide the tradeoff between 
+different properties fetching approaches and decide when they want to fetch all properties in a single slice query
+(which is usually faster but unnecessary properties might be fetched) or to fetch only requested properties in 
+separate slice query per each property (might be slightly slower but will fetch only the requested properties). </p>
+<p><a href="https://github.com/JanusGraph/janusgraph/issues/3816">See issue #3816</a> which will allow fetching only requested 
+properties via a single slice query.  </p>
+<p>See configuration option <code>query.fast-property</code> which may be used to pre-fetch all properties on a first singular property 
+access when direct vertex properties are requested (for example <code>vertex.properties("foo")</code>).<br />
+See configuration option <code>query.batch.has-step-mode</code> to control properties pre-fetching behaviour for <code>has</code> step.<br />
+See configuration option <code>query.batch.properties-mode</code> to control properties pre-fetching behaviour for <code>values</code>, 
+<code>properties</code>, <code>valueMap</code>, <code>propertyMap</code>, and <code>elementMap</code> steps.  </p>
                 
               
               
