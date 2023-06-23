@@ -1501,6 +1501,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#a-new-multi-query-method-added-into-keycolumnvaluestore-affects-storage-adapters-implementations-only" class="md-nav__link">
+    A new multi-query method added into KeyColumnValueStore (affects storage adapters implementations only)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2504,6 +2511,13 @@
           <li class="md-nav__item">
   <a href="#cql-executorservice-purpose-change" class="md-nav__link">
     CQL ExecutorService purpose change
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-new-multi-query-method-added-into-keycolumnvaluestore-affects-storage-adapters-implementations-only" class="md-nav__link">
+    A new multi-query method added into KeyColumnValueStore (affects storage adapters implementations only)
   </a>
   
 </li>
@@ -3665,6 +3679,16 @@ The default pool size is now set to have a value of <code>number of cores multip
 mandatory and cannot be disabled. The default ExecutorService core pool size is not recommended to be changed as 
 the default value is considered to be optimal unless users want to artificially limit parallelism of CQL results deserialization 
 jobs.</p>
+<h5 id="a-new-multi-query-method-added-into-keycolumnvaluestore-affects-storage-adapters-implementations-only">A new multi-query method added into <code>KeyColumnValueStore</code> (affects storage adapters implementations only)</h5>
+<p>A new method <code>Map&lt;SliceQuery, Map&lt;StaticBuffer, EntryList&gt;&gt; getMultiSlices(MultiKeysQueryGroups&lt;StaticBuffer, SliceQuery&gt; multiKeysQueryGroups, StoreTransaction txh)</code> 
+is added into <code>KeyColumnValueStore</code> which is now preferred for multi-queries (batch queries) with multiple slice queries.<br />
+In case a multi-query executes more than one Slice query per multi-query execution then those Slice queries will be 
+grouped per same key sets and the new <code>getMultiSlices</code> query will be executed with groups of different <code>SliceQuery</code> for the same sets of keys.  </p>
+<p>Notice, if the storage doesn't have multiQuery feature enabled - the method won't be used. Hence, it's not necessary to implement it.  </p>
+<p>In case storage backend has multiQuery feature enabled, then it is highly recommended to overwrite the default (non-optimized) implementation 
+and optimize this method execution to execute all the slice queries for all the requested keys in the shortest time possible 
+(for example, by using asynchronous programming, slice queries grouping, multi-threaded execution, or any other technique which 
+is efficient for the respective storage adapter).  </p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>
