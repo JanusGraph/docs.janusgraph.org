@@ -1508,6 +1508,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#added-possibility-to-group-multiple-slice-queries-together-via-cql-storage-backend" class="md-nav__link">
+    Added possibility to group multiple slice queries together via CQL storage backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removal-of-deprecated-classesmethodsfunctionalities" class="md-nav__link">
     Removal of deprecated classes/methods/functionalities
   </a>
@@ -2518,6 +2525,13 @@
           <li class="md-nav__item">
   <a href="#a-new-multi-query-method-added-into-keycolumnvaluestore-affects-storage-adapters-implementations-only" class="md-nav__link">
     A new multi-query method added into KeyColumnValueStore (affects storage adapters implementations only)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-possibility-to-group-multiple-slice-queries-together-via-cql-storage-backend" class="md-nav__link">
+    Added possibility to group multiple slice queries together via CQL storage backend
   </a>
   
 </li>
@@ -3689,6 +3703,27 @@ grouped per same key sets and the new <code>getMultiSlices</code> query will be 
 and optimize this method execution to execute all the slice queries for all the requested keys in the shortest time possible 
 (for example, by using asynchronous programming, slice queries grouping, multi-threaded execution, or any other technique which 
 is efficient for the respective storage adapter).  </p>
+<h5 id="added-possibility-to-group-multiple-slice-queries-together-via-cql-storage-backend">Added possibility to group multiple slice queries together via CQL storage backend</h5>
+<p>Starting from JanusGraph 1.0.0 CQL storage implementation now groups queries which fetch properties with <code>Cardinality.SINGLE</code> together
+into the same CQL query. The behaviour can be disabled by setting configuration <code>storage.cql.grouping.slice-allowed = false</code>. </p>
+<p>CQL storage implementation has also ability to group queries of different partition keys together if they belong to the same 
+token range or same replicas set (grouping strategy is available via <code>storage.cql.grouping.keys-class</code> configuration option). 
+This behaviour is disabled by default, but can be enabled via <code>storage.cql.grouping.keys-allowed = true</code>. 
+Please note that enabling the key grouping feature can increase the return size of related queries. 
+This is due to each row in a CQL query, which encompasses grouped keys, needing to return its specific key. 
+Moreover, it could potentially lead to less balanced load on the storage cluster. However, it reduces the amount of CQL 
+queries sent which may positively influence throughput in some cases as well as pricing point of some Serverless deployments. 
+We recommend to benchmark each use-case before enabling keys grouping (<code>storage.cql.grouping.keys-allowed</code>).</p>
+<p>Notice, keys grouping (<code>storage.cql.grouping.keys-allowed</code>) can be used only with storage backends which support <code>PER PARTITION LIMIT</code>. 
+As such, this feature can't be used with Amazon Keyspaces because it doesn't support <code>PER PARTITION LIMIT</code>.</p>
+<p>Different storage backends may also have restriction set on maximum keys which can be provided via <code>IN</code> operator (which is needed for grouping). 
+It is required to ensure that <code>storage.cql.grouping.keys-limit</code> or <code>storage.cql.grouping.slice-limit</code> is less than or equal to the 
+restriction provided via the storage backend.
+On ScyllaDB it's possible to configure this restriction using <a href="https://enterprise.docs.scylladb.com/branch-2022.2/faq.html#how-can-i-change-the-maximum-number-of-in-restrictions">max-partition-key-restrictions-per-query</a> 
+configuration option (default to <code>100</code>).
+On AstraDB side it is needed to be asked on AstraDB side to be changed via <code>partition_keys_in_select_failure_threshold</code> and <code>in_select_cartesian_product_failure_threshold</code> threshold 
+configurations (https://docs.datastax.com/en/astra-serverless/docs/plan/planning.html#_cassandra_yaml) which are set to <code>20</code> and <code>25</code> by default.</p>
+<p>See additional properties to control grouping configurations under the namespace <code>storage.cql.grouping</code>.</p>
 <h5 id="removal-of-deprecated-classesmethodsfunctionalities">Removal of deprecated classes/methods/functionalities</h5>
 <h6 id="methods">Methods</h6>
 <ul>
