@@ -1388,6 +1388,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#upgrade-tinkerpop-from-35x-to-370-breaking" class="md-nav__link">
+    Upgrade TinkerPop from 3.5.x to 3.7.0 (breaking)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#string-vertex-id-support" class="md-nav__link">
     String vertex ID support
   </a>
@@ -2408,6 +2415,13 @@
   
     <nav class="md-nav" aria-label="Upgrade Instructions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-tinkerpop-from-35x-to-370-breaking" class="md-nav__link">
+    Upgrade TinkerPop from 3.5.x to 3.7.0 (breaking)
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#string-vertex-id-support" class="md-nav__link">
@@ -3518,7 +3532,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li>Elasticsearch 6.0.1, 6.6.0, 7.17.8, 8.6.0</li>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
-<li>Apache TinkerPop 3.6.4</li>
+<li>Apache TinkerPop 3.7.0</li>
 <li>Java 8, 11</li>
 </ul>
 <div class="admonition note">
@@ -3549,6 +3563,12 @@ More information can be found in this GitHub issue:
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.0.0/janusgraph-full-1.0.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="upgrade-tinkerpop-from-35x-to-370-breaking">Upgrade TinkerPop from 3.5.x to 3.7.0 (breaking)</h5>
+<p>Some packages under <code>gremlin-driver</code> are moved to <code>gremlin-util</code> module. This means you need to change
+some classnames of serializers, e.g. from <code>org.apache.tinkerpop.gremlin.driver.ser.*</code> to <code>org.apache.tinkerpop.gremlin.util.ser.*</code>.
+See <a href="https://tinkerpop.apache.org/docs/current/upgrade/#_creation_of_new_gremlin_util_module">this</a> for more detail.</p>
+<p>GraphSON serializers are renamed, e.g. from <code>org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0</code> to <code>org.apache.tinkerpop.gremlin.util.ser.GraphSONMessageSerializerV3</code>.
+See <a href="https://tinkerpop.apache.org/docs/current/upgrade/#_serializer_renaming">this</a> for more detail.</p>
 <h5 id="string-vertex-id-support">String vertex ID support</h5>
 <p>Users now can use custom string vertex ids. See <a href="../advanced-topics/custom-vertex-id/">Custom Vertex ID</a> documentation. Prior
 to this change, JanusGraph automatically casts IDs of string type to long type if possible. Now this
@@ -4061,6 +4081,11 @@ after the keyword <code>serializers</code>. This will add the support on the ser
 <p class="admonition-title">Note</p>
 <p>The java driver is the only driver that currently supports GraphBinary, 
 see <a href="../interactions/connecting/java/">Connecting to JanusGraph using Java</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Version 1.0.0 moves everything under <code>org.apache.tinkerpop.gremlin.driver.ser</code> package to
+<code>org.apache.tinkerpop.gremlin.util.ser</code> package.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

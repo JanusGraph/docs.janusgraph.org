@@ -1480,12 +1480,14 @@ Full-text search is case-insensitive.</p>
 <li><code>textContainsFuzzy</code>: is true if (at least) one word inside the text
     string is similar to the query String (based on Levenshtein edit
     distance)</li>
+<li><code>textContainsPhrase</code>: is true if the text string does contain the sequence of words in the query string</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">janusgraph</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">attribute</span><span class="o">.</span><span class="na">Text</span><span class="o">.*</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s1">&#39;unicorns&#39;</span><span class="o">))</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContainsPrefix</span><span class="o">(</span><span class="s1">&#39;uni&#39;</span><span class="o">))</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContainsRegex</span><span class="o">(</span><span class="s1">&#39;.*corn.*&#39;</span><span class="o">))</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContainsFuzzy</span><span class="o">(</span><span class="s1">&#39;unicorn&#39;</span><span class="o">))</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">,</span> <span class="n">textContainsPhrase</span><span class="o">(</span><span class="s1">&#39;unicorn horn&#39;</span><span class="o">))</span>
 </code></pre></div>
 
 <p>The Elasticsearch backend extends this functionality and includes support for negations
