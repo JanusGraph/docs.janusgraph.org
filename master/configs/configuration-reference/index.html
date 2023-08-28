@@ -3689,6 +3689,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td></td>
 </tr>
 <tr>
+<td>query.batch.label-step-mode</td>
+<td>Labels pre-fetching mode for <code>label()</code> step. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all</code> - Pre-fetch labels for all vertices in a batch.<br>- <code>none</code> - Skips vertex labels pre-fetching optimization.<br></td>
+<td>String</td>
+<td>all</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>query.batch.limited</td>
 <td>Configure a maximum batch size for queries against the storage backend. This can be used to ensure responsiveness if batches tend to grow very large. The used batch size is equivalent to the barrier size of a preceding <code>barrier()</code> step. If a step has no preceding <code>barrier()</code>, the default barrier of TinkerPop will be inserted. This option only takes effect if <code>query.batch.enabled</code> is <code>true</code>.</td>
 <td>Boolean</td>
