@@ -1532,7 +1532,7 @@ gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
 It does not forward the following commands to the server by default!
 As a result, further commands will still be executed locally unless preceeded by <code>:&gt;</code>.</p>
 <p>To forward every command to the remote server, use the <code>:remote console</code> command.
-Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.5.5/reference/#console-remote-console">TinkerPop reference docs</a></p>
+Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.5.7/reference/#console-remote-console">TinkerPop reference docs</a></p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1561,9 +1561,9 @@ gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
 <p>In order to run JanusGraph, Java 8 SE is required.
 Make sure the <code>$JAVA_HOME</code> environment variable points to the correct location where either JRE or JDK is installed.
 JanusGraph can be downloaded as a .zip archive from the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases</a> section of the project repository.</p>
-<div class="highlight"><pre><span></span><code>$ unzip janusgraph-0.6.3.zip
-Archive:  janusgraph-0.6.3.zip
-  creating: janusgraph-0.6.3/
+<div class="highlight"><pre><span></span><code>$ unzip janusgraph-0.6.4.zip
+Archive:  janusgraph-0.6.4.zip
+  creating: janusgraph-0.6.4/
 ...
 </code></pre></div>
 
@@ -1571,7 +1571,7 @@ Archive:  janusgraph-0.6.3.zip
 <h3 id="running-the-gremlin-console">Running the Gremlin Console</h3>
 <p>The Gremlin Console is an interactive shell that gives you access to the data managed by JanusGraph.
 You can reach it by running the <code>gremlin.sh</code> script which is located in the project's <code>bin</code> directory.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> janusgraph-0.6.3
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> janusgraph-0.6.4
 $ bin/gremlin.sh
 
          <span class="se">\,</span>,,/
@@ -1618,7 +1618,7 @@ When using a different setup, all you have to do is modify the parameters in the
 <h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Starting with 0.5.1, this requires to download <code>janusgraph-full-0.6.3.zip</code> instead of the default <code>janusgraph-0.6.3.zip</code>.</p>
+<p>Starting with 0.5.1, this requires to download <code>janusgraph-full-0.6.4.zip</code> instead of the default <code>janusgraph-0.6.4.zip</code>.</p>
 </div>
 <p>The JanusGraph
 <a href="https://github.com/JanusGraph/janusgraph/releases">release</a> comes

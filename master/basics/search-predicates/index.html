@@ -1,0 +1,1729 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.3">
+    
+    
+      
+        <title>Search Predicates and Mixed Index Data Types - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#search-predicates-and-mixed-index-data-types" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            JanusGraph
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Search Predicates and Mixed Index Data Types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/gremlin/" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  
+
+
+  
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../transactions/" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Search Predicates and Mixed Index Data Types
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Search Predicates and Mixed Index Data Types
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compare-predicate" class="md-nav__link">
+    Compare Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-predicate" class="md-nav__link">
+    Text Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geo-predicate" class="md-nav__link">
+    Geo Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-examples" class="md-nav__link">
+    Query Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-type-support" class="md-nav__link">
+    Data Type Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geoshape-data-type" class="md-nav__link">
+    Geoshape Data Type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collections" class="md-nav__link">
+    Collections
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" >
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon"></span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/java/" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/python/" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../connecting/dotnet/" class="md-nav__link">
+      Using .NET
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    
+    <label class="md-nav__link" for="nav-4">
+      Configuration
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/configuration-reference/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/example-config/" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    
+    <label class="md-nav__link" for="nav-5">
+      Schema Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Schema Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Schema Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/advschema/" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" >
+    
+    <label class="md-nav__link" for="nav-5-3">
+      Index Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-performance/" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-lifecycle/" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-reindexing/" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-removal/" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+    
+    <label class="md-nav__link" for="nav-6">
+      Operations
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Operations" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/server/" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/deployment/" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/container/" class="md-nav__link">
+      JanusGraph Container
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/configured-graph-factory/" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dynamic-graphs/" class="md-nav__link">
+      Dynamic Graphs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/batch-processing/" class="md-nav__link">
+      Batch Processing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/bulk-loading/" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cache/" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/monitoring/" class="md-nav__link">
+      Monitoring
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-titan/" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-thrift/" class="md-nav__link">
+      Migrating from Thrift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/recovery/" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/management/" class="md-nav__link">
+      Management System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+    
+    <label class="md-nav__link" for="nav-7">
+      Storage Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/scylladb/" class="md-nav__link">
+      ScyllaDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+    
+    <label class="md-nav__link" for="nav-8">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
+    
+    <label class="md-nav__link" for="nav-9">
+      Advanced Topics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/transaction-log/" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+      ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/commit-releases/" class="md-nav__link">
+      Snapshot Releases
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../common-questions/" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compare-predicate" class="md-nav__link">
+    Compare Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-predicate" class="md-nav__link">
+    Text Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geo-predicate" class="md-nav__link">
+    Geo Predicate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-examples" class="md-nav__link">
+    Query Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-type-support" class="md-nav__link">
+    Data Type Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geoshape-data-type" class="md-nav__link">
+    Geoshape Data Type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collections" class="md-nav__link">
+    Collections
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/master/docs/basics/search-predicates.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="search-predicates-and-mixed-index-data-types">Search Predicates and Mixed Index Data Types</h1>
+<p>This page lists all of the comparison predicates that JanusGraph supports in global graph search and local traversals.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some parts of this section require mixed index, see <a href="../../index-backend/">mixed index backend</a>.</p>
+</div>
+<h2 id="compare-predicate">Compare Predicate</h2>
+<p>The <code>Compare</code> enum specifies the following comparison predicates used for index query construction and used in the examples above:</p>
+<ul>
+<li><code>eq</code> (equal)</li>
+<li><code>neq</code> (not equal)</li>
+<li><code>gt</code> (greater than)</li>
+<li><code>gte</code> (greater than or equal)</li>
+<li><code>lt</code> (less than)</li>
+<li><code>lte</code> (less than or equal)</li>
+</ul>
+<p>All comparison predicates are supported by String, numeric, Date and Instant data types.
+Boolean and UUID data types support the <code>eq</code> and <code>neq</code> comparison predicates.</p>
+<p><code>eq</code> and <code>neq</code> can be used on Boolean and UUID.</p>
+<h2 id="text-predicate">Text Predicate</h2>
+<p>The <code>Text</code> enum specifies the <a href="../../index-backend/text-search/">Text Search</a> used to query for matching text or string values.  We differentiate between two types of predicates:</p>
+<ul>
+<li>Text search predicates which match against the individual words inside a text string after it has been tokenized. These predicates are not case sensitive.<ul>
+<li><code>textContains</code>: is true if (at least) one word inside the text string matches the query string</li>
+<li><code>textNotContains</code>: is true if no words inside the text string match the query string</li>
+<li><code>textContainsPrefix</code>: is true if (at least) one word inside the text string begins with the query string</li>
+<li><code>textNotContainsPrefix</code>: is true if no words inside the text string begin with the query string</li>
+<li><code>textContainsRegex</code>: is true if (at least) one word inside the text string matches the given regular expression</li>
+<li><code>textNotContainsRegex</code>: is true if no words inside the text string match the given regular expression</li>
+<li><code>textContainsFuzzy</code>: is true if (at least) one word inside the text string is similar to the query string (based on Levenshtein edit distance)</li>
+<li><code>textNotContainsFuzzy</code>:  is true if no words inside the text string are similar to the query string (based on Levenshtein edit distance)</li>
+<li><code>textContainsPhrase</code>: is true if the text string contains the exact sequence of words in the query string</li>
+<li><code>textNotContainsPhrase</code>:  is true if the text string does not contain the sequence of words in the query string</li>
+</ul>
+</li>
+<li>String search predicates which match against the entire string value<ul>
+<li><code>textPrefix</code>: if the string value starts with the given query string</li>
+<li><code>textNotPrefix</code>: if the string value does not start with the given query string</li>
+<li><code>textRegex</code>: if the string value matches the given regular expression in its entirety</li>
+<li><code>textNotRegex</code>: if the string value does not match the given regular expression in its entirety</li>
+<li><code>textFuzzy</code>: if the string value is similar to the given query string (based on Levenshtein edit distance)</li>
+<li><code>textNotFuzzy</code>: if the string value is not similar to the given query string (based on Levenshtein edit distance)</li>
+</ul>
+</li>
+</ul>
+<p>See <a href="../../index-backend/text-search/">Text Search</a> for more information about full-text and string search.</p>
+<h2 id="geo-predicate">Geo Predicate</h2>
+<p>The <code>Geo</code> enum specifies geo-location predicates.</p>
+<ul>
+<li><code>geoIntersect</code> which holds true if the two geometric objects have at least one point in common (opposite of <code>geoDisjoint</code>).</li>
+<li><code>geoWithin</code> which holds true if one geometric object contains the other.</li>
+<li><code>geoDisjoint</code> which holds true if the two geometric objects have no points in common (opposite of <code>geoIntersect</code>).</li>
+<li><code>geoContains</code> which holds true if one geometric object is contained by the other.</li>
+</ul>
+<p>See <a href="../../index-backend/text-search/#geo-mapping">Geo Mapping</a> for more information about geo search.</p>
+<h2 id="query-examples">Query Examples</h2>
+<p>The following query examples demonstrate some of the predicates on the tutorial graph.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1) Find vertices with the name &quot;hercules&quot;</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="s2">&quot;hercules&quot;</span><span class="o">)</span>
+<span class="c1">// 2) Find all vertices with an age greater than 50</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">gt</span><span class="o">(</span><span class="mi">50</span><span class="o">))</span>
+<span class="c1">// or find all vertices between 1000 (inclusive) and 5000 (exclusive) years of age and order by ascending age</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">inside</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">5000</span><span class="o">)).</span><span class="na">order</span><span class="o">().</span><span class="na">by</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">asc</span><span class="o">)</span>
+<span class="c1">// which returns the same result set as the following query but in reverse order</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">inside</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">5000</span><span class="o">)).</span><span class="na">order</span><span class="o">().</span><span class="na">by</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">desc</span><span class="o">)</span>
+<span class="c1">// 3) Find all edges where the place is at most 50 kilometers from the given latitude-longitude pair</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;place&quot;</span><span class="o">,</span> <span class="n">geoWithin</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">circle</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">,</span> <span class="mi">50</span><span class="o">)))</span>
+<span class="c1">// 4) Find all edges where reason contains the word &quot;loves&quot;</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s2">&quot;loves&quot;</span><span class="o">))</span>
+<span class="c1">// or all edges which contain two words (need to chunk into individual words)</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s2">&quot;loves&quot;</span><span class="o">)).</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContains</span><span class="o">(</span><span class="s2">&quot;breezes&quot;</span><span class="o">))</span>
+<span class="c1">// or all edges which contain words that start with &quot;lov&quot;</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContainsPrefix</span><span class="o">(</span><span class="s2">&quot;lov&quot;</span><span class="o">))</span>
+<span class="c1">// or all edges which contain words that match the regular expression &quot;br[ez]*s&quot; in their entirety</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContainsRegex</span><span class="o">(</span><span class="s2">&quot;br[ez]*s&quot;</span><span class="o">))</span>
+<span class="c1">// or all edges which contain words similar to &quot;love&quot;</span>
+<span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;reason&quot;</span><span class="o">,</span> <span class="n">textContainsFuzzy</span><span class="o">(</span><span class="s2">&quot;love&quot;</span><span class="o">))</span>
+<span class="c1">// 5) Find all vertices older than a thousand years and named &quot;saturn&quot;</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;age&quot;</span><span class="o">,</span> <span class="n">gt</span><span class="o">(</span><span class="mi">1000</span><span class="o">)).</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;name&quot;</span><span class="o">,</span> <span class="s2">&quot;saturn&quot;</span><span class="o">)</span>
+</code></pre></div>
+
+<h2 id="data-type-support">Data Type Support</h2>
+<p>While JanusGraph's composite indexes support any data type that can be stored in JanusGraph, the mixed indexes are limited to the following data types.</p>
+<ul>
+<li>Byte</li>
+<li>Short</li>
+<li>Integer</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>String</li>
+<li>Geoshape</li>
+<li>Date</li>
+<li>Instant</li>
+<li>UUID</li>
+</ul>
+<p>Additional data types will be supported in the future.</p>
+<h2 id="geoshape-data-type">Geoshape Data Type</h2>
+<p>The Geoshape data type supports representing a point, circle, box, line, polygon, multi-point, multi-line and multi-polygon. Index backends currently support indexing points, circles, boxes, lines, polygons, multi-point, multi-line, multi-polygon and geometry collection.
+Geospatial index lookups are only supported via mixed indexes.</p>
+<p>To construct a Geoshape use the following methods:</p>
+<div class="highlight"><pre><span></span><code> <span class="c1">//lat, lng</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">point</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">)</span>
+<span class="c1">//lat, lng, radius in km</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">circle</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">,</span> <span class="mi">50</span><span class="o">)</span>
+<span class="c1">//SW lat, SW lng, NE lat, NE lng</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">box</span><span class="o">(</span><span class="mf">37.97</span><span class="o">,</span> <span class="mf">23.72</span><span class="o">,</span> <span class="mf">38.97</span><span class="o">,</span> <span class="mf">24.72</span><span class="o">)</span>
+<span class="c1">//WKT</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">fromWkt</span><span class="o">(</span><span class="s2">&quot;POLYGON ((35.4 48.9, 35.6 48.9, 35.6 49.1, 35.4 49.1, 35.4 48.9))&quot;</span><span class="o">)</span>
+<span class="c1">//MultiPoint</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">geoshape</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">multiPoint</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">60.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">120.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+<span class="c1">//MultiLine</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">geoshape</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">multiLineString</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">lineString</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">59.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">61.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">))</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">lineString</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+<span class="c1">//MultiPolygon</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">geoshape</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">multiPolygon</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">polygon</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">59.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">61.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">61.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">59.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">59.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">))</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">polygon</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+<span class="c1">//GeometryCollection</span>
+<span class="n">Geoshape</span><span class="o">.</span><span class="na">geoshape</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getGeometryCollectionBuilder</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">60.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">))</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">lineString</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">60.0</span><span class="o">).</span><span class="na">build</span><span class="o">())</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">getShapeFactory</span><span class="o">().</span><span class="na">polygon</span><span class="o">().</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">121.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">61.0</span><span class="o">).</span><span class="na">pointXY</span><span class="o">(</span><span class="mf">119.0</span><span class="o">,</span> <span class="mf">59.0</span><span class="o">).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">())</span>
+</code></pre></div>
+
+<p>In addition, when importing a graph via GraphSON the geometry may be represented by GeoJSON:</p>
+<div class="tabbed-set" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">string</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;37.97, 23.72&quot;</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">list</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">37.97</span><span class="p">,</span> <span class="mf">23.72</span><span class="p">]</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">GeoJSON feature</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">125.6</span><span class="p">,</span> <span class="mf">10.1</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Dinagat Islands&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">GeoJSON geometry</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">125.6</span><span class="p">,</span> <span class="mf">10.1</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p><a href="http://geojson.org/">GeoJSON</a> may be specified as Point, Circle, LineString or Polygon. Polygons must be closed.
+Note that unlike the JanusGraph API GeoJSON specifies coordinates as lng lat.</p>
+<h2 id="collections">Collections</h2>
+<p>If you are using <a href="../../index-backend/elasticsearch/">Elasticsearch</a> then you can index properties with SET and LIST cardinality.
+For instance:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">nameProperty</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s2">&quot;names&quot;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">cardinality</span><span class="o">(</span><span class="n">Cardinality</span><span class="o">.</span><span class="na">SET</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">nameProperty</span><span class="o">,</span> <span class="n">Mapping</span><span class="o">.</span><span class="na">STRING</span><span class="o">.</span><span class="na">asParameter</span><span class="o">()).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+<span class="c1">//Insert a vertex</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">addVertex</span><span class="o">()</span>
+<span class="n">person</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;names&quot;</span><span class="o">,</span> <span class="s2">&quot;Robert&quot;</span><span class="o">)</span>
+<span class="n">person</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;names&quot;</span><span class="o">,</span> <span class="s2">&quot;Bob&quot;</span><span class="o">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span>
+<span class="c1">//Now query it</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;names&quot;</span><span class="o">,</span> <span class="s2">&quot;Bob&quot;</span><span class="o">).</span><span class="na">count</span><span class="o">().</span><span class="na">next</span><span class="o">()</span> <span class="c1">//1</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;names&quot;</span><span class="o">,</span> <span class="s2">&quot;Robert&quot;</span><span class="o">).</span><span class="na">count</span><span class="o">().</span><span class="na">next</span><span class="o">()</span> <span class="c1">//1</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../transactions/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Transactions
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../connecting/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Introduction
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
