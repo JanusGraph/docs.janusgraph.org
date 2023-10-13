@@ -3036,31 +3036,10 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>query.fast-property</td>
-<td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequent property access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>This setting is applicable to direct vertex properties access (like <code>vertex.properties("foo")</code> but not to <code>vertex.properties("foo","bar")</code> because the latter case is not a singular property access).</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>This setting is not applicable to the next Gremlin steps: <code>valueMap</code>, <code>propertyMap</code>, <code>elementMap</code>, <code>properties</code>, <code>values</code> (configuration option <code>query.batch.properties-mode</code> should be used to configure their behavior).</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>When <code>true</code> this setting overwrites <code>query.batch.has-step-mode</code> to <code>all_properties</code> unless <code>none</code> mode is used.</td>
+<td>Whether to pre-fetch all properties on first singular vertex property access. This can eliminate backend calls on subsequent property access for the same vertex at the expense of retrieving all properties at once. This can be expensive for vertices with many properties. <br>This setting is applicable to direct vertex properties access (like <code>vertex.properties("foo")</code> but not to <code>vertex.properties("foo","bar")</code> because the latter case is not a singular property access). <br>This setting is not applicable to the next Gremlin steps: <code>valueMap</code>, <code>propertyMap</code>, <code>elementMap</code>, <code>properties</code>, <code>values</code> (configuration option <code>query.batch.properties-mode</code> should be used to configure their behavior).<br>When <code>true</code> this setting overwrites <code>query.batch.has-step-mode</code> to <code>all_properties</code> unless <code>none</code> mode is used.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
-<td></td>
 </tr>
 <tr>
 <td>query.force-index</td>
@@ -3135,59 +3114,10 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.batch.has-step-mode</td>
-<td>Properties pre-fetching mode for <code>has</code> step. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> - Pre-fetch all vertex properties on any property access (fetches all vertex properties in a single slice query)<br>- <code>required_properties_only</code> - Pre-fetch necessary vertex properties for the whole chain of foldable <code>has</code> steps (uses a separate slice query per each required property)<br>- <code>required_and_next_properties</code> - Prefetch the same properties as with <code>required_properties_only</code> mode, but also prefetch</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>properties which may be needed in the next properties access step like <code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code>.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>In case the next step is not one of those properties access steps then this mode behaves same as <code>required_properties_only</code>.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>In case the next step is one of the properties access steps with limited scope of properties, those properties will be</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>pre-fetched together in the same multi-query.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>In case the next step is one of the properties access steps with unspecified scope of property keys then this mode</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> - Prefetch the same properties as with <code>required_and_next_properties</code>, but in case the next step is not</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> - Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
+<td>Properties pre-fetching mode for <code>has</code> step. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all_properties</code> - Pre-fetch all vertex properties on any property access (fetches all vertex properties in a single slice query)<br>- <code>required_properties_only</code> - Pre-fetch necessary vertex properties for the whole chain of foldable <code>has</code> steps (uses a separate slice query per each required property)<br>- <code>required_and_next_properties</code> - Prefetch the same properties as with <code>required_properties_only</code> mode, but also prefetch<br>properties which may be needed in the next properties access step like <code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code>.<br>In case the next step is not one of those properties access steps then this mode behaves same as <code>required_properties_only</code>.<br>In case the next step is one of the properties access steps with limited scope of properties, those properties will be<br>pre-fetched together in the same multi-query.<br>In case the next step is one of the properties access steps with unspecified scope of property keys then this mode<br>behaves same as <code>all_properties</code>.<br>- <code>required_and_next_properties_or_all</code> - Prefetch the same properties as with <code>required_and_next_properties</code>, but in case the next step is not<br><code>values</code>, <code>properties,</code> <code>valueMap</code>, <code>elementMap</code>, or <code>propertyMap</code> then acts like <code>all_properties</code>.<br>- <code>none</code> - Skips <code>has</code> step batch properties pre-fetch optimization.<br></td>
 <td>String</td>
 <td>required_and_next_properties</td>
 <td>MASKABLE</td>
-<td></td>
 </tr>
 <tr>
 <td>query.batch.label-step-mode</td>
@@ -3771,98 +3701,48 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <tbody>
 <tr>
 <td>storage.cql.grouping.keys-allowed</td>
-<td>If <code>true</code> this allows multiple partition keys to be grouped together into a single CQL query via <code>IN</code> operator based on the keys grouping strategy provided (usually grouping is done by same token-ranges or same replica sets, but may also involve shard ids for custom implementations).</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Notice, that any CQL query grouped with more than 1 key will require to return a row key for any column fetched.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>This option is useful when less amount of CQL queries is desired to be sent for read requests in expense of fetching more data (partition key per each fetched value).</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Notice, different storage backends may have different way of executing multi-partition <code>IN</code> queries (including, but not limited to how the checksum queries are sent for different consistency levels, processing node CPU usage, disk access pattern, etc.). Thus, a proper benchmarking is needed to determine if keys grouping is useful or not per case by case scenario.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>This option can be enabled only for storage backends which support <code>PER PARTITION LIMIT</code>. As such, this feature can't be used with Amazon Keyspaces because it doesn't support <code>PER PARTITION LIMIT</code>.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>If this option is <code>false</code> then each partition key will be executed in a separate asynchronous CQL query even when multiple keys from the same token range are queried.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Notice, the default grouping strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend. ScyllaDB specific keys grouping strategy should be implemented after the resolution of the <a href="https://github.com/scylladb/java-driver/issues/232">ticket #232</a>.</td>
+<td>If <code>true</code> this allows multiple partition keys to be grouped together into a single CQL query via <code>IN</code> operator based on the keys grouping strategy provided (usually grouping is done by same token-ranges or same replica sets, but may also involve shard ids for custom implementations).<br>Notice, that any CQL query grouped with more than 1 key will require to return a row key for any column fetched.<br>This option is useful when less amount of CQL queries is desired to be sent for read requests in expense of fetching more data (partition key per each fetched value).<br>Notice, different storage backends may have different way of executing multi-partition <code>IN</code> queries (including, but not limited to how the checksum queries are sent for different consistency levels, processing node CPU usage, disk access pattern, etc.). Thus, a proper benchmarking is needed to determine if keys grouping is useful or not per case by case scenario.<br>This option can be enabled only for storage backends which support <code>PER PARTITION LIMIT</code>. As such, this feature can't be used with Amazon Keyspaces because it doesn't support <code>PER PARTITION LIMIT</code>.<br>If this option is <code>false</code> then each partition key will be executed in a separate asynchronous CQL query even when multiple keys from the same token range are queried.<br>Notice, the default grouping strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend. ScyllaDB specific keys grouping strategy should be implemented after the resolution of the <a href="https://github.com/scylladb/java-driver/issues/232">ticket #232</a>.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>MASKABLE</td>
-<td></td>
 </tr>
 <tr>
 <td>storage.cql.grouping.keys-class</td>
-<td>Full class path of the keys grouping execution strategy. The class should implement <code>org.janusgraph.diskstorage.cql.strategy.GroupedExecutionStrategy</code> interface and have a public constructor with two arguments <code>org.janusgraph.diskstorage.configuration.Configuration</code> and <code>org.janusgraph.diskstorage.cql.CQLStoreManager</code>.</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Full class path of the keys grouping execution strategy. The class should implement <code>org.janusgraph.diskstorage.cql.strategy.GroupedExecutionStrategy</code> interface and have a public constructor with two arguments <code>org.janusgraph.diskstorage.configuration.Configuration</code> and <code>org.janusgraph.diskstorage.cql.CQLStoreManager</code>.<br>Shortcuts available:<br>- <code>tokenRangeAware</code> - groups partition keys which belong to the same token range. Notice, this strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend.<br>- <code>replicasAware</code> - groups partition keys which belong to the same replica sets (same nodes). Notice, this strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend.<br><br>Usually <code>tokenRangeAware</code> grouping strategy provides more smaller groups where each group contain keys which are stored close to each other on a disk and may cause less disk seeks in some cases. However <code>replicasAware</code> grouping strategy groups keys per replica set which usually means fewer bigger groups to be used (i.e. less CQL requests).<br>This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>.</td>
+<td>String</td>
+<td>replicasAware</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
-<td>Shortcuts available:</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>storage.cql.grouping.keys-limit</td>
+<td>Maximum amount of the keys which can be grouped together into a single CQL query. If more keys are queried, they are going to be grouped into separate CQL queries.<br>Notice, for ScyllaDB this option should not exceed the maximum number of distinct clustering key restrictions per query which can be changed by ScyllaDB configuration option <code>max-partition-key-restrictions-per-query</code> (https://enterprise.docs.scylladb.com/branch-2022.2/faq.html#how-can-i-change-the-maximum-number-of-in-restrictions). For AstraDB this limit is set to 20 and usually it's fixed. However, you can ask customer support for a possibility to change the default threshold to your desired configuration via <code>partition_keys_in_select_failure_threshold</code> and <code>in_select_cartesian_product_failure_threshold</code> threshold configurations (https://docs.datastax.com/en/astra-serverless/docs/plan/planning.html#_cassandra_yaml).<br>Ensure that your storage backend allows more IN selectors than the one set via this configuration.<br>This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>.</td>
+<td>Integer</td>
+<td>20</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
-<td>- <code>tokenRangeAware</code> - groups partition keys which belong to the same token range. Notice, this strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>storage.cql.grouping.keys-min</td>
+<td>Minimum amount of keys to consider for grouping. Grouping will be skipped for any multi-key query which has less than this amount of keys (i.e. a separate CQL query will be executed for each key in such case).<br>Usually this configuration should always be set to <code>2</code>. It is useful to increase the value only in cases when queries with more keys should not be grouped, but be performed separately to increase parallelism in expense of the network overhead.<br>This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>.</td>
+<td>Integer</td>
+<td>2</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
-<td>- <code>replicasAware</code> - groups partition keys which belong to the same replica sets (same nodes). Notice, this strategy does not take shards into account. Thus, this might be inefficient with ScyllaDB storage backend.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>storage.cql.grouping.slice-allowed</td>
+<td>If <code>true</code> this allows multiple Slice queries which are allowed to be performed as non-range queries (i.e. direct equality operation) to be grouped together into a single CQL query via <code>IN</code> operator. Notice, currently only operations to fetch properties with Cardinality.SINGLE are allowed to be performed as non-range queries (edges fetching or properties with Cardinality SET or LIST won't be grouped together).<br>If this option is <code>false</code> then each Slice query will be executed in a separate asynchronous CQL query even when grouping is allowed.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.grouping.slice-limit</td>
+<td>Maximum amount of grouped together slice queries into a single CQL query.<br>Notice, for ScyllaDB this option should not exceed the maximum number of distinct clustering key restrictions per query which can be changed by ScyllaDB configuration option <code>max-partition-key-restrictions-per-query</code> (https://enterprise.docs.scylladb.com/branch-2022.2/faq.html#how-can-i-change-the-maximum-number-of-in-restrictions). For AstraDB this limit is set to 20 and usually it's fixed. However, you can ask customer support for a possibility to change the default threshold to your desired configuration via <code>partition_keys_in_select_failure_threshold</code> and <code>in_select_cartesian_product_failure_threshold</code> threshold configurations (https://docs.datastax.com/en/astra-serverless/docs/plan/planning.html#_cassandra_yaml).<br>Ensure that your storage backend allows more IN selectors than the one set via this configuration.<br>This option is used only when <code>storage.cql.grouping.slice-allowed</code> is <code>true</code>.</td>
+<td>Integer</td>
+<td>20</td>
+<td>MASKABLE</td>
 </tr>
 </tbody>
 </table>
-<p>Usually <code>tokenRangeAware</code> grouping strategy provides more smaller groups where each group contain keys which are stored close to each other on a disk and may cause less disk seeks in some cases. However <code>replicasAware</code> grouping strategy groups keys per replica set which usually means fewer bigger groups to be used (i.e. less CQL requests).
-This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>. | String | replicasAware | MASKABLE |
-| storage.cql.grouping.keys-limit | Maximum amount of the keys which can be grouped together into a single CQL query. If more keys are queried, they are going to be grouped into separate CQL queries.
-Notice, for ScyllaDB this option should not exceed the maximum number of distinct clustering key restrictions per query which can be changed by ScyllaDB configuration option <code>max-partition-key-restrictions-per-query</code> (https://enterprise.docs.scylladb.com/branch-2022.2/faq.html#how-can-i-change-the-maximum-number-of-in-restrictions). For AstraDB this limit is set to 20 and usually it's fixed. However, you can ask customer support for a possibility to change the default threshold to your desired configuration via <code>partition_keys_in_select_failure_threshold</code> and <code>in_select_cartesian_product_failure_threshold</code> threshold configurations (https://docs.datastax.com/en/astra-serverless/docs/plan/planning.html#_cassandra_yaml).
-Ensure that your storage backend allows more IN selectors than the one set via this configuration.
-This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>. | Integer | 20 | MASKABLE |
-| storage.cql.grouping.keys-min | Minimum amount of keys to consider for grouping. Grouping will be skipped for any multi-key query which has less than this amount of keys (i.e. a separate CQL query will be executed for each key in such case).
-Usually this configuration should always be set to <code>2</code>. It is useful to increase the value only in cases when queries with more keys should not be grouped, but be performed separately to increase parallelism in expense of the network overhead.
-This option takes effect only when <code>storage.cql.grouping.keys-allowed</code> is <code>true</code>. | Integer | 2 | MASKABLE |
-| storage.cql.grouping.slice-allowed | If <code>true</code> this allows multiple Slice queries which are allowed to be performed as non-range queries (i.e. direct equality operation) to be grouped together into a single CQL query via <code>IN</code> operator. Notice, currently only operations to fetch properties with Cardinality.SINGLE are allowed to be performed as non-range queries (edges fetching or properties with Cardinality SET or LIST won't be grouped together).
-If this option is <code>false</code> then each Slice query will be executed in a separate asynchronous CQL query even when grouping is allowed. | Boolean | true | MASKABLE |
-| storage.cql.grouping.slice-limit | Maximum amount of grouped together slice queries into a single CQL query.
-Notice, for ScyllaDB this option should not exceed the maximum number of distinct clustering key restrictions per query which can be changed by ScyllaDB configuration option <code>max-partition-key-restrictions-per-query</code> (https://enterprise.docs.scylladb.com/branch-2022.2/faq.html#how-can-i-change-the-maximum-number-of-in-restrictions). For AstraDB this limit is set to 20 and usually it's fixed. However, you can ask customer support for a possibility to change the default threshold to your desired configuration via <code>partition_keys_in_select_failure_threshold</code> and <code>in_select_cartesian_product_failure_threshold</code> threshold configurations (https://docs.datastax.com/en/astra-serverless/docs/plan/planning.html#_cassandra_yaml).
-Ensure that your storage backend allows more IN selectors than the one set via this configuration.
-This option is used only when <code>storage.cql.grouping.slice-allowed</code> is <code>true</code>. | Integer | 20 | MASKABLE |</p>
 <h3 id="storagecqlinternal">storage.cql.internal</h3>
 <p>Advanced configuration of internal DataStax driver. Notice, all available configurations will be composed in the order. Non specified configurations will be skipped. By default only base configuration is enabled (which has the smallest priority. It means that you can overwrite any configuration used in base programmatic configuration by using any other configuration type). The configurations are composed in the next order (sorted by priority in descending order): <code>file-configuration</code>, <code>resource-configuration</code>, <code>string-configuration</code>, <code>url-configuration</code>, <code>base-programmatic-configuration</code> (which is controlled by <code>base-programmatic-configuration-enabled</code> property). Configurations with higher priority always overwrite configurations with lower priority. I.e. if the same configuration parameter is used in both <code>file-configuration</code> and <code>string-configuration</code> the configuration parameter from <code>file-configuration</code> will be used and configuration parameter from <code>string-configuration</code> will be ignored. See available configuration options and configurations structure here: https://docs.datastax.com/en/developer/java-driver/4.13/manual/core/configuration/reference/</p>
 <table>
