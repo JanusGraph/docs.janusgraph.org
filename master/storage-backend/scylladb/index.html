@@ -1510,8 +1510,17 @@ with <code>org.janusgraph:janusgraph-scylla</code> if JanusGraph is used in Embe
 <p>The manual process described below is temporary and should be replaced by automated process after the issue
 <a href="https://github.com/JanusGraph/janusgraph/issues/3580">janusgraph/janusgraph#3580</a> is resolved.</p>
 </div>
-<p>In case <code>scylla</code> storage option is needed to be used in JanusGraph distribution then it's necessary to replace the next libraries 
-in <code>lib</code> directory (all libraries can be downloaded via Maven Central Repository). 
+<p>In case <code>scylla</code> storage option is needed to be used in JanusGraph distribution then it's necessary to replace the next 
+DataStax provided CQL driver with Scylla provided CQL driver.
+The default JanusGraph distribution builds contain only DataStax drivers, but not Scylla drivers because they are conflicting. 
+However, it's possible to build the same distribution build but with Scylla drivers enabled instead. 
+To do this, you can use the following command inside the JanusGraph repository:
+<superfences><input name="__tabbed_%(index)s" type="radio" id="__tabbed_%(index)s_%(tab_index)s" %(state)s/><label for="__tabbed_%(index)s_%(tab_index)s">Bash</label><div class="tabbed-content"><div class="highlight"><pre><span></span><code><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="o">-</span><span class="n">Pjanusgraph</span><span class="o">-</span><span class="n">release</span> <span class="o">-</span><span class="n">Puse</span><span class="o">-</span><span class="n">scylla</span> <span class="o">-</span><span class="n">DskipTests</span><span class="o">=</span><span class="kc">true</span> <span class="o">--</span><span class="n">batch</span><span class="o">-</span><span class="n">mode</span> <span class="o">--</span><span class="n">also</span><span class="o">-</span><span class="n">make</span> <span class="o">-</span><span class="n">Dgpg</span><span class="o">.</span><span class="na">skip</span><span class="o">=</span><span class="kc">true</span>
+</code></pre></div></div></superfences></p>
+<p>This command will generate distribution builds (both normal and full distribution build) in the 
+following directory: <code>janusgraph-dist/target/</code>.   </p>
+<p>Otherwise, if you can't build distribution on your own, you can use the JanusGraph provided distribution and replace 
+the following libraries in <code>lib</code> directory (all libraries can be downloaded via Maven Central Repository). 
 - <code>org.janusgraph:janusgraph-cql</code> with <code>org.janusgraph:janusgraph-scylla</code>
 - <code>org.janusgraph:cassandra-hadoop-util</code> with <code>org.janusgraph:scylla-hadoop-util</code>
 - <code>com.datastax.oss:java-driver-core</code> with <code>com.scylladb:java-driver-core</code>
