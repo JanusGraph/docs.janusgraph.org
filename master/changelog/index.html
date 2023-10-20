@@ -1444,6 +1444,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#allow-removal-of-configuration-keys" class="md-nav__link">
+    Allow removal of configuration keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#new-index-management" class="md-nav__link">
     New index management
   </a>
@@ -2461,6 +2468,13 @@
           <li class="md-nav__item">
   <a href="#remove-support-for-old-serialization-format-of-janusgraph-predicates" class="md-nav__link">
     Remove support for old serialization format of JanusGraph predicates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-removal-of-configuration-keys" class="md-nav__link">
+    Allow removal of configuration keys
   </a>
   
 </li>
@@ -3590,6 +3604,17 @@ GraphBinary is now used as the default MessageSerializer.</p>
 <h5 id="remove-support-for-old-serialization-format-of-janusgraph-predicates">Remove support for old serialization format of JanusGraph predicates</h5>
 <p>We are dropping support for old serialization format of JanusGraph predicates. The old predicates serialization format is only used by client older than 0.6.
 The change only affects GraphSON.</p>
+<h5 id="allow-removal-of-configuration-keys">Allow removal of configuration keys</h5>
+<p>Users can now remove configuration keys in the ConfiguredGraphFactory's configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ConfiguredGraphFactory</span><span class="o">.</span><span class="na">removeConfiguration</span><span class="o">(</span><span class="s2">&quot;&lt;graph_name&gt;&quot;</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="s2">&quot;&lt;config_key&gt;&quot;</span><span class="o">))</span>
+</code></pre></div>
+
+<p>Or the global configuration:
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s2">&quot;&lt;config_key&gt;&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div></p>
+<p>Note that the above commands should be used with care. They cannot be used to drop an external index backend if it has mixed indexes for instance.</p>
 <h5 id="new-index-management">New index management</h5>
 <p>The index management has received an overhaul which enables proper index removal.
 The schema action <code>REMOVE_INDEX</code> is no longer available and has been replaced by <code>DISCARD_INDEX</code>. See
