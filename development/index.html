@@ -296,13 +296,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
-      Interactions with JanusGraph
+      JanusGraph Basics
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Interactions with JanusGraph" data-md-level="1">
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Interactions with JanusGraph
+        JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -314,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/transactions/" class="md-nav__link">
+    <a href="../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/search-predicates/" class="md-nav__link">
+    <a href="../basics/search-predicates/" class="md-nav__link">
       Search Predicates and Mixed Index Data Types
     </a>
   </li>
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/connecting/" class="md-nav__link">
+    <a href="../basics/connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -377,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/connecting/java/" class="md-nav__link">
+    <a href="../basics/connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -390,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/connecting/python/" class="md-nav__link">
+    <a href="../basics/connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -403,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../interactions/connecting/dotnet/" class="md-nav__link">
+    <a href="../basics/connecting/dotnet/" class="md-nav__link">
       Using .NET
     </a>
   </li>
@@ -1105,6 +1105,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1185,6 +1198,19 @@
   <li class="md-nav__item">
     <a href="../advanced-topics/executor-service/" class="md-nav__link">
       ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
     </a>
   </li>
 
@@ -1316,8 +1342,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enable-automatic-backporting" class="md-nav__link">
+    Enable Automatic Backporting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#merging-of-pull-requests" class="md-nav__link">
     Merging of Pull Requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-backporting" class="md-nav__link">
+    Manual Backporting
   </a>
   
 </li>
@@ -1446,8 +1486,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enable-automatic-backporting" class="md-nav__link">
+    Enable Automatic Backporting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#merging-of-pull-requests" class="md-nav__link">
     Merging of Pull Requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-backporting" class="md-nav__link">
+    Manual Backporting
   </a>
   
 </li>
@@ -1496,7 +1550,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/development.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/development.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1580,7 +1634,7 @@ include:</p>
 <ul>
 <li>Documentation typo or small documentation addition</li>
 <li>Addition of a new test case</li>
-<li>Merging approved fixes into an upstream branch</li>
+<li>Backporting approved changes into other release branches</li>
 </ul>
 <p>Any commit that is made following CTR shall include the fact that it is
 a CTR in the commit comments. Community members who wish to review CTRs
@@ -1588,24 +1642,43 @@ may subscribe to the <a href="https://groups.google.com/forum/#!forum/janusgraph
 list so that they will see CTRs as they come through. If another
 committer responds with a -1, the commit should be rolled back and the
 formal RTC process should be followed.</p>
+<h3 id="enable-automatic-backporting">Enable Automatic Backporting</h3>
+<p>Before merging the pull request, it should be decided whether the contribution should be backported to other release
+branches.
+This should be the case for most non-breaking changes.
+If the change applies to something that is not present at all on other still supported release branches, like updating
+a dependency that was only introduced on <code>master</code> or code that was added / heavily modified on <code>master</code>, then
+backporting cannot work or would require too much effort.
+Otherwise, the appropriate labels for backporting (for example <code>backport/v0.6</code> for the branch <code>v0.6</code>) should be added
+before the pull requests gets merged as that allows the backporting action to automatically handle the backporting.</p>
 <h3 id="merging-of-pull-requests">Merging of Pull Requests</h3>
 <p>A pull request is ready to be merged when it has been approved (see
-<a href="#review-then-commit">Review-Then-Commit (RTC)</a>). It can either be
-merged manually with <code>git</code> commands or through the GitHub UI with the
-<em>Merge pull request</em> button. If the pull request targets a release
-branch that is upstream of other release branches (e.g., <code>v0.2</code> is
-upstream of <code>master</code>), then it is important to make sure that the change
-also lands in the downstream release branches. This is the
-responsibility of the committer who merges the pull request. Therefore,
-merge the pull request first into its target branch and then merge that
-branch (e.g., <code>v0.2</code>) into the next downstream branch (e.g., <code>v0.3</code>), and
-so on until you merge the last release branch into <code>master</code>. Afterwards
-push all release branches, ideally with an atomic commit:</p>
-<div class="highlight"><pre><span></span><code>git push --atomic origin master v0.3 v0.2
+<a href="#review-then-commit-rtc">Review-Then-Commit (RTC)</a>).
+It can either be merged manually with <code>git</code> commands or through the GitHub UI.</p>
+<p>For pull requests that should be backported (see <a href="#enable-automatic-backporting">Enable Automatic Backporting</a>), the
+backporting action should create a pull request to backport the changes to other release branches after the pull
+request has been merged.
+The committer who merges the pull request should ensure that this automatic backporting succeeds.
+It may fail in case of merge conflicts.
+In that case the backporting needs to be <a href="#manual-backporting">performed manually</a>.</p>
+<h3 id="manual-backporting">Manual Backporting</h3>
+<p>The <a href="https://github.com/sqren/backport">Backport CLI tool</a> can be used to manually backport a pull request.
+This can be necessary if the automatic backporting of a pull request fails.
+After installing the CLI tool, you also need to configure it with a GitHub access token.
+This is explained in the README.md of the Backport CLI tool.</p>
+<p>You can then use the tool to backport a pull request #xyz:</p>
+<div class="highlight"><pre><span></span><code> backport --pr xyz
 </code></pre></div>
 
-<p>This approach keeps merge conflicts to a minimum when a release branch
-is merged into a downstream release branch.</p>
+<p>This will checkout the repository, apply the change from the pull request to the appropriate release branch
+(like <code>v0.6</code>), and then ask you to resolve any merge conflicts.
+After the merge conflicts are resolved, it will create a pull request that backports the changes.
+Note that such a backporting pull request can usually be merged via <a href="#commit-then-review-ctr">CTR</a> after all
+automatic checks have been executed.
+If non-trivial changes were necessary to resolve merge conflicts, then waiting for a review before merging the
+pull request may still make sense.</p>
+<p>It is of course also possible to use cherry-picking to apply the commits manually to a different release branch instead
+of using this CLI tool.</p>
 <h2 id="release-policy">Release Policy</h2>
 <p>Any JanusGraph committer may propose a release. To propose a release,
 simple start a new RELEASE thread on

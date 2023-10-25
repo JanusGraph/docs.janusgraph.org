@@ -296,13 +296,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
-      Interactions with JanusGraph
+      JanusGraph Basics
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Interactions with JanusGraph" data-md-level="1">
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Interactions with JanusGraph
+        JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -314,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/transactions/" class="md-nav__link">
+    <a href="../../../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/search-predicates/" class="md-nav__link">
+    <a href="../../../basics/search-predicates/" class="md-nav__link">
       Search Predicates and Mixed Index Data Types
     </a>
   </li>
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/" class="md-nav__link">
+    <a href="../../../basics/connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -377,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/java/" class="md-nav__link">
+    <a href="../../../basics/connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -390,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/python/" class="md-nav__link">
+    <a href="../../../basics/connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -403,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/dotnet/" class="md-nav__link">
+    <a href="../../../basics/connecting/dotnet/" class="md-nav__link">
       Using .NET
     </a>
   </li>
@@ -1161,6 +1161,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1241,6 +1254,19 @@
   <li class="md-nav__item">
     <a href="../../../advanced-topics/executor-service/" class="md-nav__link">
       ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
     </a>
   </li>
 
@@ -1372,7 +1398,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/schema/index-management/index-lifecycle.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/schema/index-management/index-lifecycle.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1384,7 +1410,9 @@ After the index is build you should wait until it is registered (i.e. available)
 <div class="highlight"><pre><span></span><code><span class="c1">//Wait for the index to become available (i.e. wait for status REGISTERED)</span>
 <span class="n">ManagementSystem</span><span class="p">.</span><span class="na">awaitGraphIndexStatus</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s">&quot;myIndex&quot;</span><span class="p">).</span><span class="na">call</span><span class="p">();</span>
 </code></pre></div></p>
-<p>After the index is registered we should either enable the index (if we are sure that the current data should not be indexed by the newly created index) or we should reindex current data so that it would be available in the newly created index.</p>
+<p>After the index is registered we should either enable the index (if we are sure that the current data should not be
+indexed by the newly created index) or we should reindex current data so that it would be available in the newly created
+index.</p>
 <p>Reindex the existing data and automatically enable the index example:
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
 <span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span> <span class="n">SchemaAction</span><span class="p">.</span><span class="na">REINDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
@@ -1396,42 +1424,74 @@ After the index is build you should wait until it is registered (i.e. available)
 <span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
 </code></pre></div></p>
 <h2 id="index-states-and-transitions">Index states and transitions</h2>
-<p><img alt="States and transitions" src="../index-lifecycle.png" /></p>
+<p>The diagram below shows the possible states of an index in JanusGraph.
+Transitions which should be used with caution are shown in grey.
+These are either not recommended to be used in production scenarios or have more complex implications to be aware of.</p>
+<p><img alt="States and transitions" src="../index-lifecycle.svg" style="width:100%;" /></p>
 <h2 id="states-schemastatus">States (SchemaStatus)</h2>
 <p>An index can be in one of the following states:</p>
-<ul>
-<li>
-<p><strong>INSTALLED</strong> The index is installed in the system but not yet registered with all instances in the cluster</p>
-</li>
-<li>
-<p><strong>REGISTERED</strong> The index is registered with all instances in the cluster but not (yet) enabled</p>
-</li>
-<li>
-<p><strong>ENABLED</strong> The index is enabled and in use</p>
-</li>
-<li>
-<p><strong>DISABLED</strong> The index is disabled and no longer in use</p>
-</li>
-</ul>
+<dl>
+<dt><strong>INSTALLED</strong></dt>
+<dd>
+<p>The index has been created on the current JanusGraph instance, but it is not yet known to all instances in the
+cluster.
+This state is not shown in the diagram above because it is not stable in terms of synchronization between instances.</p>
+</dd>
+<dt><strong>REGISTERED</strong></dt>
+<dd>
+<p>The index is known to all instances in the cluster.
+However, it is not in use yet.
+In this state, the index contains no data and will not be used in queries.</p>
+</dd>
+<dt><strong>ENABLED</strong></dt>
+<dd>
+<p>The index is enabled and can be used to answer queries.
+Furthermore, this is the only state in which insertions and deletions in the graph are forwarded to the index.</p>
+</dd>
+<dt><strong>DISABLED</strong></dt>
+<dd>
+<p>The index is disabled and will not be used to answer queries.
+It also does no longer receive graph updates.
+Therefore, it is recommended to use <code>REINDEX</code> to re-enable the index.</p>
+</dd>
+<dt><strong>DISCARDED</strong></dt>
+<dd>
+<p>The index has been decommissioned and its contents have been deleted.
+The only remaining artifact is the schema vertex representing the index.</p>
+</dd>
+</dl>
 <h2 id="actions-schemaaction">Actions (SchemaAction)</h2>
 <p>The following actions can be performed on an index to change its state via <code>mgmt.updateIndex()</code>:</p>
-<ul>
-<li>
-<p><strong>REGISTER_INDEX</strong> Registers the index with all instances in the graph cluster. After an index is installed, it must be registered with all graph instances</p>
-</li>
-<li>
-<p><strong>REINDEX</strong> Re-builds the index from the graph</p>
-</li>
-<li>
-<p><strong>ENABLE_INDEX</strong> Enables the index so that it can be used by the query processing engine. An index must be registered before it can be enabled.</p>
-</li>
-<li>
-<p><strong>DISABLE_INDEX</strong> Disables the index in the graph so that it is no longer used.</p>
-</li>
-<li>
-<p><strong>REMOVE_INDEX</strong> Removes the index from the graph (optional operation). Only on composite index.</p>
-</li>
-</ul>
+<dl>
+<dt><strong>REGISTER_INDEX</strong></dt>
+<dd>Registers the index with all instances in the cluster.
+After an index is installed, it must be registered with all JanusGraph instances.</dd>
+<dt><strong>REINDEX</strong></dt>
+<dd>Re-builds the index from the ground up using the data stored in the graph.
+Depending on the size of the graph, this action can take a long time to complete.
+Reindexing is possible in all stable states and automatically enables the index once finished.</dd>
+<dt><strong>ENABLE_INDEX</strong></dt>
+<dd>Enables the index so that it can be used by the query processing engine.
+An index must be registered before it can be enabled.
+If enabling the index manually instead of performing a reindex, be aware that past modifications of the graph are
+not represented in the index.
+Enabling a previously disabled index without <code>REINDEX</code> may cause index queries to return ghost vertices, which have
+been deleted from the graph while the index was disabled.</dd>
+<dt><strong>DISABLE_INDEX</strong></dt>
+<dd>Disables the index temporarily so that it is no longer used to answer queries.
+The index also stops receiving updates in the graph.</dd>
+<dt><strong>DISCARD_INDEX</strong></dt>
+<dd>Removes all data from the index, preparing it for removal.
+This operation is supported for all composite indices and for some mixed index backends.
+For more information on index removal see <a href="../index-removal/">Removal</a>.</dd>
+<dt><strong>MARK_DISCARDED</strong></dt>
+<dd>All indices which can not be discarded using <strong>DISCARD_INDEX</strong> have to be discarded manually in the backend.
+As this is not recognized by JanusGraph automatically, the state can be set to <strong>DISCARDED</strong> manually via this
+action.</dd>
+<dt><strong>DROP_INDEX</strong></dt>
+<dd>Removes the index from the schema and communicates the change to other instances in the cluster.
+After an index has been dropped, a new index is allowed to use the same name again.</dd>
+</dl>
                 
               
               

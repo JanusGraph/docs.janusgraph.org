@@ -296,13 +296,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
-      Interactions with JanusGraph
+      JanusGraph Basics
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Interactions with JanusGraph" data-md-level="1">
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Interactions with JanusGraph
+        JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -314,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/transactions/" class="md-nav__link">
+    <a href="../../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/search-predicates/" class="md-nav__link">
+    <a href="../../basics/search-predicates/" class="md-nav__link">
       Search Predicates and Mixed Index Data Types
     </a>
   </li>
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/" class="md-nav__link">
+    <a href="../../basics/connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -377,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/java/" class="md-nav__link">
+    <a href="../../basics/connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -390,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/python/" class="md-nav__link">
+    <a href="../../basics/connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -403,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/dotnet/" class="md-nav__link">
+    <a href="../../basics/connecting/dotnet/" class="md-nav__link">
       Using .NET
     </a>
   </li>
@@ -824,8 +824,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#important" class="md-nav__link">
-    Important
+  <a href="#automatic-separation-of-graphs-in-backends" class="md-nav__link">
+    Automatic Separation of Graphs in Backends
   </a>
   
 </li>
@@ -1275,6 +1275,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1355,6 +1368,19 @@
   <li class="md-nav__item">
     <a href="../../advanced-topics/executor-service/" class="md-nav__link">
       ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
     </a>
   </li>
 
@@ -1552,8 +1578,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#important" class="md-nav__link">
-    Important
+  <a href="#automatic-separation-of-graphs-in-backends" class="md-nav__link">
+    Automatic Separation of Graphs in Backends
   </a>
   
 </li>
@@ -1602,7 +1628,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/operations/configured-graph-factory.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/operations/configured-graph-factory.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1829,6 +1855,10 @@ until:
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
 <span class="k">new</span> <span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
 
+<span class="c1">// We can verify the configuration was updated by</span>
+<span class="c1">// retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
+
 <span class="c1">// We are now guaranteed to use the updated configuration</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 </code></pre></div>
@@ -1850,6 +1880,10 @@ until:
 <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;index.search.elasticsearch.transport-scheme&quot;</span><span class="p">,</span> <span class="s">&quot;http&quot;</span><span class="p">);</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">updateConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">,</span>
 <span class="k">new</span> <span class="n">MapConfiguration</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+
+<span class="c1">// We can verify the configuration was updated by</span>
+<span class="c1">// retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 
 <span class="c1">// We are now guaranteed to use the updated configuration</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
@@ -1877,7 +1911,10 @@ configuration that has been updated:
 
 <span class="c1">// Recreate</span>
 <span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
-<span class="c1">// Now this graph&#39;s configuration is guaranteed to be updated</span>
+
+<span class="c1">// Now this graph&#39;s configuration is guaranteed to be updated.</span>
+<span class="c1">// We can verify it by retrieving the configuration for this graph</span>
+<span class="n">ConfiguredGraphFactory</span><span class="p">.</span><span class="na">getConfiguration</span><span class="p">(</span><span class="s">&quot;graph1&quot;</span><span class="p">);</span>
 </code></pre></div></p>
 <h2 id="janusgraphmanager">JanusGraphManager</h2>
 <p>The <code>JanusGraphManager</code> is a <code>Singleton</code> adhering to the TinkerPop
@@ -1923,10 +1960,10 @@ denoted by their <code>key</code> supplied for that graph. For example, if your
 the property <code>graph.graphname</code>, then these graphs will be stored in the
 JanusGraphManager and thus bound in your gremlin script executions as
 <code>graph1</code> and <code>graph2</code>, respectively.</p>
-<h3 id="important">Important</h3>
+<h3 id="automatic-separation-of-graphs-in-backends">Automatic Separation of Graphs in Backends</h3>
 <p>For convenience, if your configuration used to open a graph specifies
 <code>graph.graphname</code>, but does not specify the backend’s storage directory,
-tablename, or keyspacename, then the relevant parameter will
+table name, keyspace name, or index name, then the relevant parameter will
 automatically be set to the value of <code>graph.graphname</code>. However, if you
 supply one of those parameters, that value will always take precedence.
 And if you supply neither, they default to the configuration option’s
@@ -1995,7 +2032,7 @@ directory equivalent to the
 Configured Graph Factory template. If a sessioned connection is not used
 the Configured Graph Factory Template creation must be sent to the
 server as a single line using semi-colons. See details on sessions can
-be found in <a href="../../interactions/connecting/">Connecting to Gremlin Server</a>.</p>
+be found in <a href="../../basics/connecting/">Connecting to Gremlin Server</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="s">/remote.yaml session</span>
 <span class="s">==&gt;Configured localhost/</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8182</span>
 

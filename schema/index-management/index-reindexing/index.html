@@ -296,13 +296,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
-      Interactions with JanusGraph
+      JanusGraph Basics
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Interactions with JanusGraph" data-md-level="1">
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Interactions with JanusGraph
+        JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -314,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/transactions/" class="md-nav__link">
+    <a href="../../../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/search-predicates/" class="md-nav__link">
+    <a href="../../../basics/search-predicates/" class="md-nav__link">
       Search Predicates and Mixed Index Data Types
     </a>
   </li>
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/" class="md-nav__link">
+    <a href="../../../basics/connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -377,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/java/" class="md-nav__link">
+    <a href="../../../basics/connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -390,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/python/" class="md-nav__link">
+    <a href="../../../basics/connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -403,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../interactions/connecting/dotnet/" class="md-nav__link">
+    <a href="../../../basics/connecting/dotnet/" class="md-nav__link">
       Using .NET
     </a>
   </li>
@@ -670,16 +670,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-a-reindex-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing a Reindex job on JanusGraphManagement
+  <a href="#executing-a-reindex-job-on-managementsystem" class="md-nav__link">
+    Executing a Reindex job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing a Reindex job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing a Reindex job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1228,6 +1228,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1308,6 +1321,19 @@
   <li class="md-nav__item">
     <a href="../../../advanced-topics/executor-service/" class="md-nav__link">
       ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
     </a>
   </li>
 
@@ -1448,16 +1474,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#executing-a-reindex-job-on-janusgraphmanagement" class="md-nav__link">
-    Executing a Reindex job on JanusGraphManagement
+  <a href="#executing-a-reindex-job-on-managementsystem" class="md-nav__link">
+    Executing a Reindex job on ManagementSystem
   </a>
   
-    <nav class="md-nav" aria-label="Executing a Reindex job on JanusGraphManagement">
+    <nav class="md-nav" aria-label="Executing a Reindex job on ManagementSystem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-for-janusgraphmanagement" class="md-nav__link">
-    Example for JanusGraphManagement
+  <a href="#example-for-managementsystem" class="md-nav__link">
+    Example for ManagementSystem
   </a>
   
 </li>
@@ -1506,7 +1532,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/schema/index-management/index-reindexing.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/schema/index-management/index-reindexing.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1579,7 +1605,7 @@ the steps to run a reindex job using this class:</p>
 <li>If the index has not yet been enabled, enable it through <code>JanusGraphManagement</code></li>
 </ul>
 <p>This class implements an <code>updateIndex</code> method that supports only the
-<code>REINDEX</code> and <code>REMOVE_INDEX</code> actions for its <code>SchemaAction</code> parameter.
+<code>REINDEX</code> and <code>DISCARD_INDEX</code> actions for its <code>SchemaAction</code> parameter.
 The class starts a Hadoop MapReduce job using the Hadoop configuration
 and jars on the classpath. Both Hadoop 1 and 2 are supported. This class
 gets metadata about the index and storage backend (e.g. the Cassandra
@@ -1648,19 +1674,26 @@ against the Cassandra storage backend.
 <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s2">&quot;conf/janusgraph-cql-es.properties&quot;</span><span class="o">)</span>
 <span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;desc&quot;</span><span class="o">,</span> <span class="n">containsText</span><span class="o">(</span><span class="s2">&quot;baz&quot;</span><span class="o">))</span>
 </code></pre></div></p>
-<h2 id="executing-a-reindex-job-on-janusgraphmanagement">Executing a Reindex job on JanusGraphManagement</h2>
-<p>To run a reindex job on JanusGraphManagement, invoke
-<code>JanusGraphManagement.updateIndex</code> with the <code>SchemaAction.REINDEX</code>
+<h2 id="executing-a-reindex-job-on-managementsystem">Executing a Reindex job on ManagementSystem</h2>
+<p>To run a reindex job on ManagementSystem, invoke
+<code>ManagementSystem.updateIndex</code> with the <code>SchemaAction.REINDEX</code>
 argument. For example:
 <div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">getGraphIndex</span><span class="o">(</span><span class="s1">&#39;indexName&#39;</span><span class="o">)</span>
 <span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
 <span class="n">m</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div></p>
-<h3 id="example-for-janusgraphmanagement">Example for JanusGraphManagement</h3>
+<p>ManagementSystem uses a local thread pool to run reindexing
+jobs concurrently. By default, the concurrency level equals
+the number of available processors. If you want to change the
+concurrency level, you can add a parameter like this:
+<div class="highlight"><pre><span></span><code><span class="c1">// only use one thread to run reindexing</span>
+<span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
+</code></pre></div></p>
+<h3 id="example-for-managementsystem">Example for ManagementSystem</h3>
 <p>The following loads some sample data into a BerkeleyDB-backed JanusGraph
 database, defines an index after the fact, reindexes using
-JanusGraphManagement, and finally enables and uses the index:
+ManagementSystem, and finally enables and uses the index:
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">org.janusgraph.graphdb.database.management.ManagementSystem</span>
 
 <span class="c1">// Load some data from a file without any predefined schema</span>
@@ -1693,7 +1726,7 @@ JanusGraphManagement, and finally enables and uses the index:
 <span class="n">m</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">SchemaAction</span><span class="o">.</span><span class="na">REINDEX</span><span class="o">)</span>
 <span class="n">m</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 
-<span class="c1">// Enable the index</span>
+<span class="c1">// Wait for the index to be enabled</span>
 <span class="n">ManagementSystem</span><span class="o">.</span><span class="na">awaitGraphIndexStatus</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="s1">&#39;names&#39;</span><span class="o">).</span><span class="na">status</span><span class="o">(</span><span class="n">SchemaStatus</span><span class="o">.</span><span class="na">ENABLED</span><span class="o">).</span><span class="na">call</span><span class="o">()</span>
 
 <span class="c1">// Run a query -- JanusGraph will use the new index, no planner warning</span>
@@ -1713,10 +1746,10 @@ JanusGraphManagement, and finally enables and uses the index:
 built, the job might fail with an exception like one of the following:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">The</span> <span class="k">index</span> <span class="n">mixedExample</span> <span class="k">is</span> <span class="k">in</span> <span class="n">an</span> <span class="n">invalid</span> <span class="k">state</span> <span class="k">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">indexed</span><span class="p">.</span>
 <span class="n">The</span> <span class="n">following</span> <span class="k">index</span> <span class="n">keys</span> <span class="n">have</span> <span class="n">invalid</span> <span class="n">status</span><span class="p">:</span> <span class="k">desc</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span>
-<span class="p">(</span><span class="n">status</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">])</span>
+<span class="p">(</span><span class="n">status</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">,</span> <span class="n">DISABLED</span><span class="p">])</span>
 
 <span class="n">The</span> <span class="k">index</span> <span class="n">mixedExample</span> <span class="k">is</span> <span class="k">in</span> <span class="n">an</span> <span class="n">invalid</span> <span class="k">state</span> <span class="k">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">indexed</span><span class="p">.</span>
-<span class="n">The</span> <span class="k">index</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span><span class="p">,</span> <span class="n">but</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">]</span> <span class="k">is</span> <span class="n">required</span>
+<span class="n">The</span> <span class="k">index</span> <span class="n">has</span> <span class="n">status</span> <span class="n">INSTALLED</span><span class="p">,</span> <span class="n">but</span> <span class="n">one</span> <span class="k">of</span> <span class="p">[</span><span class="n">REGISTERED</span><span class="p">,</span> <span class="n">ENABLED</span><span class="p">,</span> <span class="n">DISABLED</span><span class="p">]</span> <span class="k">is</span> <span class="n">required</span>
 </code></pre></div>
 
 

@@ -296,13 +296,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     
     <label class="md-nav__link" for="nav-3">
-      Interactions with JanusGraph
+      JanusGraph Basics
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Interactions with JanusGraph" data-md-level="1">
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Interactions with JanusGraph
+        JanusGraph Basics
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -314,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/transactions/" class="md-nav__link">
+    <a href="../../basics/transactions/" class="md-nav__link">
       Transactions
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/search-predicates/" class="md-nav__link">
+    <a href="../../basics/search-predicates/" class="md-nav__link">
       Search Predicates and Mixed Index Data Types
     </a>
   </li>
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/" class="md-nav__link">
+    <a href="../../basics/connecting/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -377,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/java/" class="md-nav__link">
+    <a href="../../basics/connecting/java/" class="md-nav__link">
       Using Java
     </a>
   </li>
@@ -390,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/python/" class="md-nav__link">
+    <a href="../../basics/connecting/python/" class="md-nav__link">
       Using Python
     </a>
   </li>
@@ -403,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../interactions/connecting/dotnet/" class="md-nav__link">
+    <a href="../../basics/connecting/dotnet/" class="md-nav__link">
       Using .NET
     </a>
   </li>
@@ -1186,6 +1186,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../../advanced-topics/partitioning/" class="md-nav__link">
       Graph Partitioning
     </a>
@@ -1266,6 +1279,19 @@
   <li class="md-nav__item">
     <a href="../../advanced-topics/executor-service/" class="md-nav__link">
       ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
     </a>
   </li>
 
@@ -1424,7 +1450,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/janusgraph/janusgraph/edit/v0.6/docs/index-backend/text-search.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/index-backend/text-search.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1570,17 +1596,18 @@ indices which means that they require filtering in memory which can be very cost
 <p>By default, JanusGraph supports indexing geo properties with point type
 and querying geo properties by circle or box. To index a non-point geo
 property with support for querying by any geoshape type, specify the
-mapping as <code>Mapping.PREFIX_TREE</code>:</p>
+mapping as <code>Mapping.BKD</code> (preferred for ElasticSearch) or <code>Mapping.PREFIX_TREE</code> (Supported in Solr, Lucene, and ElasticSearch 6. 
+Deprecated in ElasticSearch 7. Support was removed in ElasticSearch 8):</p>
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s1">&#39;border&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
-<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s1">&#39;borderIndex&#39;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">Mapping</span><span class="o">.</span><span class="na">PREFIX_TREE</span><span class="o">.</span><span class="na">asParameter</span><span class="o">()).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s1">&#39;borderIndex&#39;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">Mapping</span><span class="o">.</span><span class="na">BKD</span><span class="o">.</span><span class="na">asParameter</span><span class="o">()).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div>
 
-<p>Additional parameters can be specified to tune the configuration of the
-underlying prefix tree mapping. These optional parameters include the
-number of levels used in the prefix tree as well as the associated
-precision.</p>
+<p>When <code>Mapping.PREFIX_TREE</code> is used it is possible to specify additional 
+parameters to tune the configuration of the underlying prefix tree mapping. 
+These optional parameters include the number of levels used in the prefix 
+tree as well as the associated precision.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">name</span> <span class="o">=</span> <span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s1">&#39;border&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">Geoshape</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s1">&#39;borderIndex&#39;</span><span class="o">,</span> <span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">Mapping</span><span class="o">.</span><span class="na">PREFIX_TREE</span><span class="o">.</span><span class="na">asParameter</span><span class="o">(),</span> <span class="n">Parameter</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s2">&quot;index-geo-max-levels&quot;</span><span class="o">,</span> <span class="mi">18</span><span class="o">),</span> <span class="n">Parameter</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s2">&quot;index-geo-dist-error-pct&quot;</span><span class="o">,</span> <span class="mf">0.0125</span><span class="o">)).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
@@ -1590,6 +1617,16 @@ precision.</p>
 <p>Note that some indexing backends (e.g. Solr) may require additional
 external schema configuration to support and tune indexing non-point
 properties.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><code>Mapping.BKD</code> mapping which is preferred for ElasticSearch doesn't support Circle shape. 
+Instead of indexing a Circle as it was with <code>Mapping.PREFIX_TREE</code> there are Circle 
+processors available which transform Circle into other shapes and index those shapes instead. 
+Depending on the precision configuration used, search for such circles may behave differently. 
+The higher the precision the more points is used during indexing which may affect storage size
+and index time. See <code>index.[X].bkd-circle-processor</code> configuration properties for more information
+about BKD circle processors.</p>
+</div>
                 
               
               
