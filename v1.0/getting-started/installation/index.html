@@ -1,0 +1,1784 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.3">
+    
+    
+      
+        <title>Installation - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            JanusGraph
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  
+
+
+  
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Installation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Installation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-janusgraph-inside-a-docker-container" class="md-nav__link">
+    Running JanusGraph inside a Docker container
+  </a>
+  
+    <nav class="md-nav" aria-label="Running JanusGraph inside a Docker container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-inside-another-docker-container" class="md-nav__link">
+    Running Gremlin Console inside another Docker container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-on-bare-metal" class="md-nav__link">
+    Running Gremlin Console on Bare-metal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    Local Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-gremlin-console" class="md-nav__link">
+    Running the Gremlin Console
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-janusgraph-server" class="md-nav__link">
+    Running the JanusGraph Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../basic-usage/" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../gremlin/" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../architecture/" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/search-predicates/" class="md-nav__link">
+      Search Predicates and Mixed Index Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" >
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon"></span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/java/" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/python/" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/dotnet/" class="md-nav__link">
+      Using .NET
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    
+    <label class="md-nav__link" for="nav-4">
+      Configuration
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/configuration-reference/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/example-config/" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    
+    <label class="md-nav__link" for="nav-5">
+      Schema Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Schema Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Schema Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/advschema/" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" >
+    
+    <label class="md-nav__link" for="nav-5-3">
+      Index Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-performance/" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-lifecycle/" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-reindexing/" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-removal/" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+    
+    <label class="md-nav__link" for="nav-6">
+      Operations
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Operations" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/server/" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/deployment/" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/container/" class="md-nav__link">
+      JanusGraph Container
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/configured-graph-factory/" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dynamic-graphs/" class="md-nav__link">
+      Dynamic Graphs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/batch-processing/" class="md-nav__link">
+      Batch Processing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/bulk-loading/" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cache/" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/monitoring/" class="md-nav__link">
+      Monitoring
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-titan/" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-thrift/" class="md-nav__link">
+      Migrating from Thrift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/recovery/" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/management/" class="md-nav__link">
+      Management System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+    
+    <label class="md-nav__link" for="nav-7">
+      Storage Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/cassandra/" class="md-nav__link">
+      Apache Cassandra
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/hbase/" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bigtable/" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/scylladb/" class="md-nav__link">
+      ScyllaDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/bdb/" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../storage-backend/inmemorybackend/" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+    
+    <label class="md-nav__link" for="nav-8">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
+    
+    <label class="md-nav__link" for="nav-9">
+      Advanced Topics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/transaction-log/" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+      ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/commit-releases/" class="md-nav__link">
+      Snapshot Releases
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../common-questions/" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-janusgraph-inside-a-docker-container" class="md-nav__link">
+    Running JanusGraph inside a Docker container
+  </a>
+  
+    <nav class="md-nav" aria-label="Running JanusGraph inside a Docker container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-inside-another-docker-container" class="md-nav__link">
+    Running Gremlin Console inside another Docker container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gremlin-console-on-bare-metal" class="md-nav__link">
+    Running Gremlin Console on Bare-metal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    Local Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-gremlin-console" class="md-nav__link">
+    Running the Gremlin Console
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-janusgraph-server" class="md-nav__link">
+    Running the JanusGraph Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pre-packaged-distribution" class="md-nav__link">
+    Using the Pre-Packaged Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Pre-Packaged Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-after-the-pre-packaged-distribution" class="md-nav__link">
+    Cleaning up after the Pre-Packaged Distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/getting-started/installation.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="installation">Installation</h1>
+<h2 id="running-janusgraph-inside-a-docker-container">Running JanusGraph inside a Docker container</h2>
+<p>For virtualization and easy access, JanusGraph provides a <a href="https://hub.docker.com/r/janusgraph/janusgraph">Docker image</a>.
+Docker makes it easier to run servers and clients on a single machine without dealing with multiple installations.
+For instructions on installing and using Docker, please refer to the <a href="https://docker.com/get-started">docker guide</a>.
+With JanusGraph Server running in one container, we can either run the client in another container, or on our bare-metal machine.
+In the examples below, we use Gremlin Console as the client.</p>
+<h3 id="running-gremlin-console-inside-another-docker-container">Running Gremlin Console inside another Docker container</h3>
+<p>Let's start by running a simple JanusGraph instance in Docker:</p>
+<div class="highlight"><pre><span></span><code>$ docker run --name janusgraph-default janusgraph/janusgraph:latest
+</code></pre></div>
+
+<p>The above command launches a JanusGraph Server instance. We name the container so that we can link a second container to it.
+The server may need a few seconds to start up so be patient and wait for the corresponding log messages to appear.</p>
+<details class="note"><summary>Example log</summary><div class="highlight"><pre><span></span><code>SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/janusgraph/lib/slf4j-log4j12-1.7.12.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/janusgraph/lib/logback-classic-1.1.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+0    [main] INFO  com.jcabi.manifests.Manifests  - 110 attributes loaded from 283 stream(s) in 130ms, 110 saved, 3770 ignored: [&quot;Agent-Class&quot;, &quot;Ant-Version&quot;, &quot;Archiver-Version&quot;, &quot;Automatic-Module-Name&quot;, &quot;Bnd-LastModified&quot;, &quot;Boot-Class-Path&quot;, &quot;Branch&quot;, &quot;Build-Date&quot;, &quot;Build-Host&quot;, &quot;Build-Id&quot;, &quot;Build-Java-Version&quot;, &quot;Build-Jdk&quot;, &quot;Build-Job&quot;, &quot;Build-Number&quot;, &quot;Build-Timestamp&quot;, &quot;Build-Version&quot;, &quot;Built-At&quot;, &quot;Built-By&quot;, &quot;Built-Date&quot;, &quot;Built-OS&quot;, &quot;Built-On&quot;, &quot;Built-Status&quot;, &quot;Bundle-ActivationPolicy&quot;, &quot;Bundle-Activator&quot;, &quot;Bundle-BuddyPolicy&quot;, &quot;Bundle-Category&quot;, &quot;Bundle-ClassPath&quot;, &quot;Bundle-ContactAddress&quot;, &quot;Bundle-Description&quot;, &quot;Bundle-DocURL&quot;, &quot;Bundle-License&quot;, &quot;Bundle-ManifestVersion&quot;, &quot;Bundle-Name&quot;, &quot;Bundle-NativeCode&quot;, &quot;Bundle-RequiredExecutionEnvironment&quot;, &quot;Bundle-SymbolicName&quot;, &quot;Bundle-Vendor&quot;, &quot;Bundle-Version&quot;, &quot;Can-Redefine-Classes&quot;, &quot;Change&quot;, &quot;Class-Path&quot;, &quot;Created-By&quot;, &quot;DSTAMP&quot;, &quot;DynamicImport-Package&quot;, &quot;Eclipse-BuddyPolicy&quot;, &quot;Eclipse-ExtensibleAPI&quot;, &quot;Embed-Dependency&quot;, &quot;Embed-Transitive&quot;, &quot;Export-Package&quot;, &quot;Extension-Name&quot;, &quot;Extension-name&quot;, &quot;Fragment-Host&quot;, &quot;Gradle-Version&quot;, &quot;Gremlin-Lib-Paths&quot;, &quot;Gremlin-Plugin-Dependencies&quot;, &quot;Gremlin-Plugin-Paths&quot;, &quot;Ignore-Package&quot;, &quot;Implementation-Build&quot;, &quot;Implementation-Build-Date&quot;, &quot;Implementation-Title&quot;, &quot;Implementation-URL&quot;, &quot;Implementation-Vendor&quot;, &quot;Implementation-Vendor-Id&quot;, &quot;Implementation-Version&quot;, &quot;Import-Package&quot;, &quot;Include-Resource&quot;, &quot;JCabi-Build&quot;, &quot;JCabi-Date&quot;, &quot;JCabi-Version&quot;, &quot;Java-Vendor&quot;, &quot;Java-Version&quot;, &quot;Main-Class&quot;, &quot;Manifest-Version&quot;, &quot;Maven-Version&quot;, &quot;Module-Email&quot;, &quot;Module-Origin&quot;, &quot;Module-Owner&quot;, &quot;Module-Source&quot;, &quot;Originally-Created-By&quot;, &quot;Os-Arch&quot;, &quot;Os-Name&quot;, &quot;Os-Version&quot;, &quot;Package&quot;, &quot;Premain-Class&quot;, &quot;Private-Package&quot;, &quot;Provide-Capability&quot;, &quot;Require-Bundle&quot;, &quot;Require-Capability&quot;, &quot;Scm-Connection&quot;, &quot;Scm-Revision&quot;, &quot;Scm-Url&quot;, &quot;Specification-Title&quot;, &quot;Specification-Vendor&quot;, &quot;Specification-Version&quot;, &quot;TODAY&quot;, &quot;TSTAMP&quot;, &quot;Time-Zone-Database-Version&quot;, &quot;Tool&quot;, &quot;X-Compile-Elasticsearch-Snapshot&quot;, &quot;X-Compile-Elasticsearch-Version&quot;, &quot;X-Compile-Lucene-Version&quot;, &quot;X-Compile-Source-JDK&quot;, &quot;X-Compile-Target-JDK&quot;, &quot;hash&quot;, &quot;implementation-version&quot;, &quot;mode&quot;, &quot;package&quot;, &quot;service&quot;, &quot;url&quot;, &quot;version&quot;]
+1    [main] INFO  org.apache.tinkerpop.gremlin.server.GremlinServer  - 3.4.1
+         \,,,/
+         (o o)
+-----oOOo-(3)-oOOo-----
+
+100  [main] INFO  org.apache.tinkerpop.gremlin.server.GremlinServer  - Configuring Gremlin Server from /etc/opt/janusgraph/gremlin-server.yaml
+...
+...
+3965 [gremlin-server-boss-1] INFO  org.apache.tinkerpop.gremlin.server.GremlinServer  - Gremlin Server configured with worker thread pool of 1, gremlin pool of 8 and boss thread pool of 1.
+3965 [gremlin-server-boss-1] INFO  org.apache.tinkerpop.gremlin.server.GremlinServer  - Channel started at port 8182.
+</code></pre></div>
+
+</details>
+<p>We can now instruct Docker to start a second container for the client and link it to the already running server. Here we
+use Gremlin Console (<code>gremlin.sh</code>) as the client.</p>
+<div class="highlight"><pre><span></span><code>$ docker run --rm --link janusgraph-default:janusgraph -e <span class="nv">GREMLIN_REMOTE_HOSTS</span><span class="o">=</span>janusgraph <span class="se">\</span>
+    -it janusgraph/janusgraph:latest ./bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
+<span class="o">==</span>&gt;Configured janusgraph/172.17.0.2:8182
+</code></pre></div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The above command only establishes the connection to the server.
+It does not forward the following commands to the server by default!
+As a result, further commands will still be executed locally unless preceeded by <code>:&gt;</code>.</p>
+<p>To forward every command to the remote server, use the <code>:remote console</code> command.
+Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.7.0/reference/#console-remote-console">TinkerPop reference docs</a></p>
+</div>
+<h3 id="running-gremlin-console-on-bare-metal">Running Gremlin Console on Bare-metal</h3>
+<p>We can also run the Gremlin Console on our bare-metal machine. To make the server able to communicate with the gremlin
+console, we need to expose the 8182 port when launching JanusGraph Server:</p>
+<div class="highlight"><pre><span></span><code>$ docker run -it -p <span class="m">8182</span>:8182 janusgraph/janusgraph
+</code></pre></div>
+
+<p>We can now start a Gremlin Console and try to connect to the server. We need to download the released zip archive and
+launch the gremlin console (see <a href="./#local-installation">local installation</a> section for details):</p>
+<div class="highlight"><pre><span></span><code>$ bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
+<span class="o">==</span>&gt;Configured localhost/127.0.0.1:8182
+</code></pre></div>
+
+<p>For further reading, see the <a href="../../operations/server/">JanusGraph Server</a> section as well as the <a href="https://github.com/JanusGraph/janusgraph-docker/blob/master/README.md">JanusGraph Docker documentation</a>.</p>
+<h2 id="local-installation">Local Installation</h2>
+<p>In order to run JanusGraph, Java 8 SE is required.
+Make sure the <code>$JAVA_HOME</code> environment variable points to the correct location where either JRE or JDK is installed.
+JanusGraph can be downloaded as a .zip archive from the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases</a> section of the project repository.</p>
+<div class="highlight"><pre><span></span><code>$ unzip janusgraph-1.0.0.zip
+Archive:  janusgraph-1.0.0.zip
+  creating: janusgraph-1.0.0/
+...
+</code></pre></div>
+
+<p>Once you have unzipped the downloaded archive, you are ready to go.</p>
+<h3 id="running-the-gremlin-console">Running the Gremlin Console</h3>
+<p>The Gremlin Console is an interactive shell that gives you access to the data managed by JanusGraph.
+You can reach it by running the <code>gremlin.sh</code> script which is located in the project's <code>bin</code> directory.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> janusgraph-1.0.0
+$ bin/gremlin.sh
+
+         <span class="se">\,</span>,,/
+         <span class="o">(</span>o o<span class="o">)</span>
+-----oOOo-<span class="o">(</span><span class="m">3</span><span class="o">)</span>-oOOo-----
+<span class="m">09</span>:12:24 INFO  org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph  - HADOOP_GREMLIN_LIBS is <span class="nb">set</span> to: /usr/local/janusgraph/lib
+plugin activated: tinkerpop.hadoop
+plugin activated: janusgraph.imports
+gremlin&gt;
+</code></pre></div>
+
+<p>The Gremlin Console interprets commands using <a href="https://www.groovy-lang.org/">Apache Groovy</a>, which is a superset of Java.
+Gremlin-Groovy extends Groovy by providing a set of methods for basic and advanced graph traversal functionality.
+For a deeper dive into Gremlin language's features, please refer to our <a href="../gremlin/">introduction to Gremlin</a>.</p>
+<h3 id="running-the-janusgraph-server">Running the JanusGraph Server</h3>
+<p>In most real-world use cases, queries to a database will not be run from the exact same server the data is stored on.
+Instead, there will be some sort of client-server hierarchy in which the server runs the database and handles requests while multiple clients create these requests and thereby read and write entries within the database independently of one another.
+This behavior can also be achieved with JanusGraph.</p>
+<p>In order to start a server on your local machine, simply run the <code>janusgraph-server.sh</code> script instead of the <code>gremlin.sh</code> script.
+You can optionally pass a configuration file as a parameter.
+The default configuration is located at <code>conf/gremlin-server/gremlin-server.yaml</code>.</p>
+<p><div class="highlight"><pre><span></span><code>$ ./bin/janusgraph-server.sh start
+</code></pre></div>
+or
+<div class="highlight"><pre><span></span><code>$ ./bin/janusgraph-server.sh console ./conf/gremlin-server/gremlin-server-<span class="o">[</span>...<span class="o">]</span>.yaml
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The default configuration (<code>gremlin-server.yaml</code>) uses it's own inmemory backend instead of a dedicated database server.
+No search backend is used by default, so mixed indices aren't supported as search backend isn't specified 
+(Make sure you are using <code>GraphOfTheGodsFactory.loadWithoutMixedIndex(graph, true)</code> instead of <code>GraphOfTheGodsFactory.load(graph)</code> if you follow <a href="../basic-usage/">Basic Usage example</a>).
+For further information about storage backends, visit the <a href="../../storage-backend/">corresponding section</a> of the documentation.</p>
+</div>
+<p>A Gremlin server is now running on your local machine and waiting for clients to connect on the default port <code>8182</code>.
+To instantiate a client -- as done before -- run the <code>gremlin.sh</code> script.
+Again, a local Gremlin Console will show up.
+This time, instead of using it locally, we will connect the Gremlin Console to a remote server and redirect all of it's queries to this server.
+This is done by using the <code>:remote</code> command:
+<div class="highlight"><pre><span></span><code>gremlin&gt; :remote connect tinkerpop.server conf/remote.yaml
+<span class="o">==</span>&gt;Configured localhost/127.0.0.1:8182
+</code></pre></div>
+As you can probably tell from the log, the client and server are running on the same machine in this case.
+When using a different setup, all you have to do is modify the parameters in the <code>conf/remote.yaml</code> file.</p>
+<h3 id="using-the-pre-packaged-distribution">Using the Pre-Packaged Distribution</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with 0.5.1, this requires to download <code>janusgraph-full-1.0.0.zip</code> instead of the default <code>janusgraph-1.0.0.zip</code>.</p>
+</div>
+<p>The JanusGraph
+<a href="https://github.com/JanusGraph/janusgraph/releases">release</a> comes
+pre-configured to run JanusGraph Server out of the box leveraging a
+sample Cassandra and Elasticsearch configuration to allow users to get
+started quickly with JanusGraph Server. This configuration defaults to
+client applications that can connect to JanusGraph Server via WebSocket
+with a custom subprotocol. There are a number of clients developed in
+different languages to help support the subprotocol. The most familiar
+client to use the WebSocket interface is the Gremlin Console. The
+quick-start bundle is not intended to be representative of a production
+installation, but does provide a way to perform development with
+JanusGraph Server, run tests and see how the components are wired
+together. To use this default configuration:</p>
+<ul>
+<li>
+<p>Download a copy of the current <code>janusgraph-full-$VERSION.zip</code> file from
+    the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases
+    page</a></p>
+</li>
+<li>
+<p>Unzip it and enter the <code>janusgraph--full-$VERSION</code> directory</p>
+</li>
+<li>
+<p>Run <code>bin/janusgraph.sh start</code>. This step will start Gremlin Server
+    with Cassandra/ES forked into a separate process. Note for security
+    reasons Elasticsearch and therefore <code>janusgraph.sh</code> must be run
+    under a non-root account.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ bin/janusgraph.sh start
+Forking Cassandra...
+Running <span class="sb">`</span>nodetool statusthrift<span class="sb">`</span>.. OK <span class="o">(</span>returned <span class="nb">exit</span> status <span class="m">0</span> and printed string <span class="s2">&quot;running&quot;</span><span class="o">)</span>.
+Forking Elasticsearch...
+Connecting to Elasticsearch <span class="o">(</span><span class="m">127</span>.0.0.1:9300<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:9300<span class="o">)</span>.
+Forking Gremlin-Server...
+Connecting to Gremlin-Server <span class="o">(</span><span class="m">127</span>.0.0.1:8182<span class="o">)</span>... OK <span class="o">(</span>connected to <span class="m">127</span>.0.0.1:8182<span class="o">)</span>.
+Run gremlin.sh to connect.
+</code></pre></div>
+
+<h4 id="cleaning-up-after-the-pre-packaged-distribution">Cleaning up after the Pre-Packaged Distribution</h4>
+<p>If you want to start fresh and remove the database and logs you can use
+the clean command with <code>janusgraph.sh</code>. The server should be stopped
+before running the clean operation.
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/
+$ ./bin/janusgraph.sh stop
+Killing Gremlin-Server <span class="o">(</span>pid <span class="m">91505</span><span class="o">)</span>...
+Killing Elasticsearch <span class="o">(</span>pid <span class="m">91402</span><span class="o">)</span>...
+Killing Cassandra <span class="o">(</span>pid <span class="m">91219</span><span class="o">)</span>...
+$ ./bin/janusgraph.sh clean
+Are you sure you want to delete all stored data and logs? <span class="o">[</span>y/N<span class="o">]</span> y
+Deleted data <span class="k">in</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/db
+Deleted logs <span class="k">in</span> /Path/to/janusgraph/janusgraph-<span class="o">{</span>project.version<span class="o">}</span>/log
+</code></pre></div></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../.." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../basic-usage/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Basic Usage
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2281 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.3">
+    
+    
+      
+        <title>Apache Cassandra - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/structor-menu.css">
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="teal">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apache-cassandra" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            JanusGraph
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Apache Cassandra
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/janusgraph/janusgraph/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/installation/" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/basic-usage/" class="md-nav__link">
+      Basic Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/gremlin/" class="md-nav__link">
+      Gremlin Query Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/architecture/" class="md-nav__link">
+      Architectural Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    
+    <label class="md-nav__link" for="nav-3">
+      JanusGraph Basics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="JanusGraph Basics" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        JanusGraph Basics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/transactions/" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/search-predicates/" class="md-nav__link">
+      Search Predicates and Mixed Index Data Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" >
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Connecting to JanusGraph
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Connecting to JanusGraph" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon"></span>
+        Connecting to JanusGraph
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/java/" class="md-nav__link">
+      Using Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/python/" class="md-nav__link">
+      Using Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/connecting/dotnet/" class="md-nav__link">
+      Using .NET
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    
+    <label class="md-nav__link" for="nav-4">
+      Configuration
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/configuration-reference/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../configs/example-config/" class="md-nav__link">
+      Config Example
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    
+    <label class="md-nav__link" for="nav-5">
+      Schema Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Schema Management" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Schema Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/" class="md-nav__link">
+      Schema and Data Modeling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/advschema/" class="md-nav__link">
+      Advanced Schema
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" >
+    
+    <label class="md-nav__link" for="nav-5-3">
+      Index Management
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Index Management" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        Index Management
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-performance/" class="md-nav__link">
+      Indexing for Better Performance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-lifecycle/" class="md-nav__link">
+      Index Lifecycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-reindexing/" class="md-nav__link">
+      Reindexing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../schema/index-management/index-removal/" class="md-nav__link">
+      Removal
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+    
+    <label class="md-nav__link" for="nav-6">
+      Operations
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Operations" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/server/" class="md-nav__link">
+      JanusGraph Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/deployment/" class="md-nav__link">
+      Deployment Scenarios
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/container/" class="md-nav__link">
+      JanusGraph Container
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/configured-graph-factory/" class="md-nav__link">
+      ConfiguredGraphFactory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dynamic-graphs/" class="md-nav__link">
+      Dynamic Graphs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/batch-processing/" class="md-nav__link">
+      Batch Processing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/bulk-loading/" class="md-nav__link">
+      Bulk Loading
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cache/" class="md-nav__link">
+      JanusGraph Cache
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/monitoring/" class="md-nav__link">
+      Monitoring
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-titan/" class="md-nav__link">
+      Migrating from Titan
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/migrating-thrift/" class="md-nav__link">
+      Migrating from Thrift
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/recovery/" class="md-nav__link">
+      Failure & Recovery
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/management/" class="md-nav__link">
+      Management System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  
+
+
+  
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Storage Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Storage Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Storage Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Apache Cassandra
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Apache Cassandra
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra-storage-backend" class="md-nav__link">
+    Cassandra Storage Backend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-server-mode" class="md-nav__link">
+    Local Server Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-container-mode" class="md-nav__link">
+    Local Container Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-server-mode" class="md-nav__link">
+    Remote Server Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-server-mode-with-gremlin-server" class="md-nav__link">
+    Remote Server Mode with Gremlin Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cql-specific-configuration" class="md-nav__link">
+    CQL Specific Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-graph-operations" class="md-nav__link">
+    Global Graph Operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-datastax-astra" class="md-nav__link">
+    Deploying on DataStax Astra
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on DataStax Astra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-string-configuration" class="md-nav__link">
+    Internal string configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-file-configuration" class="md-nav__link">
+    Internal file configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-amazon-keyspaces" class="md-nav__link">
+    Deploying on Amazon Keyspaces
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-credentials" class="md-nav__link">
+    Creating Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ssltls" class="md-nav__link">
+    Setting up SSL/TLS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-problems" class="md-nav__link">
+    Known Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-amazon-ec2" class="md-nav__link">
+    Deploying on Amazon EC2
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon EC2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-cassandra-cluster" class="md-nav__link">
+    Setup Cassandra Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-security-group" class="md-nav__link">
+    Setting up Security Group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-datastax-cassandra-ami" class="md-nav__link">
+    Launch DataStax Cassandra AMI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-successful-instance-launch" class="md-nav__link">
+    Verify Successful Instance Launch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-janusgraph-instances" class="md-nav__link">
+    Launch JanusGraph Instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-janusgraph-instance-on-amazon-linux-ami" class="md-nav__link">
+    Example JanusGraph Instance on Amazon Linux AMI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect-to-cassandra-cluster-in-ec2-from-outside-ec2" class="md-nav__link">
+    Connect to Cassandra cluster in EC2 from outside EC2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../hbase/" class="md-nav__link">
+      Apache HBase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../bigtable/" class="md-nav__link">
+      Google Cloud Bigtable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../scylladb/" class="md-nav__link">
+      ScyllaDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../bdb/" class="md-nav__link">
+      Oracle Berkeley DB Java Edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../inmemorybackend/" class="md-nav__link">
+      InMemory Storage Backend
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+    
+    <label class="md-nav__link" for="nav-8">
+      Mixed Index Backends
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Mixed Index Backends" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Mixed Index Backends
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/text-search/" class="md-nav__link">
+      Index Parameters and Full-Text Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/field-mapping/" class="md-nav__link">
+      Field Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/direct-index-query/" class="md-nav__link">
+      Direct Index Query
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/elasticsearch/" class="md-nav__link">
+      Elasticsearch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/solr/" class="md-nav__link">
+      Apache Solr
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../index-backend/lucene/" class="md-nav__link">
+      Apache Lucene
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
+    
+    <label class="md-nav__link" for="nav-9">
+      Advanced Topics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced Topics" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced Topics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/eventual-consistency/" class="md-nav__link">
+      Eventually-Consistent Storage Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+      Custom Vertex ID
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/partitioning/" class="md-nav__link">
+      Graph Partitioning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/serializer/" class="md-nav__link">
+      Datatype and Attribute Serializer Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/hadoop/" class="md-nav__link">
+      JanusGraph with TinkerPop’s Hadoop-Gremlin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/transaction-log/" class="md-nav__link">
+      Transaction Log
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/data-model/" class="md-nav__link">
+      JanusGraph Data model
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/janusgraph-bus/" class="md-nav__link">
+      JanusGraph Bus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+      ExecutorService
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      Permanent stale index inconsistency
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
+      Technical Limitations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced-topics/commit-releases/" class="md-nav__link">
+      Snapshot Releases
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../common-questions/" class="md-nav__link">
+      Common Questions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../development/" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cassandra-storage-backend" class="md-nav__link">
+    Cassandra Storage Backend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-server-mode" class="md-nav__link">
+    Local Server Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-container-mode" class="md-nav__link">
+    Local Container Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-server-mode" class="md-nav__link">
+    Remote Server Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-server-mode-with-gremlin-server" class="md-nav__link">
+    Remote Server Mode with Gremlin Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cql-specific-configuration" class="md-nav__link">
+    CQL Specific Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-graph-operations" class="md-nav__link">
+    Global Graph Operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-datastax-astra" class="md-nav__link">
+    Deploying on DataStax Astra
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on DataStax Astra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-string-configuration" class="md-nav__link">
+    Internal string configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-file-configuration" class="md-nav__link">
+    Internal file configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-amazon-keyspaces" class="md-nav__link">
+    Deploying on Amazon Keyspaces
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon Keyspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-credentials" class="md-nav__link">
+    Creating Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ssltls" class="md-nav__link">
+    Setting up SSL/TLS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-problems" class="md-nav__link">
+    Known Problems
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-on-amazon-ec2" class="md-nav__link">
+    Deploying on Amazon EC2
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying on Amazon EC2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-cassandra-cluster" class="md-nav__link">
+    Setup Cassandra Cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-security-group" class="md-nav__link">
+    Setting up Security Group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-datastax-cassandra-ami" class="md-nav__link">
+    Launch DataStax Cassandra AMI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-successful-instance-launch" class="md-nav__link">
+    Verify Successful Instance Launch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-janusgraph-instances" class="md-nav__link">
+    Launch JanusGraph Instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-janusgraph-instance-on-amazon-linux-ami" class="md-nav__link">
+    Example JanusGraph Instance on Amazon Linux AMI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect-to-cassandra-cluster-in-ec2-from-outside-ec2" class="md-nav__link">
+    Connect to Cassandra cluster in EC2 from outside EC2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/janusgraph/janusgraph/edit/v1.0/docs/storage-backend/cassandra.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="apache-cassandra">Apache Cassandra</h1>
+<blockquote>
+<p>The Apache Cassandra database is the right choice when you need
+scalability and high availability without compromising performance.
+Linear scalability and proven fault-tolerance on commodity hardware or
+cloud infrastructure make it the perfect platform for mission-critical
+data. Cassandra’s support for replicating across multiple datacenters
+is best-in-class, providing lower latency for your users and the peace
+of mind of knowing that you can survive regional outages. The largest
+known Cassandra cluster has over 75,000 nodes storing over 10 PB of data.</p>
+<p>—  <a href="http://cassandra.apache.org/">Apache Cassandra Homepage</a></p>
+</blockquote>
+<p>The following sections outline the various ways in which JanusGraph can
+be used in concert with Apache Cassandra.</p>
+<h2 id="cassandra-storage-backend">Cassandra Storage Backend</h2>
+<p>Cassandra has two protocols for clients to use: CQL and Thrift. 
+With Cassandra 4.0, Thrift support will be removed in Cassandra.
+JanusGraph just supports the CQL storage backend.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If security is enabled on Cassandra, the user must have
+<code>CREATE permission on &lt;all keyspaces&gt;</code>, otherwise the keyspace must be
+created ahead of time by an administrator including the required
+tables or the user must have
+<code>CREATE permission on &lt;the configured keyspace&gt;</code>. The create table
+file containing the required tables is located in
+<code>conf/cassandra/cassandraTables.cql</code>. Please define your keyspace
+before executing it.</p>
+</div>
+<h2 id="local-server-mode">Local Server Mode</h2>
+<p><img alt="" src="../modes-local.png" /></p>
+<p>Cassandra can be run as a standalone database on the same local host as
+JanusGraph and the end-user application. In this model, JanusGraph and
+Cassandra communicate with one another via a <code>localhost</code> socket. Running
+JanusGraph over Cassandra requires the following setup steps:</p>
+<ol>
+<li><a href="http://cassandra.apache.org/download/">Download Cassandra</a>, unpack
+    it, and set filesystem paths in <code>conf/cassandra.yaml</code>.</li>
+<li>Connecting Gremlin Server to Cassandra using the default
+    configuration files provided in the pre-packaged distribution.</li>
+<li>
+<p>Start Cassandra by invoking <code>bin/cassandra -f</code> on the command line
+    in the directory where Cassandra was unpacked. Read output to check
+    that Cassandra started successfully.</p>
+<p>Now, you can create a Cassandra JanusGraph as follows<br />
+<div class="highlight"><pre><span></span><code><span class="n">JanusGraph</span> <span class="n">g</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="p">.</span><span class="na">build</span><span class="p">().</span>
+<span class="n">set</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;cql&quot;</span><span class="p">).</span>
+<span class="n">set</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">).</span>
+<span class="n">open</span><span class="p">();</span>
+</code></pre></div></p>
+</li>
+</ol>
+<p>In the Gremlin Console, you can not define the type of the variables
+<code>conf</code> and <code>g</code>. Therefore, simply leave off the type declaration.</p>
+<h2 id="local-container-mode">Local Container Mode</h2>
+<p>Cassandra does not have a native install for Windows or OSX. One of the
+easiest ways to run Cassandra on OSX, Windows, or Linux is to use a
+Docker Container. You can download and run Cassandra with a single
+<a href="https://www.docker.com/">Docker</a> command. It is important to install a
+version that is supported by the version of JanusGraph you intend to
+use. The compatible versions can be found under the Tested Compatibility
+section of the specific release on the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases
+page</a>. The <a href="https://hub.docker.com/_/cassandra/">Cassandra
+Docker Hub page</a> can be referenced
+for the available versions and useful commands. A description of the ports can be found
+<a href="https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/configuration/secureFireWall.html">here</a>.
+Port 9160 is used for the Thrift client API. Port 9042 is for CQL native
+clients. Ports 7000, 7001 and 7099 are for inter-node communication.
+Version 3.11 of Cassandra was the latest compatible version for
+JanusGraph 0.2.0 and is specified in the reference command below.</p>
+<div class="highlight"><pre><span></span><code>docker run --name jg-cassandra -d -e <span class="nv">CASSANDRA_START_RPC</span><span class="o">=</span><span class="nb">true</span> -p <span class="m">9160</span>:9160 <span class="se">\</span>
+  -p <span class="m">9042</span>:9042 -p <span class="m">7199</span>:7199 -p <span class="m">7001</span>:7001 -p <span class="m">7000</span>:7000 cassandra:3.11
+</code></pre></div>
+
+<h2 id="remote-server-mode">Remote Server Mode</h2>
+<p><img alt="" src="../modes-distributed.png" /></p>
+<p>When the graph needs to scale beyond the confines of a single machine,
+then Cassandra and JanusGraph are logically separated into different
+machines. In this model, the Cassandra cluster maintains the graph
+representation and any number of JanusGraph instances maintain
+socket-based read/write access to the Cassandra cluster. The end-user
+application can directly interact with JanusGraph within the same JVM as
+JanusGraph.</p>
+<p>For example, suppose we have a running Cassandra cluster where one of
+the machines has the IP address 77.77.77.77, then connecting JanusGraph
+with the cluster is accomplished as follows (comma separate IP addresses
+to reference more than one machine):
+<div class="highlight"><pre><span></span><code><span class="n">JanusGraph</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="p">.</span><span class="na">build</span><span class="p">().</span>
+  <span class="n">set</span><span class="p">(</span><span class="s">&quot;storage.backend&quot;</span><span class="p">,</span> <span class="s">&quot;cql&quot;</span><span class="p">).</span>
+  <span class="n">set</span><span class="p">(</span><span class="s">&quot;storage.hostname&quot;</span><span class="p">,</span> <span class="s">&quot;77.77.77.77&quot;</span><span class="p">).</span>
+  <span class="n">open</span><span class="p">();</span>
+</code></pre></div></p>
+<p>In the Gremlin Console, you can not define the type of the variables
+<code>conf</code> and <code>g</code>. Therefore, simply leave off the type declaration.</p>
+<h2 id="remote-server-mode-with-gremlin-server">Remote Server Mode with Gremlin Server</h2>
+<p><img alt="" src="../modes-rexster.png" /></p>
+<p>Gremlin Server can be wrapped around each JanusGraph instance defined in
+the previous subsection. In this way, the end-user application need not
+be a Java-based application as it can communicate with Gremlin Server as
+a client. This type of deployment is great for polyglot architectures
+where various components written in different languages need to
+reference and compute on the graph.</p>
+<p>Start Gremlin Server using <code>bin/janusgraph-server.sh</code> and then in an
+external Gremlin Console session using <code>bin/gremlin.sh</code> you can send
+Gremlin commands over the wire:
+<div class="highlight"><pre><span></span><code><span class="o">:</span><span class="n">plugin</span> <span class="n">use</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span>
+<span class="o">:</span><span class="n">remote</span> <span class="n">connect</span> <span class="n">tinkerpop</span><span class="o">.</span><span class="na">server</span> <span class="n">conf</span><span class="o">/</span><span class="n">remote</span><span class="o">.</span><span class="na">yaml</span>
+<span class="o">:&gt;</span> <span class="n">g</span><span class="o">.</span><span class="na">addV</span><span class="o">()</span>
+</code></pre></div></p>
+<p>In this case, each Gremlin Server would be configured to connect to the
+Cassandra cluster. The following shows the graph specific fragment of
+the Gremlin Server configuration. Refer to <a href="../../operations/server/">JanusGraph Server</a> for a complete
+example and more information on how to configure the server.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">graphs</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  g</span><span class="p">:</span> <span class="nv">conf/janusgraph-cql.properties</span>
+<span class="p p-Indicator">}</span>
+<span class="nt">scriptEngines</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">  gremlin-groovy</span><span class="p">:</span> <span class="p p-Indicator">{</span>
+<span class="nt">    plugins</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">classImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math</span><span class="p p-Indicator">],</span><span class="nt"> methodImports</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">java.lang.Math#*</span><span class="p p-Indicator">]},</span>
+<span class="nt">               org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">files</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">scripts/empty-sample.groovy</span><span class="p p-Indicator">]}}}}</span>
+<span class="nn">...</span>
+</code></pre></div>
+
+<p>For more information about Gremlin Server see the <a href="https://tinkerpop.apache.org/docs/3.7.0/reference#gremlin-server">Apache TinkerPop
+documentation</a></p>
+<h2 id="cql-specific-configuration">CQL Specific Configuration</h2>
+<p>Refer to <a href="../../configs/configuration-reference/">Configuration Reference</a> for a complete listing of all Cassandra
+specific configuration options in addition to the general JanusGraph
+configuration options.</p>
+<p>When configuring CQL it is recommended to consider the following
+CQL specific configuration options:</p>
+<ul>
+<li><strong>read-consistency-level</strong>: Cassandra consistency level for read
+    operations</li>
+<li><strong>write-consistency-level</strong>: Cassandra consistency level for write
+    operations</li>
+<li><strong>replication-factor</strong>: The replication factor to use. The higher
+    the replication factor, the more robust the graph database is to
+    machine failure at the expense of data duplication. <strong>The default
+    value should be overwritten for production system to ensure
+    robustness. A value of 3 is recommended.</strong> This replication factor
+    can only be set when the keyspace is initially created. <strong>On an
+    existing keyspace, this value is ignored.</strong></li>
+<li><strong>keyspace</strong>: The name of the keyspace to store the JanusGraph graph
+    in. Allows multiple JanusGraph graphs to co-exist in the same
+    Cassandra cluster.</li>
+</ul>
+<p>More information on Cassandra consistency levels and acceptable
+values can be found <a href="https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlDataConsistencyTOC.html">here</a>.
+In general, higher levels are more consistent and robust but have higher latency.</p>
+<h2 id="global-graph-operations">Global Graph Operations</h2>
+<p>JanusGraph over Cassandra supports global vertex and edge iteration.
+However, note that all these vertices and/or edges will be loaded into
+memory which can cause <code>OutOfMemoryException</code>. Use <a href="../../advanced-topics/hadoop/">JanusGraph with TinkerPop’s Hadoop-Gremlin</a> to
+iterate over all vertices or edges in large graphs effectively.</p>
+<h2 id="deploying-on-datastax-astra">Deploying on DataStax Astra</h2>
+<blockquote>
+<p>Astra DB simplifies cloud-native Cassandra application development. It reduces deployment time from weeks to minutes,
+and delivers an unprecedented combination of serverless, pay-as-you-go pricing with the freedom and agility of
+multi-cloud and open source.</p>
+<p>—  <a href="https://www.datastax.com/products/datastax-astra">DataStax Astra</a></p>
+</blockquote>
+<p><a href="https://docs.datastax.com/en/astra/docs/obtaining-database-credentials.html">Download</a> the secure-connect zipped bundle for your Astra database.</p>
+<p>While connecting to Astra DB from JanusGraph, it is preferred to make use of the secure bundle connection file
+as-is without extracting it. There are multiple ways in which a secure bundle connection file can be passed on to
+the JanusGraph configuration to connect to Astra DB using the DataStax driver.</p>
+<h3 id="internal-string-configuration">Internal string configuration</h3>
+<p>Set the property <code>storage.cql.internal.string-configuration</code> to <code>datastax-java-driver { basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt; }</code>
+and set the username, password and keyspace details.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">&lt;keyspace name which was created in AstraDB&gt;</span>
+<span class="na">storage.username</span><span class="o">=</span><span class="s">&lt;clientID&gt;</span>
+<span class="na">storage.password</span><span class="o">=</span><span class="s">&lt;clientSecret&gt;</span>
+<span class="na">storage.cql.internal.string-configuration</span><span class="o">=</span><span class="s">datastax-java-driver { basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt; }</span>
+</code></pre></div></p>
+<p>Also, you can set a jvm argument to pass the secure bundle file as shown below and remove that property
+<code>(storage.cql.internal.string-configuration)</code> from the list above.</p>
+<p><code>-Ddatastax-java-driver.basic.cloud.secure-connect-bundle=&lt;path-to-secure-bundle-zip-file&gt;</code></p>
+<h3 id="internal-file-configuration">Internal file configuration</h3>
+<p>Set the property <code>storage.cql.internal.file-configuration</code> to an external configuration file if you would like to
+externalize the astra connection related properties to a separate file and specify the secure bundle and credentials information on that file.</p>
+<p>For example:
+<div class="highlight"><pre><span></span><code><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">&lt;keyspace-name&gt;</span>
+<span class="c"># Link to the external file that DataStax driver understands</span>
+<span class="na">storage.cql.internal.file-configuration</span><span class="o">=</span><span class="s">&lt;path-to-astra.conf&gt;</span>
+</code></pre></div>
+astra.conf (external file)
+<div class="highlight"><pre><span></span><code>datastax-java-driver {
+  basic.cloud {
+    secure-connect-bundle = &quot;&lt;path-to-secure-bundle-zip-file&gt;&quot;
+  }
+  advanced.auth-provider {
+    class = PlainTextAuthProvider
+    username = &quot;&lt;clientID&gt;&quot;
+    password = &quot;&lt;clientSecret&gt;&quot;
+  }
+}
+</code></pre></div></p>
+<p>Note: Client id and Client secret need to be generated and copied from your Astra Account
+as per this <a href="https://docs.datastax.com/en/astra/docs/manage-application-tokens.html">doc</a>.</p>
+<p>To learn more about different configuration options of DataStax driver, please refer to the DataStax driver configuration
+<a href="https://docs.datastax.com/en/developer/java-driver/latest/manual/core/configuration/">documentation</a>.</p>
+<h2 id="deploying-on-amazon-keyspaces">Deploying on Amazon Keyspaces</h2>
+<blockquote>
+<p>Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed
+Apache Cassandra–compatible database service. Amazon Keyspaces is serverless, so you
+pay for only the resources you use and the service can automatically scale tables up
+and down in response to application traffic.</p>
+<p>—  <a href="https://aws.amazon.com/keyspaces/">Amazon Keyspaces</a></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The support for Amazon Keyspaces is experimental. We discourage usage in production
+systems unless you have thoroughly tested it against your use case.</p>
+</div>
+<p>Follow these steps to set up a Amazon Keyspaces cluster and deploy JanusGraph over it.
+Prior to these instructions, make sure you have already followed
+<a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/accessing.html">this guide</a>
+to sign up for AWS and set up your identity and access management.</p>
+<h3 id="creating-credentials">Creating Credentials</h3>
+<p>You would need to generate service-specific credentials. See
+<a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/programmatic.credentials.html#programmatic.credentials.ssc">this guide</a>
+for more details.</p>
+<p>After your service-specific credential is generated, you would get an output similar to
+the following:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;ServiceSpecificCredential&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;CreateDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-09T16:12:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceName&quot;</span><span class="p">:</span> <span class="s2">&quot;cassandra.amazonaws.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceUserName&quot;</span><span class="p">:</span> <span class="s2">&quot;alice-at-111122223333&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServicePassword&quot;</span><span class="p">:</span> <span class="s2">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ServiceSpecificCredentialId&quot;</span><span class="p">:</span> <span class="s2">&quot;ACCAYFI33SINPGJEBYESF&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;UserName&quot;</span><span class="p">:</span> <span class="s2">&quot;alice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Status&quot;</span><span class="p">:</span> <span class="s2">&quot;Active&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Please save <code>ServiceUserName</code> and <code>ServicePassword</code> in a secure location and you would
+need them in JanusGraph config later.</p>
+<h3 id="setting-up-ssltls">Setting up SSL/TLS</h3>
+<ol>
+<li>Download the Starfield digital certificate using the following command</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl https://certs.secureserver.net/repository/sf-class2-root.crt -O
+</code></pre></div>
+
+<ol>
+<li>Convert the Starfield digital certificate to a trustStore file</li>
+</ol>
+<div class="highlight"><pre><span></span><code>openssl x509 -outform der -in sf-class2-root.crt -out temp_file.der
+keytool -import -alias cassandra -keystore cassandra_truststore.jks -file temp_file.der
+</code></pre></div>
+
+<p>Now you would see a <code>cassandra_truststore.jks</code> file generated locally. You would need this file
+and your truststore password later.</p>
+<p>For more details, see <a href="https://docs.aws.amazon.com/keyspaces/latest/devguide/using_java_driver.html">this doc</a>.
+Note that you don't need to follow every step of that doc, since it is written for users who connect to Amazon
+Keyspaces using a Java client directly.
+.</p>
+<h3 id="configurations">Configurations</h3>
+<p>Below is a complete sample of configuration. Unlike standard Apache Cassandra or
+ScyllaDB, Amazon Keyspaces only supports a subset of functionalities. Therefore,
+some specific configurations are needed.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Basic settings for CQL</span>
+<span class="na">gremlin.graph</span><span class="o">=</span><span class="s">org.janusgraph.core.JanusGraphFactory</span>
+<span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.hostname</span><span class="o">=</span><span class="s">cassandra.&lt;your-datacenter, e.g. ap-east-1&gt;.amazonaws.com</span>
+<span class="na">storage.port</span><span class="o">=</span><span class="s">9142</span>
+<span class="na">storage.username</span><span class="o">=</span><span class="s">&lt;your-service-username&gt;</span>
+<span class="na">storage.password</span><span class="o">=</span><span class="s">&lt;your-service-password&gt;</span>
+<span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">janusgraph</span>
+<span class="na">storage.cql.local-datacenter</span><span class="o">=</span><span class="s">&lt;your-datacenter, e.g. ap-east-1&gt;</span>
+
+<span class="c"># SSL related settings</span>
+<span class="na">storage.cql.ssl.enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">storage.cql.ssl.truststore.location</span><span class="o">=</span><span class="s">&lt;your-trust-store-location&gt;</span>
+<span class="na">storage.cql.ssl.truststore.password</span><span class="o">=</span><span class="s">&lt;your-trust-store-password&gt;</span>
+
+<span class="c"># Amazon Keyspaces does not support user-generated timestamps</span>
+<span class="c"># Thus, the below config must be turned off</span>
+<span class="na">graph.assign-timestamp</span><span class="o">=</span><span class="s">false</span>
+
+<span class="c"># We strongly recommend you to turn on this config. It will</span>
+<span class="c"># prohibit all full-scan attempts. This is because Amazon keyspace</span>
+<span class="c"># diverges from Apache Cassandra and might result in incomplete</span>
+<span class="c"># results when a full-scan is executed. See issue #3390 for more</span>
+<span class="c"># details</span>
+<span class="na">query.force-index</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c"># Amazon Keyspaces only supports LOCAL QUORUM consistency</span>
+<span class="na">storage.cql.only-use-local-consistency-for-system-operations</span><span class="o">=</span><span class="s">true</span>
+<span class="na">storage.cql.read-consistency-level</span><span class="o">=</span><span class="s">LOCAL_QUORUM</span>
+<span class="na">storage.cql.write-consistency-level</span><span class="o">=</span><span class="s">LOCAL_QUORUM</span>
+<span class="na">log.janusgraph.key-consistent</span><span class="o">=</span><span class="s">true</span>
+<span class="na">log.tx.key-consistent</span><span class="o">=</span><span class="s">true</span>
+
+<span class="c"># Amazon Keyspaces does not have metadata available to clients</span>
+<span class="c"># Thus, we need to tell JanusGraph that metadata are disabled,</span>
+<span class="c"># and provide a hint of which partitioner AWS is using. Valid</span>
+<span class="c"># partitioner-names are: Murmur3Partitioner, RandomPartitioner,</span>
+<span class="c"># and DefaultPartitioner</span>
+<span class="na">storage.cql.metadata-schema-enabled</span><span class="o">=</span><span class="s">false</span>
+<span class="na">storage.cql.metadata-token-map-enabled</span><span class="o">=</span><span class="s">false</span>
+<span class="na">storage.cql.partitioner-name</span><span class="o">=</span><span class="s">Murmur3Partitioner</span>
+</code></pre></div>
+
+<p>Now you should be able to open the graph via gremlin console
+or java code, using the above configuration file.</p>
+<h3 id="known-problems">Known Problems</h3>
+<ul>
+<li>Amazon Keyspaces creates tables on-demand. If you are connecting to it the first time, you
+would likely see error message like
+    <div class="highlight"><pre><span></span><code>unconfigured table janusgraph.system_properties
+</code></pre></div>
+    At the same time, you should be able to see the same table getting created on Amazon Keyspaces console UI.
+    The creation process typically takes a few seconds. Once the creation is done, you could open
+    the graph again, and the error will be gone. Unfortunately, you would <em>have to</em> follow the same process
+    for all tables. Alternatively, you could create the tables on AWS manually, if you are familiar with
+    JanusGraph. Typically nine tables are needed: <code>edgestore</code>, <code>edgestore_lock_</code>, <code>graphindex</code>, <code>graphindex_lock_</code>,
+    <code>janusgraph_ids</code>, <code>system_properties</code>, <code>system_properties_lock_</code>, <code>systemlog</code>, and <code>txlog</code>.</li>
+</ul>
+<h2 id="deploying-on-amazon-ec2">Deploying on Amazon EC2</h2>
+<blockquote>
+<p>Amazon Elastic Compute Cloud (Amazon EC2) is a web service that
+provides resizable compute capacity in the cloud. It is designed to
+make web-scale computing easier for developers.</p>
+<p>—  <a href="http://aws.amazon.com/ec2/">Amazon EC2</a></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The below documentation might be partially out-of-date.</p>
+</div>
+<p>Follow these steps to setup a Cassandra cluster on EC2 and deploy
+JanusGraph over Cassandra. To follow these instructions, you need an
+Amazon AWS account with established authentication credentials and some
+basic knowledge of AWS and EC2.</p>
+<h3 id="setup-cassandra-cluster">Setup Cassandra Cluster</h3>
+<p>These instructions for configuring and launching the DataStax Cassandra
+Community Edition AMI are based on the DataStax AMI Docs and focus on
+aspects relevant for a JanusGraph deployment.</p>
+<h3 id="setting-up-security-group">Setting up Security Group</h3>
+<ul>
+<li>Navigate to the EC2 Console Dashboard, then click on "Security
+    Groups" under "Network &amp; Security".</li>
+<li>Create a new security group. Click Inbound. Set the "Create a new
+    rule" dropdown menu to "Custom TCP rule". Add a rule for port 22
+    from source 0.0.0.0/0. Add a rule for ports 1024-65535 from the
+    security group members. If you don’t want to open all unprivileged
+    ports among security group members, then at least open 7000, 7199,
+    and 9160 among security group members. Tip: the "Source" dropdown
+    will autocomplete security group identifiers once "sg" is typed in
+    the box, so you needn’t have the exact value ready beforehand.</li>
+</ul>
+<h3 id="launch-datastax-cassandra-ami">Launch DataStax Cassandra AMI</h3>
+<ul>
+<li>"Launch the <a href="https://aws.amazon.com/amis/datastax-auto-clustering-ami-2-2">DataStax AMI</a>
+    in your desired zone</li>
+<li>On the Instance Details page of the Request Instances Wizard, set
+    "Number of Instances" to your desired number of Cassandra nodes. Set
+    "Instance Type" to at least m1.large. We recommend m1.large.</li>
+<li>
+<p>On the Advanced Instance Options page of the Request Instances
+    Wizard, set the "as text" radio button under "User Data", then fill
+    this into the text box:
+<div class="highlight"><pre><span></span><code>--clustername [cassandra-cluster-name]
+--totalnodes [number-of-instances]
+--version community
+--opscenter no
+</code></pre></div>
+[number-of-instances] in this configuration must match the number of
+EC2 instances configured on the previous wizard page.
+[cassandra-cluster-name] can be any string used for identification.
+For example:
+<div class="highlight"><pre><span></span><code>--clustername janusgraph
+--totalnodes 4
+--version community
+--opscenter no
+</code></pre></div></p>
+</li>
+<li>
+<p>On the Tags page of the Request Instances Wizard you can apply any
+    desired configurations. These tags exist only at the EC2
+    administrative level and have no effect on the Cassandra daemons'
+    configuration or operation.</p>
+</li>
+<li>On the Create Key Pair page of the Request Instances Wizard, either
+    select an existing key pair or create a new one. The PEM file
+    containing the private half of the selected key pair will be
+    required to connect to these instances.</li>
+<li>On the Configure Firewall page of the Request Instances Wizard,
+    select the security group created earlier.</li>
+<li>Review and launch instances on the final wizard page.</li>
+</ul>
+<h3 id="verify-successful-instance-launch">Verify Successful Instance Launch</h3>
+<ul>
+<li>SSH into any Cassandra instance node:
+    <code>ssh -i [your-private-key].pem ubuntu@[public-dns-name-of-any-cassandra-instance]</code></li>
+<li>Run the Cassandra nodetool <code>nodetool -h 127.0.0.1 ring</code> to inspect
+    the state of the Cassandra token ring. You should see as many nodes
+    in this command’s output as instances launched in the previous
+    steps.</li>
+</ul>
+<p>Note, that the AMI takes a few minutes to configure each instance. A
+shell prompt will appear upon successful configuration when you SSH into
+the instance.</p>
+<h3 id="launch-janusgraph-instances">Launch JanusGraph Instances</h3>
+<p>Launch additional EC2 instances to run JanusGraph which are either
+configured in Remote Server Mode or Remote Server Mode with
+Gremlin-Server as described above. You only need to note the IP address
+of one of the Cassandra cluster instances and configure it as the host
+name. The particular EC2 instance to run and the particular
+configuration depends on your use case.</p>
+<h3 id="example-janusgraph-instance-on-amazon-linux-ami">Example JanusGraph Instance on Amazon Linux AMI</h3>
+<ul>
+<li>Launch the <a href="http://aws.amazon.com/amazon-linux-ami">Amazon Linux AMI</a> in the same zone of the
+    Cassandra cluster. Choose your desired EC2 instance type depending
+    on the amount of resources you need. Use the default configuration
+    options and select the same Key Pair and Security Group as for the
+    Cassandra cluster configured in the previous step.</li>
+<li>SSH into the newly created instance via
+    <code>ssh -i [your-private-key].pem ec2-user@[public-dns-name-of-the-instance]</code>.
+    You may have to wait a little for the instance to launch.</li>
+<li><a href="https://github.com/JanusGraph/janusgraph/releases">Download</a> the
+    current JanusGraph distribution with <code>wget</code> and unpack the archive
+    locally to the home directory. Start the Gremlin Console to verify
+    that JanusGraph runs successfully. For more information on how to
+    unpack JanusGraph and start the Gremlin Console, please refer to the
+    <a href="../../getting-started/installation/">Getting Started guide</a></li>
+<li>Create a configuration file with <code>vi janusgraph.properties</code> and add
+    the following lines::
+<div class="highlight"><pre><span></span><code><span class="na">storage.backend</span> <span class="o">=</span> <span class="s">cql</span>
+<span class="na">storage.hostname</span> <span class="o">=</span> <span class="s">[IP-address-of-one-Cassandra-EC2-instance]</span>
+</code></pre></div></li>
+</ul>
+<p>You may add additional configuration options found on this page or in
+<a href="../../configs/configuration-reference/">Configuration Reference</a>.</p>
+<ul>
+<li>Start the Gremlin Console again and type the following::
+<div class="highlight"><pre><span></span><code><span class="n">gremlin</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="s1">&#39;janusgraph.properties&#39;</span><span class="o">)</span>
+<span class="o">==&gt;</span><span class="n">janusgraph</span><span class="o">[</span><span class="nl">cql:</span><span class="o">[</span><span class="n">IP</span><span class="o">-</span><span class="n">address</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">one</span><span class="o">-</span><span class="n">Cassandra</span><span class="o">-</span><span class="n">EC2</span><span class="o">-</span><span class="n">instance</span><span class="o">]]</span>
+</code></pre></div></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You have successfully connected this JanusGraph instance to the
+Cassandra cluster and can start to operate on the graph.</p>
+</div>
+<h3 id="connect-to-cassandra-cluster-in-ec2-from-outside-ec2">Connect to Cassandra cluster in EC2 from outside EC2</h3>
+<p>Opening the usual Cassandra ports (9042, 7000, 7199) in the security
+group is not enough, because the Cassandra nodes by default broadcast
+their ec2-internal IPs, and not their public-facing IPs.</p>
+<p>The resulting behavior is that you can open a JanusGraph graph on the
+cluster by connecting to port 9042 on any Cassandra node, but all
+requests to that graph time out. This is because Cassandra is telling
+the client to connect to an unreachable IP.</p>
+<p>To fix this, set the "broadcast-address" property for each instance in
+/etc/cassandra/cassandra.yaml to its public-facing IP, and restart the
+instance. Do this for all nodes in the cluster. Once the cluster comes
+back, nodetool reports the correct public-facing IPs to which
+connections from the local machine are allowed.</p>
+<p>Changing the "broadcast-address" property allows you to connect to the
+cluster from outside ec2, but it might also mean that traffic
+originating within ec2 will have to round-trip to the internet and back
+before it gets to the cluster. So, this approach is only useful for
+development and testing.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../hbase/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Apache HBase
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
