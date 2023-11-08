@@ -3488,6 +3488,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.cql.init-wait-time</td>
+<td>Number of milliseconds to sleep after creating each keyspace/table, only needed if table creation is asynchronous, e.g. Amazon Keyspace</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>storage.cql.keyspace</td>
 <td>The name of JanusGraph's keyspace.  It will be created if it does not exist.</td>
 <td>String</td>
