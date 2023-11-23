@@ -2623,6 +2623,11 @@ some specific configurations are needed.</p>
 <span class="na">storage.cql.keyspace</span><span class="o">=</span><span class="s">janusgraph</span>
 <span class="na">storage.cql.local-datacenter</span><span class="o">=</span><span class="s">&lt;your-datacenter, e.g. ap-east-1&gt;</span>
 
+<span class="c1"># Wait for 30 seconds after each table creation, since</span>
+<span class="c1"># Amazon Keyspace creates tables asynchronously. Remember to</span>
+<span class="c1"># remove this option from config file after the creation of the graph.</span>
+<span class="na">storage.cql.init-wait-time</span><span class="o">=</span><span class="s">30000</span>
+
 <span class="c1"># SSL related settings</span>
 <span class="na">storage.cql.ssl.enabled</span><span class="o">=</span><span class="s">true</span>
 <span class="na">storage.cql.ssl.truststore.location</span><span class="o">=</span><span class="s">&lt;your-trust-store-location&gt;</span>
@@ -2666,9 +2671,11 @@ would likely see error message like
     At the same time, you should be able to see the same table getting created on Amazon Keyspaces console UI.
     The creation process typically takes a few seconds. Once the creation is done, you could open
     the graph again, and the error will be gone. Unfortunately, you would <em>have to</em> follow the same process
-    for all tables. Alternatively, you could create the tables on AWS manually, if you are familiar with
-    JanusGraph. Typically nine tables are needed: <code>edgestore</code>, <code>edgestore_lock_</code>, <code>graphindex</code>, <code>graphindex_lock_</code>,
-    <code>janusgraph_ids</code>, <code>system_properties</code>, <code>system_properties_lock_</code>, <code>systemlog</code>, and <code>txlog</code>.</li>
+    for all tables. To address this problem, you could set <code>storage.cql.init-wait-time=30000</code> in your config 
+    file to wait for 30 seconds (or any other duration you feel suitable) after creating each table. You should
+    remove this config after the creation of the graph. Alternatively, you could create the tables on AWS manually,
+    if you are familiar with JanusGraph. Typically nine tables are needed: <code>edgestore</code>, <code>edgestore_lock_</code>,
+    <code>graphindex</code>, <code>graphindex_lock_</code>, <code>janusgraph_ids</code>, <code>system_properties</code>, <code>system_properties_lock_</code>, <code>systemlog</code>, and <code>txlog</code>.</li>
 </ul>
 <h2 id="deploying-on-amazon-ec2">Deploying on Amazon EC2</h2>
 <blockquote>
