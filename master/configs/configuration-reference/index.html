@@ -3417,6 +3417,34 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.retry-error-codes</td>
+<td>Comma separated list of Elasticsearch REST client ResponseException error codes to retry. E.g. "408,429"</td>
+<td>String[]</td>
+<td></td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.retry-initial-wait</td>
+<td>Sets the initial retry wait time (in milliseconds) before exponential backoff.</td>
+<td>Long</td>
+<td>1</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.retry-limit</td>
+<td>Sets the number of attempts for configured retryable error codes.</td>
+<td>Integer</td>
+<td>0</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.retry-max-wait</td>
+<td>Sets the max retry wait time (in milliseconds).</td>
+<td>Long</td>
+<td>1000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.retry_on_conflict</td>
 <td>Specify how many times should the operation be retried when a conflict occurs.</td>
 <td>Integer</td>
