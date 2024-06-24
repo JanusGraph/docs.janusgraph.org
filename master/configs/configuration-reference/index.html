@@ -3375,6 +3375,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </thead>
 <tbody>
 <tr>
+<td>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</td>
+<td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size.</td>
+<td>Integer</td>
+<td>100000000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.bulk-refresh</td>
 <td>Elasticsearch bulk API refresh setting used to control when changes made by this request are made visible to search</td>
 <td>String</td>
