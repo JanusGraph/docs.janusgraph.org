@@ -2864,7 +2864,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <tbody>
 <tr>
 <td>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</td>
-<td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size.</td>
+<td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size. If a single bulk item exceeds this limit an exception will be thrown after the smaller bulk items are submitted. Ensure that this limit is always less than or equal to the configured limit of <code>http.max_content_length</code> on the Elasticsearch servers. For more information, refer to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-network.html">Elasticsearch documentation</a>.</td>
 <td>Integer</td>
 <td>100000000</td>
 <td>LOCAL</td>
