@@ -2713,6 +2713,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#in-memory-backend-moved-into-dedicated-module" class="md-nav__link">
+    In-Memory backend moved into dedicated module
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3795,6 +3802,13 @@
           <li class="md-nav__item">
   <a href="#default-logging-location-has-changed" class="md-nav__link">
     Default logging location has changed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-memory-backend-moved-into-dedicated-module" class="md-nav__link">
+    In-Memory backend moved into dedicated module
   </a>
   
 </li>
@@ -5396,8 +5410,28 @@ Parameter <code>use-deprecated-multitype-index</code> is no more supported by Ja
 <p>BerkeleyDB storage configured with <a href="https://docs.oracle.com/cd/E17277_02/html/java/com/sleepycat/je/EnvironmentConfig.html#SHARED_CACHE">SHARED_CACHE</a> for better memory usage.</p>
 <h5 id="default-logging-location-has-changed">Default logging location has changed</h5>
 <p>If you are using <code>janusgraph.sh</code> to start your instance, the default logging has been changed from <code>log</code> to <code>logs</code></p>
-<h3 id="version-041-release-date-january-14-2020">Version 0.4.1 (Release Date: January 14, 2020)</h3>
+<h5 id="in-memory-backend-moved-into-dedicated-module">In-Memory backend moved into dedicated module</h5>
+<p>The built-in in-memory backend has been moved into a dedicated module.
+Users who use it for instance in tests, have to explicitly declare it as a dependency:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Maven</label><label for="__tabbed_13_2">Gradle</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>janusgraph-inmemory<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>0.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s1">&#39;org.janusgraph:janusgraph-inmemory:0.5.0&#39;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="version-041-release-date-january-14-2020">Version 0.4.1 (Release Date: January 14, 2020)</h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Maven</label><label for="__tabbed_14_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5437,7 +5471,7 @@ for each call (only for the first query which defines a property) if the <code>V
 <code>VertexProperty.Cardinality.single</code>.</p>
 <h3 id="version-040-release-date-july-1-2019">Version 0.4.0 (Release Date: July 1, 2019)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.4.0/index.html">https://old-docs.janusgraph.org/0.4.0/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Maven</label><label for="__tabbed_14_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Maven</label><label for="__tabbed_15_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5492,7 +5526,7 @@ The value <code>luceneMatchVersion</code> in this config that tells Solr to beha
 Users should generally set this value to the version of their Solr installation.
 If the config distributed by JanusGraph is used for an existing Solr installation that used a lower version before (like 5.0.0 from a previous versions of this file), it is highly recommended that a re-indexing is performed.</p>
 <h3 id="version-033-release-date-january-11-2020">Version 0.3.3 (Release Date: January 11, 2020)</h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Maven</label><label for="__tabbed_15_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Maven</label><label for="__tabbed_16_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5526,7 +5560,7 @@ If the config distributed by JanusGraph is used for an existing Solr installatio
 </ul>
 <h3 id="version-032-release-date-june-16-2019">Version 0.3.2 (Release Date: June 16, 2019)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.2/index.html">https://old-docs.janusgraph.org/0.3.2/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Maven</label><label for="__tabbed_16_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Maven</label><label for="__tabbed_17_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5560,7 +5594,7 @@ If the config distributed by JanusGraph is used for an existing Solr installatio
 </ul>
 <h3 id="version-031-release-date-october-2-2018">Version 0.3.1 (Release Date: October 2, 2018)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.1/index.html">https://old-docs.janusgraph.org/0.3.1/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Maven</label><label for="__tabbed_17_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Maven</label><label for="__tabbed_18_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5594,7 +5628,7 @@ If the config distributed by JanusGraph is used for an existing Solr installatio
 </ul>
 <h3 id="version-030-release-date-july-31-2018">Version 0.3.0 (Release Date: July 31, 2018)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.3.0/index.html">https://old-docs.janusgraph.org/0.3.0/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Maven</label><label for="__tabbed_18_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Maven</label><label for="__tabbed_19_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5671,7 +5705,7 @@ You can verify the upgrade was successful by opening the management API and vali
 <p>Once the storage version has been set you should remove <code>graph.allow-upgrade=true</code> from your properties file and reopen your graph to ensure that the upgrade was successful. </p>
 <h3 id="version-023-release-date-may-21-2019">Version 0.2.3 (Release Date: May 21, 2019)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.3/index.html">https://old-docs.janusgraph.org/0.2.3/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Maven</label><label for="__tabbed_19_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Maven</label><label for="__tabbed_20_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5706,7 +5740,7 @@ milestone:</p>
 </ul>
 <h3 id="version-022-release-date-october-9-2018">Version 0.2.2 (Release Date: October 9, 2018)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.2/index.html">https://old-docs.janusgraph.org/0.2.2/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Maven</label><label for="__tabbed_20_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Maven</label><label for="__tabbed_21_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5741,7 +5775,7 @@ milestone:</p>
 </ul>
 <h3 id="version-021-release-date-july-9-2018">Version 0.2.1 (Release Date: July 9, 2018)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.1/index.html">https://old-docs.janusgraph.org/0.2.1/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Maven</label><label for="__tabbed_21_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">Maven</label><label for="__tabbed_22_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5785,7 +5819,7 @@ is FIXED, a new graph needs to be created to make any change of the
 <code>graph.timestamps</code> property effective.</p>
 <h3 id="version-020-release-date-october-11-2017">Version 0.2.0 (Release Date: October 11, 2017)</h3>
 <p>Legacy documentation: <a href="https://old-docs.janusgraph.org/0.2.0/index.html">https://old-docs.janusgraph.org/0.2.0/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">Maven</label><label for="__tabbed_22_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">Maven</label><label for="__tabbed_23_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5880,7 +5914,7 @@ and is no longer supported in JanusGraph 0.2.0. Users should refer to
 the previous sections and migrate to the <code>REST_CLIENT</code>.</p>
 <h3 id="version-011-release-date-may-11-2017">Version 0.1.1 (Release Date: May 11, 2017)</h3>
 <p>Documentation: <a href="https://old-docs.janusgraph.org/0.1.1/index.html">https://old-docs.janusgraph.org/0.1.1/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">Maven</label><label for="__tabbed_23_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">Maven</label><label for="__tabbed_24_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
@@ -5915,7 +5949,7 @@ milestone:</p>
 </ul>
 <h3 id="version-010-release-date-april-11-2017">Version 0.1.0 (Release Date: April 11, 2017)</h3>
 <p>Documentation: <a href="https://old-docs.janusgraph.org/0.1.0/index.html">https://old-docs.janusgraph.org/0.1.0/index.html</a></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">Maven</label><label for="__tabbed_24_2">Gradle</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">Maven</label><label for="__tabbed_25_2">Gradle</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
