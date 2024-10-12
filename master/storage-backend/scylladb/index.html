@@ -2159,7 +2159,9 @@ To do this, you can use the following command inside the JanusGraph repository:<
 </div>
 </div>
 <p>This command will generate distribution builds (both normal and full distribution build) in the 
-following directory: <code>janusgraph-dist/target/</code>.   </p>
+following directory: <code>janusgraph-dist/target/</code> as well as build local JanusGraph Docker image.<br />
+If you don't have Docker installed or wish to avoid Docker image build process you can pass <code>-Pskip-docker</code> 
+(notice, all tests are automatically disabled when this flag is used).  </p>
 <p>Otherwise, if you can't build distribution on your own, you can use the JanusGraph provided distribution and replace 
 the following libraries in <code>lib</code> directory (all libraries can be downloaded via Maven Central Repository). 
 - <code>org.janusgraph:janusgraph-cql</code> with <code>org.janusgraph:janusgraph-scylla</code>
