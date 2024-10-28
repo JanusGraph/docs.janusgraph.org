@@ -1407,6 +1407,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#additional-berkeleydb-je-configuration-options" class="md-nav__link">
+    Additional BerkeleyDB JE configuration options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deadlock-troubleshooting" class="md-nav__link">
+    Deadlock troubleshooting
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2026,6 +2040,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#additional-berkeleydb-je-configuration-options" class="md-nav__link">
+    Additional BerkeleyDB JE configuration options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deadlock-troubleshooting" class="md-nav__link">
+    Deadlock troubleshooting
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2118,6 +2146,43 @@ of time for larger graphs.</p>
 transactions enabled requires BerkeleyDB to acquire read locks on the
 data it is reading. When iterating over the entire graph, these read
 locks can easily require more memory than is available.</p>
+<h2 id="additional-berkeleydb-je-configuration-options">Additional BerkeleyDB JE configuration options</h2>
+<p>It's possible to set additional BerkeleyDB JE configuration which are not 
+directly exposed by JanusGraph by leveraging <code>storage.berkeleyje.ext</code> 
+namespace. </p>
+<p>JanusGraph iterates over all properties prefixed with
+<code>storage.berkeleyje.ext.</code>. It strips the prefix from each property key. 
+Any dash character (<code>-</code>) wil be replaced by dot character (<code>.</code>) in the 
+remainder of the stripped key. The final string will be interpreted as a parameter 
+ke for <code>com.sleepycat.je.EnvironmentConfig</code>. 
+Thus, both options <code>storage.berkeleyje.ext.je.lock.timeout</code> and 
+<code>storage.berkeleyje.ext.je-lock-timeout</code> will be treated 
+the same (as <code>storage.berkeleyje.ext.je.lock.timeout</code>). 
+The value associated with the key is not modified. 
+This allows embedding arbitrary settings in JanusGraph’s properties. Here’s an
+example configuration fragment that customizes three BerkeleyDB settings 
+using the <code>storage.berkeleyje.ext.</code> config mechanism:</p>
+<div class="highlight"><pre><span></span><code><span class="na">storage.backend</span><span class="o">=</span><span class="s">berkeleyje</span>
+<span class="na">storage.berkeleyje.ext.je.lock.timeout</span><span class="o">=</span><span class="s">5000 ms</span>
+<span class="na">storage.berkeleyje.ext.je.lock.deadlockDetect</span><span class="o">=</span><span class="s">false</span>
+<span class="na">storage.berkeleyje.ext.je.txn.timeout</span><span class="o">=</span><span class="s">5000 ms</span>
+<span class="na">storage.berkeleyje.ext.je.log.fileMax</span><span class="o">=</span><span class="s">100000000</span>
+</code></pre></div>
+<h2 id="deadlock-troubleshooting">Deadlock troubleshooting</h2>
+<p>In concurrent environment deadlocks are possible when using BerkeleyDB JE storage 
+backend. 
+It may be complicated to deal with deadlocks in use-cases when multiple threads are 
+modifying same vertices (including edges creation between affected vertices). 
+More insights on this topic can be found in the GitHub issue 
+<a href="https://github.com/JanusGraph/janusgraph/issues/1623">#1623</a>.</p>
+<p>Some users suggest the following configuration to deal with deadlocks:
+<div class="highlight"><pre><span></span><code><span class="na">storage.berkeleyje.isolation-level</span><span class="o">=</span><span class="s">READ_UNCOMMITTED</span>
+<span class="na">storage.berkeleyje.lock-mode</span><span class="o">=</span><span class="s">LockMode.READ_UNCOMMITTED</span>
+<span class="na">storage.berkeleyje.ext.je.lock.timeout</span><span class="o">=</span><span class="s">0</span>
+<span class="na">storage.lock.wait-time</span><span class="o">=</span><span class="s">5000</span>
+<span class="na">ids.authority.wait-time</span><span class="o">=</span><span class="s">2000</span>
+<span class="na">tx.max-commit-time</span><span class="o">=</span><span class="s">30000</span>
+</code></pre></div></p>
 
 
 

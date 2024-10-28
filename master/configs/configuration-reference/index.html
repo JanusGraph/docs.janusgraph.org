@@ -945,6 +945,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#storageberkeleyjeext" class="md-nav__link">
+    storage.berkeleyje.ext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#storagecql" class="md-nav__link">
     storage.cql
   </a>
@@ -2617,6 +2624,13 @@
           <li class="md-nav__item">
   <a href="#storageberkeleyje" class="md-nav__link">
     storage.berkeleyje
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storageberkeleyjeext" class="md-nav__link">
+    storage.berkeleyje.ext
   </a>
   
 </li>
@@ -4557,6 +4571,44 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storageberkeleyjeext">storage.berkeleyje.ext</h3>
+<p>Overrides for arbitrary settings applied at <code>EnvironmentConfig</code> creation.
+The full list of possible setting is available inside the Java class <code>com.sleepycat.je.EnvironmentConfig</code>. All configurations values should be specified as <code>String</code> and be formated the same as specified in the following <a href="https://docs.oracle.com/cd/E17277_02/html/java/com/sleepycat/je/EnvironmentConfig.html">documentation</a>.
+Notice, for compatibility reasons, it's allowed to use <code>-</code> character instead of <code>.</code> for config keys. All dashes will be replaced by dots when passing those keys to <code>EnvironmentConfig</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>storage.berkeleyje.ext.je-lock-timeout</td>
+<td>Lock timeout configuration. <code>0</code> disabled lock timeout completely. To set lock timeout via this configuration it's required to use String formated time representation. For example: <code>500 ms</code>, <code>5 min</code>, etc.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>See information about value constraints in the official <a href="https://docs.oracle.com/cd/E17277_02/html/java/com/sleepycat/je/EnvironmentConfig.html#LOCK_TIMEOUT">sleepycat documentation</a>.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Notice, this option can be specified as <code>storage.berkeleyje.ext.je.lock.timeout</code> which will be treated the same as this configuration option.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+<td></td>
 </tr>
 </tbody>
 </table>

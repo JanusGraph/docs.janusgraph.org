@@ -2000,19 +2000,26 @@
     Assets
   </a>
   
-    <nav class="md-nav" aria-label="Assets">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#upgrade-instructions" class="md-nav__link">
     Upgrade Instructions
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#inlining-vertex-properties-into-a-composite-index" class="md-nav__link">
     Inlining vertex properties into a Composite Index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#berkeleyje-ability-to-overwrite-arbitrary-settings-applied-at-environmentconfig-creation" class="md-nav__link">
+    BerkeleyJE ability to overwrite arbitrary settings applied at EnvironmentConfig creation
   </a>
   
 </li>
@@ -3113,19 +3120,26 @@
     Assets
   </a>
   
-    <nav class="md-nav" aria-label="Assets">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#upgrade-instructions" class="md-nav__link">
     Upgrade Instructions
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Upgrade Instructions">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#inlining-vertex-properties-into-a-composite-index" class="md-nav__link">
     Inlining vertex properties into a Composite Index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#berkeleyje-ability-to-overwrite-arbitrary-settings-applied-at-environmentconfig-creation" class="md-nav__link">
+    BerkeleyJE ability to overwrite arbitrary settings applied at EnvironmentConfig creation
   </a>
   
 </li>
@@ -4360,7 +4374,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.1.0/janusgraph-1.1.0.zip">JanusGraph zip</a></li>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.1.0/janusgraph-full-1.1.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
-<h5 id="upgrade-instructions">Upgrade Instructions</h5>
+<h4 id="upgrade-instructions">Upgrade Instructions</h4>
 <h5 id="inlining-vertex-properties-into-a-composite-index">Inlining vertex properties into a Composite Index</h5>
 <p>Inlining vertex properties into a Composite Index structure can offer significant performance and efficiency benefits.
 See <a href="../schema/index-management/index-performance/#inlining-vertex-properties-into-a-composite-index">documentation</a> on how to inline vertex properties into a composite index.</p>
@@ -4377,6 +4391,13 @@ See <a href="../schema/index-management/index-performance/#inlining-vertex-prope
    to revert to an older version of JanusGraph once this feature is used.</p>
 </li>
 </ol>
+<h5 id="berkeleyje-ability-to-overwrite-arbitrary-settings-applied-at-environmentconfig-creation">BerkeleyJE ability to overwrite arbitrary settings applied at <code>EnvironmentConfig</code> creation</h5>
+<p>The new namespace <code>storage.berkeleyje.ext</code> now allows to set custom configurations which were not directly exposed by 
+JanusGraph.
+The full list of possible setting is available inside the Java class <code>com.sleepycat.je.EnvironmentConfig</code>.
+All configurations values should be specified as <code>String</code> and be formated the same as specified in the official sleepycat
+<a href="https://docs.oracle.com/cd/E17277_02/html/java/com/sleepycat/je/EnvironmentConfig.html">documentation</a>.
+Example: <code>storage.berkeleyje.ext.je.lock.timeout=5000 ms</code></p>
 <h3 id="version-101-release-date">Version 1.0.1 (Release Date: ???)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
