@@ -872,6 +872,26 @@
 
               
             
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema/schema-init-strategies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2024,6 +2044,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#json-schema-initializer" class="md-nav__link">
+    JSON schema initializer
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3140,6 +3167,13 @@
           <li class="md-nav__item">
   <a href="#berkeleyje-ability-to-overwrite-arbitrary-settings-applied-at-environmentconfig-creation" class="md-nav__link">
     BerkeleyJE ability to overwrite arbitrary settings applied at EnvironmentConfig creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-schema-initializer" class="md-nav__link">
+    JSON schema initializer
   </a>
   
 </li>
@@ -4378,19 +4412,16 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <h5 id="inlining-vertex-properties-into-a-composite-index">Inlining vertex properties into a Composite Index</h5>
 <p>Inlining vertex properties into a Composite Index structure can offer significant performance and efficiency benefits.
 See <a href="../schema/index-management/index-performance/#inlining-vertex-properties-into-a-composite-index">documentation</a> on how to inline vertex properties into a composite index.</p>
-<p><strong>Important Notes on Compatibility</strong></p>
-<ol>
-<li>
-<p><strong>Backward Incompatibility</strong>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Important Notes on Compatibility. 
+1. Backward Incompatibility: 
    Once a JanusGraph instance adopts this new schema feature, it cannot be rolled back to a prior version of JanusGraph.
-   The changes in the schema structure are not compatible with earlier versions of the system.</p>
-</li>
-<li>
-<p><strong>Migration Considerations</strong>
+   The changes in the schema structure are not compatible with earlier versions of the system.
+2. Migration Considerations: 
    It is critical that users carefully plan their migration to this new version, as there is no automated or manual rollback process
    to revert to an older version of JanusGraph once this feature is used.</p>
-</li>
-</ol>
+</div>
 <h5 id="berkeleyje-ability-to-overwrite-arbitrary-settings-applied-at-environmentconfig-creation">BerkeleyJE ability to overwrite arbitrary settings applied at <code>EnvironmentConfig</code> creation</h5>
 <p>The new namespace <code>storage.berkeleyje.ext</code> now allows to set custom configurations which were not directly exposed by 
 JanusGraph.
@@ -4398,6 +4429,9 @@ The full list of possible setting is available inside the Java class <code>com.s
 All configurations values should be specified as <code>String</code> and be formated the same as specified in the official sleepycat
 <a href="https://docs.oracle.com/cd/E17277_02/html/java/com/sleepycat/je/EnvironmentConfig.html">documentation</a>.
 Example: <code>storage.berkeleyje.ext.je.lock.timeout=5000 ms</code></p>
+<h5 id="json-schema-initializer">JSON schema initializer</h5>
+<p>For simplicity JSON schema initialization options has been added into JanusGraph.
+See <a href="../schema/schema-init-strategies/">documentation</a> to learn more about JSON schema initialization process.</p>
 <h3 id="version-101-release-date">Version 1.0.1 (Release Date: ???)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

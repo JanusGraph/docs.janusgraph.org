@@ -870,6 +870,26 @@
 
               
             
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/schema-init-strategies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2149,6 +2169,20 @@
         <li class="md-nav__item">
   <a href="#schema" class="md-nav__link">
     schema
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schemainit" class="md-nav__link">
+    schema.init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schemainitjson" class="md-nav__link">
+    schema.init.json
   </a>
   
 </li>
@@ -3847,6 +3881,99 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Boolean</td>
 <td>false</td>
 <td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schemainit">schema.init</h3>
+<p>Configuration options for schema initialization on startup.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema.init.drop-before-startup</td>
+<td>Drops the entire schema with graph data before JanusGraph schema initialization. Note that the schema will be dropped regardless of the selected initialization strategy, including when <code>schema.init.strategy</code> is set to <code>none</code>.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.strategy</td>
+<td>Specifies the strategy for schema initialization before starting JanusGraph. You must provide the full class path of a class that implements the <code>SchemaInitStrategy</code> interface and has parameterless constructor.<br>The following shortcuts are also available:<br>- <code>none</code> - Skips schema initialization.<br>- <code>json</code> - Schema initialization via provided JSON file or JSON string.<br></td>
+<td>String</td>
+<td>none</td>
+<td>LOCAL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schemainitjson">schema.init.json</h3>
+<p>Options for JSON schema initialization strategy.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema.init.json.await-index-status-timeout</td>
+<td>Timeout for awaiting index status operation defined in milliseconds. If the status await timeouts the exception will be thrown during schema initialization process.</td>
+<td>Long</td>
+<td>180000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.file</td>
+<td>File path to JSON formated schema definition.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.force-close-other-instances</td>
+<td>Force closes other JanusGraph instances before schema initialization, regardless if they are active or not. This is a dangerous operation. This option exists to help people initialize schema who struggle with zombie JanusGraph instances. It's not recommended to be used unless you know what you are doing. Instead of this parameter, it's recommended to check <code>graph.unique-instance-id</code> and <code>graph.replace-instance-if-exists</code> options to not create zombie instances in the cluster.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.indices-activation</td>
+<td>Indices activation type:<br>- <code>reindex_and_enable_updated_only</code> - Reindex process will be triggered for any updated index. After this all updated indexes will be enabled.<br>- <code>reindex_and_enable_non_enabled</code> - Reindex process will be triggered for any index which is not enabled (including previously created indices). After reindexing all indices will be enabled.<br>- <code>skip_activation</code> - Skip reindex process for any updated indexes.<br>- <code>force_enable_updated_only</code> - Force enable all updated indexes without running any reindex process (previous data may not be available for such indices).<br>- <code>force_enable_non_enabled</code> - Force enable all indexes (including previously created indices) without running any reindex process (previous data may not be available for such indices).<br></td>
+<td>String</td>
+<td>reindex_and_enable_non_enabled</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.skip-elements</td>
+<td>Skip creation of VertexLabel, EdgeLabel, and PropertyKey.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.skip-indices</td>
+<td>Skip creation of indices.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>schema.init.json.string</td>
+<td>JSON formated schema definition string. This option takes precedence if both <code>file</code> and <code>string</code> are used.</td>
+<td>String</td>
+<td>(no default value)</td>
+<td>LOCAL</td>
 </tr>
 </tbody>
 </table>
