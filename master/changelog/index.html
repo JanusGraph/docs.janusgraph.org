@@ -2051,6 +2051,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#batched-queries-enhancement-introduction-of-janusgraphnoopbarriervertexonlystep" class="md-nav__link">
+    Batched Queries Enhancement: Introduction of JanusGraphNoOpBarrierVertexOnlyStep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-query-optimizations-now-support-traversals-containing-the-drop-step" class="md-nav__link">
+    Batch Query Optimizations Now Support Traversals Containing the drop() Step
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3174,6 +3188,20 @@
           <li class="md-nav__item">
   <a href="#json-schema-initializer" class="md-nav__link">
     JSON schema initializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batched-queries-enhancement-introduction-of-janusgraphnoopbarriervertexonlystep" class="md-nav__link">
+    Batched Queries Enhancement: Introduction of JanusGraphNoOpBarrierVertexOnlyStep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-query-optimizations-now-support-traversals-containing-the-drop-step" class="md-nav__link">
+    Batch Query Optimizations Now Support Traversals Containing the drop() Step
   </a>
   
 </li>
@@ -4432,6 +4460,23 @@ Example: <code>storage.berkeleyje.ext.je.lock.timeout=5000 ms</code></p>
 <h5 id="json-schema-initializer">JSON schema initializer</h5>
 <p>For simplicity JSON schema initialization options has been added into JanusGraph.
 See <a href="../schema/schema-init-strategies/">documentation</a> to learn more about JSON schema initialization process.</p>
+<h5 id="batched-queries-enhancement-introduction-of-janusgraphnoopbarriervertexonlystep">Batched Queries Enhancement: Introduction of <code>JanusGraphNoOpBarrierVertexOnlyStep</code></h5>
+<p>In previous versions, when a query that could benefit from batch-query optimization (multi-query) was executed without
+a user-defined barrier step, JanusGraph would inject a <code>NoOpBarrierStep</code> by default. This approach allowed batching
+for edges and properties, which do not gain advantages from multi-query optimization.</p>
+<p>Starting with JanusGraph 1.1.0, this behavior has been improved. The system now injects a
+<code>JanusGraphNoOpBarrierVertexOnlyStep</code> instead of the standard <code>NoOpBarrierStep</code> when no barrier steps are detected.
+This change ensures that batching is applied exclusively to vertices, which do benefit from batch queries,
+while excluding edges and properties from the batching process.</p>
+<p>If a user explicitly defines a <code>.barrier()</code> step in the query, the system will continue to use the <code>NoOpBarrierStep</code> as expected.</p>
+<h5 id="batch-query-optimizations-now-support-traversals-containing-the-drop-step">Batch Query Optimizations Now Support Traversals Containing the <code>drop()</code> Step</h5>
+<p>Starting with JanusGraph 1.1.0, batch optimizations for vertex removal have been introduced in the <code>drop()</code> step and
+are enabled by default. Previously, any batch optimization would be skipped for queries containing at least one
+<code>drop()</code> step. However, with this update, such queries are now eligible for batch query optimization (multi-query).</p>
+<p>Please note that the <code>LazyBarrierStrategy</code> (a TinkerPop strategy) is disabled for any query that includes at least one <code>drop()</code> step.</p>
+<p>To disable the <code>drop()</code> step optimization and maintain the previous behavior, users can set the following configuration:
+<div class="highlight"><pre><span></span><code>query.batch.drop-step-mode=none
+</code></pre></div></p>
 <h3 id="version-101-release-date">Version 1.0.1 (Release Date: ???)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

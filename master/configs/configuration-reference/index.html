@@ -4331,6 +4331,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </thead>
 <tbody>
 <tr>
+<td>query.batch.drop-step-mode</td>
+<td>Batching mode for <code>drop()</code> step. Used only when <code>query.batch.enabled</code> is <code>true</code>.<br>Supported modes:<br>- <code>all</code> - Drops all vertices in a batch.<br>- <code>none</code> - Skips drop batching optimization.<br></td>
+<td>String</td>
+<td>all</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>query.batch.enabled</td>
 <td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. If <code>false</code> then all other configuration options under <code>query.batch</code> namespace are ignored.</td>
 <td>Boolean</td>

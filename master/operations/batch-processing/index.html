@@ -2503,7 +2503,7 @@ when the query is accessing many vertices.  </p>
 <ol>
 <li>Batch compatible step. This is the step which will execute batch requests. Currently, the list of such steps
     is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>has()</code>, <code>values()</code>, <code>properties()</code>, <code>valueMap()</code>,
-    <code>propertyMap()</code>, <code>elementMap()</code>, <code>label()</code>.</li>
+    <code>propertyMap()</code>, <code>elementMap()</code>, <code>label()</code>, <code>drop()</code>.</li>
 <li>Parent step. This is a parent step which has local traversals with the same start. Such parent steps also implement the 
     interface <code>TraversalParent</code>. There are many such steps, but as for an example those could be: <code>and(...)</code>, <code>or(...)</code>, 
     <code>not(...)</code>, <code>order().by(...)</code>, <code>project("valueA", "valueB", "valueC").by(...).by(...).by(...)</code>, <code>union(..., ..., ...)</code>,
@@ -2653,7 +2653,8 @@ access when direct vertex properties are requested (for example <code>vertex.pro
 See configuration option <code>query.batch.has-step-mode</code> to control properties pre-fetching behaviour for <code>has</code> step.<br />
 See configuration option <code>query.batch.properties-mode</code> to control properties pre-fetching behaviour for <code>values</code>, 
 <code>properties</code>, <code>valueMap</code>, <code>propertyMap</code>, and <code>elementMap</code> steps.<br />
-See configuration option <code>query.batch.label-step-mode</code> to control labels pre-fetching behaviour for <code>label</code> step.  </p>
+See configuration option <code>query.batch.label-step-mode</code> to control labels pre-fetching behaviour for <code>label</code> step.<br />
+See configuration option <code>query.batch.drop-step-mode</code> to control drop batching behaviour for <code>drop</code> step.  </p>
 
 
 
