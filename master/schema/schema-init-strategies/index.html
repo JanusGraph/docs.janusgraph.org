@@ -2252,85 +2252,107 @@ file path to <code>schema.init.json.file</code> or directly insert JSON schema i
 <h3 id="json-schema-format">JSON Schema Format</h3>
 <p>Schema defined via JSON must be a deserialized JSON version of 
 <code>org.janusgraph.core.schema.json.definition.JsonSchemaDefinition</code> class where top
-level object elements will be the following:
-- <code>vertexLabels</code>
-- <code>edgeLabels</code>
-- <code>propertyKeys</code>
-- <code>compositeIndexes</code>
-- <code>vertexCentricEdgeIndexes</code>
-- <code>vertexCentricPropertyIndexes</code>
-- <code>mixedIndexes</code></p>
+level object elements will be the following:</p>
+<ul>
+<li><code>vertexLabels</code></li>
+<li><code>edgeLabels</code></li>
+<li><code>propertyKeys</code></li>
+<li><code>compositeIndexes</code></li>
+<li><code>vertexCentricEdgeIndexes</code></li>
+<li><code>vertexCentricPropertyIndexes</code></li>
+<li><code>mixedIndexes</code></li>
+</ul>
 <p>Each value is an array representing a list of vertex labels, edges labels, property 
 keys, composite indexes, vertex-centric edge indexes, vertex-centric property indexes, 
 or mixed indexes.</p>
 <h4 id="json-vertex-label-definition">JSON Vertex Label Definition</h4>
-<p>Each vertex label object consists of the following keys:
-- <code>label</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>staticVertex</code> - <code>boolean</code> datatype.
-- <code>partition</code> - <code>boolean</code> datatype.
-- <code>ttl</code> - <code>number</code> datatype.</p>
+<p>Each vertex label object consists of the following keys:</p>
+<ul>
+<li><code>label</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>staticVertex</code> - <code>boolean</code> datatype.</li>
+<li><code>partition</code> - <code>boolean</code> datatype.</li>
+<li><code>ttl</code> - <code>number</code> datatype.</li>
+</ul>
 <h4 id="json-edge-label-definition">JSON Edge Label Definition</h4>
-<p>Each edge label object consists of the following keys:
-- <code>label</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>multiplicity</code> - <code>string</code> datatype. Allowed values: <code>MULTI</code>, <code>SIMPLE</code>, <code>ONE2MANY</code>, <code>MANY2ONE</code>, <code>ONE2ONE</code>.
-- <code>unidirected</code> - <code>boolean</code> datatype.
-- <code>ttl</code> - <code>number</code> datatype.</p>
+<p>Each edge label object consists of the following keys:</p>
+<ul>
+<li><code>label</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>multiplicity</code> - <code>string</code> datatype. Allowed values: <code>MULTI</code>, <code>SIMPLE</code>, <code>ONE2MANY</code>, <code>MANY2ONE</code>, <code>ONE2ONE</code>.</li>
+<li><code>unidirected</code> - <code>boolean</code> datatype.</li>
+<li><code>ttl</code> - <code>number</code> datatype.</li>
+</ul>
 <h4 id="json-property-key-definition">JSON Property Key Definition</h4>
-<p>Each property key object consists of the following keys:
-- <code>key</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>className</code> - <code>string</code> datatype. This must be a full class path of the selected property datatype. For example, <code>java.lang.String</code>, <code>java.lang.Long</code>,<code>org.janusgraph.core.attribute.Geoshape</code>. (<strong>Required</strong>)
-- <code>cardinality</code> - <code>string</code> datatype. Allowed values: <code>SINGLE</code>, <code>LIST</code>, <code>SET</code>.
-- <code>ttl</code> - <code>number</code> datatype.</p>
+<p>Each property key object consists of the following keys:</p>
+<ul>
+<li><code>key</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>className</code> - <code>string</code> datatype. This must be a full class path of the selected property datatype. For example, <code>java.lang.String</code>, <code>java.lang.Long</code>,<code>org.janusgraph.core.attribute.Geoshape</code>. (<strong>Required</strong>)</li>
+<li><code>cardinality</code> - <code>string</code> datatype. Allowed values: <code>SINGLE</code>, <code>LIST</code>, <code>SET</code>.</li>
+<li><code>ttl</code> - <code>number</code> datatype.</li>
+</ul>
 <h4 id="json-composite-index-definition">JSON Composite Index Definition</h4>
-<p>Each composite index object consists of the following keys:
-- <code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>typeClass</code> - <code>string</code> datatype. Full class path of the datatype of an indexed element. Allowed values: <code>org.apache.tinkerpop.gremlin.structure.Vertex</code>, <code>org.apache.tinkerpop.gremlin.structure.Edge</code>. (<strong>Required</strong>)
-- <code>indexOnly</code> - <code>string</code> datatype. Vertex or Edge label.
-- <code>unique</code> - <code>boolean</code> datatype.
-- <code>consistency</code> - <code>string</code> datatype. Allowed values: <code>DEFAULT</code>, <code>LOCK</code>, <code>FORK</code>.
-- <code>keys</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.index.JsonIndexedPropertyKeyDefinition</code> (see definition below after indexes definition). These are used index keys. (<strong>Required</strong>)
-- <code>inlinePropertyKeys</code> - an array of property keys to be inlined into the composite index. Currently supported for vertex composite indexes only. See <a href="./schema/index-management/index-performance.md#inlining-vertex-properties-into-a-composite-index">documentation</a> for more information about this feature.</p>
+<p>Each composite index object consists of the following keys:</p>
+<ul>
+<li><code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>typeClass</code> - <code>string</code> datatype. Full class path of the datatype of an indexed element. Allowed values: <code>org.apache.tinkerpop.gremlin.structure.Vertex</code>, <code>org.apache.tinkerpop.gremlin.structure.Edge</code>. (<strong>Required</strong>)</li>
+<li><code>indexOnly</code> - <code>string</code> datatype. Vertex or Edge label.</li>
+<li><code>unique</code> - <code>boolean</code> datatype.</li>
+<li><code>consistency</code> - <code>string</code> datatype. Allowed values: <code>DEFAULT</code>, <code>LOCK</code>, <code>FORK</code>.</li>
+<li><code>keys</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.index.JsonIndexedPropertyKeyDefinition</code> (see definition below after indexes definition). These are used index keys. (<strong>Required</strong>)</li>
+<li><code>inlinePropertyKeys</code> - an array of property keys to be inlined into the composite index. Currently supported for vertex composite indexes only. See <a href="../index-management/index-performance/#inlining-vertex-properties-into-a-composite-index">documentation</a> for more information about this feature.</li>
+</ul>
 <h4 id="json-mixed-index-definition">JSON Mixed Index Definition</h4>
-<p>Each mixed index object consists of the following keys:
-- <code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>typeClass</code> - <code>string</code> datatype. Full class path of the datatype of an indexed element. Allowed values: <code>org.apache.tinkerpop.gremlin.structure.Vertex</code>, <code>org.apache.tinkerpop.gremlin.structure.Edge</code>. (<strong>Required</strong>)
-- <code>indexOnly</code> - <code>string</code> datatype. Vertex or Edge label.
-- <code>indexBackend</code> - <code>string</code> datatype. Name for index backend configuration. (<strong>Required</strong>)
-- <code>keys</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.index.JsonIndexedPropertyKeyDefinition</code> (see definition below after indexes definition). These are used index keys. (<strong>Required</strong>)</p>
+<p>Each mixed index object consists of the following keys:</p>
+<ul>
+<li><code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>typeClass</code> - <code>string</code> datatype. Full class path of the datatype of an indexed element. Allowed values: <code>org.apache.tinkerpop.gremlin.structure.Vertex</code>, <code>org.apache.tinkerpop.gremlin.structure.Edge</code>. (<strong>Required</strong>)</li>
+<li><code>indexOnly</code> - <code>string</code> datatype. Vertex or Edge label.</li>
+<li><code>indexBackend</code> - <code>string</code> datatype. Name for index backend configuration. (<strong>Required</strong>)</li>
+<li><code>keys</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.index.JsonIndexedPropertyKeyDefinition</code> (see definition below after indexes definition). These are used index keys. (<strong>Required</strong>)</li>
+</ul>
 <h4 id="json-vertex-centric-edge-index-definition">JSON Vertex-Centric Edge Index Definition</h4>
-<p>Each vertex-centric edge index object consists of the following keys:
-- <code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>propertyKeys</code> - an array of strings (each value has <code>string</code> datatype). These are the Edge properties which will be used for the index. (<strong>Required</strong>)
-- <code>order</code> - <code>string</code> datatype. Allowed values: <code>asc</code>, <code>desc</code>.
-- <code>indexedEdgeLabel</code> - <code>string</code> datatype. Edge label to be indexed. (<strong>Required</strong>)
-- <code>direction</code> - <code>string</code> datatype. Allowed values: <code>OUT</code>, <code>IN</code>, <code>BOTH</code>.</p>
+<p>Each vertex-centric edge index object consists of the following keys:</p>
+<ul>
+<li><code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>propertyKeys</code> - an array of strings (each value has <code>string</code> datatype). These are the Edge properties which will be used for the index. (<strong>Required</strong>)</li>
+<li><code>order</code> - <code>string</code> datatype. Allowed values: <code>asc</code>, <code>desc</code>.</li>
+<li><code>indexedEdgeLabel</code> - <code>string</code> datatype. Edge label to be indexed. (<strong>Required</strong>)</li>
+<li><code>direction</code> - <code>string</code> datatype. Allowed values: <code>OUT</code>, <code>IN</code>, <code>BOTH</code>.</li>
+</ul>
 <h4 id="json-vertex-centric-property-index-definition">JSON Vertex-Centric Property Index Definition</h4>
-<p>Each vertex-centric property index object consists of the following keys:
-- <code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>propertyKeys</code> - an array of strings (each value has <code>string</code> datatype). These are the meta-properties which will be used for the index. (<strong>Required</strong>)
-- <code>order</code> - <code>string</code> datatype. Allowed values: <code>asc</code>, <code>desc</code>.
-- <code>indexedPropertyKey</code> - <code>string</code> datatype. Property key to be indexed. (<strong>Required</strong>)</p>
+<p>Each vertex-centric property index object consists of the following keys:</p>
+<ul>
+<li><code>name</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>propertyKeys</code> - an array of strings (each value has <code>string</code> datatype). These are the meta-properties which will be used for the index. (<strong>Required</strong>)</li>
+<li><code>order</code> - <code>string</code> datatype. Allowed values: <code>asc</code>, <code>desc</code>.</li>
+<li><code>indexedPropertyKey</code> - <code>string</code> datatype. Property key to be indexed. (<strong>Required</strong>)</li>
+</ul>
 <h4 id="json-definition-of-property-keys-defined-in-composite-and-mixed-indexes-keys">JSON Definition of Property Keys defined in Composite and Mixed indexes (<code>keys</code>)</h4>
-<p>Each property key object defined as <code>keys</code> representation of composite or mixed index consists of the following keys:
-- <code>propertyKey</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>parameters</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.JsonParameterDefinition</code>. These are optional parameters to let index know of additional configurations for the property key. (See description below)</p>
+<p>Each property key object defined as <code>keys</code> representation of composite or mixed index consists of the following keys:</p>
+<ul>
+<li><code>propertyKey</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>parameters</code> - an array of objects representing <code>org.janusgraph.core.schema.json.definition.JsonParameterDefinition</code>. These are optional parameters to let index know of additional configurations for the property key. (See description below)</li>
+</ul>
 <h4 id="json-definition-of-parameters-defined-in-property-keys-for-composite-and-mixed-indexes-parameters">JSON Definition of Parameters defined in Property Keys for Composite and Mixed indexes (<code>parameters</code>)</h4>
-<p>Each parameter is a configuration for to let underlying index backend configure relative properties better. Each such parameter consists of the following keys:
-- <code>key</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>value</code> - <code>string</code> datatype. (<strong>Required</strong>)
-- <code>parser</code> - <code>string</code> datatype. This must be a full class pass of the parser which will be used to parse <code>value</code> of the parameter or a pre-defined shortcut. This parser must implement <code>org.janusgraph.core.schema.json.parser.JsonParameterParser</code> interface and have a parameterless constructor. If none is provided then <code>string</code> parser is used by default.</p>
-<p>Pre-defined <code>parser</code> shortcuts:
-- <code>string</code> - doesn't change <code>value</code> and uses it as is (<code>String</code> datatype).
-- <code>enum</code> - replaces the provided string (defined as <code>&lt;full class path&gt;.&lt;enum option&gt;</code>) to actual enum value. 
+<p>Each parameter is a configuration for to let underlying index backend configure relative properties better. Each such parameter consists of the following keys:</p>
+<ul>
+<li><code>key</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>value</code> - <code>string</code> datatype. (<strong>Required</strong>)</li>
+<li><code>parser</code> - <code>string</code> datatype. This must be a full class pass of the parser which will be used to parse <code>value</code> of the parameter or a pre-defined shortcut. This parser must implement <code>org.janusgraph.core.schema.json.parser.JsonParameterParser</code> interface and have a parameterless constructor. If none is provided then <code>string</code> parser is used by default.</li>
+</ul>
+<p>Pre-defined <code>parser</code> shortcuts:</p>
+<ul>
+<li><code>string</code> - doesn't change <code>value</code> and uses it as is (<code>String</code> datatype).</li>
+<li><code>enum</code> - replaces the provided string (defined as <code>&lt;full class path&gt;.&lt;enum option&gt;</code>) to actual enum value. 
 For example, if <code>value</code> has a string <code>org.janusgraph.core.schema.Mapping.STRING</code> it will be replaced to actual <code>STRING</code> enum, 
-and it won't be treated as a string.
-- <code>boolean</code> - parses value to <code>Boolean</code>.
-- <code>byte</code> - parses value to <code>Byte</code>.
-- <code>short</code> - parses value to <code>Short</code>.
-- <code>integer</code> - parses value to <code>Integer</code>.
-- <code>long</code> - parses value to <code>Long</code>.
-- <code>float</code> - parses value to <code>Float</code>.
-- <code>double</code> - parses value to <code>Double</code>.</p>
+and it won't be treated as a string.</li>
+<li><code>boolean</code> - parses value to <code>Boolean</code>.</li>
+<li><code>byte</code> - parses value to <code>Byte</code>.</li>
+<li><code>short</code> - parses value to <code>Short</code>.</li>
+<li><code>integer</code> - parses value to <code>Integer</code>.</li>
+<li><code>long</code> - parses value to <code>Long</code>.</li>
+<li><code>float</code> - parses value to <code>Float</code>.</li>
+<li><code>double</code> - parses value to <code>Double</code>.</li>
+</ul>
 <p>Parameters may include <a href="../../index-backend/field-mapping/#custom-parameters">custom keys</a> defined as <code>ParameterType.customParameterName("&lt;your custom key&gt;")</code>. 
 To define such keys in JSON it's necessary to use specific prefix for <code>key</code> - %`custom%` (in total the prefix consists of 10 characters. 
 In case some characters are not rendered correctly here, you can always reference to <code>org.janusgraph.graphdb.types.ParameterType.CUSTOM_PARAMETER_PREFIX</code> 
@@ -2588,8 +2610,8 @@ The schema below is used for demonstration purposes only.</p>
 </code></pre></div>
 <h3 id="json-schema-initialization-flow">JSON schema initialization flow</h3>
 <p>Currently, JSON schema initialization flow is simple and doesn't include any schema update or schema migration features. 
-The flow is split on multiple phases:
-1) Creation of simple elements: <code>PropertyKey</code>, <code>VertexLabel</code>, <code>EdgeLabel</code>.
+The flow is split on multiple phases:</p>
+<p>1) Creation of simple elements: <code>PropertyKey</code>, <code>VertexLabel</code>, <code>EdgeLabel</code>.
 2) Creation of indices: Composite indexes, Vertex-centric Edge indexes, Vertex-centric Property indexes, Mixed indexes.
 3) Indexes activation phase (configured via <code>schema.init.json.indices-activation</code>).</p>
 <div class="admonition note">
@@ -2621,9 +2643,11 @@ initialization process. All helper methods for JSON schema initialization are lo
 <span class="n">JsonSchemaInitStrategy</span><span class="o">.</span><span class="na">initializeSchemaFromString</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;{ \&quot;vertexLabels\&quot;: [ { \&quot;label\&quot;: \&quot;my_vertex\&quot; } ] }&quot;</span><span class="o">)</span>
 </code></pre></div>
 <p>Also, there are additional <code>initializeSchemaFromFile</code> and <code>initializeSchemaFromString</code> methods where it's possible to 
-provide all configuration options directly instead of fetching them from the configuration of the graph:
-- <code>initializeSchemaFromFile(JanusGraph graph, boolean createSchemaElements, boolean createSchemaIndices, IndicesActivationType indicesActivationType, boolean forceRollBackActiveTransactions, boolean forceCloseOtherInstances, long indexStatusTimeout, String jsonSchemaFilePath)</code>
-- <code>initializeSchemaFromString(JanusGraph graph, boolean createSchemaElements, boolean createSchemaIndices, IndicesActivationType indicesActivationType, boolean forceRollBackActiveTransactions, boolean forceCloseOtherInstances, long indexStatusTimeout, String jsonSchemaString)</code></p>
+provide all configuration options directly instead of fetching them from the configuration of the graph:</p>
+<ul>
+<li><code>initializeSchemaFromFile(JanusGraph graph, boolean createSchemaElements, boolean createSchemaIndices, IndicesActivationType indicesActivationType, boolean forceRollBackActiveTransactions, boolean forceCloseOtherInstances, long indexStatusTimeout, String jsonSchemaFilePath)</code></li>
+<li><code>initializeSchemaFromString(JanusGraph graph, boolean createSchemaElements, boolean createSchemaIndices, IndicesActivationType indicesActivationType, boolean forceRollBackActiveTransactions, boolean forceCloseOtherInstances, long indexStatusTimeout, String jsonSchemaString)</code></li>
+</ul>
 
 
 
