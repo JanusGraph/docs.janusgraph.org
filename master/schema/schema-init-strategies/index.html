@@ -2611,9 +2611,11 @@ The schema below is used for demonstration purposes only.</p>
 <h3 id="json-schema-initialization-flow">JSON schema initialization flow</h3>
 <p>Currently, JSON schema initialization flow is simple and doesn't include any schema update or schema migration features. 
 The flow is split on multiple phases:</p>
-<p>1) Creation of simple elements: <code>PropertyKey</code>, <code>VertexLabel</code>, <code>EdgeLabel</code>.
-2) Creation of indices: Composite indexes, Vertex-centric Edge indexes, Vertex-centric Property indexes, Mixed indexes.
-3) Indexes activation phase (configured via <code>schema.init.json.indices-activation</code>).</p>
+<ol>
+<li>Creation of simple elements: <code>PropertyKey</code>, <code>VertexLabel</code>, <code>EdgeLabel</code>.</li>
+<li>Creation of indices: Composite indexes, Vertex-centric Edge indexes, Vertex-centric Property indexes, Mixed indexes.</li>
+<li>Indexes activation phase (configured via <code>schema.init.json.indices-activation</code>).</li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Current implementation of JSON schema importer only creates elements, but it never updates them even if you change 
