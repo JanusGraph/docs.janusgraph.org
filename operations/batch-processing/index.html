@@ -1,0 +1,2821 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../dynamic-graphs/">
+      
+      
+        <link rel="next" href="../bulk-loading/">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+    
+    
+      
+        <title>Batch Processing - JanusGraph</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4b4a2bd9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../theme/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="teal">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#batch-processing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="JanusGraph" class="md-header__button md-logo" aria-label="JanusGraph" data-md-component="logo">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            JanusGraph
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Batch Processing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/janusgraph/janusgraph" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="JanusGraph" class="md-nav__button md-logo" aria-label="JanusGraph" data-md-component="logo">
+      
+  <img src="../../janusgraph-logomark.svg" alt="logo">
+
+    </a>
+    JanusGraph
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/janusgraph/janusgraph" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    JanusGraph
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/basic-usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/gremlin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gremlin Query Language
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architectural Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    JanusGraph Basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            JanusGraph Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/transactions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transactions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/search-predicates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Search Predicates and Mixed Index Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Connecting to JanusGraph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Connecting to JanusGraph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/connecting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/connecting/java/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/connecting/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basics/connecting/dotnet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using .NET
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configs/configuration-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configs/example-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config Example
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Schema Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Schema Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema and Data Modeling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/advschema/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced Schema
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Index Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Index Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/index-management/index-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing for Better Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/index-management/index-lifecycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index Lifecycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/index-management/index-reindexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reindexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/index-management/index-removal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Removal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schema/schema-init-strategies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema Initialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Operations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deployment Scenarios
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph Container
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configured-graph-factory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ConfiguredGraphFactory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic-graphs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dynamic Graphs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Batch Processing
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Batch Processing
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#no-batch-processing" class="md-nav__link">
+    No Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="No Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unrestricted-batch-processing" class="md-nav__link">
+    Unrestricted Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Unrestricted Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_1" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_1" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_1" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limited-batch-processing" class="md-nav__link">
+    Limited Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Limited Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-batch-size" class="md-nav__link">
+    Configuring the batch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_2" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_2" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_2" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batched-query-processing-flow" class="md-nav__link">
+    Batched Query Processing Flow
+  </a>
+  
+    <nav class="md-nav" aria-label="Batched Query Processing Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-repeat-step" class="md-nav__link">
+    Batch processing for repeat step
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch processing for repeat step">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-batch-requests-per-level-loop" class="md-nav__link">
+    Use-cases for batch requests per level (loop):
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-batch-requests-per-iteration" class="md-nav__link">
+    Use-cases for batch requests per iteration:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-nested-repeat-step-modes" class="md-nav__link">
+    Multi-nested repeat step modes:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-match-step" class="md-nav__link">
+    Batch processing for match step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-properties" class="md-nav__link">
+    Batch processing for properties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bulk-loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bulk Loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-titan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating from Titan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating-thrift/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating from Thrift
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Failure & Recovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Management System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Storage Backends
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Storage Backends
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/cassandra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Cassandra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/hbase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache HBase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/bigtable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Bigtable
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/scylladb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ScyllaDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/bdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Oracle Berkeley DB Java Edition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-backend/inmemorybackend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InMemory Storage Backend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Mixed Index Backends
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Mixed Index Backends
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/text-search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index Parameters and Full-Text Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/field-mapping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Field Mapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/direct-index-query/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Direct Index Query
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/elasticsearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elasticsearch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/solr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Solr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/lucene/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Lucene
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/eventual-consistency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eventually-Consistent Storage Backends
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Vertex ID
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/partitioning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Graph Partitioning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/serializer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datatype and Attribute Serializer Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/hadoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph with TinkerPop’s Hadoop-Gremlin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/transaction-log/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transaction Log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/data-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph Data model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/janusgraph-bus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph Bus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ExecutorService
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Permanent stale index inconsistency
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technical Limitations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-topics/commit-releases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshot Releases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../common-questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#no-batch-processing" class="md-nav__link">
+    No Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="No Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unrestricted-batch-processing" class="md-nav__link">
+    Unrestricted Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Unrestricted Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_1" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_1" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_1" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limited-batch-processing" class="md-nav__link">
+    Limited Batch Processing
+  </a>
+  
+    <nav class="md-nav" aria-label="Limited Batch Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-batch-size" class="md-nav__link">
+    Configuring the batch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-this-configuration-in-use-cases-where-for-example_2" class="md-nav__link">
+    Use this configuration in use cases where for example ...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-limitations_2" class="md-nav__link">
+    Possible limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-explicitly-configure-this-option_2" class="md-nav__link">
+    Steps to explicitly configure this option:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batched-query-processing-flow" class="md-nav__link">
+    Batched Query Processing Flow
+  </a>
+  
+    <nav class="md-nav" aria-label="Batched Query Processing Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-repeat-step" class="md-nav__link">
+    Batch processing for repeat step
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch processing for repeat step">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-batch-requests-per-level-loop" class="md-nav__link">
+    Use-cases for batch requests per level (loop):
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-for-batch-requests-per-iteration" class="md-nav__link">
+    Use-cases for batch requests per iteration:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-nested-repeat-step-modes" class="md-nav__link">
+    Multi-nested repeat step modes:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-match-step" class="md-nav__link">
+    Batch processing for match step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-for-properties" class="md-nav__link">
+    Batch processing for properties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="batch-processing">Batch Processing</h1>
+<p>In order to answer queries, JanusGraph has to perform queries
+against the storage backend.
+In general, there are two ways of doing this:</p>
+<ul>
+<li>Once data from the backend is needed, execute a backend
+  query and continue with the result.</li>
+<li>Maintain a list of what data is needed.
+  Once the list reaches a certain size, execute a batched
+  backend query to fetch all of it at once.</li>
+</ul>
+<p>The first option tends to be more responsive and consume less
+memory because the query can emit the first results very early
+without waiting for larger batches of queries to complete.
+It however sends many small queries to the storage backend for traversals
+that traverse a high number of vertices which leads to poor performance.
+That is why JanusGraph uses batch processing by default.
+Both of these options are described in greater detail below, including
+information about configuring batch processing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default setting was changed in version 1.0.0.
+Older versions of JanusGraph used no batch processing (first option)
+by default.</p>
+</div>
+<h2 id="no-batch-processing">No Batch Processing</h2>
+<p>In terms of graph traversals, the execution of queries is
+loosely coupled to the principle of Depth-First-Search.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example">Use this configuration in use cases where for example ...</h3>
+<ul>
+<li>... each query only accesses few vertices of the graph.</li>
+<li>... your application does not need the <em>full</em> result set
+  immediately but rather requires a low latency for the first
+  results to arrive.</li>
+</ul>
+<h3 id="possible-limitations">Possible limitations</h3>
+<ul>
+<li>Traversing large neighborhoods can make the query slow.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch.enabled</code> is set to <code>false</code></li>
+</ul>
+<h2 id="unrestricted-batch-processing">Unrestricted Batch Processing</h2>
+<p>Using this configuration, each step which traverses the Graph
+starting from a vertex (so e.g. <code>in()</code>, <code>outE()</code> and <code>values()</code>
+but not <code>inV()</code> or <code>otherV()</code> and also not <code>valueMap()</code>, see
+<a href="https://github.com/JanusGraph/janusgraph/issues/2444">#2444</a>)
+becomes a blocking operator which means that it produces no
+results until all the results of the previous step are known.
+Only then, a single backend query is executed and the results
+are passed to the next step. Manual <code>barrier()</code> steps do not
+affect this in any meaningful way.
+This way of execution can be thought of as a
+Breadth-First-Search.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example_1">Use this configuration in use cases where for example ...</h3>
+<ul>
+<li>... your queries are likely to access multiple vertices in
+  each step.</li>
+<li>... there is a significant network latency between JanusGraph
+  and the storage backend.</li>
+</ul>
+<h3 id="possible-limitations_1">Possible limitations</h3>
+<ul>
+<li>Increased memory consumption</li>
+<li>If limit steps occur late in the query, there might be an
+  unnecessary overhead produced by the steps before the limit
+  step.</li>
+<li>Performing very large backend queries could stress the
+  storage backend.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option_1">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch.enabled</code> is set to <code>true</code></li>
+<li>Ensure <code>query.batch.limited</code> is set to <code>false</code></li>
+</ul>
+<h2 id="limited-batch-processing">Limited Batch Processing</h2>
+<p>Using this configuration, each step which traverses the Graph
+starting from a vertex (so e.g. <code>in()</code>, <code>outE()</code> and <code>values()</code>
+but not <code>inV()</code> or <code>otherV()</code>) aggregates a number of vertices
+first, before executing a batched backend query.
+This aggregation phase and backend query phase will repeat
+until all vertices are processed.
+In contrast to <em>unrestricted batch processing</em> where one batch
+corresponds to one step in the query, this approach can
+construct multiple batches per step.</p>
+<p>This is the default configuration of JanusGraph since version 1.0.0.</p>
+<h3 id="configuring-the-batch-size">Configuring the batch size</h3>
+<p>Although batch size does not necessarily need to be configured,
+it can provide an additional tuning parameter to improve the
+performance of a query.
+By default, the batch size for <a href="https://tinkerpop.apache.org/docs/current/reference/#barrier-step">TinkerPop's barrier step</a>
+will be provided by <code>LazyBarrierStrategy</code>, which is currently at <code>2500</code>. 
+For batchable cases where <code>LazyBarrierStrategy</code> doesn't inject any <code>barrier</code> steps,
+the barrier step will be ingected with the size configured via <code>query.batch.limited-size</code> 
+(which defaults to <code>2500</code>, same as with <code>LazyBarrierStrategy</code>).<br />
+The batch size of each vertex step can be individually
+configured by prepending a <code>barrier(&lt;size&gt;)</code> step.
+For example, in the query below, the first <code>out()</code> step would
+use the default batch size of 2500 and the second <code>out()</code> step
+would use a manually configured batch size of 1234:
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">out</span><span class="o">().</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">out</span><span class="o">()</span>
+</code></pre></div>
+Using the same mechanism, the limit can also be increased or
+even effectively disabled by configuring an arbitrarily high
+value.</p>
+<p>For local traversals which start with a vertex step, the limit
+is best configured outside the local traversal, as seen below:
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">out</span><span class="o">().</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="n">__</span><span class="o">.</span><span class="na">out</span><span class="o">())</span>
+</code></pre></div>
+The reason this is necessary is that traversers enter local
+traversals one by one. As part of the local traversal, the
+<code>barrier(1234)</code> step would not be allowed to aggregate multiple
+traversers.</p>
+<p>A special case applies to <code>repeat()</code> steps.
+Because the local traversal of a <code>repeat()</code> step has two inputs
+(first, the step before the <code>repeat()</code> step and second, the
+last step of the repeated traversal, which feeds the result
+back to the beginning), two limits can be configured here.
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">list_of_vertices</span><span class="o">).</span><span class="na">barrier</span><span class="o">(</span><span class="mi">1234</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">__</span><span class="o">.</span><span class="na">barrier</span><span class="o">(</span><span class="mi">2345</span><span class="o">).</span><span class="na">out</span><span class="o">()).</span><span class="na">times</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+</code></pre></div>
+Because the local traversal's output is also the input for the
+next iteration, the <code>barrier(1234)</code> step in front of the local
+traversal can only aggregate traversers once they enter the
+<code>repeat</code> step for the first time. For each iteration, the inner
+<code>barrier(2345)</code> is used to aggregate traversers from the
+previous iteration.</p>
+<h3 id="use-this-configuration-in-use-cases-where-for-example_2">Use this configuration in use cases where for example ...</h3>
+<ul>
+<li>... you have a mixture of traversals that traverse a high number of vertices
+  and traversals that only access few vertices of the graph.</li>
+</ul>
+<h3 id="possible-limitations_2">Possible limitations</h3>
+<ul>
+<li>Increased memory consumption (compared to no batch processing)</li>
+<li>The performance of queries depends on the configured batch
+  size.
+  If you use this configuration, make sure that the
+  latency and throughput of your queries meet your
+  requirements and if not, tweak the batch size accordingly.</li>
+</ul>
+<h3 id="steps-to-explicitly-configure-this-option_2">Steps to explicitly configure this option:</h3>
+<ul>
+<li>Ensure <code>query.batch.enabled</code> is set to <code>true</code></li>
+<li>Ensure <code>query.batch.limited</code> is set to <code>true</code></li>
+</ul>
+<h2 id="batched-query-processing-flow">Batched Query Processing Flow</h2>
+<p>Whenever <code>query.batch.enabled</code> is set to <code>true</code> steps compatible with batch processing are going to be 
+executed in batched fashion. Each storage backend may differently execute such batches, but usually 
+it means requesting data in parallel for multiple vertices which usually improves query performance 
+when the query is accessing many vertices.  </p>
+<p>Batched query processing takes into account two types of steps:</p>
+<ol>
+<li>Batch compatible step. This is the step which will execute batch requests. Currently, the list of such steps
+    is the next: <code>out()</code>, <code>in()</code>, <code>both()</code>, <code>inE()</code>, <code>outE()</code>, <code>bothE()</code>, <code>has()</code>, <code>values()</code>, <code>properties()</code>, <code>valueMap()</code>,
+    <code>propertyMap()</code>, <code>elementMap()</code>, <code>label()</code>, <code>drop()</code>.</li>
+<li>Parent step. This is a parent step which has local traversals with the same start. Such parent steps also implement the 
+    interface <code>TraversalParent</code>. There are many such steps, but as for an example those could be: <code>and(...)</code>, <code>or(...)</code>, 
+    <code>not(...)</code>, <code>order().by(...)</code>, <code>project("valueA", "valueB", "valueC").by(...).by(...).by(...)</code>, <code>union(..., ..., ...)</code>,
+    <code>choose(..., ..., ...)</code>, <code>coalesce(..., ...)</code>, <code>where(...)</code>, etc. Start of such local steps should be the same, thus,
+    the only exception currently are steps <code>repeat()</code> and <code>match()</code> (see below on how they are processed).  </li>
+</ol>
+<p>Parent steps register their vertices for later processing with the batch compatible start step. For example,
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">union</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">),</span><span class="w"> </span><span class="k">in</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">))</span>
+</code></pre></div>
+In the example above vertices <code>v1</code>, <code>v2</code>, and <code>v3</code> will be registered with <code>out("knows")</code> and <code>in("follows")</code> 
+steps for batch processing because their parent step (<code>union</code>) registers any input with the batch compatible child start 
+steps.  <br />
+Moreover, parent steps can register vertices for batch processing even with deep nested batch compatible start steps. 
+For example,
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span>
+<span class="w">    </span><span class="n">and</span><span class="o">(</span>
+<span class="w">        </span><span class="n">union</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;edge1&quot;</span><span class="o">),</span><span class="w"> </span><span class="k">in</span><span class="o">(</span><span class="s2">&quot;edge2&quot;</span><span class="o">)),</span>
+<span class="w">        </span><span class="n">or</span><span class="o">(</span>
+<span class="w">            </span><span class="n">union</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;edge3&quot;</span><span class="o">),</span><span class="w"> </span><span class="k">in</span><span class="o">(</span><span class="s2">&quot;edge4&quot;</span><span class="o">).</span><span class="na">optional</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;edge5&quot;</span><span class="o">))),</span>
+<span class="w">            </span><span class="n">optional</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;edge6&quot;</span><span class="o">)).</span><span class="na">in</span><span class="o">(</span><span class="s2">&quot;edge7&quot;</span><span class="o">)))</span>
+</code></pre></div>
+In the example above vertices <code>v1</code>, <code>v2</code>, and <code>v3</code> will be registered with <code>out("edge1")</code>, <code>in("edge2")</code>, <code>out("edge3")</code>, 
+<code>in("edge4")</code>, and <code>out("edge6")</code> steps for batch processing because they all can be considered as starts of the most root parent step (<code>and</code> step).
+That said, those vertices won't be registered for batch processing with steps <code>out("edge5")</code> or <code>in("edge7")</code> because those steps 
+are either not starting steps or starting steps of other parent steps. As such, <code>out("edge5")</code> will be registered with 
+any vertex returned from <code>in("edge4")</code> step, and <code>in("edge7")</code> will be registered with any vertex returned from <code>optional(out("edge6"))</code> step.  </p>
+<h4 id="batch-processing-for-repeat-step">Batch processing for <code>repeat</code> step</h4>
+<p>Repeat step doesn't follow the rules of other parent steps and registers vertices to child steps differently. 
+Currently, TinkerPop's default implementation is using Breadth-First Search instead of Depth-Fist Search (as used for other steps). </p>
+<p>JanusGraph applies repeat step vertices to the start of local <code>repeat</code> step, start of local <code>emit</code> step in case it is 
+placed before <code>repeat</code> step, and start of local <code>until</code> step in case it is placed before <code>repeat</code> step. 
+Moreover, for any next iteration JanusGraph applies result of the local <code>repeat</code> step (end step) to the beginning of the 
+local <code>repeat</code> step (start step) as well as start steps of <code>emit</code> and <code>until</code> traversals. </p>
+<h5 id="use-cases-for-batch-requests-per-level-loop">Use-cases for batch requests per level (<code>loop</code>):</h5>
+<ol>
+<li>
+<p>Simple example.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">()</span>
+</code></pre></div>
+    In the above example vertices <code>v1</code>, <code>v2</code>, and <code>v3</code> will be registered with <code>out("knows")</code> step because it's the start 
+    step with batch support. Moreover, the result of all iterations on the same level (<code>loop</code>) of <code>out("knows")</code> will be registered 
+    back to <code>out("knows")</code> for the next level (<code>loop</code>) iterations and so on until <code>out("knows")</code> stops emitting any results. </p>
+</li>
+<li>
+<p>Example with custom <code>emit</code> traversal after <code>repeat</code>.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">))</span>
+</code></pre></div>
+    The above example's vertices registration flow is the same as in example <code>1</code>, but the difference is that <code>out("follows")</code> 
+    will receive vertices for registration from <code>out("knows")</code> the same way as <code>out("knows")</code> step itself receives vertices 
+    for registration from itself. Notice, the same logic would apply for <code>until</code> step if it were <code>until</code> instead of <code>emit</code> here.</p>
+</li>
+<li>
+<p>Example with custom <code>emit</code> traversal before <code>repeat</code>.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">)).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">))</span>
+</code></pre></div>
+    The above example's vertices registration flow is the same as in example <code>2</code>, but the difference is that <code>out("follows")</code>
+    will receive vertices for registration both from <code>out("knows")</code> and the start vertices <code>v1</code>, <code>v2</code>, <code>v3</code>. In other words,
+    vertices registration sources for <code>out("knows")</code> and <code>out("follows")</code> are the same in this case. Notice, the same logic 
+    would apply for <code>until</code> step if it were <code>until</code> instead of <code>emit</code> here.</p>
+</li>
+<li>
+<p>Example with custom <code>emit</code> and <code>until</code> traversals before <code>repeat</code>.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">)).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">)).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">))</span>
+</code></pre></div>
+    In the above example all 3 steps <code>out("follows")</code>, <code>out("feeds")</code>, and <code>out("knows")</code> have the same vertices 
+    registration flow where they receive vertices both from query start (<code>v1</code>, <code>v2</code>, <code>v3</code>) and from local repeat end 
+    step (<code>out("knows")</code>).</p>
+</li>
+<li>
+<p>Example with custom <code>emit</code> and <code>until</code> traversals after <code>repeat</code>.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">)).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">))</span>
+</code></pre></div>
+    The above example's vertices registration flow is the same as in example <code>4</code>, but the difference is that 
+    <code>out("follows")</code> and <code>out("feeds")</code> won't receive vertices registration from the query start (<code>v1</code>, <code>v2</code>, <code>v3</code>).</p>
+</li>
+<li>
+<p>Example with custom <code>until</code> traversal before <code>repeat</code> and <code>emit(true)</code> after <code>repeat</code>.
+    <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">)).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">()</span>
+</code></pre></div>
+    The above example's vertices registration flow is the same as in example <code>4</code>, except that the <code>emit</code> traversal 
+    doesn't have any start step which supports batching. Thus, <code>emit</code> traversal doesn't receive batched vertices registration. </p>
+</li>
+</ol>
+<h5 id="use-cases-for-batch-requests-per-iteration">Use-cases for batch requests per iteration:</h5>
+<p>In most cases (like the above examples <code>1 - 6</code> and other cases) TinkerPop's default <code>repeat</code> step implementation executes 
+the local <code>repeat</code> traversal for the whole level (<code>loop</code>) before <code>emit</code> or <code>until</code> is executed. In other words <code>repeat</code> traversal 
+is executed multiple times (multiple iterations on the same <code>loop</code>) before <code>emit</code> or <code>until</code> first execution on the current <code>loop</code>. 
+This gives JanusGraph possibility to make larger batch requests containing vertices from multiple <code>repeat</code> traversal iterations 
+which efficiently executes batch requests.  <br />
+That said, there are 3 use-cases when the execution flow is different and TinkerPop executes <code>until</code> or <code>emit</code> traversals after each 
+<code>repeat</code> traversal iteration. In such case <code>until</code> or <code>emit</code> steps will execute batch requests for vertices collected on the 
+current iteration only and not for vertices collected from all iterations of the same level (<code>loop</code>).    </p>
+<div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">emit</span><span class="o">().</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">))</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">)).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">))</span>
+<span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">v1</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="o">,</span><span class="w"> </span><span class="n">v3</span><span class="o">).</span><span class="na">until</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;feeds&quot;</span><span class="o">)).</span><span class="na">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;follows&quot;</span><span class="o">))</span>
+</code></pre></div>
+<p>The above 3 examples show the pattern when <code>until</code> or <code>emit</code> executes batches per iteration instead of per level. 
+In case any <code>emit</code> step is placed before <code>repeat</code> step while <code>until</code> step is placed after <code>repeat</code> step. In case 
+<code>until</code> step is placed before <code>repeat</code> step while non-true <code>emit</code> step is placed after <code>repeat</code> step.<br />
+In all other cases <code>repeat</code> step will be executed for the whole <code>loop</code> and only after that <code>emit</code> or <code>until</code> will be executed.</p>
+<p>These limitations might be resolved after JanusGraph adds support for DFS repeat step execution 
+(<a href="https://github.com/JanusGraph/janusgraph/issues/3787">see issue #3787</a>).</p>
+<h5 id="multi-nested-repeat-step-modes">Multi-nested <code>repeat</code> step modes:</h5>
+<p>By default, in cases when batch start steps have multiple <code>repeat</code> step parents the batch registration is considering all <code>repeat</code> 
+parent steps.<br />
+However, in cases when transaction cache is small and repeat step traverses more than one level
+deep, it could result for some vertices to be re-fetched again or vertices which don't need to be fetched due to early 
+cycle end could potentially be fetched into the transaction cache. It would mean a waste of operation when it isn't necessary.  </p>
+<p>Thus, JanusGraph provides a configuration option <code>query.batch.repeat-step-mode</code> to control multi-repeat step behaviour:</p>
+<ul>
+<li><code>closest_repeat_parent</code> (default option) - consider the closest <code>repeat</code> step only.
+   <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">repeat</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">())).</span><span class="na">emit</span><span class="o">()</span>
+</code></pre></div>
+   In the example above, <code>out("knows")</code> will be receiving vertices for batching from the <code>and</code> step input for the first iterations 
+   as well as the <code>out("knows")</code> step output for the next iterations. </li>
+<li><code>all_repeat_parents</code> - consider registering vertices from the start and end of each <code>repeat</code> step parent.
+   <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">repeat</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">())).</span><span class="na">emit</span><span class="o">()</span>
+</code></pre></div>
+   In the example above, <code>out("knows")</code> will be receiving vertices for batching from the most outer <code>repeat</code> step input 
+   (for the first iterations), the most outer <code>repeat</code> step output (which is <code>and</code> output) (for the first iterations),<br />
+   the <code>and</code> step input (for the first iterations), and from the <code>out("knows")</code> output (for the next iterations).</li>
+<li><code>starts_only_of_all_repeat_parents</code> - consider registering vertices from the start of each <code>repeat</code> step parent. 
+   <div class="highlight"><pre><span></span><code><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">().</span><span class="na">repeat</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">repeat</span><span class="o">(</span><span class="n">out</span><span class="o">(</span><span class="s2">&quot;knows&quot;</span><span class="o">)).</span><span class="na">emit</span><span class="o">())).</span><span class="na">emit</span><span class="o">()</span>
+</code></pre></div>
+   In the example above, <code>out("knows")</code> will be receiving vertices for batching from the most outer <code>repeat</code> step input
+   (for the first iterations), the <code>and</code> step input (for the first iterations), and from the <code>out("knows")</code> output 
+   (for the next iterations).</li>
+</ul>
+<h4 id="batch-processing-for-match-step">Batch processing for <code>match</code> step</h4>
+<p>Currently, JanusGraph supports vertices registration for batch processing inside individual local traversals of the <code>match</code> 
+step, but not between those local traversals. Also, JanusGraph doesn't register start of the <code>match</code> step with any 
+of the local traversals of the <code>match</code> step. Thus, performance for <code>match</code> step might be limited. This is a temporary 
+limitation until this feature is implemented (<a href="https://github.com/JanusGraph/janusgraph/issues/3788">see issue #3788</a>).</p>
+<h4 id="batch-processing-for-properties">Batch processing for properties</h4>
+<p>Some of the Gremlin steps with enabled optimization may prefetch vertex properties in batches. 
+As for now, JanusGraph uses slice queries to query part of the row data. A single-slice query contains 
+the start key and the end key to define a slice of data JanusGraph is interested in.<br />
+As JanusGraph doesn't support multi-range slice queries right now it can either fetch a single property 
+in a single Slice query or all properties in a single slice query. Thus, users have to decide the tradeoff between 
+different properties fetching approaches and decide when they want to fetch all properties in a single slice query
+(which is usually faster but unnecessary properties might be fetched) or to fetch only requested properties in 
+separate slice query per each property (might be slightly slower but will fetch only the requested properties). </p>
+<p><a href="https://github.com/JanusGraph/janusgraph/issues/3816">See issue #3816</a> which will allow fetching only requested 
+properties via a single slice query.  </p>
+<p>See configuration option <code>query.fast-property</code> which may be used to pre-fetch all properties on a first singular property 
+access when direct vertex properties are requested (for example <code>vertex.properties("foo")</code>).<br />
+See configuration option <code>query.batch.has-step-mode</code> to control properties pre-fetching behaviour for <code>has</code> step.<br />
+See configuration option <code>query.batch.properties-mode</code> to control properties pre-fetching behaviour for <code>values</code>, 
+<code>properties</code>, <code>valueMap</code>, <code>propertyMap</code>, and <code>elementMap</code> steps.<br />
+See configuration option <code>query.batch.label-step-mode</code> to control labels pre-fetching behaviour for <code>label</code> step.<br />
+See configuration option <code>query.batch.drop-step-mode</code> to control drop batching behaviour for <code>drop</code> step.  </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../dynamic-graphs/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Dynamic Graphs">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Dynamic Graphs
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../bulk-loading/" class="md-footer__link md-footer__link--next" aria-label="Next: Bulk Loading">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Bulk Loading
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/janusgraph" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/5n4fjv4QAf" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/janusgraph" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/janusgraph" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://lists.lfaidata.foundation/g/janusgraph-users" target="_blank" rel="noopener" title="lists.lfaidata.foundation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://lists.lfaidata.foundation/g/janusgraph-dev" target="_blank" rel="noopener" title="lists.lfaidata.foundation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.footer", "navigation.sections"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
