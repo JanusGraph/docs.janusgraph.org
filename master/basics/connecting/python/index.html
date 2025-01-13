@@ -573,8 +573,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#janusgraph-specific-types-and-predicates" class="md-nav__link">
-    JanusGraph Specific Types and Predicates
+  <a href="#janusgraph-python-for-janusgraph-specific-types-and-predicates" class="md-nav__link">
+    JanusGraph-Python for JanusGraph Specific Types and Predicates
   </a>
   
 </li>
@@ -2014,8 +2014,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#janusgraph-specific-types-and-predicates" class="md-nav__link">
-    JanusGraph Specific Types and Predicates
+  <a href="#janusgraph-python-for-janusgraph-specific-types-and-predicates" class="md-nav__link">
+    JanusGraph-Python for JanusGraph Specific Types and Predicates
   </a>
   
 </li>
@@ -2085,10 +2085,33 @@ names affected by this are: <code>all</code>, <code>and</code>, <code>as</code>,
     Gremlin Server and returns a single result.</p>
 </li>
 </ol>
-<h2 id="janusgraph-specific-types-and-predicates">JanusGraph Specific Types and Predicates</h2>
+<h2 id="janusgraph-python-for-janusgraph-specific-types-and-predicates">JanusGraph-Python for JanusGraph Specific Types and Predicates</h2>
 <p>JanusGraph contains some types and <a href="../../search-predicates/">predicates</a> that
 are not part of Apache TinkerPop and are therefore also not supported by
-Gremlin-Python.</p>
+Gremlin-Python.
+<a href="https://github.com/JanusGraph/janusgraph-python">JanusGraph-Python</a> is a Python
+package that adds support for some of these types and predicates to Gremlin-Python.</p>
+<p>After installing the package, a message serializer needs to be configured for
+JanusGraph which can be done like this for GraphSON 3:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gremlin_python.driver.driver_remote_connection</span> <span class="kn">import</span> <span class="n">DriverRemoteConnection</span>
+<span class="kn">from</span> <span class="nn">janusgraph_python.driver.serializer</span> <span class="kn">import</span> <span class="n">JanusGraphSONSerializersV3d0</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">DriverRemoteConnection</span><span class="p">(</span>
+  <span class="s1">&#39;ws://localhost:8182/gremlin&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span>
+  <span class="n">message_serializer</span><span class="o">=</span><span class="n">JanusGraphSONSerializersV3d0</span><span class="p">())</span>
+</code></pre></div>
+<p>or like this for GraphBinary:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gremlin_python.driver.driver_remote_connection</span> <span class="kn">import</span> <span class="n">DriverRemoteConnection</span>
+<span class="kn">from</span> <span class="nn">janusgraph_python.driver.serializer</span> <span class="kn">import</span> <span class="n">JanusGraphBinarySerializersV1</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">DriverRemoteConnection</span><span class="p">(</span>
+  <span class="s1">&#39;ws://localhost:8182/gremlin&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span>
+  <span class="n">message_serializer</span><span class="o">=</span><span class="n">JanusGraphBinarySerializersV1</span><span class="p">())</span>
+</code></pre></div>
+<p>Refer to <a href="https://github.com/JanusGraph/janusgraph-python#janusgraph-python">the documentation of JanusGraph-Python</a>
+for more information about the package, including its <a href="https://github.com/JanusGraph/janusgraph-python#version-compatibility">compatibility with
+different JanusGraph versions</a>
+and differences in support between the different <a href="https://github.com/JanusGraph/janusgraph-python#serialization-formats">serialization formats</a>.</p>
 
 
 
