@@ -4054,6 +4054,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>LOCAL</td>
 </tr>
 <tr>
+<td>storage.keys-size</td>
+<td>The maximum amount of keys/partitions to retrieve from distributed storage system by JanusGraph in a single request.</td>
+<td>Integer</td>
+<td>100</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.num-mutations-parallel-threshold</td>
 <td>This parameter determines the minimum number of mutations a transaction must have before parallel processing is applied during aggregation. Leveraging parallel processing can enhance the commit times for transactions involving a large number of mutations. However, it is advisable not to set the threshold too low (e.g., 0 or 1) due to the overhead associated with parallelism synchronization. This overhead is more efficiently offset in the context of larger transactions.</td>
 <td>Integer</td>
