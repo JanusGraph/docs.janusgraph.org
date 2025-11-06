@@ -1218,6 +1218,19 @@
     Transaction Failure
   </a>
   
+    <nav class="md-nav" aria-label="Transaction Failure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recurring-transaction-recovery" class="md-nav__link">
+    Recurring Transaction Recovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2009,6 +2022,19 @@
     Transaction Failure
   </a>
   
+    <nav class="md-nav" aria-label="Transaction Failure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recurring-transaction-recovery" class="md-nav__link">
+    Recurring Transaction Recovery
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2074,10 +2100,50 @@ identify partially failed transaction and repair any inconsistencies
 caused. It is suggested to run the transaction repair process on a
 separate machine connected to the cluster to isolate failures. Configure
 a separately controlled process to run the following where the start
-time specifies the time since epoch where the recovery process should
-start reading from the write-ahead log.
-<div class="highlight"><pre><span></span><code><span class="n">recovery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">startTransactionRecovery</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span><span class="w"> </span><span class="n">startTime</span><span class="o">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
+time (Java Instant that specifies the time since epoch) where the recovery
+process should start reading from the write-ahead log.
+<div class="highlight"><pre><span></span><code><span class="n">recovery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">startTransactionRecovery</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span><span class="w"> </span><span class="n">startTime</span><span class="o">);</span>
 </code></pre></div></p>
+<p>Once the recovery process is started, the process never ends and stops
+only if:</p>
+<ol>
+<li>it is manually stopped by calling <code>recovery.shutdown()</code></li>
+<li>the process encounters errors and fails due to exception</li>
+<li>the graph gets closed</li>
+</ol>
+<p>While the recovery process runs, <code>recovery.getStatistics()</code> call provides
+information about the progress of recovery process by returning three numbers:</p>
+<ol>
+<li>the first number shows how many secondary persistence transaction succeeded</li>
+<li>the second number shows how many secondary persistence transaction failed
+and attempted to be recovered</li>
+<li>the third number shows how many failed secondary persistence transaction
+could not be recovered</li>
+</ol>
+<p>Depending on the used <code>startTime</code> value and configured <code>log.tx.read-interval</code>
+configuration option, the recovery process might need to run for hours in
+order to process all relevant entries from the write-ahead log.
+<code>startTime</code> defines the point in time from which the write-ahead
+log should be read. The log is read in every <code>log.tx.read-interval</code>
+millisecond and an approximately 100 seconds long chunk is processed in
+one iteration.</p>
+<p>For example, if <code>startTime</code> is configured to look for log entries from
+the last twenty hours (72 000 seconds) and <code>log.tx.read-interval</code> is set to
+5 000 ms (5 seconds), it might take approximately at least one hour
+(72 000 / 100 * 5 = 3 600 seconds = 1 hour) while all log entries are processed.
+Note: in case there are many failed secondary persistence transactions, the recovery
+process might take much longer as fixing those transactions takes time.</p>
+<p>When a write-ahead log entry is found that should be repaired,
+the following INFO level log message appears in the JanusGraph's
+logging system where the transaction ID appears between the
+squared brackets:</p>
+<div class="highlight"><pre><span></span><code>Attempting to repair partially failed transaction [...]
+</code></pre></div>
+<p>Even if the recovery process is stopped by calling <code>recovery.shutdown()</code>,
+when it started again for the same graph <code>Provided read marker is not compatible
+with existing read marker for previously registered readers</code> error is shown.
+To avoid the error, the graph needs to be closed by <code>graph.close()</code> before the
+process is started again.</p>
 <p>Enabling the transaction write-ahead log causes an additional write
 operation for mutating transactions which increases the latency. Also
 note, that additional space is required to store the log. The
@@ -2085,6 +2151,20 @@ transaction write-ahead log has a configurable time-to-live of 2 days
 which means that log entries expire after that time to keep the storage
 overhead small. Refer to <a href="../../configs/configuration-reference/">Configuration Reference</a> for a complete list of all
 log related configuration options to fine tune logging behavior.</p>
+<h3 id="recurring-transaction-recovery">Recurring Transaction Recovery</h3>
+<p>In case of daily data ingestion, transaction recovery needs to run recurring to ensure that
+both primary and secondary persistence (e.g. indexing data by the mixed index backend)
+of the data succeeds each day.</p>
+<p>Since <code>JanusGraphFactory.startTransactionRecovery()</code> is not meant to be executed on
+recurring way, JanusGraph provides a dedicated way to run transaction recovery multiple
+times on the same graph:</p>
+<div class="highlight"><pre><span></span><code><span class="n">recovery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JanusGraphFactory</span><span class="o">.</span><span class="na">startRecurringTransactionRecovery</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span><span class="w"> </span><span class="n">startTime</span><span class="o">);</span>
+</code></pre></div>
+<p>Similarly to the normal transaction recovery process, the recurring transaction recovery
+process has the same <code>graph</code> and <code>startTime</code> parameters and provides the same <code>getStatistics()</code>
+and <code>shutdown()</code> methods.</p>
+<p>Once the process is stopped, <code>startRecurringTransactionRecovery()</code> can be used
+to start the process again from the same or from another start time.</p>
 <h2 id="janusgraph-instance-failure">JanusGraph Instance Failure</h2>
 <p>JanusGraph is robust against individual instance failure in that other
 instances of the JanusGraph cluster are not impacted by such failure and
