@@ -2548,12 +2548,17 @@ retrieves the ten oldest individuals with <em>hercules</em> in their name.</p>
     For large result sets, this can be very expensive.</p>
 </li>
 <li>
-<p>Mixed indexes support ordering natively and efficiently. However,
+<p>Mixed indexes support ordering property keys with <strong>SINGLE</strong> cardinality
+    natively and efficiently. However,
     the property key used in the order().by() method must have been
     previously added to the mixed indexed for native result ordering
     support. This is important in cases where the the order().by() key
     is different from the query keys. If the property key is not part of
     the index, then sorting requires loading all results into memory.</p>
+</li>
+<li>
+<p>Only Elasticsearch and Solr mixed index backends support ordering
+    property keys with <strong>LIST</strong> cardinality natively and efficiently.</p>
 </li>
 </ul>
 <h3 id="label-constraint">Label Constraint</h3>
