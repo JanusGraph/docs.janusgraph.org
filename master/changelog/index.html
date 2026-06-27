@@ -2037,6 +2037,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
+    Zombie instances auto-close during index status update operations
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3242,6 +3249,13 @@
           <li class="md-nav__item">
   <a href="#elasticsearch-9-support" class="md-nav__link">
     ElasticSearch 9 support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
+    Zombie instances auto-close during index status update operations
   </a>
   
 </li>
@@ -4588,6 +4602,17 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
 <h5 id="elasticsearch-9-support">ElasticSearch 9 support</h5>
 <p>Starting from version 1.2.0 JanusGraph supports ElasticSearch 9.</p>
+<h5 id="zombie-instances-auto-close-during-index-status-update-operations">Zombie instances auto-close during index status update operations</h5>
+<p>Starting from version 1.2.0 JanusGraph can automatically force-close JanusGraph instances that are unreachable
+during index status update operations.</p>
+<p>To enable this behavior, users can set the following configuration:
+<div class="highlight"><pre><span></span><code>graph.management-auto-close-stale-instances=true
+</code></pre></div></p>
+<p>By default, an instance is considered stale if it is not reachable for more than 2 minutes. However, this 
+threshold can be adjusted using the following configuration:
+<div class="highlight"><pre><span></span><code>graph.management-ack-timeout=240000 ms
+</code></pre></div>
+This is a breaking change for users who use the <code>JanusGraphIndexStatusUpdate</code> interface.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

@@ -2524,6 +2524,20 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>LOCAL</td>
 </tr>
 <tr>
+<td>graph.management-ack-timeout</td>
+<td>Maximum time to wait for an instance to acknowledge a schema change before treating it as stale. Only effective when graph.management-auto-close-stale-instances is enabled.</td>
+<td>Duration</td>
+<td>120000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>graph.management-auto-close-stale-instances</td>
+<td>Whether to automatically force-close instances that fail to acknowledge schema changes within the configured timeout (graph.management-ack-timeout). When enabled, unresponsive instances are removed from the registration store so they no longer block schema status transitions.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>graph.replace-instance-if-exists</td>
 <td>If a JanusGraph instance with the same instance identifier already exists, the usage of this configuration option results in the opening of this graph anyway.</td>
 <td>Boolean</td>
