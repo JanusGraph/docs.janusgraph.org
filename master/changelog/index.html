@@ -2051,6 +2051,34 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#faster-mixed-index-reindex-with-batched-document-restores" class="md-nav__link">
+    Faster mixed-index reindex with batched document restores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-olap-scans-signal-based-row-hand-off" class="md-nav__link">
+    Faster OLAP scans (signal-based row hand-off)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt-in-parallel-token-range-scan-for-cql-full-scans" class="md-nav__link">
+    Opt-in parallel token-range scan for CQL full scans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whole-row-deletion-on-vertex-removal-super-node-tombstone-reduction" class="md-nav__link">
+    Whole-row deletion on vertex removal (super-node tombstone reduction)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3270,6 +3298,34 @@
           <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-mixed-index-reindex-with-batched-document-restores" class="md-nav__link">
+    Faster mixed-index reindex with batched document restores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-olap-scans-signal-based-row-hand-off" class="md-nav__link">
+    Faster OLAP scans (signal-based row hand-off)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt-in-parallel-token-range-scan-for-cql-full-scans" class="md-nav__link">
+    Opt-in parallel token-range scan for CQL full scans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whole-row-deletion-on-vertex-removal-super-node-tombstone-reduction" class="md-nav__link">
+    Whole-row deletion on vertex removal (super-node tombstone reduction)
   </a>
   
 </li>
@@ -4632,6 +4688,58 @@ threshold can be adjusted using the following configuration:
 <div class="highlight"><pre><span></span><code>graph.management-ack-timeout=240000 ms
 </code></pre></div>
 This is a breaking change for users who use the <code>JanusGraphIndexStatusUpdate</code> interface.</p>
+<h5 id="faster-mixed-index-reindex-with-batched-document-restores">Faster mixed-index reindex with batched document restores</h5>
+<p>Mixed-index reindex jobs (<code>SchemaAction.REINDEX</code> against an Elasticsearch, Solr or Lucene index) now
+flush restored documents to the index backend in bounded batches while the storage scan is still
+running, instead of buffering a whole scan segment and flushing it once. This reduces the number of
+bulk requests, transaction commits and management-system reads per reindexed element and bounds worker
+memory.</p>
+<p>This behavior is <strong>enabled by default</strong>. Two new configuration options control it:
+<div class="highlight"><pre><span></span><code>schema.reindex.mixed-index-batch-enabled=true
+schema.reindex.mixed-index-batch-size=1000
+</code></pre></div>
+<code>schema.reindex.mixed-index-batch-size</code> is the number of documents a reindex worker buffers before
+issuing a single <code>restore</code> (bulk) call. A worker buffers up to this many documents in memory and a
+reindex runs several workers in parallel, so peak heap grows with <code>mixed-index-batch-size</code> ×
+reindex-threads × average-document-size — raise it only when documents are small and workers have
+headroom.</p>
+<p>Be aware of the following behavior changes when batching is enabled (the default):</p>
+<ul>
+<li>Restored documents become visible in the index <strong>incrementally</strong>, as each batch is flushed, rather
+    than once per scan segment. This is safe because a reindex is idempotent and rebuilds index state
+    from the graph as the source of truth; a reindex interrupted partway leaves partially-populated
+    index documents that a re-run deterministically completes.</li>
+<li>The reindex flush cadence is now driven by <code>mixed-index-batch-size</code> rather than by the storage
+    page size (<code>storage.page-size</code>).</li>
+</ul>
+<p>To restore the previous storage-page-sized, flush-once-per-segment behavior, set
+<code>schema.reindex.mixed-index-batch-enabled=false</code>. See the
+<a href="../index-backend/elasticsearch/#reindex-optimization">Elasticsearch reindex tuning guide</a> for tuning
+the batch size, reindex threads and <code>index.[X].bulk-refresh</code> together.</p>
+<h5 id="faster-olap-scans-signal-based-row-hand-off">Faster OLAP scans (signal-based row hand-off)</h5>
+<p>The OLAP scan pipeline behind reindex and other scan jobs now hands rows between its internal threads
+using blocking <code>take()</code> and sentinel markers instead of polling bounded queues on a fixed timer. On
+fast backends (notably CQL/Cassandra) this removes per-row hand-off latency that could otherwise
+dominate scan wall-clock time, speeding up single-node reindex and other full scans by a large factor.
+No configuration or user action is required.</p>
+<h5 id="opt-in-parallel-token-range-scan-for-cql-full-scans">Opt-in parallel token-range scan for CQL full scans</h5>
+<p>CQL full-table scans (used by reindex and other OLAP jobs) can optionally be split into several
+token-bounded queries instead of a single coordinator-funneled scan:
+<div class="highlight"><pre><span></span><code>storage.cql.parallel-scan-token-ranges=1
+</code></pre></div>
+The default value <code>1</code> preserves the previous single-query behavior. When set above <code>1</code> and the Murmur3
+partitioner is in use, the scan is split into that many disjoint token ranges streamed back in token
+order. Note: in this release the ranges are consumed back-to-back by a single scan thread (only the
+first page of each range is prefetched concurrently), so it replaces one unbounded coordinator scan
+with several bounded ones rather than scanning all ranges fully in parallel; setting very high values
+can overload the cluster. The option is ignored for non-Murmur3 partitioners.</p>
+<h5 id="whole-row-deletion-on-vertex-removal-super-node-tombstone-reduction">Whole-row deletion on vertex removal (super-node tombstone reduction)</h5>
+<p>Starting from version 1.2.0, when a vertex is removed JanusGraph deletes its entire storage row in a single
+operation on backends that support it (CQL/Cassandra issues one partition-level delete instead of one
+column delete per incident edge), drastically reducing tombstone pressure when removing super-nodes.</p>
+<p>This behavior is enabled by default. To restore the previous per-column deletion behavior, set:</p>
+<div class="highlight"><pre><span></span><code>storage.drop-whole-row-on-vertex-removal=false
+</code></pre></div>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

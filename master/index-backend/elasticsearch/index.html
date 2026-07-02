@@ -1716,6 +1716,26 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reindex-optimization" class="md-nav__link">
+    Reindex Optimization
+  </a>
+  
+    <nav class="md-nav" aria-label="Reindex Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuning-the-reindex-throughput" class="md-nav__link">
+    Tuning the reindex throughput
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     Further Reading
   </a>
@@ -2303,6 +2323,26 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reindex-optimization" class="md-nav__link">
+    Reindex Optimization
+  </a>
+  
+    <nav class="md-nav" aria-label="Reindex Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuning-the-reindex-throughput" class="md-nav__link">
+    Tuning the reindex throughput
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     Further Reading
   </a>
@@ -2616,6 +2656,47 @@ discussion</a>
 on how to increase the refresh interval and its impact on write
 performance. Note, that a higher refresh interval means that it takes a
 longer time for graph mutations to be available in the index.</p>
+<h3 id="reindex-optimization">Reindex Optimization</h3>
+<p>Mixed-index reindex jobs can batch more documents per backend restore call than
+the regular storage scan page size. This allows Elasticsearch to use larger bulk
+requests during <code>SchemaAction.REINDEX</code> without changing <code>storage.page-size</code> for
+other graph operations.</p>
+<div class="highlight"><pre><span></span><code><span class="na">schema.reindex.mixed-index-batch-enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">schema.reindex.mixed-index-batch-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1000</span>
+</code></pre></div>
+<p>Increase <code>schema.reindex.mixed-index-batch-size</code> when Elasticsearch can handle
+larger bulk requests and JanusGraph workers have enough memory for the queued
+documents. Set <code>schema.reindex.mixed-index-batch-enabled</code> to <code>false</code> to keep
+the previous storage-page-sized reindex batches.</p>
+<h4 id="tuning-the-reindex-throughput">Tuning the reindex throughput</h4>
+<p>The reindex job accumulates restored documents in memory and flushes them to
+Elasticsearch in a single bulk (<code>_bulk</code>) request per worker once the batch size
+is reached, so three settings determine reindex throughput:</p>
+<ul>
+<li><strong>Batch size</strong> (<code>schema.reindex.mixed-index-batch-size</code>). A larger batch
+    sends fewer, larger bulk requests, which reduces the number of HTTP
+    round-trips, transaction commits and management-system reads per reindexed
+    element. The gains are largest going from the storage page size (the
+    pre-batching default, e.g. 100) up to roughly one or a few thousand
+    documents, and then taper off. Remember that a worker buffers up to
+    <code>mixed-index-batch-size</code> documents in memory, and a reindex runs several
+    workers in parallel, so peak heap usage grows with
+    <code>mixed-index-batch-size</code> × reindex-threads × average-document-size — keep
+    the default modest and raise it only when documents are small and workers
+    have headroom.</li>
+<li><strong>Reindex threads.</strong> <code>updateIndex(index, SchemaAction.REINDEX)</code> uses
+    <code>Runtime.getRuntime().availableProcessors()</code> worker threads by default; pass
+    an explicit count with <code>updateIndex(index, SchemaAction.REINDEX, threads)</code>.
+    More threads issue more concurrent bulk requests and scale best when the
+    Elasticsearch index has multiple shards spread across data nodes.</li>
+<li><strong>Bulk refresh</strong> (<code>index.[X].bulk-refresh</code>). With the default value <code>false</code>
+    a reindex is throughput-bound. If it is set to <code>wait_for</code> (or <code>true</code>) every
+    bulk request blocks until the next index refresh, which can dominate the
+    total reindex time; in that mode batching helps the most, because it
+    proportionally reduces the number of refresh waits. For the fastest reindex
+    keep <code>bulk-refresh = false</code> and rely on the index becoming searchable at the
+    next periodic refresh once the job completes.</li>
+</ul>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
 <li>Please refer to the <a href="https://www.elastic.co">Elasticsearch homepage</a>

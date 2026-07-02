@@ -1359,6 +1359,19 @@
     CQL Specific Configuration
   </a>
   
+    <nav class="md-nav" aria-label="CQL Specific Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#super-node-deletion-whole-row-delete" class="md-nav__link">
+    Super-node deletion (whole-row delete)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2209,6 +2222,19 @@
     CQL Specific Configuration
   </a>
   
+    <nav class="md-nav" aria-label="CQL Specific Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#super-node-deletion-whole-row-delete" class="md-nav__link">
+    Super-node deletion (whole-row delete)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2527,6 +2553,13 @@ CQL specific configuration options:</p>
 <p>More information on Cassandra consistency levels and acceptable
 values can be found <a href="https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlDataConsistencyTOC.html">here</a>.
 In general, higher levels are more consistent and robust but have higher latency.</p>
+<h3 id="super-node-deletion-whole-row-delete">Super-node deletion (whole-row delete)</h3>
+<p>Removing a vertex with many incident edges previously issued one column-level <code>DELETE</code> per edge on the
+vertex's partition, creating a large number of cell tombstones that can overwhelm reads on that partition.
+As of 1.2.0, when a vertex is removed JanusGraph instead issues a single partition-level
+<code>DELETE ... WHERE key = ?</code>, producing one tombstone for the whole partition. This is controlled by
+<code>storage.drop-whole-row-on-vertex-removal</code> (default <code>true</code>). Set it to <code>false</code> to restore the previous
+per-column behavior.</p>
 <h2 id="global-graph-operations">Global Graph Operations</h2>
 <p>JanusGraph over Cassandra supports global vertex and edge iteration.
 However, note that all these vertices and/or edges will be loaded into
