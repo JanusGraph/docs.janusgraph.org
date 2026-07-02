@@ -2031,6 +2031,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#apache-cassandra-50-support" class="md-nav__link">
+    Apache Cassandra 5.0 support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#elasticsearch-9-support" class="md-nav__link">
     ElasticSearch 9 support
   </a>
@@ -3247,6 +3254,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#apache-cassandra-50-support" class="md-nav__link">
+    Apache Cassandra 5.0 support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#elasticsearch-9-support" class="md-nav__link">
     ElasticSearch 9 support
   </a>
@@ -4409,7 +4423,7 @@ use the latest versions of the software.</p>
 <tr>
 <td>1.2.z</td>
 <td>2</td>
-<td>3.11.z, 4.0.z</td>
+<td>3.11.z, 4.0.z, 5.0.z</td>
 <td>2.6.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
 <td>6.y</td>
@@ -4572,7 +4586,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 </div>
 <p><strong>Tested Compatibility:</strong></p>
 <ul>
-<li>Apache Cassandra 3.11.10, 4.0.6</li>
+<li>Apache Cassandra 3.11.10, 4.0.6, 5.0.8</li>
 <li>Apache HBase 2.6.0</li>
 <li>Oracle BerkeleyJE 7.5.11</li>
 <li>ScyllaDB 6.2.0</li>
@@ -4600,6 +4614,11 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li><a href="https://github.com/JanusGraph/janusgraph/releases/download/v1.2.0/janusgraph-full-1.2.0.zip">JanusGraph zip with embedded Cassandra and ElasticSearch</a></li>
 </ul>
 <h4 id="upgrade-instructions">Upgrade Instructions</h4>
+<h5 id="apache-cassandra-50-support">Apache Cassandra 5.0 support</h5>
+<p>Starting from version 1.2.0 JanusGraph supports Apache Cassandra 5.0 as a storage backend.
+Apache Cassandra 5.0 requires Java 11 or newer. Since the pre-packaged distribution still
+targets Java 8, it continues to bundle Cassandra 4.0.6; connect JanusGraph to an externally
+managed Cassandra 5.0 cluster (running on Java 11+) to use the new backend.</p>
 <h5 id="elasticsearch-9-support">ElasticSearch 9 support</h5>
 <p>Starting from version 1.2.0 JanusGraph supports ElasticSearch 9.</p>
 <h5 id="zombie-instances-auto-close-during-index-status-update-operations">Zombie instances auto-close during index status update operations</h5>
