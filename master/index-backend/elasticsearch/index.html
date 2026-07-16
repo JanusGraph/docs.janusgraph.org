@@ -1730,6 +1730,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#when-the-storage-scan-not-elasticsearch-is-the-ceiling" class="md-nav__link">
+    When the storage scan, not Elasticsearch, is the ceiling
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2337,6 +2344,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#when-the-storage-scan-not-elasticsearch-is-the-ceiling" class="md-nav__link">
+    When the storage scan, not Elasticsearch, is the ceiling
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2697,6 +2711,46 @@ is reached, so three settings determine reindex throughput:</p>
     keep <code>bulk-refresh = false</code> and rely on the index becoming searchable at the
     next periodic refresh once the job completes.</li>
 </ul>
+<h4 id="when-the-storage-scan-not-elasticsearch-is-the-ceiling">When the storage scan, not Elasticsearch, is the ceiling</h4>
+<p>On the CQL backend the reindex pipeline is often <strong>storage-scan-bound</strong>, not
+Elasticsearch-bound: the scan job streams the whole table through a small,
+fixed number of scan queries (one per slice query — three for a vertex mixed
+index), and the reindex worker threads spend most of their time waiting for
+rows. The telltale signs are low Elasticsearch CPU, only a handful of reindex
+workers reporting activity regardless of the configured thread count, and the
+scan progress log (<code>StandardScannerExecutor</code>) showing a near-empty row queue.</p>
+<p>Three CQL options remove that ceiling:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Scan each Murmur3 token range on its own pipeline (true parallel scan).</span>
+<span class="na">storage.cql.parallel-scan-token-ranges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8</span>
+
+<span class="c1"># Bigger pages for full scans only (OLTP reads keep storage.page-size).</span>
+<span class="na">storage.cql.scan-page-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2000</span>
+
+<span class="c1"># Stop scan queries server-side at each row&#39;s per-key limit (default true).</span>
+<span class="na">storage.cql.scan-per-partition-limit-enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</code></pre></div>
+<ul>
+<li><strong><code>parallel-scan-token-ranges</code></strong> splits the scan into disjoint token
+    ranges, each drained by its own data-puller threads and merged
+    independently — producer throughput scales roughly linearly until the
+    Cassandra cluster saturates. Start with a small multiple of the cluster's
+    node count and watch node load.</li>
+<li><strong><code>scan-page-size</code></strong> decouples the scan fetch size from the OLTP-oriented
+    <code>storage.page-size</code>; a few thousand rows per page is usually a safe and
+    substantial improvement. Pages are additionally prefetched one ahead, so
+    the network wait overlaps row processing.</li>
+<li><strong><code>scan-per-partition-limit-enabled</code></strong> pushes each scan query's per-key
+    limit into the query as <code>PER PARTITION LIMIT</code>. The scan's key-existence
+    (grounding) query has a per-key limit of 1, so on graphs with wide rows
+    (many edges or properties per vertex) this stops the grounding query from
+    streaming the entire table to the client just to prove each key exists.
+    On a CQL-compatible service without <code>PER PARTITION LIMIT</code> support the
+    pushdown auto-disables with a warning at store open.</li>
+</ul>
+<p>The scan-side and Elasticsearch-side settings compose: once the storage scan is
+parallel, raise the reindex thread count and, if Elasticsearch becomes the new
+bottleneck, scale its side (shards, replicas during rebuild, refresh interval)
+as described above.</p>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
 <li>Please refer to the <a href="https://www.elastic.co">Elasticsearch homepage</a>
