@@ -2101,6 +2101,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cql-scans-under-the-murmur3-partitioner-use-the-lossless-merge-join" class="md-nav__link">
+    CQL scans under the Murmur3 partitioner use the lossless merge join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#scan-progress-logging" class="md-nav__link">
     Scan progress logging
   </a>
@@ -3382,6 +3389,13 @@
           <li class="md-nav__item">
   <a href="#scan-merge-no-longer-loses-data-on-writes-concurrent-with-the-scan" class="md-nav__link">
     Scan merge no longer loses data on writes concurrent with the scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cql-scans-under-the-murmur3-partitioner-use-the-lossless-merge-join" class="md-nav__link">
+    CQL scans under the Murmur3 partitioner use the lossless merge join
   </a>
   
 </li>
@@ -4852,6 +4866,19 @@ never by the scan itself. Because the merge join is only sound on a scan that re
 in their natural order, a multi-query scan now also verifies that promise against the stream as it
 is consumed and fails the scan if the store violates its declared key order, instead of silently
 dropping rows.</p>
+<h5 id="cql-scans-under-the-murmur3-partitioner-use-the-lossless-merge-join">CQL scans under the Murmur3 partitioner use the lossless merge join</h5>
+<p>Cassandra's Murmur3 ring order — token first, key bytes among equal tokens — is now computed
+client-side through the driver's token factory (the same code token-aware routing relies on) and
+declared to the scan framework via the new <code>StoreFeatures#getScanKeyOrder()</code> hook. Multi-query CQL
+scans, including the split-parallel pipelines of <code>storage.cql.parallel-scan-token-ranges</code>, therefore
+merge with the lossless merge-join strategy instead of the bounded-buffer strategy, whose recovery
+from keys written concurrently with the scan is capped (a burst of more than 32 such keys between
+two matches of one query blanked that query's data for the keys behind the burst). The declared
+order is verified against every scan as it is consumed — the same tripwire that guards natural-order
+backends — so a client/server order mismatch fails the scan instead of silently dropping rows.
+Disabling the driver's token metadata (<code>storage.cql.metadata-token-map-enabled = false</code>) removes the
+declaration and restores the previous bounded-buffer merge; partitioners whose order the driver
+cannot compute (RandomPartitioner, Amazon Keyspaces' DefaultPartitioner) keep using it automatically.</p>
 <h5 id="scan-progress-logging">Scan progress logging</h5>
 <p><code>StandardScannerExecutor</code> now logs a start line (job, query count, processor count, collector type,
 queue capacity), a progress line every 30 seconds (rows produced by the storage scan, rows processed
