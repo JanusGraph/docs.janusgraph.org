@@ -2121,6 +2121,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#write-only-index-state-write_only_enabled-and-reindexing-without-automatic-enablement" class="md-nav__link">
+    Write-only index state (WRITE_ONLY_ENABLED) and reindexing without automatic enablement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-action-to-remove-stale-index-entries-remove_stale_entries" class="md-nav__link">
+    New action to remove stale index entries (REMOVE_STALE_ENTRIES)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3410,6 +3424,20 @@
           <li class="md-nav__item">
   <a href="#whole-row-deletion-on-vertex-removal-super-node-tombstone-reduction" class="md-nav__link">
     Whole-row deletion on vertex removal (super-node tombstone reduction)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-only-index-state-write_only_enabled-and-reindexing-without-automatic-enablement" class="md-nav__link">
+    Write-only index state (WRITE_ONLY_ENABLED) and reindexing without automatic enablement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-action-to-remove-stale-index-entries-remove_stale_entries" class="md-nav__link">
+    New action to remove stale index entries (REMOVE_STALE_ENTRIES)
   </a>
   
 </li>
@@ -4895,6 +4923,63 @@ column delete per incident edge), drastically reducing tombstone pressure when r
 <p>This behavior is enabled by default. To restore the previous per-column deletion behavior, set:</p>
 <div class="highlight"><pre><span></span><code>storage.drop-whole-row-on-vertex-removal=false
 </code></pre></div>
+<h5 id="write-only-index-state-write_only_enabled-and-reindexing-without-automatic-enablement">Write-only index state (<code>WRITE_ONLY_ENABLED</code>) and reindexing without automatic enablement</h5>
+<p>Starting from version 1.2.0 an index can be explicitly enabled for write operations only. A new schema status
+<code>SchemaStatus.WRITE_ONLY_ENABLED</code> and a new schema action <code>SchemaAction.ENABLE_WRITE_ONLY</code> were added. An index in
+the <code>WRITE_ONLY_ENABLED</code> state receives updates for all graph mutations but is not used to answer queries, and —
+in contrast to a <code>REGISTERED</code> index — <code>SchemaAction.REINDEX</code> preserves its state instead of automatically enabling
+the index. This enables the workflow <em>create index → reindex it (without enabling) → enable it later when necessary</em>
+as well as demoting an <code>ENABLED</code> index to write-only and re-enabling it later without a reindex. See
+<a href="../schema/index-management/index-lifecycle/">Index Lifecycle</a> for the full state machine and workflows.</p>
+<p>The following behaviors were extended or clarified. None of them change the behavior of existing workflows:</p>
+<ul>
+<li><strong>Documentation clarification (no behavior change):</strong> indexes in the <code>INSTALLED</code> and <code>REGISTERED</code> states have
+    always received updates for graph mutations; queries only ever use <code>ENABLED</code> indexes. Previous documentation
+    incorrectly stated that only <code>ENABLED</code> indexes receive updates. If you relied on the documented (incorrect)
+    behavior and want an index that receives no updates, disable it or use the new create-then-disable workflow
+    below.</li>
+<li><code>SchemaAction.DISABLE_INDEX</code> can now also be applied to an <code>INSTALLED</code> or <code>WRITE_ONLY_ENABLED</code> index. Disabling
+    an index within the same management transaction that creates it yields an index definition that is known to the
+    cluster but never receives any writes until activated.</li>
+<li><code>SchemaAction.REGISTER_INDEX</code> can now also be applied to a <code>DISABLED</code> index to re-activate it for writes.
+    Reaching the <code>REGISTERED</code> status guarantees that all instances write to the index, which makes a subsequent
+    reindex lossless.</li>
+<li>A pending index registration no longer overwrites a status change that superseded it. Previously, disabling an
+    index while its registration acknowledgment was still pending could result in the index being moved back to
+    <code>REGISTERED</code> once all acknowledgments arrived.</li>
+<li><code>SchemaAction.REINDEX</code>, <code>SchemaAction.ENABLE_INDEX</code>, <code>SchemaAction.DISCARD_INDEX</code> and
+    <code>SchemaAction.MARK_DISCARDED</code> also accept indexes in the <code>WRITE_ONLY_ENABLED</code> state.</li>
+</ul>
+<p>Note for downgrades: the new status is persisted in the schema. Schemas containing indexes (or mixed-index keys) in
+the <code>WRITE_ONLY_ENABLED</code> state cannot be read by JanusGraph versions older than 1.2.0. Only start using
+<code>SchemaAction.ENABLE_WRITE_ONLY</code> after all JanusGraph instances of the cluster have been upgraded to 1.2.0 or newer.</p>
+<h5 id="new-action-to-remove-stale-index-entries-remove_stale_entries">New action to remove stale index entries (<code>REMOVE_STALE_ENTRIES</code>)</h5>
+<p>Starting from version 1.2.0 stale index entries — entries which reference graph elements that no longer exist, for
+example because the element was deleted while an index status change was still propagating through the cluster or
+while the index was disabled — can be removed with the new schema action <code>SchemaAction.REMOVE_STALE_ENTRIES</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">updateIndex</span><span class="o">(</span><span class="n">mgmt</span><span class="o">.</span><span class="na">getGraphIndex</span><span class="o">(</span><span class="s2">&quot;myIndex&quot;</span><span class="o">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="o">.</span><span class="na">REMOVE_STALE_ENTRIES</span><span class="o">).</span><span class="na">get</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div>
+<p>The action complements <code>REINDEX</code>: a reindex restores missing entries for existing elements but never removes
+entries, while <code>REMOVE_STALE_ENTRIES</code> removes entries of deleted elements but never adds entries. The index status
+is not changed. The returned <code>ScanMetrics</code> report the number of removed entries under the custom metric
+<code>stale-entries-removed</code>. Previously such entries could only be removed one-by-one with the low-level
+<code>StaleIndexRecordUtil</code> helper (which required knowing the stale element ids and index record values upfront) or by
+dropping and rebuilding the whole index.</p>
+<p>Supported index types:</p>
+<ul>
+<li><strong>Composite graph indexes</strong>: the internal index store is scanned and every entry whose element no longer exists
+    is deleted.</li>
+<li><strong>Mixed graph indexes</strong>: the documents are enumerated through exists-queries against the index backend. This
+    requires at least one index field whose data type supports exists queries; fields that do not support them are
+    skipped with a warning.</li>
+<li><strong>Vertex-centric indexes</strong> are not supported by this action.</li>
+</ul>
+<p>If custom vertex ids are used, avoid deleting and re-creating vertices under the same custom id while a
+<code>REMOVE_STALE_ENTRIES</code> job is running, because the job could remove the index entries of the re-created vertex
+(run <code>REINDEX</code> afterwards to restore them). With automatically assigned ids this race cannot occur because ids are
+never reused.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

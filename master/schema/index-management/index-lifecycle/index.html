@@ -882,6 +882,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#consistency-during-status-transitions" class="md-nav__link">
+    Consistency during status transitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-only-index-workflows" class="md-nav__link">
+    Write-Only Index Workflows
+  </a>
+  
+    <nav class="md-nav" aria-label="Write-Only Index Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-an-index-on-a-live-system-and-enable-it-later" class="md-nav__link">
+    Build an index on a live system and enable it later
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporarily-exclude-an-index-from-query-answering" class="md-nav__link">
+    Temporarily exclude an index from query answering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roll-out-an-index-definition-without-using-it" class="md-nav__link">
+    Roll out an index definition without using it
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2034,6 +2075,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#consistency-during-status-transitions" class="md-nav__link">
+    Consistency during status transitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-only-index-workflows" class="md-nav__link">
+    Write-Only Index Workflows
+  </a>
+  
+    <nav class="md-nav" aria-label="Write-Only Index Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-an-index-on-a-live-system-and-enable-it-later" class="md-nav__link">
+    Build an index on a live system and enable it later
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporarily-exclude-an-index-from-query-answering" class="md-nav__link">
+    Temporarily exclude an index from query answering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roll-out-an-index-definition-without-using-it" class="md-nav__link">
+    Roll out an index definition without using it
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2053,7 +2135,7 @@
 
 
 <h1 id="index-lifecycle">Index Lifecycle</h1>
-<p>JanusGraph uses only indexes which have status <code>ENABLED</code>. 
+<p>JanusGraph uses only indexes which have status <code>ENABLED</code> to answer queries.
 When the index is created it will not be used by JanusGraph until it is enabled. 
 After the index is build you should wait until it is registered (i.e. available) by JanusGraph:
 <div class="highlight"><pre><span></span><code><span class="c1">//Wait for the index to become available (i.e. wait for status REGISTERED)</span>
@@ -2083,24 +2165,43 @@ These are either not recommended to be used in production scenarios or have more
 <dt><strong>INSTALLED</strong></dt>
 <dd>
 <p>The index has been created on the current JanusGraph instance, but it is not yet known to all instances in the
-cluster.
-This state is not shown in the diagram above because it is not stable in terms of synchronization between instances.</p>
+cluster. Instances which already know about the index forward insertions and deletions in the graph to the index,
+but the index is not used to answer queries.
+This state is not stable in terms of synchronization between instances: waiting for the <code>REGISTERED</code> status is
+required before any reindexing decision can be made.</p>
 </dd>
 <dt><strong>REGISTERED</strong></dt>
 <dd>
-<p>The index is known to all instances in the cluster.
-However, it is not in use yet.
-In this state, the index contains no data and will not be used in queries.</p>
+<p>The index is known to all instances in the cluster and every instance forwards insertions and deletions in the
+graph to the index. The index is not used to answer queries.
+Because all instances are guaranteed to write to the index in this state, it is safe to reindex existing data.
+<code>REGISTERED</code> is a transitional state: <code>REINDEX</code> automatically enables a <code>REGISTERED</code> index once reindexing is
+finished. If the index should stay write-only instead, move it to <code>WRITE_ONLY_ENABLED</code> via <code>ENABLE_WRITE_ONLY</code>.</p>
+</dd>
+<dt><strong>WRITE_ONLY_ENABLED</strong></dt>
+<dd>
+<p>The index is enabled for write operations only. Insertions and deletions in the graph are forwarded to the index,
+but the index is not used to answer queries.
+In contrast to <code>REGISTERED</code>, this state expresses the explicit intent to keep the index write-only: <code>REINDEX</code>
+preserves this state instead of automatically enabling the index.
+This is useful when building an index on a live system: the index can receive writes and be reindexed (possibly
+multiple times), and once it has caught up, it can be fully enabled with <code>ENABLE_INDEX</code> — without any further
+reindexing. It can also be used to temporarily exclude an <code>ENABLED</code> index from query answering while keeping it
+up-to-date, so that it can be re-enabled later without a reindex.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><code>WRITE_ONLY_ENABLED</code> was added in JanusGraph 1.2.0. Older JanusGraph versions cannot read schemas that
+contain this status, so only start using it after all instances in the cluster have been upgraded.</p>
+</div>
 </dd>
 <dt><strong>ENABLED</strong></dt>
 <dd>
-<p>The index is enabled and can be used to answer queries.
-Furthermore, this is the only state in which insertions and deletions in the graph are forwarded to the index.</p>
+<p>The index is enabled and used to answer queries. Insertions and deletions in the graph are forwarded to the index.</p>
 </dd>
 <dt><strong>DISABLED</strong></dt>
 <dd>
 <p>The index is disabled and will not be used to answer queries.
-It also does no longer receive graph updates.
+It also no longer receives graph updates, so its contents become stale over time.
 Therefore, it is recommended to use <code>REINDEX</code> to re-enable the index.</p>
 </dd>
 <dt><strong>DISCARDED</strong></dt>
@@ -2109,26 +2210,69 @@ Therefore, it is recommended to use <code>REINDEX</code> to re-enable the index.
 The only remaining artifact is the schema vertex representing the index.</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Writes reach an index in the <code>INSTALLED</code>, <code>REGISTERED</code>, <code>WRITE_ONLY_ENABLED</code> and <code>ENABLED</code> states. Queries are
+answered only by indexes in the <code>ENABLED</code> state. Earlier versions of this page stated that only <code>ENABLED</code> indexes
+receive updates; that was never the case — forwarding writes while an index is <code>INSTALLED</code>/<code>REGISTERED</code> is what
+makes the register-then-reindex workflow lossless.</p>
+</div>
 <h2 id="actions-schemaaction">Actions (SchemaAction)</h2>
 <p>The following actions can be performed on an index to change its state via <code>mgmt.updateIndex()</code>:</p>
 <dl>
 <dt><strong>REGISTER_INDEX</strong></dt>
 <dd>Registers the index with all instances in the cluster.
-After an index is installed, it must be registered with all JanusGraph instances.</dd>
+After an index is installed, it must be registered with all JanusGraph instances.
+A <code>DISABLED</code> index can also be re-registered: this is the required activation step before reindexing a previously
+disabled index, because reaching the <code>REGISTERED</code> status guarantees that all instances write to the index again.</dd>
+<dt><strong>ENABLE_WRITE_ONLY</strong></dt>
+<dd>Enables the index for write operations only (state <code>WRITE_ONLY_ENABLED</code>). The index receives updates during graph
+mutations and reindexing, but is not used to answer queries.
+This action can be applied to a <code>REGISTERED</code> index (deferred enablement) or to an <code>ENABLED</code> index (demotion:
+stop using the index for queries while keeping it up-to-date).
+It cannot be applied to a <code>DISABLED</code> index directly — re-register the index first (<code>REGISTER_INDEX</code>), otherwise
+there would be no guarantee that all instances write to the index before a subsequent reindex starts.</dd>
 <dt><strong>REINDEX</strong></dt>
 <dd>Re-builds the index from the ground up using the data stored in the graph.
 Depending on the size of the graph, this action can take a long time to complete.
-Reindexing is possible in all stable states and automatically enables the index once finished.</dd>
+Reindexing is possible in all stable states and automatically enables the index once finished, with one exception:
+if the index is in the <code>WRITE_ONLY_ENABLED</code> state, reindexing keeps it in <code>WRITE_ONLY_ENABLED</code> instead of
+automatically enabling it for queries. For a mixed index, the index counts as write-only if any of its keys has
+the <code>WRITE_ONLY_ENABLED</code> status.</dd>
+<dt><strong>REMOVE_STALE_ENTRIES</strong></dt>
+<dd>
+<p>Removes stale index entries: entries which reference elements that no longer exist in the graph (see
+<a href="#consistency-during-status-transitions">Consistency during status transitions</a>). This action complements
+<code>REINDEX</code>: a reindex restores missing entries for existing elements but never removes entries, while this action
+removes entries of deleted elements but never adds entries. The index status is not changed by this action.
+Only global graph indexes are supported. For a composite index the internal index store is scanned. For a mixed
+index the documents are enumerated through exists-queries against the index backend, which requires at least one
+index field whose data type supports exists queries; fields that do not support them are skipped with a warning.
+The returned metrics report the number of removed entries under the custom metric <code>stale-entries-removed</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If custom vertex ids are used, deleting a vertex and re-creating it under the same custom id concurrently
+with a running <code>REMOVE_STALE_ENTRIES</code> job can remove the index entries of the re-created vertex. Run the
+cleanup during periods in which custom ids are not recycled, or run <code>REINDEX</code> afterwards to restore such
+entries. With automatically assigned ids this race cannot occur because ids are never reused.</p>
+</div>
+</dd>
 <dt><strong>ENABLE_INDEX</strong></dt>
 <dd>Enables the index so that it can be used by the query processing engine.
 An index must be registered before it can be enabled.
 If enabling the index manually instead of performing a reindex, be aware that past modifications of the graph are
-not represented in the index.
-Enabling a previously disabled index without <code>REINDEX</code> may cause index queries to return ghost vertices, which have
-been deleted from the graph while the index was disabled.</dd>
+not represented in the index. This concern does not apply when enabling a <code>WRITE_ONLY_ENABLED</code> index that has
+been reindexed, because such an index keeps receiving all writes.
+Enabling a previously disabled index may cause index queries to return ghost vertices: <code>REINDEX</code> restores missing
+and outdated entries for elements that still exist, but it cannot remove stale entries for elements that were
+deleted while the index was disabled (see
+<a href="#consistency-during-status-transitions">Consistency during status transitions</a>).</dd>
 <dt><strong>DISABLE_INDEX</strong></dt>
 <dd>Disables the index temporarily so that it is no longer used to answer queries.
-The index also stops receiving updates in the graph.</dd>
+The index also stops receiving updates in the graph.
+An index can also be disabled within the same management transaction that creates it. Such an index is known to
+all instances (after the schema change has propagated) but never receives any writes, which allows index
+definitions to be rolled out long before they are activated via <code>REGISTER_INDEX</code>.</dd>
 <dt><strong>DISCARD_INDEX</strong></dt>
 <dd>Removes all data from the index, preparing it for removal.
 This operation is supported for all composite indices and for some mixed index backends.
@@ -2141,6 +2285,97 @@ action.</dd>
 <dd>Removes the index from the schema and communicates the change to other instances in the cluster.
 After an index has been dropped, a new index is allowed to use the same name again.</dd>
 </dl>
+<h2 id="consistency-during-status-transitions">Consistency during status transitions</h2>
+<p>Index status changes propagate asynchronously through the cluster: after a management transaction commits a status
+change, every other instance applies it only once it has processed the corresponding cache eviction. During this
+propagation window, instances may briefly disagree about the status of an index and therefore about whether graph
+mutations have to be forwarded to it.</p>
+<p>The index lifecycle is designed so that this window cannot cause <em>missing</em> entries in an index that is taken through
+the documented workflows: an index receives writes from the moment an instance learns about it (<code>INSTALLED</code>), and the
+<code>REGISTERED</code> status is only set after <strong>all</strong> instances have acknowledged the index. Once <code>REGISTERED</code> is reached,
+every instance is guaranteed to forward mutations to the index, so a <code>REINDEX</code> executed after awaiting <code>REGISTERED</code>
+restores every element that was added or modified before or during the propagation window.</p>
+<p>Deletions behave differently: an instance can only delete an entry from an index it already knows about. If an
+element is deleted during a propagation window by an instance that does not yet know the index (or that already
+considers the index <code>DISABLED</code> while other instances still write to it), the element's entry remains in the index as
+a <strong>stale entry</strong>. Be aware of the following properties of stale entries:</p>
+<ul>
+<li><code>REINDEX</code> does <strong>not</strong> remove them. A reindex only adds and overwrites entries for elements that currently exist
+    in the graph; it never visits deleted elements and cannot clean up their leftover entries.</li>
+<li>Stale entries can surface in query results as ghost vertices. See
+    <a href="../../../advanced-topics/eventual-consistency/#ghost-vertices">Ghost Vertices</a> for the general discussion and the
+    read-time mitigation (<code>checkInternalVertexExistence()</code>).</li>
+<li>
+<p>Use <code>REMOVE_STALE_ENTRIES</code> to remove them: it scans the index and deletes every entry whose element no longer
+    exists in the graph. A full index heal is therefore <code>REMOVE_STALE_ENTRIES</code> (removes entries of deleted elements)
+    combined with <code>REINDEX</code> (restores missing entries of existing elements):</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">REMOVE_STALE_ENTRIES</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+</code></pre></div>
+</li>
+</ul>
+<p>The exposure is bounded: only elements <strong>deleted while a status change is propagating</strong> (typically a management-log
+round trip of a few seconds) can leave stale entries. If possible, perform index registration and activation during
+periods with few deletions.</p>
+<h2 id="write-only-index-workflows">Write-Only Index Workflows</h2>
+<h3 id="build-an-index-on-a-live-system-and-enable-it-later">Build an index on a live system and enable it later</h3>
+<p>When adding an index to a live system with ongoing data ingestion, the write-only workflow allows reindexing the
+existing data without automatically enabling the index, so that the operator decides when the index starts serving
+queries. No writes are missed at any point: the index receives all graph updates from the moment it is registered.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. Create the index and wait for it to be registered on all instances</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">buildIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Vertex</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">addKey</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getPropertyKey</span><span class="p">(</span><span class="s">&quot;myKey&quot;</span><span class="p">)).</span><span class="na">buildCompositeIndex</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+<span class="n">ManagementSystem</span><span class="p">.</span><span class="na">awaitGraphIndexStatus</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myIndex&quot;</span><span class="p">).</span><span class="na">call</span><span class="p">();</span>
+
+<span class="c1">// 2. Enable the index for writes only</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">ENABLE_WRITE_ONLY</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+
+<span class="c1">// 3. Reindex existing data (the index stays in WRITE_ONLY_ENABLED after reindexing)</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">REINDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+
+<span class="c1">// 4. Whenever ready: fully enable the index for queries (no additional reindex is needed)</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">ENABLE_INDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="temporarily-exclude-an-index-from-query-answering">Temporarily exclude an index from query answering</h3>
+<p>An <code>ENABLED</code> index can be demoted to <code>WRITE_ONLY_ENABLED</code> (for example while investigating query planner issues or
+index inconsistencies). The index keeps receiving all writes, so it can be re-enabled at any time without a reindex:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">ENABLE_WRITE_ONLY</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+
+<span class="c1">// ... later, no reindex required:</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">ENABLE_INDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="roll-out-an-index-definition-without-using-it">Roll out an index definition without using it</h3>
+<p>An index can be created and disabled within the same management transaction. Such an index is known to the whole
+cluster but neither receives writes nor answers queries, so it adds no write amplification until it is activated:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mgmt</span><span class="p">.</span><span class="na">buildIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Vertex</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">addKey</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getPropertyKey</span><span class="p">(</span><span class="s">&quot;myKey&quot;</span><span class="p">)).</span><span class="na">buildCompositeIndex</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">DISABLE_INDEX</span><span class="p">);</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+</code></pre></div>
+<p>To activate it later, re-register it first (this guarantees that all instances write to the index), then reindex
+and/or enable it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">REGISTER_INDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+<span class="n">ManagementSystem</span><span class="p">.</span><span class="na">awaitGraphIndexStatus</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myIndex&quot;</span><span class="p">).</span><span class="na">status</span><span class="p">(</span><span class="n">SchemaStatus</span><span class="p">.</span><span class="na">REGISTERED</span><span class="p">).</span><span class="na">call</span><span class="p">();</span>
+
+<span class="c1">// Either REINDEX (automatically enables), or ENABLE_WRITE_ONLY + REINDEX + ENABLE_INDEX as shown above</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">updateIndex</span><span class="p">(</span><span class="n">mgmt</span><span class="p">.</span><span class="na">getGraphIndex</span><span class="p">(</span><span class="s">&quot;myIndex&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SchemaAction</span><span class="p">.</span><span class="na">REINDEX</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">mgmt</span><span class="p">.</span><span class="na">commit</span><span class="p">();</span>
+</code></pre></div>
 
 
 
