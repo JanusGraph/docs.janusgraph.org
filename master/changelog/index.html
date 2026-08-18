@@ -1742,6 +1742,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2131,6 +2151,13 @@
           <li class="md-nav__item">
   <a href="#new-action-to-remove-stale-index-entries-remove_stale_entries" class="md-nav__link">
     New action to remove stale index entries (REMOVE_STALE_ENTRIES)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdc-based-mixed-index-synchronization" class="md-nav__link">
+    CDC-based mixed index synchronization
   </a>
   
 </li>
@@ -3438,6 +3465,13 @@
           <li class="md-nav__item">
   <a href="#new-action-to-remove-stale-index-entries-remove_stale_entries" class="md-nav__link">
     New action to remove stale index entries (REMOVE_STALE_ENTRIES)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdc-based-mixed-index-synchronization" class="md-nav__link">
+    CDC-based mixed index synchronization
   </a>
   
 </li>
@@ -4980,6 +5014,19 @@ dropping and rebuilding the whole index.</p>
 <code>REMOVE_STALE_ENTRIES</code> job is running, because the job could remove the index entries of the re-created vertex
 (run <code>REINDEX</code> afterwards to restore them). With automatically assigned ids this race cannot occur because ids are
 never reused.</p>
+<h5 id="cdc-based-mixed-index-synchronization">CDC-based mixed index synchronization</h5>
+<p>Starting from version 1.2.0, JanusGraph can keep mixed indexes (e.g. ElasticSearch) eventually consistent with the
+graph via Change-Data-Capture instead of a synchronous index write during the transaction that can diverge on failure
+(a cause of <a href="../advanced-topics/stale-index/">permanent stale indexes</a>). This is opt-in and disabled by default.</p>
+<p>With Apache Cassandra storage, set <code>storage.cql.cdc=true</code> to create the <code>edgestore</code> table with Cassandra CDC enabled,
+mark the mixed index backend with <code>index.[X].cdc.enabled=true</code> (and <code>index.[X].cdc.synchronous=false</code> for cdc-only
+mode, which skips synchronous index additions; the few relation-document deletions that change events cannot
+identify remain synchronous), and run the new <code>janusgraph-cdc</code> worker. Like <code>storage.cql.cdc</code>, the
+<code>index.[X].cdc.*</code> options are managed cluster-wide (<code>GLOBAL_OFFLINE</code>): on an existing graph, change them via
+<code>mgmt.set(...)</code> while no other instance is open. The worker consumes the
+Cassandra change stream (e.g. via Debezium and Kafka) and reindexes affected elements from their current graph state,
+which is idempotent and order-independent. See
+<a href="../advanced-topics/cdc-mixed-index/">CDC Mixed Index Synchronization</a> for the full setup.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

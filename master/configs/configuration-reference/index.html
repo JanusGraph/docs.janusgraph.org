@@ -791,6 +791,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#indexxcdc" class="md-nav__link">
+    index.[X].cdc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#indexxelasticsearch" class="md-nav__link">
     index.[X].elasticsearch
   </a>
@@ -2198,6 +2205,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2511,6 +2538,13 @@
           <li class="md-nav__item">
   <a href="#indexxbkd-circle-processorfixed" class="md-nav__link">
     index.[X].bkd-circle-processor.fixed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexxcdc" class="md-nav__link">
+    index.[X].cdc
   </a>
   
 </li>
@@ -3448,6 +3482,35 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>Double</td>
 <td>10.0</td>
 <td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indexxcdc">index.[X].cdc</h3>
+<p>Configuration options for Change-Data-Capture (CDC) based maintenance of this mixed index backend</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].cdc.enabled</td>
+<td>Whether this mixed index backend is maintained via the CDC pipeline (the janusgraph-cdc worker consumes Change-Data-Capture events of the graph data and reindexes affected elements) instead of, or in addition to, synchronous index writes during the transaction. Has no effect unless an external CDC pipeline (e.g. Cassandra CDC + Debezium + Kafka) and the janusgraph-cdc worker are running. Managed cluster-wide (GLOBAL_OFFLINE) so every JanusGraph instance and the CDC worker agree on who maintains the index: set it in the configuration when the graph is first created, or change it later via mgmt.set("index.[X].cdc.enabled", ...) while no other instance is open.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].cdc.synchronous</td>
+<td>Only relevant when index.[X].cdc.enabled is true. When true (default), the mixed index is ALSO written synchronously during the transaction (dual mode: safe and redundant - CDC repairs any synchronous failure). When false, synchronous mixed index additions are skipped (cdc-only mode) and performed by the CDC worker instead, which maximizes efficiency at the cost of the index lagging the graph by the CDC propagation latency; the few deletions of edge and meta-property documents that change events cannot identify are still applied synchronously. Managed cluster-wide (GLOBAL_OFFLINE), like index.[X].cdc.enabled.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>GLOBAL_OFFLINE</td>
 </tr>
 </tbody>
 </table>
@@ -4871,6 +4934,13 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 <td>Integer</td>
 <td>20</td>
 <td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.cdc</td>
+<td>Enable Apache Cassandra Change-Data-Capture by setting the cdc=true table option on JanusGraph's edgestore table. This allows an external CDC pipeline (e.g. Debezium + Kafka, consumed by the janusgraph-cdc worker) to capture graph mutations and keep mixed indexes eventually consistent. Requires the Cassandra cluster to be started with cdc_enabled=true.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>GLOBAL_OFFLINE</td>
 </tr>
 <tr>
 <td>storage.cql.compaction-strategy-class</td>

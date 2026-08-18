@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../solr/">
+        <link rel="prev" href="../transaction-log/">
       
       
-        <link rel="next" href="../../advanced-topics/eventual-consistency/">
+        <link rel="next" href="../data-model/">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Apache Lucene - JanusGraph</title>
+        <title>CDC Mixed Index Synchronization - JanusGraph</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#apache-lucene" class="md-skip">
+        <a href="#cdc-based-mixed-index-synchronization" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Apache Lucene
+              CDC Mixed Index Synchronization
             
           </span>
         </div>
@@ -1397,8 +1397,6 @@
       
   
   
-    
-  
   
     
     
@@ -1408,12 +1406,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1427,7 +1425,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Mixed Index Backends
@@ -1440,7 +1438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../index-backend/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1460,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../text-search/" class="md-nav__link">
+      <a href="../../index-backend/text-search/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1480,7 +1478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../field-mapping/" class="md-nav__link">
+      <a href="../../index-backend/field-mapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1500,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../direct-index-query/" class="md-nav__link">
+      <a href="../../index-backend/direct-index-query/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1520,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../elasticsearch/" class="md-nav__link">
+      <a href="../../index-backend/elasticsearch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1540,11 +1538,199 @@
   
   
     <li class="md-nav__item">
-      <a href="../solr/" class="md-nav__link">
+      <a href="../../index-backend/solr/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Apache Solr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index-backend/lucene/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Lucene
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eventual-consistency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eventually-Consistent Storage Backends
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-vertex-id/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Vertex ID
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../partitioning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Graph Partitioning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serializer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datatype and Attribute Serializer Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hadoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JanusGraph with TinkerPop’s Hadoop-Gremlin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transaction-log/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transaction Log
   </span>
   
 
@@ -1573,7 +1759,7 @@
           
   
   <span class="md-ellipsis">
-    Apache Lucene
+    CDC Mixed Index Synchronization
   </span>
   
 
@@ -1584,7 +1770,7 @@
         
   
   <span class="md-ellipsis">
-    Apache Lucene
+    CDC Mixed Index Synchronization
   </span>
   
 
@@ -1606,29 +1792,103 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#lucene-embedded-configuration" class="md-nav__link">
-    Lucene Embedded Configuration
+  <a href="#architecture" class="md-nav__link">
+    Architecture
   </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistency-model" class="md-nav__link">
+    Consistency model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-and-ordering" class="md-nav__link">
+    Scaling and ordering
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feature-support" class="md-nav__link">
-    Feature Support
+  <a href="#enabling-cdc" class="md-nav__link">
+    Enabling CDC
   </a>
+  
+    <nav class="md-nav" aria-label="Enabling CDC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cassandra-enable-cdc-on-the-janusgraph-tables" class="md-nav__link">
+    1. Cassandra: enable CDC on the JanusGraph tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-per-index-mode" class="md-nav__link">
+    2. Per-index mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-debezium-cassandra-connector" class="md-nav__link">
+    3. Debezium Cassandra connector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-the-cdc-index-update-worker" class="md-nav__link">
+    4. Run the CDC index-update worker
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+  <a href="#operational-notes" class="md-nav__link">
+    Operational notes
   </a>
+  
+    <nav class="md-nav" aria-label="Operational notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deletions-in-cdc-only-mode" class="md-nav__link">
+    Deletions in cdc-only mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdc-and-document-ttl-solr" class="md-nav__link">
+    CDC and document TTL (Solr)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    Further Reading
+  <a href="#testing" class="md-nav__link">
+    Testing
   </a>
   
 </li>
@@ -1642,199 +1902,13 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    
-    
-    
-    
-    
-      
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
-        
-          
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Advanced Topics
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
-            <span class="md-nav__icon md-icon"></span>
-            Advanced Topics
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
               
                 
   
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/eventual-consistency/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Eventually-Consistent Storage Backends
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/custom-vertex-id/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Custom Vertex ID
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/partitioning/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Graph Partitioning
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/serializer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Datatype and Attribute Serializer Configuration
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/hadoop/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    JanusGraph with TinkerPop’s Hadoop-Gremlin
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/transaction-log/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Transaction Log
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    CDC Mixed Index Synchronization
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-topics/data-model/" class="md-nav__link">
+      <a href="../data-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1854,7 +1928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/janusgraph-bus/" class="md-nav__link">
+      <a href="../janusgraph-bus/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1874,7 +1948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/executor-service/" class="md-nav__link">
+      <a href="../executor-service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1894,7 +1968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/stale-index/" class="md-nav__link">
+      <a href="../stale-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1914,7 +1988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/technical-limitations/" class="md-nav__link">
+      <a href="../technical-limitations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1934,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-topics/commit-releases/" class="md-nav__link">
+      <a href="../commit-releases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2039,29 +2113,103 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#lucene-embedded-configuration" class="md-nav__link">
-    Lucene Embedded Configuration
+  <a href="#architecture" class="md-nav__link">
+    Architecture
   </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistency-model" class="md-nav__link">
+    Consistency model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-and-ordering" class="md-nav__link">
+    Scaling and ordering
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#feature-support" class="md-nav__link">
-    Feature Support
+  <a href="#enabling-cdc" class="md-nav__link">
+    Enabling CDC
   </a>
+  
+    <nav class="md-nav" aria-label="Enabling CDC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cassandra-enable-cdc-on-the-janusgraph-tables" class="md-nav__link">
+    1. Cassandra: enable CDC on the JanusGraph tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-per-index-mode" class="md-nav__link">
+    2. Per-index mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-debezium-cassandra-connector" class="md-nav__link">
+    3. Debezium Cassandra connector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-the-cdc-index-update-worker" class="md-nav__link">
+    4. Run the CDC index-update worker
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+  <a href="#operational-notes" class="md-nav__link">
+    Operational notes
   </a>
+  
+    <nav class="md-nav" aria-label="Operational notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deletions-in-cdc-only-mode" class="md-nav__link">
+    Deletions in cdc-only mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdc-and-document-ttl-solr" class="md-nav__link">
+    CDC and document TTL (Solr)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    Further Reading
+  <a href="#testing" class="md-nav__link">
+    Testing
   </a>
   
 </li>
@@ -2084,65 +2232,333 @@
   
 
 
-<h1 id="apache-lucene">Apache Lucene</h1>
-<blockquote>
-<p>Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for
-nearly any application that requires full-text search, especially
-cross-platform. Apache Lucene is an open source project available for
-free download.</p>
-<p>—  <a href="https://lucene.apache.org/">Apache Lucene Homepage</a></p>
-</blockquote>
-<p>JanusGraph supports <a href="https://lucene.apache.org/">Apache Lucene</a> as a
-single-machine, embedded index backend. Lucene has a slightly extended
-feature set and performs better in small-scale applications compared to
-<a href="../elasticsearch/">Elasticsearch</a>, but is limited to single-machine
-deployments.</p>
-<h2 id="lucene-embedded-configuration">Lucene Embedded Configuration</h2>
-<p>For single machine deployments, Lucene runs embedded with JanusGraph.
-JanusGraph starts and interfaces with Lucene internally.</p>
-<p>To run Lucene embedded, add the following configuration options to the
-graph configuration file where <code>/data/searchindex</code> specifies the
-directory where Lucene should store the index data:</p>
-<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">lucene</span>
-<span class="na">index.search.directory</span><span class="o">=</span><span class="s">/data/searchindex</span>
+<h1 id="cdc-based-mixed-index-synchronization">CDC-based Mixed Index Synchronization</h1>
+<p>Mixed indexes (ElasticSearch, Solr, Lucene) live in an external system. During normal operation JanusGraph performs
+two independent writes when a transaction commits: the graph data is written to the primary storage backend (e.g.
+Cassandra) and the mixed-index documents are written to the index backend. If the first write succeeds but the second
+fails (index backend unavailable, network partition, JVM crash in between), the index becomes
+<a href="../stale-index/">stale</a> and — unless a <a href="../../operations/recovery/">transaction recovery</a> process happens to be
+running — permanently inconsistent with the graph.</p>
+<p>Change-Data-Capture (CDC) based synchronization removes this dual-write hazard. Instead of (or in addition to) writing
+the mixed index during the transaction, the index is updated <strong>asynchronously</strong> from a change stream that is derived
+from the <em>same</em> committed storage write. Because the change stream is a faithful downstream of what was durably
+committed to Cassandra, there is no second write that can diverge: every committed graph change is eventually
+reflected in the mixed index.</p>
+<p>This feature targets <strong>Apache Cassandra</strong> as the storage backend and uses Cassandra's native CDC together with the
+<a href="https://debezium.io/documentation/reference/stable/connectors/cassandra.html">Debezium Cassandra connector</a> and
+Apache Kafka.</p>
+<h2 id="architecture">Architecture</h2>
+<div class="highlight"><pre><span></span><code>   commit (graph data only, mixed-index write optionally skipped)
+        │
+        ▼
+   Cassandra  edgestore (cdc = true)
+        │   commit-log CDC
+        ▼
+   Debezium Cassandra connector  ──►  Kafka topic  (cassandra.&lt;keyspace&gt;.edgestore)
+                                          │
+              CdcIndexUpdateWorker consumer group (scales horizontally)
+                                          │
+                                  reindex affected elements from current graph state
+                                          │
+                                          ▼
+                                   ElasticSearch  ( _bulk )
 </code></pre></div>
-<p>In the above configuration, the index backend is named <code>search</code>. Replace
-<code>search</code> by a different name to change the name of the index.</p>
-<h2 id="feature-support">Feature Support</h2>
 <ul>
-<li><strong>Full-Text</strong>: Supports all <code>Text</code> predicates to search for text
-    properties that matches a given word, prefix or regular expression.</li>
-<li><strong>Geo</strong>: Supports <code>Geo</code> predicates to search for geo properties that
-    are intersecting, within, or contained in a given query geometry.
-    Supports points, lines and polygons for indexing. Supports circles
-    and boxes for querying point properties and all shapes for querying
-    non-point properties.</li>
-<li><strong>Numeric Range</strong>: Supports all numeric comparisons in <code>Compare</code>.</li>
-<li><strong>Collections</strong>: Supports indexing SET and LIST cardinality properties, except <code>Geo</code>.</li>
-<li><strong>Temporal</strong>: Nanosecond granularity temporal indexing.</li>
-<li><strong>Custom Analyzer</strong>: Choose to use a custom analyzer</li>
-<li><strong>Not Query-normal-form</strong>: Supports queries other than Query-normal-form (QNF). 
-    QNF for JanusGraph is a variant of CNF (conjunctive normal form) with negation inlined where possible.</li>
+<li><strong>Capture</strong> — Cassandra writes commit-log CDC segments for the <code>edgestore</code> table (which holds all vertex
+  properties and edges). The Debezium Cassandra connector reads those segments and publishes one change event per
+  mutated <code>edgestore</code> row to Kafka, keyed by the Cassandra partition key (the JanusGraph vertex id).</li>
+<li><strong>Apply</strong> — the <code>CdcIndexUpdateWorker</code> (shipped in <code>janusgraph-cdc</code>) consumes the change events, determines which
+  graph elements changed, and <strong>reindexes each element from its current graph state</strong> into the mixed index, issuing
+  one ElasticSearch <code>_bulk</code> request per batch.</li>
 </ul>
-<h2 id="configuration-options">Configuration Options</h2>
-<p>Refer to <a href="../../configs/configuration-reference/">Configuration Reference</a> for a complete listing of all Lucene
-specific configuration options in addition to the general JanusGraph
-configuration options.</p>
-<p>Note, that each of the index backend options needs to be prefixed with
-<code>index.[INDEX-NAME].</code> where <code>[INDEX-NAME]</code> stands for the name of the
-index backend. For instance, if the index backend is named <em>search</em> then
-these configuration options need to be prefixed with <code>index.search.</code>. To
-configure an index backend named <em>search</em> to use Lucene as the index
-system, set the following configuration option:</p>
-<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">lucene</span>
+<h3 id="consistency-model">Consistency model</h3>
+<p>The worker never applies field-level deltas from an event. For each changed element it reads the element's <em>current</em>
+state from the graph and fully replaces (or removes) its index document — the same technique JanusGraph's transaction
+recovery uses. This makes index updates:</p>
+<ul>
+<li><strong>idempotent</strong> — replaying an event produces the same document;</li>
+<li><strong>order-independent</strong> — events processed out of order, or more than once, all converge to the current state, because
+  every application reads the live graph. Applying a "stale" event after a newer change still reads the newer state, so
+  a stale value can never overwrite a fresh one.</li>
+</ul>
+<p>The only requirement for convergence is that every committed change is eventually processed at least once, which the
+CDC pipeline (commit-log → Debezium → Kafka with offset-after-success) guarantees. The index therefore lags the graph
+by the CDC propagation latency and is <strong>eventually consistent</strong> with it.</p>
+<h3 id="scaling-and-ordering">Scaling and ordering</h3>
+<p>The Debezium connector keys Kafka records by the Cassandra partition key (the vertex id), so all events for a given
+vertex land in the same partition and are consumed in order by a single worker in the consumer group. Add partitions
+and workers to scale out; work is distributed by vertex-id hash. (Correctness does not depend on ordering — see above —
+but per-element partitioning avoids two workers redundantly reindexing the same element.)</p>
+<h2 id="enabling-cdc">Enabling CDC</h2>
+<h3 id="1-cassandra-enable-cdc-on-the-janusgraph-tables">1. Cassandra: enable CDC on the JanusGraph tables</h3>
+<p>Set the storage option so JanusGraph creates its <code>edgestore</code> table with the Cassandra <code>cdc=true</code> table option
+(<strong>Apache Cassandra only</strong> — ScyllaDB's CDC is a different mechanism, incompatible with both this table option and
+the Debezium Cassandra connector):</p>
+<div class="highlight"><pre><span></span><code><span class="na">storage.backend</span><span class="o">=</span><span class="s">cql</span>
+<span class="na">storage.cql.cdc</span><span class="o">=</span><span class="s">true</span>
 </code></pre></div>
-<h2 id="further-reading">Further Reading</h2>
+<div class="admonition warning">
+<p class="admonition-title">Existing deployments: alter the table manually</p>
+<p><code>storage.cql.cdc</code> only takes effect when JanusGraph <strong>creates</strong> the <code>edgestore</code> table. On an existing graph the
+table already exists, so additionally run the following once against the cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">keyspace</span><span class="o">&gt;</span><span class="p">.</span><span class="n">edgestore</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">cdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+</code></pre></div>
+<p>JanusGraph logs a startup warning when it detects this divergence (the option enabled but the live table
+still without <code>cdc=true</code>), since the misconfiguration is otherwise silent — commits succeed and no events
+are captured.</p>
+<p>Note that the option is <code>GLOBAL_OFFLINE</code>: on an existing graph it must be changed via the management API
+(<code>mgmt.set("storage.cql.cdc", true)</code>) followed by a restart — a value that only appears in the local properties
+file is overridden by the stored global setting.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">CDC couples write availability to the capture pipeline</p>
+<p>Cassandra retains CDC commit-log segments in <code>cdc_raw_directory</code> until a consumer (the Debezium connector)
+processes and deletes them, capped by <code>cdc_total_space</code> (named <code>cdc_total_space_in_mb</code> before Cassandra 4.1;
+default 4 GiB or 1/8 of the disk). If the connector stalls long enough to fill that cap, Cassandra <strong>rejects
+further writes to every CDC-enabled table</strong> — i.e. the whole graph stops accepting mutations — until space is
+freed (<code>cdc_block_writes: true</code>, the default; the option exists from Cassandra 4.1 — on earlier versions writes
+always block on overflow). Setting <code>cdc_block_writes: false</code> keeps writes flowing but makes Cassandra
+<strong>silently drop CDC data</strong> instead, which permanently breaks the pipeline's every-change-is-delivered guarantee
+(a <code>REINDEX</code> restores missed additions, but it scans the <em>graph</em> — it never visits, and therefore never removes,
+documents of already-deleted elements; those stay orphaned). Size the total-space cap for the longest connector
+outage you need to tolerate, and monitor the <code>cdc_raw</code> directory's disk usage.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Disabling CDC: alter the table back first</p>
+<p>The same one-way behavior applies when <strong>decommissioning</strong> the pipeline: setting <code>storage.cql.cdc=false</code> (or
+disabling <code>index.[X].cdc.enabled</code>) never alters the existing table, so the edgestore keeps <code>cdc=true</code> and
+Cassandra keeps accumulating <code>cdc_raw</code> segments that no longer have a consumer — eventually hitting the cap
+above and blocking all graph writes. When shutting the pipeline down permanently, first run
+<code>ALTER TABLE &lt;keyspace&gt;.edgestore WITH cdc = false;</code> against the cluster, then stop the Debezium connector and
+the workers, then flip the JanusGraph options.</p>
+</div>
+<p>The Cassandra cluster itself must be started with CDC enabled (<code>cassandra.yaml</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">cdc_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">cdc_raw_directory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/cassandra/cdc_raw</span>
+<span class="nt">commitlog_sync</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">periodic</span>
+<span class="nt">commitlog_sync_period_in_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</code></pre></div>
+<p>Smaller commit-log segments (<code>commitlog_segment_size_in_mb</code>) reduce the latency before a change surfaces into
+<code>cdc_raw</code>, <strong>but Cassandra caps the maximum mutation size at half the segment size</strong> — e.g. 1&nbsp;MB segments reject
+any mutation over 512&nbsp;KB cluster-wide (large JanusGraph batches, supernode partitions, bulk loading). Keep the
+default segment size unless you have measured your largest mutations and accept the cap.</p>
+<p>Only <code>edgestore</code> is marked for CDC — composite-index data (<code>graphindex</code>) is internal to storage and already consistent,
+and the other system tables are not relevant to mixed-index synchronization.</p>
+<h3 id="2-per-index-mode">2. Per-index mode</h3>
+<p>CDC management is configured per mixed-index backend under the <code>index.[X].cdc</code> namespace:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.[X].cdc.enabled</code></td>
+<td><code>false</code></td>
+<td>This backing index is maintained via the CDC pipeline.</td>
+</tr>
+<tr>
+<td><code>index.[X].cdc.synchronous</code></td>
+<td><code>true</code></td>
+<td>When CDC is enabled, also write the index synchronously during the transaction.</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Please refer to the <a href="https://lucene.apache.org/">Apache Lucene
-    homepage</a> and available documentation for
-    more information on Lucene.</li>
+<li><code>cdc.enabled=true</code>, <code>cdc.synchronous=true</code> — <strong>dual mode</strong>. The index is written both synchronously and via CDC. Safe
+  and redundant: CDC repairs any synchronous failure. Recommended when first adopting CDC, and as a migration step.</li>
+<li><code>cdc.enabled=true</code>, <code>cdc.synchronous=false</code> — <strong>cdc-only mode</strong>. Synchronous mixed-index additions and refreshes are
+  skipped; the CDC pipeline performs them instead. The few relation-document deletions that change events cannot
+  identify remain synchronous; see <a href="#deletions-in-cdc-only-mode">Deletions in cdc-only mode</a>. Maximum efficiency; the
+  index lags the graph by the CDC latency.</li>
+<li><code>cdc.enabled=false</code> (default) — today's behavior, synchronous index writes only.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">cdc-only mode is not validated</p>
+<p>JanusGraph cannot verify that a capture pipeline is actually running. With <code>cdc.synchronous=false</code> configured and
+no working pipeline, the affected mixed indexes silently stop being maintained (the graph logs a warning at
+startup). Adopt CDC in dual mode first and switch to cdc-only after verifying end-to-end delivery.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">elasticsearch</span>
+<span class="na">index.search.hostname</span><span class="o">=</span><span class="s">127.0.0.1</span>
+<span class="na">index.search.cdc.enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">index.search.cdc.synchronous</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div>
+<p>Both options are managed <strong>cluster-wide</strong> (<code>GLOBAL_OFFLINE</code>, like <code>index.[X].backend</code> and <code>storage.cql.cdc</code>), so every
+JanusGraph instance and the CDC worker read the same stored value and cannot disagree about who maintains an index. On
+a <strong>new</strong> graph the values above are taken from the properties file at first startup. On an <strong>existing</strong> graph a
+properties-file entry is ignored (with a warning); change the stored value via the management API while no other
+instance is open, then restart:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s1">&#39;index.search.cdc.enabled&#39;</span><span class="o">,</span><span class="w"> </span><span class="kc">true</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s1">&#39;index.search.cdc.synchronous&#39;</span><span class="o">,</span><span class="w"> </span><span class="kc">false</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+</code></pre></div>
+<p>(Setting <code>cdc.synchronous=false</code> without <code>cdc.enabled=true</code> has no effect and is reported with a warning at startup.)</p>
+<h3 id="3-debezium-cassandra-connector">3. Debezium Cassandra connector</h3>
+<p>The Debezium Cassandra connector runs <strong>co-located with each Cassandra node</strong> (it reads the node's <code>cdc_raw</code> commit-log
+directory) and publishes to Kafka. It is <em>not</em> a Kafka Connect plugin and is <em>not</em> embedded in JanusGraph — it is a
+separate process. See the
+<a href="https://debezium.io/documentation/reference/stable/connectors/cassandra.html">Debezium Cassandra documentation</a> for
+installation. Key settings:</p>
+<div class="highlight"><pre><span></span><code><span class="na">connector.name</span><span class="o">=</span><span class="s">janusgraph-cdc</span>
+<span class="na">topic.prefix</span><span class="o">=</span><span class="s">cassandra</span>
+<span class="na">cassandra.config</span><span class="o">=</span><span class="s">/etc/cassandra/cassandra.yaml</span>
+<span class="na">commit.log.real.time.processing.enabled</span><span class="o">=</span><span class="s">true   # surface changes promptly (Cassandra 4)</span>
+<span class="na">snapshot.mode</span><span class="o">=</span><span class="s">NEVER                              # capture ongoing changes (use INITIAL to also backfill)</span>
+<span class="c1"># Kafka + converters</span>
+<span class="na">kafka.producer.bootstrap.servers</span><span class="o">=</span><span class="s">kafka:9092</span>
+<span class="na">key.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span>
+<span class="na">value.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span>
+<span class="na">value.converter.schemas.enable</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div>
+<p>The connector publishes to the topic <code>&lt;topic.prefix&gt;.&lt;keyspace&gt;.edgestore</code>. Blob columns (JanusGraph's keys/values)
+are Base64-encoded in the JSON events; the worker's decoder decodes them with JanusGraph's own serialization.</p>
+<h3 id="4-run-the-cdc-index-update-worker">4. Run the CDC index-update worker</h3>
+<p>The worker is provided by the <code>janusgraph-cdc</code> module, which is <strong>a separate Maven artifact and not part of the
+JanusGraph distribution</strong> (so deployments that don't use CDC don't pull in Kafka):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.janusgraph<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>janusgraph-cdc<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+<p>Assemble it (with its dependencies and your storage/index backend modules) onto a classpath and run one or more
+instances (in the same Kafka consumer group, in separate processes, for horizontal scale):</p>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>org.janusgraph.cdc.CdcIndexUpdateWorkerMain<span class="w"> </span>cdc.properties
+</code></pre></div>
+<p><code>cdc.properties</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="na">cdc.graph-config</span><span class="o">=</span><span class="s">/etc/janusgraph/janusgraph.properties   # the JanusGraph config (CQL + ElasticSearch)</span>
+<span class="na">cdc.bootstrap-servers</span><span class="o">=</span><span class="s">kafka:9092</span>
+<span class="na">cdc.topics</span><span class="o">=</span><span class="s">cassandra.janusgraph.edgestore</span>
+<span class="na">cdc.group-id</span><span class="o">=</span><span class="s">janusgraph-cdc</span>
+<span class="na">cdc.worker-threads</span><span class="o">=</span><span class="s">1</span>
+<span class="na">cdc.max-poll-records</span><span class="o">=</span><span class="s">500</span>
+<span class="c1"># Retry/backoff used when applying index updates fails transiently:</span>
+<span class="na">cdc.retry.limit</span><span class="o">=</span><span class="s">5</span>
+<span class="na">cdc.retry.initial-wait-ms</span><span class="o">=</span><span class="s">100</span>
+<span class="na">cdc.retry.max-wait-ms</span><span class="o">=</span><span class="s">30000</span>
+<span class="c1"># Any cdc.consumer.* key is passed to the KafkaConsumer with the prefix stripped, e.g. for a secured cluster:</span>
+<span class="c1">#cdc.consumer.security.protocol=SASL_SSL</span>
+<span class="c1">#cdc.consumer.sasl.mechanism=SCRAM-SHA-512</span>
+</code></pre></div>
+<p>Unrecognized <code>cdc.*</code> keys are logged and ignored (so a typo does not silently run with defaults). The worker's
+offset-management settings (<code>enable.auto.commit=false</code> and the byte-array deserializers) cannot be overridden via
+<code>cdc.consumer.*</code> — the at-least-once guarantee depends on them. <code>auto.offset.reset</code> is only <em>defaulted</em> to <code>earliest</code>
+(a brand-new consumer group starts from the retained CDC backlog rather than silently skipping it). Prefer keeping
+<code>earliest</code>: the reset strategy applies to <strong>every assignment of a partition that has no committed offset yet</strong> — not
+just group creation — and a partition's first offset commit only happens after its first successfully applied
+non-empty batch. Overriding to <code>latest</code> therefore risks permanently skipping events whenever a rebalance or restart
+hits a partition before its first commit (for example, the index backend is down at initial rollout, or a second
+worker joins during a staggered fleet start). Since reindexing is idempotent, replaying an already-<code>REINDEX</code>-covered
+backlog under <code>earliest</code> is merely redundant work, not a correctness problem. <code>group.instance.id</code> (Kafka static
+membership) may only be combined with <code>cdc.worker-threads=1</code>, and each worker process must then use a distinct value
+— the worker refuses to start otherwise, because consumers sharing one static id perpetually fence each other.</p>
+<p>The worker opens a read connection to the graph (to read current element state and to obtain the ElasticSearch index
+transaction), so it must be able to reach both Cassandra and ElasticSearch. Offsets are committed only after a batch is
+durably applied (at-least-once); if a batch cannot be applied after the retry budget it is reprocessed rather than
+skipped, so the index eventually catches up instead of silently going stale.</p>
+<h2 id="operational-notes">Operational notes</h2>
+<ul>
+<li><strong>Latency</strong> — the index trails the graph by roughly the commit-log flush + Debezium read + Kafka + worker + ES refresh
+  time. Tune the Cassandra commit-log settings above and the worker poll/batch settings for your throughput.</li>
+<li><strong>Supported elements</strong> — vertices, vertex properties, and edges (including edge properties) are all reindexed.</li>
+<li><strong>Delivery</strong> — at-least-once; the reindex-from-current-state model makes duplicates and out-of-order delivery safe.
+  With a replication factor above 1, duplication is <em>systematic</em>, not exceptional: every replica's commit log records
+  each mutation and the per-node connectors each publish it, so every change is delivered (and reindexed) roughly RF
+  times. Harmless for correctness, but size the Kafka topic, the workers, and the index backend for RF× the graph's
+  mutation rate.</li>
+<li><strong>Why concurrent workers converge</strong> — an edge's two row copies carry different Kafka keys, so two workers can
+  process the same edge's events concurrently, and a write derived from an older read can transiently land after a
+  fresher write. This can never end up permanently stale: the mutation that made a read stale also enqueued a newer
+  event <em>behind</em> the stale one on <strong>every</strong> key-stream that stores a copy of the element (every edge mutation
+  rewrites both row copies), each partition is processed in order, and each event's processing reads storage
+  at-or-after its own mutation — so the last write for any document is always derived from a read taken at-or-after
+  the element's final mutation. Document <em>existence</em> is the one dimension without such a successor event when a
+  deletion is applied synchronously (no change event identifies it), which is exactly what the worker's post-write
+  verification re-read covers.</li>
+<li><strong>Long index-backend outages</strong> — while ElasticSearch is unreachable, a worker retries the in-flight batch
+  (<code>cdc.retry.*</code>, each attempt itself retrying up to <code>storage.write-time</code>) without calling <code>poll()</code>. If the combined
+  retry time exceeds Kafka's <code>max.poll.interval.ms</code> (default 5 minutes), Kafka evicts the worker from the consumer
+  group and redelivers the batch after it rejoins — safe (reindexing is idempotent) but noisy, as workers cycle
+  through eviction/rejoin until the backend recovers. For long outages either raise
+  <code>cdc.consumer.max.poll.interval.ms</code> or lower <code>cdc.retry.limit</code>/<code>storage.write-time</code> so a failing batch is handed
+  back to Kafka (rewind, no offsets committed) before the deadline.</li>
+<li><strong>Adding a mixed index later</strong> — the worker discovers CDC-managed indexes at startup. After creating a new mixed
+  index on a CDC backing, restart the workers and run a <code>REINDEX</code> (required for pre-existing data anyway); the reindex
+  also covers any changes consumed between index creation and the restart.</li>
+</ul>
+<h3 id="deletions-in-cdc-only-mode">Deletions in cdc-only mode</h3>
+<p>cdc-only mode skips the synchronous mixed-index <strong>additions and refreshes</strong> — the CDC worker can always rebuild those
+from the element's current state. Deletions split by one question: <strong>can the change events identify the deleted
+document?</strong></p>
+<ul>
+<li><strong>Event-identified deletions stay on the CDC path.</strong> A removed <strong>vertex document</strong> is keyed by the vertex id, which
+  <em>is</em> the partition key every event carries — even a whole-row partition delete. A removed <strong>MULTI-multiplicity
+  edge</strong> whose other endpoint survives the transaction leaves an ordinary column tombstone on the surviving
+  endpoint's row (its <em>mirror copy</em>), whose column carries the full edge identity. In particular, removing a
+  super-node with <code>storage.drop-whole-row-on-vertex-removal</code> (the default on Cassandra) while its neighbors survive
+  costs <strong>one partition delete and zero synchronous index operations</strong>: the worker removes the vertex document from
+  the partition-delete event and every edge document from its mirror tombstone.</li>
+<li><strong>Event-unidentifiable deletions are written synchronously by the deleting transaction</strong> — the only place their
+  identities exist. These are: <strong>constrained-multiplicity edges</strong> (<code>SIMPLE</code>, <code>MANY2ONE</code>, <code>ONE2MANY</code>, <code>ONE2ONE</code>) and
+  <strong>meta-properties</strong>, whose relation ids live in the storage <em>value</em> region that tombstones never carry; and edges
+  with <strong>no surviving mirror</strong> — both endpoints removed in one transaction (e.g. dropping a connected subgraph),
+  self-loops on removed vertices, and unidirected edges whose out-vertex is removed.</li>
+</ul>
+<p>This is convergence-safe in both directions: the worker only ever writes from current graph state, so a late CDC
+event for a removed relation results in the same removal (idempotent), never a resurrected document. The one
+interleaving where a worker write could race a <em>synchronous</em> deletion — the worker reads a relation as live, a
+concurrent transaction then deletes it and issues its synchronous document removal, and the worker's write lands
+last — is closed by the worker itself: after writing, it re-reads every written relation on a fresh snapshot and
+removes the documents of any that vanished, which decides every interleaving correctly.</p>
+<p>Two operational notes follow from this design:</p>
+<ul>
+<li>If the index backend is unreachable while a transaction commits one of the <strong>synchronous</strong> deletions above, that
+  document removal is lost until transaction-recovery repairs it — exactly the same exposure dual mode has for every
+  synchronous write. For this reason, <strong>cdc-only deployments should enable the transaction write-ahead log
+  (<code>tx.log-tx=true</code>) and run the transaction-recovery process</strong>: the WAL durably records every deleted relation's
+  identity together with the transaction, and recovery re-derives the index state from it — closing the one gap the
+  change stream cannot cover. Note that a <code>REINDEX</code> cannot repair a lost <em>removal</em>: it scans the graph, so it never
+  visits documents of already-deleted elements.</li>
+<li>Relation <strong>updates</strong> never remove documents synchronously: an update re-adds the relation under the same id, so
+  the synchronous delete is skipped and the worker refreshes the (briefly stale) document from current state —
+  otherwise a delayed synchronous delete could erase the worker's rewrite with no later event to restore it.
+  (Edge labels with <code>ConsistencyModifier.FORK</code> re-create the relation under a <em>new</em> id instead: the old document is
+  removed synchronously when no event identifies it, and the new one is created by the worker.)</li>
+</ul>
+<h3 id="cdc-and-document-ttl-solr">CDC and document TTL (Solr)</h3>
+<p>Document TTL — Solr is the only in-tree index backend that supports it — is attached to mixed-index documents only by
+the <strong>synchronous</strong> write path. The CDC worker's reindex-from-current-state (like JanusGraph's transaction-recovery
+restore path, which shares the same <code>restore</code> SPI) writes documents <strong>without</strong> a TTL, and a storage-level TTL expiry
+produces <strong>no CDC event</strong> (Cassandra expires the cells silently). This bites in <em>both</em> modes: in cdc-only mode the
+documents of TTL'd elements are written without an expiry from the start, and even in dual mode the worker's very
+first rewrite of a document replaces the synchronously-written TTL'd version with an expiry-less one. Either way the
+document is never removed when the graph data expires, and a <code>REINDEX</code> cannot remove documents of already-expired
+elements. <strong>Do not enable CDC (either mode) for Solr mixed indexes over element types that carry a TTL</strong>
+(<code>mgmt.setTTL(...)</code>); keep those indexes fully synchronous.</p>
+<h2 id="testing">Testing</h2>
+<p>The JanusGraph-owned half of the pipeline (decode → worker → reindex → ElasticSearch <code>_bulk</code>) is verified end-to-end
+against a <strong>real Kafka and real ElasticSearch</strong> (Testcontainers) in <code>CdcKafkaElasticsearchTest</code>, covering vertex
+add/update/remove and edge add/remove. Duplicate, out-of-order, and stale-event convergence is verified in
+<code>CdcWorkerConvergenceTest</code> and <code>MixedIndexUpdateApplierTest</code> (worker and applier over a real graph + Lucene). The
+unit/component suite additionally verifies the decoder against real JanusGraph-serialized bytes, the consumer loop
+(dedup, retry, rewind, offset-after-success), and the commit-side skip behavior.</p>
+<p>The complete pipeline — including the Cassandra → Debezium capture hop — is exercised by
+<code>CdcCassandraDebeziumElasticsearchTest</code>: it starts a real Cassandra (CDC enabled), Kafka, and ElasticSearch via
+Testcontainers, runs the real Debezium Cassandra connector, and asserts ElasticSearch converges to the graph for the
+vertex and edge lifecycle. It is gated behind the <code>cassandra-cdc-e2e</code> Maven profile, which <strong>auto-activates on JDK
+17 through 23</strong> (Debezium 3.x requires Java 17+; the embedded <code>cassandra-all</code> 4.1.7 does not run on JDK 24+ — CI uses
+17). The profile supplies the Debezium dependency, pins SnakeYAML to 1.x for <code>cassandra-all</code>, and adds the JVM
+<code>--add-opens</code>/<code>--add-exports</code> flags <code>cassandra-all</code> needs. Run it on a JDK 17 with Docker available (the first
+command builds the module's dependencies; running <code>test</code> directly with <code>-am</code> would fail in the upstream modules,
+where no test matches the filter):</p>
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>install<span class="w"> </span>-DskipTests<span class="w"> </span>-pl<span class="w"> </span>janusgraph-cdc<span class="w"> </span>-am
+mvn<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-pl<span class="w"> </span>janusgraph-cdc<span class="w"> </span>-Dtest<span class="o">=</span>CdcCassandraDebeziumElasticsearchTest
+</code></pre></div>
 
 
 
@@ -2164,7 +2580,7 @@ system, set the following configuration option:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../solr/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Apache Solr">
+          <a href="../transaction-log/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Transaction Log">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -2174,20 +2590,20 @@ system, set the following configuration option:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Apache Solr
+                Transaction Log
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../advanced-topics/eventual-consistency/" class="md-footer__link md-footer__link--next" aria-label="Next: Eventually-Consistent Storage Backends">
+          <a href="../data-model/" class="md-footer__link md-footer__link--next" aria-label="Next: JanusGraph Data model">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Eventually-Consistent Storage Backends
+                JanusGraph Data model
               </div>
             </div>
             <div class="md-footer__button md-icon">
