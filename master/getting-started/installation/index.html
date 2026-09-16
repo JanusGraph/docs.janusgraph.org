@@ -2226,7 +2226,7 @@ gremlin&gt;<span class="w"> </span>:remote<span class="w"> </span>connect<span c
 It does not forward the following commands to the server by default!
 As a result, further commands will still be executed locally unless preceeded by <code>:&gt;</code>.</p>
 <p>To forward every command to the remote server, use the <code>:remote console</code> command.
-Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.7.3/reference/#console-remote-console">TinkerPop reference docs</a></p>
+Further documentation can be found in the <a href="https://tinkerpop.apache.org/docs/3.8.2/reference/#console-remote-console">TinkerPop reference docs</a></p>
 </div>
 <h3 id="running-gremlin-console-on-bare-metal">Running Gremlin Console on Bare-metal</h3>
 <p>We can also run the Gremlin Console on our bare-metal machine. To make the server able to communicate with the gremlin
@@ -2245,7 +2245,7 @@ gremlin&gt;<span class="w"> </span>:remote<span class="w"> </span>connect<span c
 </code></pre></div>
 <p>For further reading, see the <a href="../../operations/server/">JanusGraph Server</a> section as well as the <a href="https://github.com/JanusGraph/janusgraph-docker/blob/master/README.md">JanusGraph Docker documentation</a>.</p>
 <h2 id="local-installation">Local Installation</h2>
-<p>In order to run JanusGraph, Java 8 SE is required.
+<p>In order to run JanusGraph, Java 11 SE or newer is required. JanusGraph is tested with Java 11, 17, 21 and 25 (OLAP jobs using Apache Spark are only supported on Java 11 and 17, and the Cassandra bundled into the <code>janusgraph-full</code> distribution requires Java 11).
 Make sure the <code>$JAVA_HOME</code> environment variable points to the correct location where either JRE or JDK is installed.
 JanusGraph can be downloaded as a .zip archive from the <a href="https://github.com/JanusGraph/janusgraph/releases">Releases</a> section of the project repository.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>unzip<span class="w"> </span>janusgraph-1.1.0.zip
