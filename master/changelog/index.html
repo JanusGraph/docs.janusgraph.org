@@ -4828,7 +4828,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 </ul>
 <p><strong>Installed versions in the Pre-Packaged Distribution:</strong></p>
 <ul>
-<li>Cassandra 4.0.6</li>
+<li>Cassandra 5.0.9</li>
 <li>Elasticsearch 7.14.0</li>
 </ul>
 <h4 id="changes">Changes</h4>
@@ -4853,9 +4853,9 @@ which itself requires Java 11.</p>
 <p>JanusGraph is now built and tested with Java 11, 17, 21 and 25. The exceptions are the OLAP modules
 (<code>janusgraph-hadoop</code> and the Hadoop/Spark based graph computer of the storage backends): Apache Spark
 3.3.x, which TinkerPop's <code>spark-gremlin</code> is based on, only runs on Java 8 through 17, so OLAP jobs are
-only supported on Java 11 and 17. The pre-packaged distribution bundles Cassandra 4.0.6, which itself
-only runs on Java 8 and 11, so the embedded Cassandra of the <code>janusgraph-full</code> distribution requires
-Java 11 while an external Cassandra cluster can be used from JanusGraph running on any supported Java
+only supported on Java 11 and 17. The pre-packaged distribution bundles Cassandra 5.0.9, which itself
+only runs on Java 11 and 17, so the embedded Cassandra of the <code>janusgraph-full</code> distribution requires
+Java 11 or 17 while an external Cassandra cluster can be used from JanusGraph running on any supported Java
 version.</p>
 <p>Java 17 and newer enforce strong encapsulation of the JDK internals. JanusGraph itself does not need
 any <code>--add-opens</code> / <code>--add-exports</code> options, but some libraries which can be used with JanusGraph still
@@ -4922,8 +4922,13 @@ applications. The most notable ones are:</p>
 <a href="https://tinkerpop.apache.org/docs/3.8.2/upgrade/#_tinkerpop_3_8_2">3.8.2</a> before upgrading.</p>
 <h5 id="apache-cassandra-50-support">Apache Cassandra 5.0 support</h5>
 <p>Starting from version 1.2.0 JanusGraph supports Apache Cassandra 5.0 as a storage backend.
-The pre-packaged distribution continues to bundle Cassandra 4.0.6; connect JanusGraph to an
-externally managed Cassandra 5.0 cluster to use the new backend.</p>
+The pre-packaged <code>janusgraph-full</code> distribution now bundles Cassandra 5.0.9 instead of Cassandra 4.0.6.
+The embedded Cassandra runs on Java 11 and 17 (Cassandra 4.0 only ran on Java 8 and 11). Its
+<code>cassandra/conf/cassandra.yaml</code> is regenerated from the stock Cassandra 5.0 configuration with the
+JanusGraph settings (cluster name, <code>db/cassandra</code> data directories) applied; <code>num_tokens</code> stays at 256 so
+data directories created by earlier <code>janusgraph-full</code> distributions keep working. Review the Cassandra
+<a href="https://github.com/apache/cassandra/blob/cassandra-5.0/NEWS.txt">5.0 upgrade notes</a> before reusing an
+existing <code>db/cassandra</code> directory with the new distribution.</p>
 <h5 id="elasticsearch-9-support">ElasticSearch 9 support</h5>
 <p>Starting from version 1.2.0 JanusGraph supports ElasticSearch 9.</p>
 <h5 id="zombie-instances-auto-close-during-index-status-update-operations">Zombie instances auto-close during index status update operations</h5>
