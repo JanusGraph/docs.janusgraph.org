@@ -2176,6 +2176,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#transient-elasticsearch-failures-are-retried-instead-of-dropping-the-index-mutation" class="md-nav__link">
+    Transient Elasticsearch failures are retried instead of dropping the index mutation
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3500,6 +3507,13 @@
           <li class="md-nav__item">
   <a href="#cdc-based-mixed-index-synchronization" class="md-nav__link">
     CDC-based mixed index synchronization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transient-elasticsearch-failures-are-retried-instead-of-dropping-the-index-mutation" class="md-nav__link">
+    Transient Elasticsearch failures are retried instead of dropping the index mutation
   </a>
   
 </li>
@@ -5142,6 +5156,66 @@ identify remain synchronous), and run the new <code>janusgraph-cdc</code> worker
 Cassandra change stream (e.g. via Debezium and Kafka) and reindexes affected elements from their current graph state,
 which is idempotent and order-independent. See
 <a href="../advanced-topics/cdc-mixed-index/">CDC Mixed Index Synchronization</a> for the full setup.</p>
+<h5 id="transient-elasticsearch-failures-are-retried-instead-of-dropping-the-index-mutation">Transient Elasticsearch failures are retried instead of dropping the index mutation</h5>
+<p>Previously every Elasticsearch failure except an interrupt was reported as a <code>PermanentBackendException</code>. Because
+index mutations are applied after the storage mutations in a commit they cannot be rolled back, so a transient
+failure — a rolling restart, a saturated write queue, a socket timeout during a GC pause — dropped the mutation with
+a single ERROR log line and left the mixed index inconsistent with the graph until a reindex or a transaction-log
+recovery repaired it. The Elasticsearch client did have a retry mechanism, but it was disabled by default
+(<code>index.[X].elasticsearch.retry-limit=0</code> and an empty <code>index.[X].elasticsearch.retry-error-codes</code>), could only act
+on a failure which produced an HTTP response, and once its attempts ran out the failure was still reported as
+permanent.</p>
+<p>Such a failure is now reattempted at two levels, both <strong>enabled by default</strong> and both governed by one definition of
+what counts as transient:</p>
+<div class="highlight"><pre><span></span><code>index.[X].elasticsearch.retry-error-codes=429,502,503,504
+index.[X].elasticsearch.retry-transport-failures=true
+index.[X].elasticsearch.retry-limit=3
+</code></pre></div>
+<ul>
+<li><code>retry-error-codes</code> lists the HTTP status codes considered transient, whether answered to a request or reported
+    for an individual bulk item. Its default was previously empty.</li>
+<li><code>retry-transport-failures</code> (new) covers the failures which produce no HTTP response at all: connection refused,
+    connection reset, socket timeout, a prematurely closed connection and a TLS failure — the last of which is what a
+    rolling restart of a TLS secured cluster produces.</li>
+<li><code>retry-limit</code> is the number of attempts the Elasticsearch client makes. Its default was previously <code>0</code>.</li>
+</ul>
+<p>The two levels are:</p>
+<ol>
+<li><strong>The Elasticsearch client</strong> reattempts the request <code>retry-limit</code> times, with the short waits controlled by
+    <code>retry-initial-wait</code> and <code>retry-max-wait</code>. For a bulk request it resends only the items which failed, so these
+    attempts never resend an item which already succeeded. This level applies to queries as well as writes.</li>
+<li><strong>JanusGraph</strong> classifies whatever survives those attempts. An index mutation which still failed transiently is
+    reported as a <code>TemporaryBackendException</code>, which the retry loop already present in <code>BackendOperation</code> reattempts
+    with exponential backoff for up to <code>storage.write-time</code> (default 100s) — the same contract that already applies
+    to a temporary storage failure. A bulk request qualifies only when <em>every</em> item which failed did so transiently,
+    since a batch containing a permanently failing item — a mapping conflict, for instance — cannot succeed on a
+    reattempt.</li>
+</ol>
+<p>Be aware of the following while the options are enabled:</p>
+<ul>
+<li>The second level resubmits the <strong>whole mutation</strong>, including the bulk items which had already succeeded, and a
+    transport failure at either level leaves it unknown whether Elasticsearch applied the request. Resubmission is
+    idempotent for whole-document writes, deletions and <code>SET</code> cardinality properties, but the values of a <code>LIST</code>
+    cardinality property are appended, so a resubmitted item can duplicate them in the index document.</li>
+<li>During an Elasticsearch outage a commit which touches a mixed index now takes up to <code>storage.write-time</code> to
+    report the failure instead of failing fast.</li>
+<li>While <code>retry-transport-failures</code> is enabled every <code>SSLException</code> is treated as transient, not only an interrupted
+    handshake, so a write against a persistently misconfigured or untrusted certificate is reattempted for the whole
+    write time before it fails.</li>
+<li>Set <code>index.[X].elasticsearch.retry-error-codes</code> to an empty list <strong>and</strong>
+    <code>index.[X].elasticsearch.retry-transport-failures=false</code> if duplicated <code>LIST</code> values in a mixed index are less
+    acceptable than a dropped mutation; that restores the previous behavior at both levels. Setting <code>retry-limit=0</code>
+    alone disables only the client level and keeps the JanusGraph level.</li>
+</ul>
+<p>Deployments which set none of these options get the new behavior. Deployments which set <code>retry-limit</code> or
+<code>retry-error-codes</code> explicitly keep their values, and those values now also decide what JanusGraph reattempts.</p>
+<p>An interrupt is covered by neither option, and its handling changes regardless. Previously <code>convert</code> recognised an
+<code>InterruptedException</code> only as the exception it was handed directly, and neither the Elasticsearch client nor
+JanusGraph's own retry wait ever hands one over unwrapped, so a cancelled index write was in practice reported as a
+<code>PermanentBackendException</code>. It is now recognised anywhere in the cause chain and reported as a
+<code>TemporaryBackendException</code>, and the interrupt status of the thread is restored once the <code>InterruptedException</code> has
+been consumed, so <code>BackendOperation</code> aborts its backoff wait immediately instead of reissuing the request for the
+whole write time budget.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">

@@ -3578,9 +3578,9 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-error-codes</td>
-<td>Comma separated list of Elasticsearch REST client ResponseException error codes to retry. E.g. "408,429"</td>
+<td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. Queries get the client level attempts only. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
 <td>String[]</td>
-<td></td>
+<td>429,502,503,504</td>
 <td>LOCAL</td>
 </tr>
 <tr>
@@ -3592,9 +3592,9 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-limit</td>
-<td>Sets the number of attempts for configured retryable error codes.</td>
+<td>Number of times the Elasticsearch client reattempts a request which failed transiently before giving up on it: a request answered with a status code listed in <code>retry-error-codes</code>, or one which produced no response at all when <code>retry-transport-failures</code> is enabled. The failed items of a bulk request are reattempted on their own, so these attempts do not resend items which already succeeded. Set to 0 to disable them. A failure which survives these attempts is then classified by the same two options, and an index mutation which is still transient is reattempted as a whole by JanusGraph for up to <code>storage.write-time</code>.</td>
 <td>Integer</td>
-<td>0</td>
+<td>3</td>
 <td>LOCAL</td>
 </tr>
 <tr>
@@ -3602,6 +3602,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>Sets the max retry wait time (in milliseconds).</td>
 <td>Long</td>
 <td>1000</td>
+<td>LOCAL</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.retry-transport-failures</td>
+<td>Whether Elasticsearch failures which never produced an HTTP response - connection refused, connection reset, socket timeout, prematurely closed connection, TLS failure - are considered transient and reattempted at the same two levels as a status code listed in <code>retry-error-codes</code>: <code>retry-limit</code> times by the Elasticsearch client, then as a whole index mutation by JanusGraph for up to <code>storage.write-time</code>. Such a failure leaves it unknown whether Elasticsearch applied the request, so any reattempt may resubmit items which already succeeded; resubmission is idempotent except for LIST cardinality properties, whose values are appended. While this option is enabled every TLS failure is treated as transient, not only a handshake which was interrupted, so a write against a persistently misconfigured or untrusted certificate is reattempted for the whole write time before it fails.</td>
+<td>Boolean</td>
+<td>true</td>
 <td>LOCAL</td>
 </tr>
 <tr>
