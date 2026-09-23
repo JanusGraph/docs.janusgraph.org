@@ -2197,6 +2197,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#index-restores-are-reattempted-after-a-transient-failure" class="md-nav__link">
+    Index restores are reattempted after a transient failure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transient-elasticsearch-read-failures-are-reattempted" class="md-nav__link">
+    Transient Elasticsearch read failures are reattempted
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3542,6 +3556,20 @@
           <li class="md-nav__item">
   <a href="#mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case" class="md-nav__link">
     Mixed index names on one backing index must now differ in more than case
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-restores-are-reattempted-after-a-transient-failure" class="md-nav__link">
+    Index restores are reattempted after a transient failure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transient-elasticsearch-read-failures-are-reattempted" class="md-nav__link">
+    Transient Elasticsearch read failures are reattempted
   </a>
   
 </li>
@@ -5258,12 +5286,20 @@ addition was never indexed. Nothing reported it: the mutation returned normally,
 <code>&lt;prefix&gt;.indexProvider.&lt;INDEX-NAME&gt;.mutate.exceptions</code> metric stayed at zero. Changing the value of a <code>SINGLE</code>
 cardinality property is not this case: the deletion of the old value is consolidated away because the same field is
 added, so that addition carries an upsert and recreates the document, from the changed field alone.</p>
-<p>Such an item is now reported, which means <strong>a commit which previously appeared to succeed can now fail visibly</strong> on a
-graph whose mixed index has already diverged. A 404 is not among the transient status codes of
-<code>index.[X].elasticsearch.retry-error-codes</code>, so the failure is classified permanent and the mutation is dropped with an
-ERROR rather than reattempted — reattempting cannot recreate a document whose upsert was withheld. That is the intent: the alternative is that the divergence stays
-invisible. Repairing the affected documents with <code>SchemaAction.REINDEX</code>, or with transaction log recovery, clears the
-condition.</p>
+<p>Such an item is now reported. A 404 is not among the transient status codes of
+<code>index.[X].elasticsearch.retry-error-codes</code>, so the failure is classified permanent and the mutation is dropped rather
+than reattempted — reattempting cannot recreate a document whose upsert was withheld. <strong>What a deployment sees changes
+on a graph whose mixed index has already diverged.</strong> The graph commit itself still returns normally, because JanusGraph
+commits the storage backend first and never aborts on a mixed index failure, but the commit now logs the dropped
+mutation at ERROR, counts it in the <code>&lt;prefix&gt;.indexProvider.&lt;INDEX-NAME&gt;.mutate.exceptions</code> metric and, where the
+transaction log is enabled, records <code>SECONDARY_FAILURE</code> for the transaction, from which transaction log recovery repairs
+the document. That is the intent: the alternative is that the divergence stays invisible. <code>SchemaAction.REINDEX</code> repairs
+the affected documents as well.</p>
+<p>The same now holds for a removal against an Elasticsearch index which no longer exists. Elasticsearch answers a
+deletion against a missing index with a 404 carrying <code>index_not_found_exception</code>, which used to be taken for a success
+like every other 404 of a removal, so the commit passed silently although the index it was meant to update was gone.
+A removal stays exempt from a 404 which says only that the document is missing, since an absent document is the state
+it asked for.</p>
 <h5 id="mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case">Mixed index names on one backing index must now differ in more than case</h5>
 <p>An index backend derives its own index name from the JanusGraph index name case-insensitively — Elasticsearch
 lowercases it, Lucene names a directory after it — so two mixed indexes on the same backing index whose names differed
@@ -5272,6 +5308,22 @@ only in case, such as <code>byName</code> and <code>byname</code>, shared one ba
 <code>IllegalArgumentException</code> which names the existing index. Existing definitions are not touched: a graph which already
 holds such a pair keeps working as before, and is repaired by discarding one of the two and recreating it under a
 distinct name. Composite indexes have no backend index and are not affected.</p>
+<h5 id="index-restores-are-reattempted-after-a-transient-failure">Index restores are reattempted after a transient failure</h5>
+<p><code>IndexTransaction.restore</code>, through which <code>SchemaAction.REINDEX</code>, stale entry removal, CDC index updates and
+transaction log recovery write their documents, called the index provider directly, so a failure the provider
+classified as transient — for Elasticsearch a 429, a 503 or a dropped connection — failed the batch outright,
+where the same failure during a commit is reattempted. It now runs through <code>BackendOperation</code> like a commit does:
+reattempted with backoff for up to <code>storage.write-time</code>, and only then reported. A restore writes whole documents, so
+a reattempt is idempotent.</p>
+<h5 id="transient-elasticsearch-read-failures-are-reattempted">Transient Elasticsearch read failures are reattempted</h5>
+<p>A mixed index query, count or aggregation against Elasticsearch wrapped every failure in a <code>PermanentBackendException</code>,
+so a throttled or momentarily unreachable cluster failed the traversal outright — although <code>BackendTransaction</code> already
+runs every index read through <code>BackendOperation</code>, which reattempts a <code>TemporaryBackendException</code> for up to
+<code>storage.read-time</code>, as it does for a storage read. The read paths now classify a failure the way the write path has since the retry options were unified: a status
+listed in <code>index.[X].elasticsearch.retry-error-codes</code> (<code>429</code>, <code>502</code>, <code>503</code>, <code>504</code> by default) and, with
+<code>index.[X].elasticsearch.retry-transport-failures</code>, a connection or TLS failure are transient and reattempted with
+backoff within <code>storage.read-time</code>; everything else remains permanent. The pages of a scroll are fetched while the
+caller consumes the result stream, outside that budget, and are not covered.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
