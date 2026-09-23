@@ -2183,6 +2183,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#an-elasticsearch-update-which-failed-because-the-document-is-missing-is-now-reported" class="md-nav__link">
+    An Elasticsearch update which failed because the document is missing is now reported
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case" class="md-nav__link">
+    Mixed index names on one backing index must now differ in more than case
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3514,6 +3528,20 @@
           <li class="md-nav__item">
   <a href="#transient-elasticsearch-failures-are-retried-instead-of-dropping-the-index-mutation" class="md-nav__link">
     Transient Elasticsearch failures are retried instead of dropping the index mutation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-elasticsearch-update-which-failed-because-the-document-is-missing-is-now-reported" class="md-nav__link">
+    An Elasticsearch update which failed because the document is missing is now reported
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case" class="md-nav__link">
+    Mixed index names on one backing index must now differ in more than case
   </a>
   
 </li>
@@ -5216,6 +5244,34 @@ JanusGraph's own retry wait ever hands one over unwrapped, so a cancelled index 
 <code>TemporaryBackendException</code>, and the interrupt status of the thread is restored once the <code>InterruptedException</code> has
 been consumed, so <code>BackendOperation</code> aborts its backoff wait immediately instead of reissuing the request for the
 whole write time budget.</p>
+<h5 id="an-elasticsearch-update-which-failed-because-the-document-is-missing-is-now-reported">An Elasticsearch update which failed because the document is missing is now reported</h5>
+<p>A bulk request reports item level failures inside an otherwise successful HTTP response. JanusGraph previously treated
+<em>every</em> item answered with HTTP 404 as a success, whatever mutation produced it. That is right for a mutation which
+only takes content out of the index — a whole document deletion, or the script which deletes fields — because an
+absent document already satisfies it. It is wrong for a mutation which adds content: there a 404 is a
+<code>document_missing_exception</code>, and the write did not happen.</p>
+<p>A transaction which takes content out of a document and puts other content in — a property removed and a different one
+set on the same element, or a value of a <code>LIST</code> or <code>SET</code> cardinality property replaced — sends a field deletion and an
+addition against the same document, and <code>mutate()</code> withholds the upsert from the addition once a mutation has deletions.
+So if the Elasticsearch document was already missing, both items were answered with 404, both were discarded, and the
+addition was never indexed. Nothing reported it: the mutation returned normally, so even the
+<code>&lt;prefix&gt;.indexProvider.&lt;INDEX-NAME&gt;.mutate.exceptions</code> metric stayed at zero. Changing the value of a <code>SINGLE</code>
+cardinality property is not this case: the deletion of the old value is consolidated away because the same field is
+added, so that addition carries an upsert and recreates the document, from the changed field alone.</p>
+<p>Such an item is now reported, which means <strong>a commit which previously appeared to succeed can now fail visibly</strong> on a
+graph whose mixed index has already diverged. A 404 is not among the transient status codes of
+<code>index.[X].elasticsearch.retry-error-codes</code>, so the failure is classified permanent and the mutation is dropped with an
+ERROR rather than reattempted — reattempting cannot recreate a document whose upsert was withheld. That is the intent: the alternative is that the divergence stays
+invisible. Repairing the affected documents with <code>SchemaAction.REINDEX</code>, or with transaction log recovery, clears the
+condition.</p>
+<h5 id="mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case">Mixed index names on one backing index must now differ in more than case</h5>
+<p>An index backend derives its own index name from the JanusGraph index name case-insensitively — Elasticsearch
+lowercases it, Lucene names a directory after it — so two mixed indexes on the same backing index whose names differed
+only in case, such as <code>byName</code> and <code>byname</code>, shared one backend index: each other's documents and mappings, and a
+<code>SchemaAction.DISCARD_INDEX</code> of one dropped the other's documents. Creating the second one is now rejected with an
+<code>IllegalArgumentException</code> which names the existing index. Existing definitions are not touched: a graph which already
+holds such a pair keeps working as before, and is repaired by discarding one of the two and recreating it under a
+distinct name. Composite indexes have no backend index and are not affected.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
