@@ -2079,6 +2079,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-60-is-no-longer-supported" class="md-nav__link">
+    Elasticsearch 6.0 is no longer supported
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
   </a>
@@ -2207,6 +2214,13 @@
           <li class="md-nav__item">
   <a href="#transient-elasticsearch-read-failures-are-reattempted" class="md-nav__link">
     Transient Elasticsearch read failures are reattempted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-missing-elasticsearch-document-is-recreated-whole" class="md-nav__link">
+    A missing Elasticsearch document is recreated whole
   </a>
   
 </li>
@@ -3442,6 +3456,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-60-is-no-longer-supported" class="md-nav__link">
+    Elasticsearch 6.0 is no longer supported
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
   </a>
@@ -3570,6 +3591,13 @@
           <li class="md-nav__item">
   <a href="#transient-elasticsearch-read-failures-are-reattempted" class="md-nav__link">
     Transient Elasticsearch read failures are reattempted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-missing-elasticsearch-document-is-recreated-whole" class="md-nav__link">
+    A missing Elasticsearch document is recreated whole
   </a>
   
 </li>
@@ -4727,7 +4755,7 @@ use the latest versions of the software.</p>
 <td>2.6.z</td>
 <td>1.3.0, 1.4.0, 1.5.z, 1.6.z, 1.7.z, 1.8.z, 1.9.z, 1.10.z, 1.11.z, 1.14.z</td>
 <td>6.y</td>
-<td>6.y, 7.y, 8.y, 9.y</td>
+<td>6.1-6.8.z, 7.y, 8.y, 9.y</td>
 <td>8.y</td>
 <td>3.8.z</td>
 <td>3.2.z</td>
@@ -4890,7 +4918,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li>Apache HBase 2.6.0</li>
 <li>Oracle BerkeleyJE 7.5.11</li>
 <li>ScyllaDB 6.2.0</li>
-<li>Elasticsearch 6.0.1, 6.6.0, 7.17.8, 8.15.3, 9.5.4</li>
+<li>Elasticsearch 6.6.0, 7.17.8, 8.15.3, 9.5.4</li>
 <li>Apache Lucene 8.11.1</li>
 <li>Apache Solr 8.11.1</li>
 <li>Apache TinkerPop 3.8.2</li>
@@ -5008,6 +5036,13 @@ JDK of the host through <code>JAVA_HOME</code>. Elasticsearch 8 requires Java 17
 its JVM, and since 9.4 its launcher and native libraries are x86_64 only, so bundling them would have made the
 embedded Elasticsearch Linux x86_64 only. The native machine learning binaries are no longer part of the
 distribution (machine learning is disabled in the bundled <code>elasticsearch.yml</code>).</p>
+<h5 id="elasticsearch-60-is-no-longer-supported">Elasticsearch 6.0 is no longer supported</h5>
+<p>JanusGraph 1.2.0 no longer supports Elasticsearch 6.0, and its tests no longer run against it. Elasticsearch 6.0
+reached its end of life in 2019, and unlike later versions it does not run the ingest pipeline of a bulk request on
+the upsert of an update: a document which a mutation creates through an upsert, such as one an addition recreates
+because it is missing from the index, skips the pipeline set with
+<code>index.[X].elasticsearch.ingest-pipeline.[mixedIndexName]</code>. Upgrade Elasticsearch 6.0 clusters before upgrading
+JanusGraph; the oldest Elasticsearch 6 release tested is 6.6.0.</p>
 <h5 id="zombie-instances-auto-close-during-index-status-update-operations">Zombie instances auto-close during index status update operations</h5>
 <p>Starting from version 1.2.0 JanusGraph can automatically force-close JanusGraph instances that are unreachable
 during index status update operations.</p>
@@ -5260,7 +5295,9 @@ index.[X].elasticsearch.retry-limit=3
     them twice. The same holds for a document one of whose items failed while another item of it had succeeded: it
     is resubmitted whole. Within one bulk request Elasticsearch answers the items of one document, which share a shard
     request, alike for the statuses it reattempts by default, so this takes either a per-item status which the
-    operator listed as transient, or a document whose items were split between two chunks.</li>
+    operator listed as transient, or a document whose items were split between two chunks. Neither can happen to the
+    document of an existing element whose complete indexed content is at hand, which is updated by a single item (see
+    <em>A missing Elasticsearch document is recreated whole</em> below).</li>
 <li>During an Elasticsearch outage a commit which touches a mixed index now takes up to <code>storage.write-time</code> to
     report the failure instead of failing fast.</li>
 <li>While <code>retry-transport-failures</code> is enabled every <code>SSLException</code> is treated as transient, not only an interrupted
@@ -5332,6 +5369,25 @@ listed in <code>index.[X].elasticsearch.retry-error-codes</code> (<code>429</cod
 <code>index.[X].elasticsearch.retry-transport-failures</code>, a connection or TLS failure are transient and reattempted with
 backoff within <code>storage.read-time</code>; everything else remains permanent. The pages of a scroll are fetched while the
 caller consumes the result stream, outside that budget, and are not covered.</p>
+<h5 id="a-missing-elasticsearch-document-is-recreated-whole">A missing Elasticsearch document is recreated whole</h5>
+<p>When an element exists in the graph but its document is missing from the mixed index — an index write lost earlier, a
+document removed by hand — the next mutation of the element recreated the document from the fields it touched alone, or,
+if the mutation also removed content, could not recreate it at all and was reported as a lost write. The transaction now
+hands the index provider the element's complete indexed content along with every mutation which updates an existing
+document — a property change on an edge or a vertex property included, although it replaces the relation — and the
+Elasticsearch provider sends every change of the document, its removals, its collection additions and its single-valued
+fields, in one script update which carries that content as its upsert. A document which turns out to be missing is
+therefore recreated whole in the same round trip, whichever shape the mutation has, and in a store with an ingest
+pipeline it goes through the pipeline, as Elasticsearch runs the pipeline of a bulk request on the upsert of an update
+whose document is missing. A document which exists is updated as before, except that a single-valued field is assigned
+rather than merged, which replaces an object value such as a geo shape as a whole. Being one item, the update of a
+document is also applied or rejected as a whole: a bulk request split into chunks can no longer separate a document's
+changes, and a reattempt never replays a part of them which had applied. This has two costs. The content is read while
+the transaction commits, so a commit which updates an existing element covered by a mixed index reads that element's
+indexed properties, which are usually loaded already. And every update of an existing document carries that content
+once, so bulk requests grow with the size of the documents they update; an update the content would make larger than
+<code>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</code> is sent without it, as before this change, rather than failing. A
+mixed index on a cdc-only backend, whose documents are written asynchronously, is not affected.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
