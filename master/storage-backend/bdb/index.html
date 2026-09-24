@@ -2221,8 +2221,10 @@ More insights on this topic can be found in the GitHub issue
 <span class="na">storage.berkeleyje.ext.je.lock.timeout</span><span class="o">=</span><span class="s">0</span>
 <span class="na">storage.lock.wait-time</span><span class="o">=</span><span class="s">5000</span>
 <span class="na">ids.authority.wait-time</span><span class="o">=</span><span class="s">2000</span>
-<span class="na">tx.max-commit-time</span><span class="o">=</span><span class="s">30000</span>
 </code></pre></div></p>
+<p>Earlier versions of this suggestion also set <code>tx.max-commit-time=30000</code>. That option only matters for
+<a href="../../operations/recovery/">transaction recovery</a> and has to outlast <code>storage.write-time</code>; 30 s does not outlast the
+default write time of 100 s, so the option is better left at its default.</p>
 
 
 
