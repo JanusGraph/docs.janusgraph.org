@@ -3532,7 +3532,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>log.[X].max-read-time</td>
-<td>Maximum time in ms to try reading log messages from the backend before failing.</td>
+<td>Maximum time in ms to try reading log messages from the backend before failing. On a storage backend which does not support interruption, also how often a closing log reports that it is still waiting for its readers to finish, a second at the least.</td>
 <td>Duration</td>
 <td>4000 ms</td>
 <td>MASKABLE</td>

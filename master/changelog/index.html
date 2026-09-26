@@ -2232,6 +2232,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#schema-changes-committed-by-ordinary-transactions-reach-the-other-instances" class="md-nav__link">
+    Schema changes committed by ordinary transactions reach the other instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closing-a-graph-on-berkeleyje-no-longer-interrupts-its-log-readers" class="md-nav__link">
+    Closing a graph on BerkeleyJE no longer interrupts its log readers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3612,6 +3626,20 @@
           <li class="md-nav__item">
   <a href="#txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take" class="md-nav__link">
     tx.max-commit-time now defaults to 300 s and is checked against the least a commit may take
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-changes-committed-by-ordinary-transactions-reach-the-other-instances" class="md-nav__link">
+    Schema changes committed by ordinary transactions reach the other instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closing-a-graph-on-berkeleyje-no-longer-interrupts-its-log-readers" class="md-nav__link">
+    Closing a graph on BerkeleyJE no longer interrupts its log readers
   </a>
   
 </li>
@@ -5436,6 +5464,40 @@ recovery has read that status gets its user-log event sent again. Such a transac
 <code>log.user.max-write-time</code> when <code>log.user.send-delay</code> is 0; by default the event is sent in the background) and the
 transaction log's final status write (up to <code>log.tx.max-write-time</code>) inside <code>tx.max-commit-time</code> as well. The log
 identifier is set per transaction, so the warning cannot take it into account.</p>
+<h5 id="schema-changes-committed-by-ordinary-transactions-reach-the-other-instances">Schema changes committed by ordinary transactions reach the other instances</h5>
+<p>With <code>schema.constraints=true</code> and a schema maker which creates missing constraints, an ordinary transaction adds
+property and connection constraints to the schema, and so do <code>addConnection(...)</code> and <code>addProperties(...)</code>, on a
+transaction or on the management system, which sent no eviction either. Other JanusGraph instances used to keep the
+definitions they had cached, and so created a second copy of a constraint the first time they used it themselves. Such a
+commit now also sends a cache eviction for the schema elements it changed over the management log, like a management
+commit does, but as one which nothing waits to see acknowledged: an acknowledged eviction registers a trigger which
+waits for every instance to acknowledge once its open transactions have closed, and with
+<code>graph.management-auto-close-stale-instances</code> could get an instance with a long-running transaction force-closed because
+of an ordinary write. Every instance which reads the eviction, the sender included, expires the elements from its schema
+cache and its open transactions. A management commit which changes definition edges and sends evictions of its own sends
+both, and receivers expire the elements twice, at the cost of a re-read. Instances of earlier versions process the
+eviction as well and acknowledge it; that acknowledgement is ignored, so a rolling upgrade needs no preparation. During
+the upgrade, each such eviction costs an older instance the thread which waits for its open transactions to close before
+it acknowledges, for up to a minute, and one with a transaction open for longer than that logs the stale-transaction
+error it logs for any eviction it waited that long for.</p>
+<h5 id="closing-a-graph-on-berkeleyje-no-longer-interrupts-its-log-readers">Closing a graph on BerkeleyJE no longer interrupts its log readers</h5>
+<p><code>BackgroundThread.close()</code> could interrupt the thread's <code>action()</code> or <code>cleanup()</code>, which its contract rules out, when
+the thread was between its checks. A log's send thread flushes its last messages in <code>cleanup()</code>, and BerkeleyJE
+invalidates its whole environment when a thread is interrupted in the middle of a file operation, so every later use of
+that environment in the JVM failed: that is how <code>BerkeleyGraphTest</code> lost most of its tests on some CI runs. <code>close()</code>
+now decides to interrupt, and interrupts, under a lock which the thread holds while it turns its interruptibility off;
+an interrupt pending before <code>action()</code> ends the loop instead of reaching it, and one pending before <code>cleanup()</code> is
+cleared.</p>
+<p>For the same reason, closing a log on a storage backend which does not support interruption, which is BerkeleyJE, no
+longer interrupts the log's reader threads after a second. This covers <code>graph.close()</code> and the stop of a recurring
+transaction recovery. The log waits for the readers to finish the pull under way and the messages they have in hand,
+however long that takes, warning every <code>log.&lt;name&gt;.max-read-time</code> (a second at the least) after the first second, and it
+does not give that wait up when the closing thread is interrupted. It holds no lock of the log, of its manager or of the
+log processor framework meanwhile, so a reader which opens a log, registers or unregisters a reader, or adds or removes
+a log processor while the log closes finishes. A <code>MessageReader</code> which never returns therefore holds <code>graph.close()</code> up
+on BerkeleyJE, where it used to be interrupted after a second. A log closed from one of its own reader threads cannot
+wait for them and keeps the second, and so do the logs of other storage backends. The reader threads of every log are
+now named after it.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
