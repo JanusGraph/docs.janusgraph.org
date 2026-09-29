@@ -2132,10 +2132,28 @@ time, with one write time to spare. A transaction which writes a user
 log (<code>TransactionBuilder.logIdentifier</code>) needs more: recovery sends its
 user-log event again when it expires before recovery has read its final
 status, so its user-log write (up to <code>log.user.max-write-time</code> when
-<code>log.user.send-delay</code> is 0) and the transaction log's final status write
-(up to <code>log.tx.max-write-time</code>) have to fit in as well. The recovery
-process keeps every transaction it reads for this long, so its memory
-use grows with the value.</p>
+<code>log.user.send-delay</code> is 0) has to fit in as well. The final status's own
+write does not: its log entry is timed from before the write, and has to
+become visible within <code>log.tx.read-lag-time</code> like every entry. A transaction
+whose commit does outlast <code>tx.max-commit-time</code>, or whose instance fails
+between its user-log write and its final status, still gets its
+user-log event sent again: a consumer which must see each event only
+once can recognise the repeat by its transaction id, the same as the
+original's.</p>
+<p>The recovery process gives a transaction up once it has read the
+transaction log up to <code>tx.max-commit-time</code> past the first of the
+transaction's entries it read, however far apart and however slowly its
+reads of the log come, so by then it has read everything a commit wrote
+within <code>tx.max-commit-time</code> and which became visible within
+<code>log.tx.read-lag-time</code>. It keeps every transaction it reads until it has
+read that far, so its memory use grows with the value. A partition of
+the log whose reads fail holds the progress back until they succeed; one
+whose reads have failed for good, and which is no longer read, is left
+out of it once its messages are processed, with an error logged. Once
+that goes for every partition, nothing more is read at all, and the
+progress runs on with the clock from where reading stopped, so that
+recovery still gives the transactions it has in hand up, as it did when
+it waited by the clock, rather than hold them for good.</p>
 <p>In addition, a separate process must be setup that reads the log to
 identify partially failed transaction and repair any inconsistencies
 caused. It is suggested to run the transaction repair process on a
@@ -2155,11 +2173,11 @@ only if:</p>
 <p>While the recovery process runs, <code>recovery.getStatistics()</code> call provides
 information about the progress of recovery process by returning three numbers:</p>
 <ol>
-<li>the first number shows how many secondary persistence transaction succeeded</li>
-<li>the second number shows how many secondary persistence transaction failed
-and attempted to be recovered</li>
-<li>the third number shows how many failed secondary persistence transaction
-could not be recovered</li>
+<li>the first number shows how many secondary persistence transactions succeeded</li>
+<li>the second number shows how many secondary persistence transactions failed
+   and attempted to be recovered, each counted once the attempt has finished</li>
+<li>the third number shows how many failed secondary persistence transactions
+   could not be recovered</li>
 </ol>
 <p>Depending on the used <code>startTime</code> value and configured <code>log.tx.read-interval</code>
 configuration option, the recovery process might need to run for hours in
