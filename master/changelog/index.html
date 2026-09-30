@@ -5324,10 +5324,10 @@ graph via Change-Data-Capture instead of a synchronous index write during the tr
 mark the mixed index backend with <code>index.[X].cdc.enabled=true</code> (and <code>index.[X].cdc.synchronous=false</code> for cdc-only
 mode, which skips synchronous index additions; the few relation-document deletions that change events cannot
 identify remain synchronous), and run the new <code>janusgraph-cdc</code> worker. Like <code>storage.cql.cdc</code>, the
-<code>index.[X].cdc.*</code> options are managed cluster-wide (<code>GLOBAL_OFFLINE</code>): on an existing graph, change them via
-<code>mgmt.set(...)</code> while no other instance is open. The worker consumes the
-Cassandra change stream (e.g. via Debezium and Kafka) and reindexes affected elements from their current graph state,
-which is idempotent and order-independent. See
+<code>index.[X].cdc.*</code> options are <code>MASKABLE</code>: they can be changed via <code>mgmt.set(...)</code> on a running cluster (instances and
+the worker pick up the new value when they next open the graph) or overridden in the local configuration of a process.
+The worker consumes the Cassandra change stream (e.g. via Debezium and Kafka) and reindexes affected elements from their
+current graph state, which is idempotent and order-independent. See
 <a href="../advanced-topics/cdc-mixed-index/">CDC Mixed Index Synchronization</a> for the full setup.</p>
 <h5 id="transient-elasticsearch-failures-are-retried-instead-of-dropping-the-index-mutation">Transient Elasticsearch failures are retried instead of dropping the index mutation</h5>
 <p>Previously every Elasticsearch failure except an interrupt was reported as a <code>PermanentBackendException</code>. Because

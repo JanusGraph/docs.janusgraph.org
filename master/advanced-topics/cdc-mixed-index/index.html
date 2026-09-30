@@ -2306,9 +2306,10 @@ table already exists, so additionally run the following once against the cluster
 <p>JanusGraph logs a startup warning when it detects this divergence (the option enabled but the live table
 still without <code>cdc=true</code>), since the misconfiguration is otherwise silent — commits succeed and no events
 are captured.</p>
-<p>Note that the option is <code>GLOBAL_OFFLINE</code>: on an existing graph it must be changed via the management API
-(<code>mgmt.set("storage.cql.cdc", true)</code>) followed by a restart — a value that only appears in the local properties
-file is overridden by the stored global setting.</p>
+<p>The option is <code>MASKABLE</code>: a value in the local properties file of an instance overrides the stored one, and the
+stored value can be changed via the management API (<code>mgmt.set("storage.cql.cdc", true)</code>) while the cluster keeps
+running. Either way an instance reads it when it opens the graph. On an existing graph the option only drives the
+startup check above; it is the <code>ALTER TABLE</code> that enables the capture.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">CDC couples write availability to the capture pipeline</p>
@@ -2387,17 +2388,35 @@ startup). Adopt CDC in dual mode first and switch to cdc-only after verifying en
 <span class="na">index.search.cdc.enabled</span><span class="o">=</span><span class="s">true</span>
 <span class="na">index.search.cdc.synchronous</span><span class="o">=</span><span class="s">false</span>
 </code></pre></div>
-<p>Both options are managed <strong>cluster-wide</strong> (<code>GLOBAL_OFFLINE</code>, like <code>index.[X].backend</code> and <code>storage.cql.cdc</code>), so every
-JanusGraph instance and the CDC worker read the same stored value and cannot disagree about who maintains an index. On
-a <strong>new</strong> graph the values above are taken from the properties file at first startup. On an <strong>existing</strong> graph a
-properties-file entry is ignored (with a warning); change the stored value via the management API while no other
-instance is open, then restart:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
+<p>Both options are <code>MASKABLE</code> (like <code>storage.cql.cdc</code>), so CDC can be enabled, disabled, or switched between dual and
+cdc-only mode without taking the cluster down. On a <strong>new</strong> graph the values above are taken from the properties file
+at first startup and stored for the whole cluster. The stored value applies to every JanusGraph instance and CDC worker
+whose local configuration does not set the option. A value in the local properties file of a process overrides it, and
+later changes of the stored value don't reach that process. So once the graph exists, either remove the entries from
+the local properties files (including the worker's <code>cdc.graph-config</code>) and manage the options through the management
+API, or set them deliberately per process.</p>
+<p>On an <strong>existing</strong> graph, change the stored value via the management API while the other instances keep running.
+JanusGraph instances and the CDC worker pick up the new value when they next open the graph, so (re)start them to apply
+it. Switch an index to cdc-only mode through dual mode:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. Dual mode. Then (re)start the CDC worker and verify end-to-end delivery.</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s1">&#39;index.search.cdc.enabled&#39;</span><span class="o">,</span><span class="w"> </span><span class="kc">true</span><span class="o">)</span>
+<span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
+
+<span class="c1">// 2. Cdc-only mode. Then restart the JanusGraph instances, for example one at a time.</span>
+<span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s1">&#39;index.search.cdc.synchronous&#39;</span><span class="o">,</span><span class="w"> </span><span class="kc">false</span><span class="o">)</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">commit</span><span class="o">()</span>
 </code></pre></div>
 <p>(Setting <code>cdc.synchronous=false</code> without <code>cdc.enabled=true</code> has no effect and is reported with a warning at startup.)</p>
+<div class="admonition warning">
+<p class="admonition-title">Keep the instances and the worker consistent</p>
+<p>Nothing forces the JanusGraph instances and the CDC worker to use the same values. An instance that writes an
+index in cdc-only mode while the worker does not maintain that index (because the worker's value is
+<code>cdc.enabled=false</code>) leaves the index stale. When switching modes, go through dual mode: enable CDC with
+synchronous writes everywhere, (re)start the worker and verify end-to-end delivery, and only then switch the
+instances to cdc-only. Reverse the order when switching back.</p>
+</div>
 <h3 id="3-debezium-cassandra-connector">3. Debezium Cassandra connector</h3>
 <p>The Debezium Cassandra connector runs <strong>co-located with each Cassandra node</strong> (it reads the node's <code>cdc_raw</code> commit-log
 directory) and publishes to Kafka. It is <em>not</em> a Kafka Connect plugin and is <em>not</em> embedded in JanusGraph — it is a
