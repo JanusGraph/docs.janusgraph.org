@@ -2401,9 +2401,9 @@ providing distributed indexing, replication and load-balanced
 querying, automated failover and recovery, centralized configuration 
 and more. Solr powers the search and navigation features of 
 many of the world's largest internet sites. </p>
-<p>—  <a href="https://lucene.apache.org/solr/">Apache Solr Homepage</a></p>
+<p>—  <a href="https://solr.apache.org/">Apache Solr Homepage</a></p>
 </blockquote>
-<p>JanusGraph supports <a href="https://lucene.apache.org/solr/">Apache Solr</a> as an
+<p>JanusGraph supports <a href="https://solr.apache.org/">Apache Solr</a> as an
 index backend. Here are some of the Solr features supported by
 JanusGraph:</p>
 <ul>
@@ -2420,7 +2420,13 @@ JanusGraph:</p>
 <li><strong>Custom Analyzer</strong>: Choose to use a custom analyzer</li>
 </ul>
 <p>Please see <a href="../../changelog/#version-compatibility">Version Compatibility</a>
-for details on what versions of Solr will work with JanusGraph.</p>
+for details on what versions of Solr will work with JanusGraph.
+JanusGraph 1.2.0 supports Solr 9 and Solr 8.11. The support of Solr 8,
+which reached its end of life, is deprecated.</p>
+<p>JanusGraph adapts the requests which Solr 8 and Solr 9 treat differently
+(currently <code>maxShardsPerNode</code> when it creates a collection) to the
+version Solr reports. <code>index.[X].solr.major-version</code> overrides it, for
+example for a Solr compatible service which doesn't report its version.</p>
 <h2 id="solr-configuration-overview">Solr Configuration Overview</h2>
 <p>JanusGraph supports Solr running in either a SolrCloud or Solr
 Standalone (HTTP) configuration for use with a <strong>mixed index</strong> 
@@ -2481,7 +2487,7 @@ in Zookeeper to enable access to it across the Solr servers.</p>
 using the default JanusGraph configuration for Solr that is found in the
 distribution. When the collection is created, the configuration is
 uploaded into Zookeeper, using the same collection name <code>verticesByAge</code>
-for the configset name. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+for the configset name. Refer to the <a href="https://solr.apache.org/guide/solr/9_10/deployment-guide/solr-control-script-reference.html#collections-and-cores">Solr Reference Guide</a>
 for available parameters.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># create the collection</span>
 <span class="nv">$SOLR_HOME</span>/bin/solr<span class="w"> </span>create<span class="w"> </span>-c<span class="w"> </span>verticesByAge<span class="w"> </span>-d<span class="w"> </span><span class="nv">$JANUSGRAPH_HOME</span>/conf/solr
@@ -2498,13 +2504,9 @@ collection name.</p>
 configuration first as a one time operation. In this example, a
 configset named <code>janusgraph-configset</code> is uploaded in to Zookeeper using
 the default JanusGraph configuration for Solr that is found in the
-distribution. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+distribution. Refer to the <a href="https://solr.apache.org/guide/solr/9_10/deployment-guide/solr-control-script-reference.html#collections-and-cores">Solr Reference Guide</a>
 for available parameters.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># upload the shared configset into Zookeeper</span>
-<span class="c1"># Solr 5</span>
-<span class="nv">$SOLR_HOME</span>/server/scripts/cloud-scripts/zkcli.sh<span class="w"> </span>-cmd<span class="w"> </span>upconfig<span class="w"> </span>-z<span class="w"> </span>localhost:2181<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-d<span class="w"> </span><span class="nv">$JANUSGRAPH_HOME</span>/conf/solr<span class="w"> </span>-n<span class="w"> </span>janusgraph-configset
-<span class="c1"># Solr 6 and higher</span>
 <span class="nv">$SOLR_HOME</span>/bin/solr<span class="w"> </span>zk<span class="w"> </span>upconfig<span class="w"> </span>-d<span class="w"> </span><span class="nv">$JANUSGRAPH_HOME</span>/conf/solr<span class="w"> </span>-n<span class="w"> </span>janusgraph-configset<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-z<span class="w"> </span>localhost:2181
 </code></pre></div>
@@ -2540,7 +2542,7 @@ complete listing of those options.</p>
 configuration information on the file system. A core must be created
 manually for each mixed index.</p>
 <p>To create a core, a <code>core_name</code> and a <code>configuration</code> directory is
-required. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-CollectionsandCores">Solr Reference Guide</a>
+required. Refer to the <a href="https://solr.apache.org/guide/solr/9_10/deployment-guide/solr-control-script-reference.html#collections-and-cores">Solr Reference Guide</a>
 for available parameters. In this example, a core named <code>verticesByAge</code>
 is created using the default JanusGraph configuration for Solr that is
 found in the distribution.</p>
@@ -2561,10 +2563,13 @@ name.
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">JAVA_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Djava.security.auth.login.config=/absolute/path/jaas.conf&quot;</span>
 <span class="nv">$JANUSGRAPH_HOME</span>/bin/gremlin.sh
 </code></pre></div>
-<p>For details on the content required in the JAAS configuration file refer to the https://lucene.apache.org/solr/guide/7_0/kerberos-authentication-plugin.html#define-a-jaas-configuration-file[Solr Reference Guide].</p>
+<p>For details on the content required in the JAAS configuration file refer to the <a href="https://solr.apache.org/guide/solr/9_10/deployment-guide/kerberos-authentication-plugin.html#define-a-jaas-configuration-file">Solr Reference Guide</a>.
+Since Solr 9 the Kerberos authentication plugin of the Solr server is part of Solr's <code>hadoop-auth</code> module
+(<code>org.apache.solr.security.hadoop.KerberosPlugin</code>), which has to be enabled on the Solr nodes, for example with
+<code>SOLR_MODULES=hadoop-auth</code>.</p>
 <h2 id="solr-schema-design">Solr Schema Design</h2>
 <h3 id="dynamic-field-definition">Dynamic Field Definition</h3>
-<p>By default, JanusGraph uses Solr’s <a href="https://cwiki.apache.org/confluence/display/solr/Dynamic+Fields">Dynamic Fields</a>
+<p>By default, JanusGraph uses Solr’s <a href="https://solr.apache.org/guide/solr/9_10/indexing-guide/dynamic-fields.html">Dynamic Fields</a>
 feature to define the field types for all indexed keys. This requires no
 extra configuration when adding property keys to a mixed index backed by
 Solr and provides better performance than schemaless mode.</p>
@@ -2614,7 +2619,7 @@ definition. This can be achieved in one of two ways:</p>
 </ol>
 <h3 id="schemaless-mode">Schemaless Mode</h3>
 <p>JanusGraph can also interact with a SolrCloud cluster that is configured
-for <a href="https://cwiki.apache.org/confluence/display/solr/Schemaless+Mode">schemaless mode</a>.
+for <a href="https://solr.apache.org/guide/solr/9_10/indexing-guide/schemaless-mode.html">schemaless mode</a>.
 In this scenario, the configuration option <code>dyn-fields</code> should be
 disabled since Solr will infer the field type from the values and not
 the field name.</p>
@@ -2643,12 +2648,9 @@ information.</p>
     Zookeeper first.</li>
 </ul>
 <p>You can verify that the configset and its configuration files are in
-Zookeeper under <code>/configs</code>. Refer to the <a href="https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html#SolrControlScriptReference-ZooKeeperOperations">Solr Reference Guide</a>
+Zookeeper under <code>/configs</code>. Refer to the <a href="https://solr.apache.org/guide/solr/9_10/deployment-guide/solr-control-script-reference.html#list-a-zookeeper-znodes-children">Solr Reference Guide</a>
 for other Zookeeper operations.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># verify the configset in Zookeeper</span>
-<span class="c1"># Solr 5</span>
-<span class="nv">$SOLR_HOME</span>/server/scripts/cloud-scripts/zkcli.sh<span class="w"> </span>-cmd<span class="w"> </span>list<span class="w"> </span>-z<span class="w"> </span>localhost:2181
-<span class="c1"># Solr 6 and higher</span>
 <span class="nv">$SOLR_HOME</span>/bin/solr<span class="w"> </span>zk<span class="w"> </span>ls<span class="w"> </span>-r<span class="w"> </span>/configs/configset-name<span class="w"> </span>-z<span class="w"> </span>localhost:2181
 </code></pre></div>
 <h3 id="http-error-404">HTTP Error 404</h3>
@@ -2656,7 +2658,7 @@ for other Zookeeper operations.</p>
 example of the error:</p>
 <div class="highlight"><pre><span></span><code>20:01:22<span class="w"> </span>ERROR<span class="w"> </span>org.janusgraph.diskstorage.solr.SolrIndex<span class="w">  </span>-<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>documents
 to<span class="w"> </span>Solr<span class="w"> </span>as<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>shape<span class="w"> </span>objects<span class="w"> </span>stored<span class="w"> </span>were<span class="w"> </span>not<span class="w"> </span>compatible<span class="w"> </span>with<span class="w"> </span>Solr.
-org.apache.solr.client.solrj.impl.HttpSolrClient$RemoteSolrException:<span class="w"> </span>Error<span class="w"> </span>from<span class="w"> </span>server
+org.apache.solr.client.solrj.impl.BaseHttpSolrClient$RemoteSolrException:<span class="w"> </span>Error<span class="w"> </span>from<span class="w"> </span>server
 at<span class="w"> </span>http://localhost:8983/solr:<span class="w"> </span>Expected<span class="w"> </span>mime<span class="w"> </span>type<span class="w"> </span>application/octet-stream<span class="w"> </span>but<span class="w"> </span>got<span class="w"> </span>text/html.
 <span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;head&gt;</span>
@@ -2690,7 +2692,7 @@ on the Solr daemon’s classpath and a field in schema.xml uses a geo
 type, then Solr may throw a ClassNotFoundException on one of the missing
 JTS classes. The exception can appear when starting Solr using a
 schema.xml file designed to work with JanusGraph, but can also appear
-when invoking <code>CREATE</code> in the <a href="https://wiki.apache.org/solr/CoreAdmin">Solr CoreAdmin API</a>. The exception appears in
+when invoking <code>CREATE</code> in the <a href="https://solr.apache.org/guide/solr/9_10/configuration-guide/coreadmin-api.html">Solr CoreAdmin API</a>. The exception appears in
 slightly different formats on the client and server sides, although the
 root cause is identical.</p>
 <p>Here’s a representative example from a Solr server log:</p>
@@ -2722,22 +2724,16 @@ associated <code>CREATE</code> command to the CoreAdmin API:</p>
 <span class="w">    </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">solr</span><span class="p">.</span><span class="na">handler</span><span class="p">.</span><span class="na">admin</span><span class="p">.</span><span class="na">CoreAdminHandler</span><span class="p">.</span><span class="na">handleRequestBody</span><span class="p">(</span><span class="n">CoreAdminHandler</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">152</span><span class="p">)</span>
 <span class="w">    </span><span class="p">...</span>
 </code></pre></div>
-<p>This is resolved by adding the JTS jar to the classpath of JanusGraph
-and/or the Solr server. JTS is not included in JanusGraph distributions
-by default due to its LGPL license. Users must download the <a href="https://search.maven.org/remotecontent?filepath=com/vividsolutions/jts/1.13/jts-1.13.jar">JTS jar file</a>
-separately and copy it into the JanusGraph and/or Solr server lib
-directory. If using Solr’s built in web server, the JTS jar may be
-copied to the example/solr-webapp/webapp/WEB-INF/lib directory to
-include it in the classpath. Solr can be restarted, and the exception
-should be gone. Solr must be started once with the correct schema.xml
-file in place first, for the example/solr-webapp/webapp/WEB-INF/lib
-directory to exist.</p>
-<p>To determine the ideal JTS version for Solr server, first check the
-version of Spatial4j in use by the Solr cluster, then determine the
-version of JTS against which that Spatial4j version was compiled.
-Spatial4j declares its target JTS version in the <a href="https://search.maven.org/#search|gav|1|g%3A%22com.spatial4j%22%20AND%20a%3A%22spatial4j%22">pom for the <code>com.spatial4j:spatial4j</code> artifact</a>.
-Copy the JTS jar to the server/solr-webapp/webapp/WEB-INF/lib directory
-in your solr installation.</p>
+<p>This is resolved by adding the JTS jar to the classpath of the Solr
+server. The JanusGraph distribution already contains JTS, but Solr
+only bundles Spatial4j. Download the <a href="https://repo1.maven.org/maven2/org/locationtech/jts/jts-core/1.18.0/jts-core-1.18.0.jar"><code>org.locationtech.jts:jts-core</code> jar</a>
+and copy it into the server/solr-webapp/webapp/WEB-INF/lib directory of
+every Solr node, then restart Solr.</p>
+<p>The JTS version has to fit the Spatial4j version of the Solr server.
+Solr 9 bundles Spatial4j 0.8, which is built against JTS 1.17.0. Use JTS
+1.17.0 or 1.18.0 (the version JanusGraph uses): JTS 1.18.1 changed an
+interface which Spatial4j 0.8 implements. Solr 8.11 bundles Spatial4j
+0.7 together with JTS, so it needs no extra jar.</p>
 <h2 id="advanced-solr-configuration">Advanced Solr Configuration</h2>
 <h3 id="dse-search">DSE Search</h3>
 <p>This section covers installation and configuration of JanusGraph with

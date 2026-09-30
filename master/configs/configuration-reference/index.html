@@ -3986,8 +3986,15 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>GLOBAL</td>
 </tr>
 <tr>
+<td>index.[X].solr.major-version</td>
+<td>Major version of the Solr servers, for example 8 or 9. JanusGraph adapts the requests which Solr versions treat differently to it: only for Solr 8 the creation of a collection sends max-shards-per-node. If it isn't set, JanusGraph asks Solr for its version when it creates a collection, and assumes Solr 8 if that fails.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].solr.max-shards-per-node</td>
-<td>Maximum number of shards per node. This applies when creating a new collection which is only supported under the SolrCloud operation mode.</td>
+<td>Maximum number of shards per node. This applies when creating a new collection which is only supported under the SolrCloud operation mode. Deprecated: only Solr 8 supports it (see major-version), Solr 9 removed the maxShardsPerNode parameter of the collection creation.</td>
 <td>Integer</td>
 <td>1</td>
 <td>GLOBAL_OFFLINE</td>
