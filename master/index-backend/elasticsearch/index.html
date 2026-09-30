@@ -1661,6 +1661,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#opensearch" class="md-nav__link">
+    OpenSearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#index-creation-options" class="md-nav__link">
     Index Creation Options
   </a>
@@ -2295,6 +2302,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#opensearch" class="md-nav__link">
+    OpenSearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#index-creation-options" class="md-nav__link">
     Index Creation Options
   </a>
@@ -2416,8 +2430,8 @@ expected and uncover the unexpected.</p>
 Overview</a></p>
 </blockquote>
 <p>JanusGraph supports <a href="https://www.elastic.co/">Elasticsearch</a> as an index
-backend. Here are some of the Elasticsearch features supported by
-JanusGraph:</p>
+backend, and <a href="#opensearch">OpenSearch</a> with the same index backend. Here
+are some of the Elasticsearch features supported by JanusGraph:</p>
 <ul>
 <li><strong>Full-Text</strong>: Supports all <code>Text</code> predicates to search for text
     properties that matches a given word, prefix or regular expression.</li>
@@ -2627,6 +2641,42 @@ Elasticsearch has two client-facing ports to consider:</p>
 <p>Add a firewall rule that allows only trusted clients to connect on Elasticsearch’s native protocol port<br />
 This is typically done at the host firewall level. Easy to configure,
 but very weak security by itself.</p>
+<h2 id="opensearch">OpenSearch</h2>
+<p>JanusGraph supports <a href="https://opensearch.org/">OpenSearch</a> 2 and 3 with the <code>elasticsearch</code> index backend.
+OpenSearch was forked from Elasticsearch 7.10 and provides the Elasticsearch 7 API, which JanusGraph uses
+when the cluster reports an OpenSearch version:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.backend</span><span class="o">=</span><span class="s">elasticsearch</span>
+<span class="na">index.search.hostname</span><span class="o">=</span><span class="s">localhost</span>
+</code></pre></div>
+<p>JanusGraph rejects other OpenSearch versions like unsupported Elasticsearch versions, unless
+<code>index.[X].elasticsearch.major-version</code> is set (see below). That includes OpenSearch 1, which reached its end
+of life in May 2025.</p>
+<p>When JanusGraph detects OpenSearch, it ignores <code>index.[X].elasticsearch.use-mapping-for-es7</code>, because
+OpenSearch 2 removed mapping types.</p>
+<p>OpenSearch doesn't need <code>compatibility.override_main_response_version</code> for JanusGraph, and OpenSearch 3
+removed that setting. With it, OpenSearch 2 reports the version 7.10.2, so JanusGraph takes it for
+Elasticsearch 7.</p>
+<p><code>index.[X].elasticsearch.major-version</code> sets the major version of the Elasticsearch API which the cluster
+provides, so that JanusGraph doesn't ask the cluster for its version, for example if the JanusGraph user
+may not read the root endpoint of the cluster. For OpenSearch, set it to <code>7</code>.</p>
+<p>In both of these cases JanusGraph doesn't know that the cluster is OpenSearch, so keep
+<code>index.[X].elasticsearch.use-mapping-for-es7</code> disabled.</p>
+<p>The security plugin of OpenSearch is configured like a secured Elasticsearch cluster, with the
+<a href="#rest-client-https-configuration">HTTPS</a> and
+<a href="#rest-client-http-authentication">HTTP authentication</a> options:</p>
+<div class="highlight"><pre><span></span><code><span class="na">index.search.elasticsearch.ssl.enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">index.search.elasticsearch.http.auth.type</span><span class="o">=</span><span class="s">basic</span>
+<span class="na">index.search.elasticsearch.http.auth.basic.username</span><span class="o">=</span><span class="s">admin</span>
+<span class="na">index.search.elasticsearch.http.auth.basic.password</span><span class="o">=</span><span class="s">&lt;password&gt;</span>
+</code></pre></div>
+<p>JanusGraph raises the cluster setting <code>search.max_open_scroll_context</code> when it opens the index. If the
+JanusGraph user may not update cluster settings (<code>cluster:admin/settings/update</code>), set
+<code>index.[X].elasticsearch.setup-max-open-scroll-contexts</code> to <code>false</code>.</p>
+<p>Amazon OpenSearch Service domains which use IAM based access control need signed requests, which a
+<a href="#rest-client-custom-http-authentication">custom authenticator</a> can provide. These domains don't allow
+changing <code>search.max_open_scroll_context</code>, so set <code>index.[X].elasticsearch.setup-max-open-scroll-contexts</code>
+to <code>false</code> for them. Amazon OpenSearch Serverless isn't supported: it provides neither the scroll API nor
+the stored scripts which JanusGraph uses.</p>
 <h2 id="index-creation-options">Index Creation Options</h2>
 <p>JanusGraph supports customization of the index settings it uses when
 creating its Elasticsearch index. It allows setting arbitrary key-value

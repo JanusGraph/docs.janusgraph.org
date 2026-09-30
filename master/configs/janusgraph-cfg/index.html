@@ -3030,6 +3030,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.major-version</td>
+<td>Major version of the Elasticsearch API which the index backend provides: 6, 7, 8 or 9. JanusGraph adapts its requests to it. If it isn't set, JanusGraph asks the cluster for its version. OpenSearch provides the Elasticsearch 7 API, which JanusGraph uses when the cluster reports an OpenSearch version. If this option is set for OpenSearch, which has no mapping types since version 2, keep use-mapping-for-es7 disabled.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.retry-error-codes</td>
 <td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. Queries get the client level attempts only. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
 <td>String[]</td>
@@ -3101,7 +3108,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.use-mapping-for-es7</td>
-<td>Mapping types are deprecated in ElasticSearch 7 and JanusGraph will not use mapping types by default for ElasticSearch 7 but if you want to preserve mapping types, you can setup this parameter to true. If you are updating ElasticSearch from 6 to 7 and you don't want to reindex your indexes, you may setup this parameter to true but we do recommend to reindex your indexes and don't use this parameter.</td>
+<td>Mapping types are deprecated in ElasticSearch 7 and JanusGraph will not use mapping types by default for ElasticSearch 7 but if you want to preserve mapping types, you can setup this parameter to true. If you are updating ElasticSearch from 6 to 7 and you don't want to reindex your indexes, you may setup this parameter to true but we do recommend to reindex your indexes and don't use this parameter. It is ignored when the cluster reports OpenSearch, which has no mapping types since version 2.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>MASKABLE</td>
