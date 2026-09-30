@@ -2415,6 +2415,18 @@ installation. Key settings:</p>
 <span class="na">value.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span>
 <span class="na">value.converter.schemas.enable</span><span class="o">=</span><span class="s">false</span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Debezium 3.6+: put the OpenTelemetry API on the connector classpath</p>
+<p>Since Debezium 3.6 the connector calls the OpenTelemetry API for every Kafka record it produces, but its standalone
+<code>jar-with-dependencies</code> does not contain that API. Without it the connector reads the commit log, but its queue
+processor stops with a <code>NoClassDefFoundError</code> and no change reaches Kafka. Add <code>io.opentelemetry:opentelemetry-api</code>
+and its <code>opentelemetry-context</code> and <code>opentelemetry-common</code> dependencies to the classpath. <code>java -jar</code> ignores
+<code>-cp</code>, so start the connector with its main class instead:</p>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-cp<span class="w"> </span>debezium-connector-cassandra-4-&lt;version&gt;-jar-with-dependencies.jar:<span class="se">\</span>
+opentelemetry-api-&lt;otel&gt;.jar:opentelemetry-context-&lt;otel&gt;.jar:opentelemetry-common-&lt;otel&gt;.jar<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>io.debezium.connector.cassandra.CassandraConnectorTask<span class="w"> </span>cassandra-connector.properties
+</code></pre></div>
+</div>
 <p>The connector publishes to the topic <code>&lt;topic.prefix&gt;.&lt;keyspace&gt;.edgestore</code>. Blob columns (JanusGraph's keys/values)
 are Base64-encoded in the JSON events; the worker's decoder decodes them with JanusGraph's own serialization.</p>
 <h3 id="4-run-the-cdc-index-update-worker">4. Run the CDC index-update worker</h3>
@@ -2426,6 +2438,7 @@ JanusGraph distribution</strong> (so deployments that don't use CDC don't pull i
 <span class="w">    </span><span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div>
+<p>The worker uses the Apache Kafka 4 Java client, which works with Kafka brokers 2.1 or newer.</p>
 <p>Assemble it (with its dependencies and your storage/index backend modules) onto a classpath and run one or more
 instances (in the same Kafka consumer group, in separate processes, for horizontal scale):</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>org.janusgraph.cdc.CdcIndexUpdateWorkerMain<span class="w"> </span>cdc.properties
@@ -2552,10 +2565,10 @@ unit/component suite additionally verifies the decoder against real JanusGraph-s
 Testcontainers, runs the real Debezium Cassandra connector, and asserts ElasticSearch converges to the graph for the
 vertex and edge lifecycle. It is gated behind the <code>cassandra-cdc-e2e</code> Maven profile, which <strong>auto-activates on JDK
 17 through 23</strong> (Debezium 3.x requires Java 17+; the embedded <code>cassandra-all</code> 4.1.7 does not run on JDK 24+ — CI uses
-17). The profile supplies the Debezium dependency, pins SnakeYAML to 1.x for <code>cassandra-all</code>, and adds the JVM
-<code>--add-opens</code>/<code>--add-exports</code> flags <code>cassandra-all</code> needs. Run it on a JDK 17 with Docker available (the first
-command builds the module's dependencies; running <code>test</code> directly with <code>-am</code> would fail in the upstream modules,
-where no test matches the filter):</p>
+17 and 21). The profile supplies the Debezium dependency together with the OpenTelemetry API and the Jetty 12 version
+the embedded connector needs, pins SnakeYAML to 1.x for <code>cassandra-all</code>, and adds the JVM <code>--add-opens</code>/<code>--add-exports</code>
+flags <code>cassandra-all</code> needs. Run it on a JDK 17 with Docker available (the first command builds the module's
+dependencies; running <code>test</code> directly with <code>-am</code> would fail in the upstream modules, where no test matches the filter):</p>
 <div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>clean<span class="w"> </span>install<span class="w"> </span>-DskipTests<span class="w"> </span>-pl<span class="w"> </span>janusgraph-cdc<span class="w"> </span>-am
 mvn<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-pl<span class="w"> </span>janusgraph-cdc<span class="w"> </span>-Dtest<span class="o">=</span>CdcCassandraDebeziumElasticsearchTest
 </code></pre></div>

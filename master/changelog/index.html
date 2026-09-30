@@ -2065,6 +2065,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#updated-third-party-libraries" class="md-nav__link">
+    Updated third-party libraries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#apache-cassandra-50-support" class="md-nav__link">
     Apache Cassandra 5.0 support
   </a>
@@ -3465,6 +3472,13 @@
           <li class="md-nav__item">
   <a href="#upgrade-to-apache-tinkerpop-382" class="md-nav__link">
     Upgrade to Apache TinkerPop 3.8.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updated-third-party-libraries" class="md-nav__link">
+    Updated third-party libraries
   </a>
   
 </li>
@@ -4975,7 +4989,7 @@ storage options and have extended test coverage for ScyllaDB. </p>
 <li>Oracle BerkeleyJE 7.5.11</li>
 <li>ScyllaDB 6.2.0</li>
 <li>Elasticsearch 6.6.0, 7.17.8, 8.15.3, 9.5.4</li>
-<li>Apache Lucene 8.11.1</li>
+<li>Apache Lucene 8.11.4</li>
 <li>Apache Solr 8.11.1</li>
 <li>Apache TinkerPop 3.8.2</li>
 <li>Java 11, 17, 21, 25 (OLAP with Apache Spark: Java 11 and 17 only)</li>
@@ -5074,6 +5088,18 @@ applications. The most notable ones are:</p>
 <a href="https://tinkerpop.apache.org/docs/3.8.0/upgrade/#_tinkerpop_3_8_0">3.8.0</a>,
 <a href="https://tinkerpop.apache.org/docs/3.8.1/upgrade/#_tinkerpop_3_8_1">3.8.1</a> and
 <a href="https://tinkerpop.apache.org/docs/3.8.2/upgrade/#_tinkerpop_3_8_2">3.8.2</a> before upgrading.</p>
+<h5 id="updated-third-party-libraries">Updated third-party libraries</h5>
+<p>JanusGraph 1.2.0 updates its third-party libraries to their latest versions which are compatible with Java 11
+and with the libraries JanusGraph builds on (TinkerPop 3.8, Spark 3.3 and Hadoop 3.4). Applications embedding
+JanusGraph pick these versions up transitively. The most notable updates are:</p>
+<ul>
+<li>Google Cloud Bigtable HBase client 2.20.2 (from 1.24.0) in <code>janusgraph-bigtable</code>. The connection settings
+  described in the <a href="../storage-backend/bigtable/">Bigtable documentation</a> are unchanged.</li>
+<li><code>janusgraph-cdc</code> (new in 1.2.0) uses the Apache Kafka 4.3.1 clients, which require Kafka brokers 2.1 or newer.</li>
+<li>Apache HBase client 2.6.6 (from 2.6.0), Apache ZooKeeper 3.9.6 (from 3.9.2), gRPC 1.84.0 (from 1.66.0),
+  Guava 33.7.1 (from 33.3.0), Jackson 2.22 (from 2.17), Log4j 2.26.1 (from 2.23.1), HPPC 0.10.0 (from 0.9.1)
+  and Vavr 1.0.1 (from 0.10.4).</li>
+</ul>
 <h5 id="apache-cassandra-50-support">Apache Cassandra 5.0 support</h5>
 <p>Starting from version 1.2.0 JanusGraph supports Apache Cassandra 5.0 as a storage backend.
 The pre-packaged <code>janusgraph-full</code> distribution now bundles Cassandra 5.0.9 instead of Cassandra 4.0.6.
