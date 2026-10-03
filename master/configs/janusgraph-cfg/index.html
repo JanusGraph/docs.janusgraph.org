@@ -3904,7 +3904,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.batch.enabled</td>
-<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. If <code>false</code> then all other configuration options under <code>query.batch</code> namespace are ignored.</td>
+<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. It also lets a composite index lookup of several values, such as <code>has(key, within(values))</code>, read their index rows together on a storage backend with multi-key queries. If <code>false</code> then all other configuration options under <code>query.batch</code> namespace are ignored.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>

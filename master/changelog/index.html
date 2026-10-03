@@ -2268,6 +2268,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#composite-index-lookups-of-several-values-read-their-index-rows-together" class="md-nav__link">
+    Composite index lookups of several values read their index rows together
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take" class="md-nav__link">
     tx.max-commit-time now defaults to 300 s and is checked against the least a commit may take
   </a>
@@ -3710,6 +3717,13 @@
           <li class="md-nav__item">
   <a href="#relations-without-properties-are-parsed-once" class="md-nav__link">
     Relations without properties are parsed once
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-index-lookups-of-several-values-read-their-index-rows-together" class="md-nav__link">
+    Composite index lookups of several values read their index rows together
   </a>
   
 </li>
@@ -5646,6 +5660,21 @@ signature, or which is read through a vertex-centric index, is still parsed twic
 every later one. An entry with timestamp, TTL or visibility metadata, which the <code>storage.meta.*</code> options enable
 (visibility only on a backend with cell-level visibility), is unaffected: the metadata is a property of the relation, so
 its full parse was already kept. The property map is only allocated for a relation which has properties.</p>
+<h5 id="composite-index-lookups-of-several-values-read-their-index-rows-together">Composite index lookups of several values read their index rows together</h5>
+<p>A composite index lookup of several values, as <code>has(key, within(values))</code> makes, or as a composite index on more than
+one key makes for every combination of the values given for its keys, read each of the index rows this gives only after
+the previous one had arrived, so each row cost a round trip to the storage backend. Where the backend supports multi-key
+queries, which the CQL backend (Cassandra, ScyllaDB) and HBase do, the rows are now read together, in calls of up to
+1,000 rows which the backend executes concurrently. That happens without a limit, as every row is read then anyway, and
+with a limit for a unique index, whose rows hold at most one element each, in calls of as many rows as the limit can
+still take. The limits which JanusGraph adds itself count as limits: those of <code>query.smart-limit</code> and of a
+<code>query.hard-max-limit</code> below its default, and the one an order the index can't serve brings. A lookup with a limit on an
+index which isn't unique, and every lookup on a backend without multi-key queries, such as BerkeleyJE, still reads one
+row after the other and stops at the limit. Either way a lookup asks the storage backend for no row which reading one
+row after the other would not ask for. <code>query.batch.enabled=false</code> turns reading rows together off, as it turns off
+batching for traversal steps. Building the condition of a <code>within()</code> or <code>without()</code> also compared each value with every
+value before it to drop duplicates, so it grew with the square of the number of values; it now takes time in proportion
+to them.</p>
 <h5 id="txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take"><code>tx.max-commit-time</code> now defaults to 300 s and is checked against the least a commit may take</h5>
 <p><code>tx.max-commit-time</code> is the time after which transaction recovery considers a transaction failed and restores the index
 documents of the elements it changed from the storage backend, counted from the transaction's first log entry. A commit
