@@ -2289,6 +2289,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-clients-open-up-to-30-connections-to-a-single-host" class="md-nav__link">
+    Elasticsearch clients open up to 30 connections to a single host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conflicting-elasticsearch-updates-are-reattempted" class="md-nav__link">
+    Conflicting Elasticsearch updates are reattempted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take" class="md-nav__link">
     tx.max-commit-time now defaults to 300 s and is checked against the least a commit may take
   </a>
@@ -3752,6 +3766,20 @@
           <li class="md-nav__item">
   <a href="#storage-operations-no-longer-contend-for-one-random-generator" class="md-nav__link">
     Storage operations no longer contend for one random generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-clients-open-up-to-30-connections-to-a-single-host" class="md-nav__link">
+    Elasticsearch clients open up to 30 connections to a single host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conflicting-elasticsearch-updates-are-reattempted" class="md-nav__link">
+    Conflicting Elasticsearch updates are reattempted
   </a>
   
 </li>
@@ -5346,7 +5374,7 @@ headroom.</p>
 <p>To restore the previous storage-page-sized, flush-once-per-segment behavior, set
 <code>schema.reindex.mixed-index-batch-enabled=false</code>. See the
 <a href="../index-backend/elasticsearch/#reindex-optimization">Elasticsearch reindex tuning guide</a> for tuning
-the batch size, reindex threads and <code>index.[X].bulk-refresh</code> together.</p>
+the batch size, reindex threads and <code>index.[X].elasticsearch.bulk-refresh</code> together.</p>
 <h5 id="faster-olap-scans-signal-based-row-hand-off">Faster OLAP scans (signal-based row hand-off)</h5>
 <p>The OLAP scan pipeline behind reindex and other scan jobs now hands rows between its internal threads
 using blocking <code>take()</code> and sentinel markers instead of polling bounded queues on a fixed timer. On
@@ -5719,6 +5747,29 @@ attempt, from a random generator which all threads shared, although nearly every
 which draw from one generator at the same time contend for its seed. The wait is now drawn only once an operation has
 failed temporarily, from the random generator of its thread, and the waits are the same as before. On the inmemory
 backend, reading a property of 1,000 vertices on each of eight threads takes 18% less time.</p>
+<h5 id="elasticsearch-clients-open-up-to-30-connections-to-a-single-host">Elasticsearch clients open up to 30 connections to a single host</h5>
+<p>The Elasticsearch client of an index backend opened at most 10 connections to each Elasticsearch host and 30 to all
+hosts together, the defaults of the Elasticsearch REST client, which JanusGraph had no option for. A request waits for a
+free connection, so an index backend had no more than 10 queries and bulk requests in flight at a single host, such as a
+load balancer or the endpoint of a hosted cluster, however many threads issued them. The new option
+<code>index.[X].elasticsearch.max-connections</code> sets the total, 30 by default, and
+<code>index.[X].elasticsearch.max-connections-per-host</code> the connections to each host, by default the total divided evenly
+among the hosts, but at least 10. So a single host now takes all 30 connections and two hosts 15 each, while three or
+more hosts keep 10 each, which keeps a host that stops answering from holding every connection. With 32 threads issuing
+mixed index queries, a single Elasticsearch 9 node on the same machine answers 22% more of them per second, and a host
+which takes 20 ms to answer three times as many. The new option <code>index.[X].elasticsearch.io-threads</code> sets the number of
+I/O threads of each client, which is otherwise the number of processors, for every index backend of every graph, and
+<code>index.[X].elasticsearch.compression</code> compresses requests and responses with gzip.</p>
+<h5 id="conflicting-elasticsearch-updates-are-reattempted">Conflicting Elasticsearch updates are reattempted</h5>
+<p>Transactions which change the same element concurrently also update its document in a mixed index concurrently, and
+Elasticsearch fails an update which finds that the document changed after the update read it, with status 409.
+JanusGraph treats that status as permanent, so the change was missing from the mixed index unless transaction recovery
+repaired it. <code>index.[X].elasticsearch.retry_on_conflict</code> now defaults to 3, where it was not sent unless set, so
+Elasticsearch reattempts such an update against the latest version of the document. Set it to 0 for the previous
+behavior. The client's own reattempts of a request, after a backoff which starts at
+<code>index.[X].elasticsearch.retry-initial-wait</code> and grows tenfold up to <code>index.[X].elasticsearch.retry-max-wait</code>, now wait
+a random time between half of the backoff and all of it, so that requests which failed together don't all come back at
+the same moment.</p>
 <h5 id="txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take"><code>tx.max-commit-time</code> now defaults to 300 s and is checked against the least a commit may take</h5>
 <p><code>tx.max-commit-time</code> is the time after which transaction recovery considers a transaction failed and restores the index
 documents of the elements it changed from the storage backend, counted from the transaction's first log entry. A commit

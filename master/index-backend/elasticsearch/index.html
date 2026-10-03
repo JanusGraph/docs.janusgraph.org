@@ -2534,9 +2534,30 @@ these options and their accepted values.</p>
 <li><code>index.[X].elasticsearch.health-request-timeout</code></li>
 </ul>
 <h3 id="rest-client-options">REST Client Options</h3>
-<p>The REST client accepts the <code>index.[X].bulk-refresh</code> option. This option
+<p>The REST client accepts the <code>index.[X].elasticsearch.bulk-refresh</code> option. This option
 controls when changes are made visible to search. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-refresh.html">?refresh documentation</a>
 for more information.</p>
+<p>The client of an index backend opens up to <code>index.[X].elasticsearch.max-connections</code> connections to all Elasticsearch
+hosts together, 30 by default, and up to <code>index.[X].elasticsearch.max-connections-per-host</code> to each host, by default the
+total divided evenly among the hosts, but at least 10. A request waits until a connection is free, so these cap how many
+queries and bulk requests the index backend has in flight at once. A single host, such as a load balancer or the
+endpoint of a hosted cluster, takes all 30 connections by default, while three hosts take 10 each, so that a host which
+stops answering can't hold every connection. A JanusGraph Server which runs more Gremlin threads than that may need
+higher values. Before JanusGraph 1.2.0 the client allowed 10 connections per host, whatever the number of hosts.</p>
+<p>The client sends and receives with as many I/O threads as the JVM has processors, unless
+<code>index.[X].elasticsearch.io-threads</code> sets another number. They don't wait for Elasticsearch, so a few are enough, which
+matters for a JanusGraph Server with many graphs, as every index backend of every graph has a client of its own.</p>
+<p><code>index.[X].elasticsearch.compression=true</code> compresses the bodies of requests with gzip, bulk requests above all, and
+accepts compressed responses, which saves network traffic at the cost of CPU on both sides. The client compresses a
+request on one of its I/O threads, whose other requests wait meanwhile, so a large bulk request can delay queries. More
+I/O threads make it less likely that a query shares that thread, and a smaller
+<code>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</code> shortens the wait. A compressed request is sent in chunks without
+a Content-Length header, which some request signers, such as interceptors which sign requests with AWS Signature Version
+4, may not handle.</p>
+<p>A load balancer, NAT gateway or firewall between JanusGraph and Elasticsearch may drop a connection which stays idle
+longer than its idle timeout, and the next request on that connection then fails. Set
+<code>index.[X].elasticsearch.client-keep-alive</code> below that timeout, so that the client stops reusing a connection before the
+network drops it.</p>
 <h3 id="rest-client-https-configuration">REST Client HTTPS Configuration</h3>
 <p>SSL support for HTTP can be enabled by setting the <code>index.[X].elasticsearch.ssl.enabled</code> configuration option to <code>true</code>. Note that depending on your configuration you may need to change the value of <code>index.[X].port</code> if your HTTPS port number is different from the default one for the REST API (9200).</p>
 <p>When SSL is enabled you may also configure the location and password of the truststore. This can be done as follows:</p>
@@ -2816,7 +2837,7 @@ is reached, so three settings determine reindex throughput:</p>
     an explicit count with <code>updateIndex(index, SchemaAction.REINDEX, threads)</code>.
     More threads issue more concurrent bulk requests and scale best when the
     Elasticsearch index has multiple shards spread across data nodes.</li>
-<li><strong>Bulk refresh</strong> (<code>index.[X].bulk-refresh</code>). With the default value <code>false</code>
+<li><strong>Bulk refresh</strong> (<code>index.[X].elasticsearch.bulk-refresh</code>). With the default value <code>false</code>
     a reindex is throughput-bound. If it is set to <code>wait_for</code> (or <code>true</code>) every
     bulk request blocks until the next index refresh, which can dominate the
     total reindex time; in that mode batching helps the most, because it
