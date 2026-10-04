@@ -2303,6 +2303,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cql-reads-more-properties-of-a-vertex-per-query" class="md-nav__link">
+    CQL reads more properties of a vertex per query
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cql-write-batches-are-marked-idempotent" class="md-nav__link">
+    CQL write batches are marked idempotent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take" class="md-nav__link">
     tx.max-commit-time now defaults to 300 s and is checked against the least a commit may take
   </a>
@@ -3780,6 +3794,20 @@
           <li class="md-nav__item">
   <a href="#conflicting-elasticsearch-updates-are-reattempted" class="md-nav__link">
     Conflicting Elasticsearch updates are reattempted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cql-reads-more-properties-of-a-vertex-per-query" class="md-nav__link">
+    CQL reads more properties of a vertex per query
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cql-write-batches-are-marked-idempotent" class="md-nav__link">
+    CQL write batches are marked idempotent
   </a>
   
 </li>
@@ -5770,6 +5798,24 @@ behavior. The client's own reattempts of a request, after a backoff which starts
 <code>index.[X].elasticsearch.retry-initial-wait</code> and grows tenfold up to <code>index.[X].elasticsearch.retry-max-wait</code>, now wait
 a random time between half of the backoff and all of it, so that requests which failed together don't all come back at
 the same moment.</p>
+<h5 id="cql-reads-more-properties-of-a-vertex-per-query">CQL reads more properties of a vertex per query</h5>
+<p>With <code>storage.cql.grouping.slice-allowed</code>, true by default, the CQL backend reads the properties of a vertex whose keys
+have single cardinality, each one column, together: one query with <code>column1 IN ?</code> for up to
+<code>storage.cql.grouping.slice-limit</code> of them, 20 by default. Once a vertex had filled such a query, each further property
+was read with a query of its own, so 50 such properties of a vertex took 31 queries instead of 3. A full query is now
+followed by another one. On Cassandra 5, reading 50 properties of each of 1,000 vertices in one batch takes half as
+long.</p>
+<h5 id="cql-write-batches-are-marked-idempotent">CQL write batches are marked idempotent</h5>
+<p>The DataStax driver sends a request again, to the same node or another one, after a closed connection, an overloaded
+node or a server error, asks its retry policy about a write which timed out, and runs speculative executions, only for
+statements which are marked idempotent. The query builder with which JanusGraph prepares its statements marks them
+idempotent, but JanusGraph sends its writes in batches, and a batch isn't idempotent unless it is marked. So every such
+failure of a write reached JanusGraph, which reattempted a whole chunk of the mutations of a commit after a backoff of
+at least 25 ms. While <code>graph.assign-timestamp</code> is <code>true</code>, the default, JanusGraph now marks its batches idempotent, as a
+write sent again then writes the same cells with the same timestamp, and a speculative execution policy configured
+through <code>storage.cql.internal.*</code> now applies to its writes too; it already applied to its reads. With the new option
+<code>storage.cql.idempotent-writes=false</code>, or without assigned timestamps, writes keep the driver's default idempotence,
+<code>basic.request.default-idempotence</code>, as every write did before.</p>
 <h5 id="txmax-commit-time-now-defaults-to-300-s-and-is-checked-against-the-least-a-commit-may-take"><code>tx.max-commit-time</code> now defaults to 300 s and is checked against the least a commit may take</h5>
 <p><code>tx.max-commit-time</code> is the time after which transaction recovery considers a transaction failed and restores the index
 documents of the elements it changed from the storage backend, counted from the transaction's first log entry. A commit
