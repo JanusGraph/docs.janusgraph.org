@@ -2135,6 +2135,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#olap-jobs-end-their-transactions-and-jobs-which-run-at-once-create-their-compute-keys" class="md-nav__link">
+    OLAP jobs end their transactions, and jobs which run at once create their compute keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#opt-in-parallel-token-range-scan-for-cql-full-scans" class="md-nav__link">
     Opt-in parallel token-range scan for CQL full scans
   </a>
@@ -3640,6 +3647,13 @@
           <li class="md-nav__item">
   <a href="#faster-olap-scans-signal-based-row-hand-off" class="md-nav__link">
     Faster OLAP scans (signal-based row hand-off)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#olap-jobs-end-their-transactions-and-jobs-which-run-at-once-create-their-compute-keys" class="md-nav__link">
+    OLAP jobs end their transactions, and jobs which run at once create their compute keys
   </a>
   
 </li>
@@ -5437,6 +5451,24 @@ using blocking <code>take()</code> and sentinel markers instead of polling bound
 fast backends (notably CQL/Cassandra) this removes per-row hand-off latency that could otherwise
 dominate scan wall-clock time, speeding up single-node reindex and other full scans by a large factor.
 No configuration or user action is required.</p>
+<h5 id="olap-jobs-end-their-transactions-and-jobs-which-run-at-once-create-their-compute-keys">OLAP jobs end their transactions, and jobs which run at once create their compute keys</h5>
+<p>The OLAP jobs of <code>FulgoraGraphComputer</code> left transactions open until the graph closed: their scans started one for each
+processor and work block of each iteration, which nothing closed, the job's thread kept the one in which it attached the
+elements of the job's memory, and a new result graph is a transaction, which closing the job's <code>ComputerResult</code> didn't
+end. An instance acknowledges a schema change only once the transactions which were open when the change arrived have
+closed, so a graph which had run a job could no longer register a new index: the index stayed <code>INSTALLED</code>. A job now
+ends the transactions of its scans and of its thread once it has ended, and closing a <code>ComputerResult</code> rolls back the
+transaction of its new result graph, which can't be used afterwards. The vertices and edges among the values of a job's
+memory, which the side effects of a traversal collect, are detached from the scans' transactions when the job ends, with
+their properties, so that a later job of the traversal and the user can still read them; the elements of a traversal's
+results are read in the reading thread's own transaction, which it opens on demand and should close. Close the
+<code>ComputerResult</code> of a job whose result graph is new once done with <code>result.graph()</code>, as its transaction holds up the
+acknowledgement of schema changes until then.</p>
+<p>Of the jobs which ran at once and created the same compute key, all but one failed: the lock of the key's name failed
+their commits, and an <code>IllegalArgumentException</code> saying that the transaction had already been closed hid that failure. A
+job whose commit fails on such a lock, of JanusGraph's own locker, now waits twice <code>storage.lock.wait-time</code>, then twice
+as long each time, and creates the keys which are still missing, making up to <code>storage.lock.retries</code> attempts.
+<code>JanusGraphManagement.rollback()</code> no longer throws after a commit which failed.</p>
 <h5 id="opt-in-parallel-token-range-scan-for-cql-full-scans">Opt-in parallel token-range scan for CQL full scans</h5>
 <p>CQL full-table scans (used by reindex and other OLAP jobs) can optionally be split into several
 token-bounded queries instead of a single coordinator-funneled scan:
