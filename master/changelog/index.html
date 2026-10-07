@@ -2289,6 +2289,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#id-blocks-of-different-partitions-and-namespaces-are-claimed-in-parallel" class="md-nav__link">
+    ID blocks of different partitions and namespaces are claimed in parallel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#elasticsearch-clients-open-up-to-30-connections-to-a-single-host" class="md-nav__link">
     Elasticsearch clients open up to 30 connections to a single host
   </a>
@@ -3787,6 +3794,13 @@
           <li class="md-nav__item">
   <a href="#storage-operations-no-longer-contend-for-one-random-generator" class="md-nav__link">
     Storage operations no longer contend for one random generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-blocks-of-different-partitions-and-namespaces-are-claimed-in-parallel" class="md-nav__link">
+    ID blocks of different partitions and namespaces are claimed in parallel
   </a>
   
 </li>
@@ -5789,6 +5803,19 @@ attempt, from a random generator which all threads shared, although nearly every
 which draw from one generator at the same time contend for its seed. The wait is now drawn only once an operation has
 failed temporarily, from the random generator of its thread, and the waits are the same as before. On the inmemory
 backend, reading a property of 1,000 vertices on each of eight threads takes 18% less time.</p>
+<h5 id="id-blocks-of-different-partitions-and-namespaces-are-claimed-in-parallel">ID blocks of different partitions and namespaces are claimed in parallel</h5>
+<p><code>ConsistentKeyIDAuthority</code> claimed one ID block at a time per JanusGraph instance, whatever the partition and the id
+namespace, and on a distributed backend every claim holds that lock through its wait of <code>ids.authority.wait-time</code> plus a
+tenth of it (330 ms by default) before it reads the claims back. Each transaction writes its vertices to one of the
+<code>ids.num-partitions</code> (10 by default) partitions in use, with a pool of vertex ids and a pool of relation ids per
+partition, so when transactions on several threads needed blocks at the same time, as they do when an instance starts
+taking writes or when the pools renew their blocks, their claims queued behind one another and the last of N waited
+about N times that wait. The lock has to keep two threads of one process from claiming the same block of one partition
+and namespace at the same timestamp, where both would write the same claim and both take the block; claims on another
+partition or namespace go to another row and never meet. The authority now locks per partition and namespace, so those
+claims run in parallel, each with its own wait. On Cassandra, 32 claims on 32 partitions at once take 0.35 s instead of
+11.2 s, and the first transactions of ten threads, 100 vertices each on a fresh graph, take 1.4 s instead of 7.0 s; the
+first transaction of a single thread takes the same 6–7 s as before, its claims following one another.</p>
 <h5 id="elasticsearch-clients-open-up-to-30-connections-to-a-single-host">Elasticsearch clients open up to 30 connections to a single host</h5>
 <p>The Elasticsearch client of an index backend opened at most 10 connections to each Elasticsearch host and 30 to all
 hosts together, the defaults of the Elasticsearch REST client, which JanusGraph had no option for. A request waits for a
