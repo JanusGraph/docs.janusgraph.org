@@ -2128,6 +2128,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-analyzes-each-field-with-the-key-information-of-the-transaction-at-hand" class="md-nav__link">
+    Lucene analyzes each field with the key information of the transaction at hand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faster-olap-scans-signal-based-row-hand-off" class="md-nav__link">
     Faster OLAP scans (signal-based row hand-off)
   </a>
@@ -3640,6 +3647,13 @@
           <li class="md-nav__item">
   <a href="#faster-mixed-index-reindex-with-batched-document-restores" class="md-nav__link">
     Faster mixed-index reindex with batched document restores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucene-analyzes-each-field-with-the-key-information-of-the-transaction-at-hand" class="md-nav__link">
+    Lucene analyzes each field with the key information of the transaction at hand
   </a>
   
 </li>
@@ -5445,6 +5459,20 @@ headroom.</p>
 <code>schema.reindex.mixed-index-batch-enabled=false</code>. See the
 <a href="../index-backend/elasticsearch/#reindex-optimization">Elasticsearch reindex tuning guide</a> for tuning
 the batch size, reindex threads and <code>index.[X].elasticsearch.bulk-refresh</code> together.</p>
+<h5 id="lucene-analyzes-each-field-with-the-key-information-of-the-transaction-at-hand">Lucene analyzes each field with the key information of the transaction at hand</h5>
+<p>The analyzer of a Lucene store kept the key information of the transaction which first wrote to or queried the store,
+and resolved every field through it from then on. Once that transaction had closed, its key information could no
+longer read the schema: when a schema change to the index, such as disabling or re-enabling it, had reached the
+transaction after its last use of the store and before it closed, the store's next write or query failed, with an
+<code>AssertionError</code> in <code>StandardJanusGraphTx.getSchemaVertex</code> where assertions are enabled and otherwise with
+<code>Index with name [...] is unknown or not configured properly</code>. And a key added to the index after that transaction
+had last read the index's keys was unknown to it, so its values were indexed with the standard analyzer instead of
+the one configured for its mapping or its <code>TEXT_ANALYZER</code> or <code>STRING_ANALYZER</code> parameter. Text keys stayed
+consistent between writes and queries until the instance restarted, after which the new instance's analyzer knew the
+key and queries no longer found the values indexed before; string-mapped and UUID keys were missed within the same
+instance already, as their exact, prefix, regex, fuzzy and range queries compare the raw value with what the
+standard analyzer indexed. The analyzer now resolves each field through the key information of the transaction on
+whose behalf the field is analyzed.</p>
 <h5 id="faster-olap-scans-signal-based-row-hand-off">Faster OLAP scans (signal-based row hand-off)</h5>
 <p>The OLAP scan pipeline behind reindex and other scan jobs now hands rows between its internal threads
 using blocking <code>take()</code> and sentinel markers instead of polling bounded queues on a fixed timer. On
