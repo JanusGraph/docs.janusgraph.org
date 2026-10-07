@@ -2324,6 +2324,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-counts-and-aggregations-do-less-work" class="md-nav__link">
+    Elasticsearch counts and aggregations do less work
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cql-reads-more-properties-of-a-vertex-per-query" class="md-nav__link">
     CQL reads more properties of a vertex per query
   </a>
@@ -3843,6 +3850,13 @@
           <li class="md-nav__item">
   <a href="#conflicting-elasticsearch-updates-are-reattempted" class="md-nav__link">
     Conflicting Elasticsearch updates are reattempted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-counts-and-aggregations-do-less-work" class="md-nav__link">
+    Elasticsearch counts and aggregations do less work
   </a>
   
 </li>
@@ -5899,6 +5913,14 @@ behavior. The client's own reattempts of a request, after a backoff which starts
 <code>index.[X].elasticsearch.retry-initial-wait</code> and grows tenfold up to <code>index.[X].elasticsearch.retry-max-wait</code>, now wait
 a random time between half of the backoff and all of it, so that requests which failed together don't all come back at
 the same moment.</p>
+<h5 id="elasticsearch-counts-and-aggregations-do-less-work">Elasticsearch counts and aggregations do less work</h5>
+<p>A count of the documents which a mixed index query matches, for <code>totals()</code> and for the <code>COUNT</code> aggregation behind
+<code>count()</code>, counted every match, even where the caller only needed to know whether there were as many as its
+offset and limit, to which it clamped the count afterwards. Such a count now tells each shard to stop at the offset plus
+the limit (<code>terminate_after</code>), which keeps the count exact below that bound and at least the bound above it, so the
+clamped result is what it was. The aggregations <code>min</code>, <code>max</code>, <code>avg</code> and <code>sum</code> fetched the first ten matching documents
+with their sources along with the aggregation, and counted the matches; they now ask for the aggregation alone. The line
+which <code>IndexSerializer</code> logged at INFO for every raw index query it converted is logged at DEBUG.</p>
 <h5 id="cql-reads-more-properties-of-a-vertex-per-query">CQL reads more properties of a vertex per query</h5>
 <p>With <code>storage.cql.grouping.slice-allowed</code>, true by default, the CQL backend reads the properties of a vertex whose keys
 have single cardinality, each one column, together: one query with <code>column1 IN ?</code> for up to
