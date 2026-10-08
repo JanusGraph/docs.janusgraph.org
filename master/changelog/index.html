@@ -2379,6 +2379,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#a-graph-runs-its-background-work-on-fewer-threads-which-end-with-it" class="md-nav__link">
+    A graph runs its background work on fewer threads, which end with it
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3906,6 +3913,13 @@
           <li class="md-nav__item">
   <a href="#closing-a-graph-on-berkeleyje-no-longer-interrupts-its-log-readers" class="md-nav__link">
     Closing a graph on BerkeleyJE no longer interrupts its log readers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-graph-runs-its-background-work-on-fewer-threads-which-end-with-it" class="md-nav__link">
+    A graph runs its background work on fewer threads, which end with it
   </a>
   
 </li>
@@ -6048,6 +6062,39 @@ a log processor while the log closes finishes. A <code>MessageReader</code> whic
 on BerkeleyJE, where it used to be interrupted after a second. A log closed from one of its own reader threads cannot
 wait for them and keeps the second, and so do the logs of other storage backends. The reader threads of every log are
 now named after it.</p>
+<h5 id="a-graph-runs-its-background-work-on-fewer-threads-which-end-with-it">A graph runs its background work on fewer threads, which end with it</h5>
+<p>Each ID pool of a graph renewed its blocks of ids on a thread of its own, which it kept until the graph closed: one for
+every partition and kind of id in use, up to 98 with the default 32 partitions. The renewals of a graph now share the
+threads of one pool, which end after <code>ids.renew-keep-alive-time</code>, a minute by default, without renewals;
+<code>ids.renew-pool-size</code> bounds the threads, and unset, which is the default, it allows as many as the graph can have
+pools, so that every pool can renew at once. A pool still renews one block at a time, also while a renewal it gave up
+waiting for goes on, and where the ID authority can't be interrupted, as on BerkeleyJE, its close still waits for that
+renewal.</p>
+<p>Every instance acknowledges a change of existing schema elements once the transactions open when the change arrived have
+closed, and it started a thread for every such acknowledgement, which checked them every 100 ms for up to a minute. The
+acknowledgements of a graph now share one thread, and the new option <code>graph.management-tx-close-wait-time</code> sets how long
+they wait for the transactions, still a minute by default. Closing the graph waits for an acknowledgement which is being
+sent, as long as one write of the log may take, and drops those still waiting for transactions, as the other instances
+stop waiting for an instance which has closed; one for an eviction of the graph from the <code>JanusGraphManager</code> still
+removes it there.</p>
+<p>Transaction recovery repaired transactions on the JVM's common pool, holding one of its threads for as long as the
+storage and index writes of a repair took, and unless <code>shutdown()</code> was called, its cleaning thread kept running after
+the graph had closed and kept the JVM from exiting. Repairs now run on threads of the recovery's own,
+<code>tx.recovery.repair-pool-size</code> of them, by default as many as the common pool has, which end after
+<code>tx.recovery.repair-keep-alive-time</code> without a repair. <code>shutdown()</code> waits up to <code>storage.write-time</code> for the repairs it
+has handed over, and recovery stops when its graph closes. A transaction which a stopped recovery gives up on while it
+still reads the log, as one which isn't recurring does, is now logged and counted as not repaired, where it was
+repaired.</p>
+<p>The OLAP jobs of <code>FulgoraGraphComputer</code> ran on threads of the common pool for as long as they took, or each on a thread
+of its own where the common pool has a single thread. They now run on threads of their graph's own, which end when it
+closes or after <code>computer.job-keep-alive-time</code> without a job: <code>computer.job-pool-size</code> of them, by default as many as
+the common pool has, or again a thread per job where it has a single one. As each graph has its own, several graphs of
+one JVM can run that many jobs each, where they shared the common pool. A graph reports itself closed from the moment
+its close begins, so a job which starts from the queue while it closes fails at once and a repair which starts then is
+counted as not repaired, where both could start on a graph which still reported itself open and race the close of its
+backend. The Hadoop input format for Cassandra computed the splits of the token ranges one range after the other on a
+single thread, as its executor of up to 128 threads had no core threads and an unbounded queue; it now uses up to
+<code>cassandra.input.split.threads</code> threads, 128 by default.</p>
 <h3 id="version-110-release-date-november-7-2024">Version 1.1.0 (Release Date: November 7, 2024)</h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Maven</label><label for="__tabbed_2_2">Gradle</label></div>
 <div class="tabbed-content">
