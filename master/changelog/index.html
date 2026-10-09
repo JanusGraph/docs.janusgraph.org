@@ -2331,6 +2331,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-bulk-requests-take-less-memory" class="md-nav__link">
+    Elasticsearch bulk requests take less memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#conflicting-elasticsearch-updates-are-reattempted" class="md-nav__link">
     Conflicting Elasticsearch updates are reattempted
   </a>
@@ -3885,6 +3892,13 @@
           <li class="md-nav__item">
   <a href="#elasticsearch-clients-open-up-to-30-connections-to-a-single-host" class="md-nav__link">
     Elasticsearch clients open up to 30 connections to a single host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-bulk-requests-take-less-memory" class="md-nav__link">
+    Elasticsearch bulk requests take less memory
   </a>
   
 </li>
@@ -5985,6 +5999,20 @@ mixed index queries, a single Elasticsearch 9 node on the same machine answers 2
 which takes 20 ms to answer three times as many. The new option <code>index.[X].elasticsearch.io-threads</code> sets the number of
 I/O threads of each client, which is otherwise the number of processors, for every index backend of every graph, and
 <code>index.[X].elasticsearch.compression</code> compresses requests and responses with gzip.</p>
+<h5 id="elasticsearch-bulk-requests-take-less-memory">Elasticsearch bulk requests take less memory</h5>
+<p>Without compression, the Elasticsearch client sends the body of a bulk request from the documents' serialized bytes as
+they are. It used to copy them into one array first, through a buffer which grows by doubling, so that a chunk of a bulk
+request, up to <code>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</code> (100 MB by default), held up to three more copies
+of its body on the heap, on every attempt. With <code>index.[X].elasticsearch.compression</code> the client still holds the
+compressed body. A bulk request also asks Elasticsearch only for each item's status and error and for whether any item
+failed (<code>filter_path</code>), about a seventh of the response, and writes the action line of each document without building
+a map for it. A bulk of 50,000 documents of 1 KB each completes in a heap of 144 MB, where it needed 320 MB or more, and
+allocates a third as much.</p>
+<p>The action of a document is now named in the root locale. Under a Turkish default locale, the client named the
+index action <code>ındex</code>, with a dotless i, and Elasticsearch rejected the whole bulk request which held it: every bulk
+request with a new document, or with documents restored by a reindex, failed.</p>
+<p><code>RestBulkResponse.RestBulkItemResponse.getResult()</code> is deprecated. A bulk response no longer carries the result of an
+item, so it returns <code>null</code>.</p>
 <h5 id="conflicting-elasticsearch-updates-are-reattempted">Conflicting Elasticsearch updates are reattempted</h5>
 <p>Transactions which change the same element concurrently also update its document in a mixed index concurrently, and
 Elasticsearch fails an update which finds that the document changed after the update read it, with status 409.
