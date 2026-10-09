@@ -2114,6 +2114,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#names-dates-and-searched-text-no-longer-depend-on-the-default-locale" class="md-nav__link">
+    Names, dates and searched text no longer depend on the default locale
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
   </a>
@@ -3654,6 +3661,13 @@
           <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#names-dates-and-searched-text-no-longer-depend-on-the-default-locale" class="md-nav__link">
+    Names, dates and searched text no longer depend on the default locale
   </a>
   
 </li>
@@ -5462,6 +5476,23 @@ values as floats.</p>
 loaded by class name, so they have to exist in Lucene 9. Lucene 9 renamed the <code>lucene-analyzers-common</code> artifact to
 <code>lucene-analysis-common</code> and moved a few analyzers to other packages, for example <code>ClassicAnalyzer</code> to
 <code>org.apache.lucene.analysis.classic</code> and <code>UAX29URLEmailAnalyzer</code> to <code>org.apache.lucene.analysis.email</code>.</p>
+<h5 id="names-dates-and-searched-text-no-longer-depend-on-the-default-locale">Names, dates and searched text no longer depend on the default locale</h5>
+<p>JanusGraph converts the case of the names it reads and writes in the root locale, and lower-cases the text it searches
+case-insensitively one code point at a time, as the analyzers of the index backends do. Both followed the JVM's default
+locale. In a Turkish or Azerbaijani locale <code>I</code> lower-cases to a dotless <code>ı</code> and <code>i</code> upper-cases to a dotted <code>İ</code>, so with
+such a default locale JanusGraph didn't know a mapping given by its name in lower case (<code>string</code>), the type of a
+geoshape built from a JTS geometry (<code>MultiPoint</code>), a time unit in upper case (<code>MINUTES</code>) or the shorthand of a storage
+backend in upper case (<code>INMEMORY</code>), and it let a key or a label be named <code>ID</code>, a name which other JVMs reject as a
+system name. It sent Elasticsearch geo queries with relations which Elasticsearch rejects (<code>wıthın</code>), named the
+Elasticsearch index of a store whose name holds an <code>I</code> otherwise than other JVMs do, and didn't wait for Solr replicas
+which were recovering. The dates sent to Solr are formatted in the root locale too, where a Thai default locale
+formatted them in its own calendar.</p>
+<p>Text predicates evaluated in memory, and the text values which JanusGraph lower-cases for Elasticsearch queries and for
+Lucene, now turn the dotted capital <code>İ</code> into <code>i</code> and a capital sigma at the end of a word into <code>σ</code> in every locale, as
+the analyzers do: <code>String.toLowerCase</code> made an <code>i</code> followed by a combining dot above, and a final sigma, <code>ς</code>. A Lucene
+index needs a reindex for queries to find text values holding a dotted capital <code>İ</code> or a word-final capital sigma, or an
+<code>I</code> written by a JVM with a Turkish or Azerbaijani default locale. A mixed index on Elasticsearch whose store name holds
+an <code>I</code> or a dotted capital <code>İ</code>, and whose index such a JVM created, needs one too.</p>
 <h5 id="zombie-instances-auto-close-during-index-status-update-operations">Zombie instances auto-close during index status update operations</h5>
 <p>Starting from version 1.2.0 JanusGraph can automatically force-close JanusGraph instances that are unreachable
 during index status update operations.</p>
