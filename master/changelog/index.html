@@ -2107,6 +2107,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
+    Lucene counts more than a thousand matches exactly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
   </a>
@@ -2396,6 +2403,13 @@
           <li class="md-nav__item">
   <a href="#transaction-recovery-no-longer-gives-up-on-a-transaction-before-reading-its-final-status" class="md-nav__link">
     Transaction recovery no longer gives up on a transaction before reading its final status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-first-traversal-no-longer-waits-for-a-scan-of-the-class-path" class="md-nav__link">
+    The first traversal no longer waits for a scan of the class path
   </a>
   
 </li>
@@ -3680,6 +3694,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
+    Lucene counts more than a thousand matches exactly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
   </a>
@@ -3969,6 +3990,13 @@
           <li class="md-nav__item">
   <a href="#transaction-recovery-no-longer-gives-up-on-a-transaction-before-reading-its-final-status" class="md-nav__link">
     Transaction recovery no longer gives up on a transaction before reading its final status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-first-traversal-no-longer-waits-for-a-scan-of-the-class-path" class="md-nav__link">
+    The first traversal no longer waits for a scan of the class path
   </a>
   
 </li>
@@ -5504,6 +5532,13 @@ classes, and when the <code>org.noggit:noggit</code> 0.8 artifact (a dependency 
 reader) comes first on the classpath, SolrJ fails with
 <code>NoSuchMethodError: 'java.lang.Object org.noggit.ObjectBuilder.getValStrict()'</code>. Applications which use
 <code>janusgraph-solr</code> should exclude <code>org.noggit:noggit</code> as well: Spatial4j works with SolrJ's copy.</p>
+<h5 id="lucene-counts-more-than-a-thousand-matches-exactly">Lucene counts more than a thousand matches exactly</h5>
+<p>A <code>count()</code> which a Lucene mixed index answers, such as <code>g.V().has('age', lt(2000)).count()</code>, and the totals of a direct
+index query, <code>vertexTotals()</code>, <code>edgeTotals()</code> and <code>propertyTotals()</code>, took the total hits of a search for one document,
+which Lucene computes exactly only up to 1000 hits: past that threshold it may skip the documents which can't make the
+top, and the total is only a lower bound, so a count of more than a thousand matches could come out as low as 1001. A
+<code>mean()</code> which the index answers divided its sum by that count, and could come out too high. Lucene now counts the
+matches. Elasticsearch and Solr counted exactly already.</p>
 <h5 id="apache-lucene-9">Apache Lucene 9</h5>
 <p><code>janusgraph-lucene</code> now uses Apache Lucene 9.12.3 instead of 8.11. A JanusGraph installation can contain only one
 Lucene version, and Solr 9 is built on Lucene 9 (Lucene 10 requires Java 21).</p>
@@ -6177,6 +6212,12 @@ rather than hold them for good.</p>
 <p>The second of the numbers <code>getStatistics()</code> returns, the transactions which failed and whose repair was attempted, now
 counts a transaction once that attempt has finished rather than before it starts, so the repairs of the transactions it
 counts are done and the third number already includes those which could not be repaired.</p>
+<h5 id="the-first-traversal-no-longer-waits-for-a-scan-of-the-class-path">The first traversal no longer waits for a scan of the class path</h5>
+<p>JanusGraph's optimized steps tell whether a traverser counts loops by the traverser's class, which they used to look up
+in sets filled by a scan of the class path for implementations of <code>Traverser</code>, when the first traversal in a JVM used
+them: on a graph of the <code>inmemory</code> backend the first traversal in a JVM took 220–244 ms, and takes 35 ms now that a
+class is looked at when one of its traversers is first seen. The sets were also written by any thread which saw a
+traverser of a class the scan had missed, without synchronization, while other threads read them.</p>
 <h5 id="schema-changes-committed-by-ordinary-transactions-reach-the-other-instances">Schema changes committed by ordinary transactions reach the other instances</h5>
 <p>With <code>schema.constraints=true</code> and a schema maker which creates missing constraints, an ordinary transaction adds
 property and connection constraints to the schema, and so do <code>addConnection(...)</code> and <code>addProperties(...)</code>, on a
