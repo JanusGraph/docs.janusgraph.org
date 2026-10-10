@@ -2282,6 +2282,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-results-larger-than-a-page-are-read-through-a-point-in-time" class="md-nav__link">
+    Elasticsearch results larger than a page are read through a point in time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#relations-without-properties-are-parsed-once" class="md-nav__link">
     Relations without properties are parsed once
   </a>
@@ -3843,6 +3850,13 @@
           <li class="md-nav__item">
   <a href="#elasticsearch-searches-open-a-scroll-context-only-for-results-larger-than-a-page" class="md-nav__link">
     Elasticsearch searches open a scroll context only for results larger than a page
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-results-larger-than-a-page-are-read-through-a-point-in-time" class="md-nav__link">
+    Elasticsearch results larger than a page are read through a point in time
   </a>
   
 </li>
@@ -5917,6 +5931,20 @@ release no longer waits for the cluster's answer, and a release which fails no l
 cluster rejects is logged as a warning once. Deployments which set
 <code>index.[X].elasticsearch.setup-max-open-scroll-contexts</code> to <code>false</code>, such as Amazon OpenSearch Service, are therefore
 far less likely to reach the cluster's limit of open scroll contexts.</p>
+<h5 id="elasticsearch-results-larger-than-a-page-are-read-through-a-point-in-time">Elasticsearch results larger than a page are read through a point in time</h5>
+<p>A result larger than a page (<code>index.[X].max-result-set-size</code>, 50 by default) was read through a scroll, whose context
+counts against the cluster's <code>search.max_open_scroll_context</code>, whose pages count the total number of hits because
+Elasticsearch requires it, and which may skip a page when the request for one is sent again after a transient failure. On
+Elasticsearch 7.12 and later such a result is now read through a point in time and <code>search_after</code>: the point in time holds the state of the index while the pages are read, each page is asked for after
+the last hit of the one before, and none counts the total. A graph query without a limit and without an order reads its
+pages in the order of the index; a limited one, and a direct index query without a sort of its own, in the order of
+their scores, as a single request does. The point in time is closed as soon as the result has been
+read, the limit is reached or the traversal is closed, as the scroll context was, and
+<code>index.[X].elasticsearch.scroll-keep-alive</code> bounds its life as well. An older cluster, a cluster whose version isn't
+asked for (<code>index.[X].elasticsearch.major-version</code> 7) or can't be, OpenSearch, whose point in time lacks the tiebreaker
+<code>search_after</code> needs, and every cluster with the new option <code>index.[X].elasticsearch.point-in-time</code> set to <code>false</code>
+scroll as before. On Elasticsearch 9.5.4, a result of 100,000 hits read in pages of 50 takes 0.8 s through a point in time
+in the order of the index, where a scroll took 0.95 s, and 1.9 s in the order of scores.</p>
 <h5 id="relations-without-properties-are-parsed-once">Relations without properties are parsed once</h5>
 <p>A loaded relation is deserialized in two steps: its type, direction, id and other end first, and its properties only
 once something asks for them. The deserialized form is cached on the entry, and whether the cache already held the

@@ -3100,6 +3100,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.point-in-time</td>
+<td>Whether a result larger than a page is read with a point in time and <code>search_after</code> on Elasticsearch 7.12 and later, instead of a scroll. A point in time isn't counted against <code>search.max_open_scroll_context</code>, its pages don't count the total number of hits, and a page which is sent again after a failure comes back the same, where a scroll may skip it. A cluster which reports an older version scrolls, as does one whose version isn't asked for (<code>major-version</code> 7) or can't be, and OpenSearch, whose point in time lacks the tiebreaker <code>search_after</code> needs. Set to <code>false</code> to scroll on every cluster.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.retry-error-codes</td>
 <td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. Queries get the client level attempts only. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
 <td>String[]</td>
@@ -3143,7 +3150,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.scroll-keep-alive</td>
-<td>How long (in seconds) elasticsearch should keep alive the scroll context.</td>
+<td>How long (in seconds) elasticsearch should keep alive the scroll context, or the point in time, of a result which is read in pages.</td>
 <td>Integer</td>
 <td>60</td>
 <td>GLOBAL_OFFLINE</td>
