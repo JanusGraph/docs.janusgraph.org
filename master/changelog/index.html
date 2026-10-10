@@ -2107,13 +2107,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
-    Lucene counts more than a thousand matches exactly
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
   </a>
@@ -3689,13 +3682,6 @@
           <li class="md-nav__item">
   <a href="#solr-9-support-solr-8-is-deprecated" class="md-nav__link">
     Solr 9 support, Solr 8 is deprecated
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
-    Lucene counts more than a thousand matches exactly
   </a>
   
 </li>
@@ -5532,13 +5518,6 @@ classes, and when the <code>org.noggit:noggit</code> 0.8 artifact (a dependency 
 reader) comes first on the classpath, SolrJ fails with
 <code>NoSuchMethodError: 'java.lang.Object org.noggit.ObjectBuilder.getValStrict()'</code>. Applications which use
 <code>janusgraph-solr</code> should exclude <code>org.noggit:noggit</code> as well: Spatial4j works with SolrJ's copy.</p>
-<h5 id="lucene-counts-more-than-a-thousand-matches-exactly">Lucene counts more than a thousand matches exactly</h5>
-<p>A <code>count()</code> which a Lucene mixed index answers, such as <code>g.V().has('age', lt(2000)).count()</code>, and the totals of a direct
-index query, <code>vertexTotals()</code>, <code>edgeTotals()</code> and <code>propertyTotals()</code>, took the total hits of a search for one document,
-which Lucene computes exactly only up to 1000 hits: past that threshold it may skip the documents which can't make the
-top, and the total is only a lower bound, so a count of more than a thousand matches could come out as low as 1001. A
-<code>mean()</code> which the index answers divided its sum by that count, and could come out too high. Lucene now counts the
-matches. Elasticsearch and Solr counted exactly already.</p>
 <h5 id="apache-lucene-9">Apache Lucene 9</h5>
 <p><code>janusgraph-lucene</code> now uses Apache Lucene 9.12.3 instead of 8.11. A JanusGraph installation can contain only one
 Lucene version, and Solr 9 is built on Lucene 9 (Lucene 10 requires Java 21).</p>
