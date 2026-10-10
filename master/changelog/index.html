@@ -2289,6 +2289,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-complete-document-of-an-updated-element-no-longer-takes-two-queries-per-field" class="md-nav__link">
+    The complete document of an updated element no longer takes two queries per field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#elasticsearch-searches-open-a-scroll-context-only-for-results-larger-than-a-page" class="md-nav__link">
     Elasticsearch searches open a scroll context only for results larger than a page
   </a>
@@ -3885,6 +3892,13 @@
           <li class="md-nav__item">
   <a href="#a-missing-elasticsearch-document-is-recreated-whole" class="md-nav__link">
     A missing Elasticsearch document is recreated whole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-document-of-an-updated-element-no-longer-takes-two-queries-per-field" class="md-nav__link">
+    The complete document of an updated element no longer takes two queries per field
   </a>
   
 </li>
@@ -5987,6 +6001,15 @@ indexed properties, which are usually loaded already. And every update of an exi
 once, so bulk requests grow with the size of the documents they update; an update the content would make larger than
 <code>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</code> is sent without it, as before this change, rather than failing. A
 mixed index on a cdc-only backend, whose documents are written asynchronously, is not affected.</p>
+<h5 id="the-complete-document-of-an-updated-element-no-longer-takes-two-queries-per-field">The complete document of an updated element no longer takes two queries per field</h5>
+<p>The complete indexed content of an element, which a commit reads for every existing element it updates in a mixed index
+and which reindexing, transaction recovery and CDC synchronization restore, was read with two queries for each field of
+the index. It is now read with one query of the index's keys. A vertex in a transaction with property prefetching
+(<code>query.fast-property</code>, on by default) is first accessed by a single key, which reads all its properties in one slice,
+as before, and that slice answers the query of the keys. On in-memory storage, building the content of a vertex takes
+about a fifth of the time it took with 20 indexed fields, and a quarter with 5, at a commit which changed the vertex,
+and half when reindexing, recovering or synchronizing an unchanged one. With <code>query.fast-property</code> off, the query reads
+a slice for each of the index's keys, as before, which CQL now reads together rather than one after the other.</p>
 <h5 id="elasticsearch-searches-open-a-scroll-context-only-for-results-larger-than-a-page">Elasticsearch searches open a scroll context only for results larger than a page</h5>
 <p>Every mixed index query whose limit was at least <code>index.[X].max-result-set-size</code> (50 by default), and every query
 without a limit, read its result through the scroll API in pages of that size. A query with a limit whose result had at
