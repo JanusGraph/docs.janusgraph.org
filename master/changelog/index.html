@@ -2107,6 +2107,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
+    Lucene counts more than a thousand matches exactly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
   </a>
@@ -2123,6 +2130,13 @@
           <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucene-range-queries-reach-zero-negative-decimals-the-infinities-and-the-ends-of-long" class="md-nav__link">
+    Lucene range queries reach zero, negative decimals, the infinities and the ends of long
   </a>
   
 </li>
@@ -3687,6 +3701,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
+    Lucene counts more than a thousand matches exactly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
   </a>
@@ -3703,6 +3724,13 @@
           <li class="md-nav__item">
   <a href="#zombie-instances-auto-close-during-index-status-update-operations" class="md-nav__link">
     Zombie instances auto-close during index status update operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucene-range-queries-reach-zero-negative-decimals-the-infinities-and-the-ends-of-long" class="md-nav__link">
+    Lucene range queries reach zero, negative decimals, the infinities and the ends of long
   </a>
   
 </li>
@@ -5518,6 +5546,13 @@ classes, and when the <code>org.noggit:noggit</code> 0.8 artifact (a dependency 
 reader) comes first on the classpath, SolrJ fails with
 <code>NoSuchMethodError: 'java.lang.Object org.noggit.ObjectBuilder.getValStrict()'</code>. Applications which use
 <code>janusgraph-solr</code> should exclude <code>org.noggit:noggit</code> as well: Spatial4j works with SolrJ's copy.</p>
+<h5 id="lucene-counts-more-than-a-thousand-matches-exactly">Lucene counts more than a thousand matches exactly</h5>
+<p>A <code>count()</code> which a Lucene mixed index answers, such as <code>g.V().has('age', lt(2000)).count()</code>, and the totals of a direct
+index query, <code>vertexTotals()</code>, <code>edgeTotals()</code> and <code>propertyTotals()</code>, took the total hits of a search for one document,
+which Lucene computes exactly only up to 1000 hits: past that threshold it may skip the documents which can't make the
+top, and the total is only a lower bound, so a count of more than a thousand matches could come out as low as 1001. A
+<code>mean()</code> which the index answers divided its sum by that count, and could come out too high. Lucene now counts the
+matches. Elasticsearch and Solr counted exactly already.</p>
 <h5 id="apache-lucene-9">Apache Lucene 9</h5>
 <p><code>janusgraph-lucene</code> now uses Apache Lucene 9.12.3 instead of 8.11. A JanusGraph installation can contain only one
 Lucene version, and Solr 9 is built on Lucene 9 (Lucene 10 requires Java 21).</p>
@@ -5560,6 +5595,18 @@ threshold can be adjusted using the following configuration:
 <div class="highlight"><pre><span></span><code>graph.management-ack-timeout=240000 ms
 </code></pre></div>
 This is a breaking change for users who use the <code>JanusGraphIndexStatusUpdate</code> interface.</p>
+<h5 id="lucene-range-queries-reach-zero-negative-decimals-the-infinities-and-the-ends-of-long">Lucene range queries reach zero, negative decimals, the infinities and the ends of <code>long</code></h5>
+<p>A comparison of decimals on a Lucene mixed index, <code>lt</code>, <code>lte</code> or <code>neq</code>, didn't find zero or any negative value, as its
+range started from the smallest positive double, and <code>gt</code>, <code>gte</code> or <code>neq</code> didn't find positive infinity: a vertex with
+a score of 0 wasn't found by <code>has("score", lt(0.01))</code>. A strict comparison of whole numbers at an end of the range of
+<code>long</code>, such as <code>neq(Long.MAX_VALUE)</code> or <code>lt(Long.MIN_VALUE)</code>, threw an <code>ArithmeticException</code>, and so did a raw query
+such as <code>time:{9223372036854775807 TO *]</code>. Now these comparisons find what they should, a strict bound with nothing
+beyond it finds nothing, and an open end of a raw range in an exclusive bracket, as in <code>{5 TO *}</code>, keeps the end of the
+type. A comparison with a zero bound, such as <code>lt(0.0)</code> or <code>gte(-0.0)</code>, finds the same vertices whichever sign its zero
+has, as it does without the index, whereas Lucene orders <code>-0.0</code> below <code>0.0</code>. A comparison with NaN, which Lucene
+stores and orders above positive infinity, also finds what it does without the index: <code>eq</code>, <code>lte</code> and <code>gte</code> of NaN find
+NaN, <code>lt</code> and <code>gt</code> of NaN nothing, and <code>neq</code> of any other value finds NaN as well. A raw range reaches NaN by a NaN
+bound, as in <code>score:[5 TO NaN]</code>.</p>
 <h5 id="faster-mixed-index-reindex-with-batched-document-restores">Faster mixed-index reindex with batched document restores</h5>
 <p>Mixed-index reindex jobs (<code>SchemaAction.REINDEX</code> against an Elasticsearch, Solr or Lucene index) now
 flush restored documents to the index backend in bounded batches while the storage scan is still
