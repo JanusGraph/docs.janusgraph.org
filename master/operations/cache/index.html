@@ -2250,7 +2250,10 @@ same index call never occurs twice in the same transaction, the index
 cache makes no difference.</p>
 <p>Each entry in the index cache is given a weight equal to
 <code>2 + result set size</code> and the total weight of the cache will not exceed
-half of the transaction cache size.</p>
+half of the transaction cache size. A result set whose entry alone
+would weigh more than that, one of more than <code>cache.tx-cache-size / 2 - 2</code>
+elements (9,998 with the default transaction cache size of 20,000), is
+not cached.</p>
 <h2 id="database-level-caching">Database Level Caching</h2>
 <p>The database level cache contains vertices and the subset of their adjacency
 list (properties and edges) across multiple transactions and beyond the duration
