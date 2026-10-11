@@ -3016,6 +3016,20 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </thead>
 <tbody>
 <tr>
+<td>index.[X].elasticsearch.adaptive-point-in-time-max-page-size</td>
+<td>The largest page size (<code>index.[X].max-result-set-size</code>) with which <code>paging-mode</code> <code>adaptive_point_in_time</code> reads a result through a point in time. 500 is the recommended value: on Elasticsearch 9.5.4, a point in time read the pages of an index of one shard in the order of the index about as fast as a scroll or faster with pages of up to 500 hits, and more slowly with pages of 1,000. Lower it where a point in time falls behind a scroll with smaller pages, raise it where it keeps up with larger ones.</td>
+<td>Integer</td>
+<td>500</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.adaptive-point-in-time-max-shards</td>
+<td>The most shards an index may have, as the first request of a result reports them, for <code>paging-mode</code> <code>adaptive_point_in_time</code> to read the result through a point in time. 1 is the recommended value: on Elasticsearch 9.5.4, reading the pages of an index of two or three shards through a point in time took 4% to 37% longer than through a scroll, even in the order of the index. Raise it only where a point in time keeps up with a scroll on indexes of more shards.</td>
+<td>Integer</td>
+<td>1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</td>
 <td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size. If a single bulk item exceeds this limit an exception will be thrown after the smaller bulk items are submitted. Ensure that this limit is always less than or equal to the configured limit of <code>http.max_content_length</code> on the Elasticsearch servers. For more information, refer to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-network.html">Elasticsearch documentation</a>.</td>
 <td>Integer</td>
@@ -3100,10 +3114,10 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
-<td>index.[X].elasticsearch.point-in-time</td>
-<td>Whether a result larger than a page is read with a point in time and <code>search_after</code> on Elasticsearch 7.12 and later, instead of a scroll. A point in time isn't counted against <code>search.max_open_scroll_context</code>, its pages don't count the total number of hits, and a page which is sent again after a failure comes back the same, where a scroll may skip it. A cluster which reports an older version scrolls, as does one whose version isn't asked for (<code>major-version</code> 7) or can't be, and OpenSearch, whose point in time lacks the tiebreaker <code>search_after</code> needs. Set to <code>false</code> to scroll on every cluster.</td>
-<td>Boolean</td>
-<td>true</td>
+<td>index.[X].elasticsearch.paging-mode</td>
+<td>How a result larger than a page (<code>index.[X].max-result-set-size</code>) is read.<br>Supported modes:<br>- <code>scroll</code> - Every result is read through a scroll.<br>- <code>point_in_time</code> - Every result is read through a point in time and <code>search_after</code>. A point in time isn't counted against <code>search.max_open_scroll_context</code>, its pages don't count the total number of hits, and a page which is sent again after a failure comes back the same, where a scroll may skip it. But it reads the pages more slowly than a scroll unless they come in the order of the index, on an index of one shard and in pages of up to about 500 hits; the Elasticsearch page of the documentation has the measurements.<br>- <code>adaptive_point_in_time</code> - A result is read through a point in time where that is about as fast as a scroll or faster: the result of a graph query without a limit and without an order, whose pages come in the order of the index, on an index of at most <code>adaptive-point-in-time-max-shards</code> shards and with pages of at most <code>adaptive-point-in-time-max-page-size</code> hits. A graph query is limited where its traversal limits it, where <code>query.smart-limit</code> is on, and where <code>query.hard-max-limit</code> is lowered. Every other result is read through a scroll.<br>A cluster which reports an Elasticsearch version older than 7.12 scrolls in every mode, as does one whose version isn't asked for (<code>major-version</code> 7) or can't be, and OpenSearch, whose point in time lacks the tiebreaker <code>search_after</code> needs.</td>
+<td>String</td>
+<td>adaptive_point_in_time</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
