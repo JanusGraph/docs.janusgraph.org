@@ -4535,7 +4535,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.batch.enabled</td>
-<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. It also lets a composite index lookup of several values, such as <code>has(key, within(values))</code>, read their index rows together on a storage backend with multi-key queries. If <code>false</code> then all other configuration options under <code>query.batch</code> namespace are ignored.</td>
+<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. It also lets a composite index lookup of several values, such as <code>has(key, within(values))</code>, read their index rows together, and a commit read the labels which the index updates of its vertices check together, on a storage backend with multi-key queries. It is the default of each transaction's own multi-query setting, which <code>TransactionBuilder.multiQuery(boolean)</code> can change for a transaction; where that setting is <code>false</code>, all other configuration options under <code>query.batch</code> namespace are ignored.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
@@ -4566,6 +4566,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Default batch size (barrier() step size) for queries. This size is applied only for cases where <code>LazyBarrierStrategy</code> strategy didn't apply <code>barrier</code> step and where user didn't apply barrier step either. This option is used only when <code>query.batch.limited</code> is <code>true</code>. Notice, value <code>2147483647</code> is considered to be unlimited.</td>
 <td>Integer</td>
 <td>2500</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.batch.max-keys-per-read</td>
+<td>The most keys which one read of several keys at once asks the storage backend for, where JanusGraph splits such a read on its own: a composite index lookup of several values, such as <code>has(key, within(values))</code>, reading their index rows, and a commit reading the labels which the index updates of its vertices check. A read which fails temporarily is reattempted whole, and its results are held all at once, so a smaller value makes smaller reads, and more of them. The default is the recommended value. Used only where reads are batched (<code>query.batch.enabled</code>, unless a transaction sets its own multi-query setting), on a storage backend with multi-key queries.</td>
+<td>Integer</td>
+<td>1000</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
