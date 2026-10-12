@@ -1688,6 +1688,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ordering-elements-without-a-value" class="md-nav__link">
+    Ordering Elements without a Value
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2296,6 +2303,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ordering-elements-without-a-value" class="md-nav__link">
+    Ordering Elements without a Value
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2626,6 +2640,18 @@ the field name.</p>
 <p>Note, however, that schemaless mode is recommended only for prototyping
 and initial application development and NOT recommended for production
 use.</p>
+<h3 id="ordering-elements-without-a-value">Ordering Elements without a Value</h3>
+<p>When JanusGraph orders the elements of a query itself, for example for
+<code>order().by('age')</code>, it places the elements which hold no value of the
+key last, whether the order is ascending or descending. When Solr orders
+them, for an order which a mixed index answers, it places the documents
+without a value of a field as the <code>sortMissingLast</code> and
+<code>sortMissingFirst</code> attributes of the field, or of its type, say. If
+neither is declared, Solr sorts the documents without a numeric or date
+value as if their value were 0. The string, boolean, numeric and date
+types of the example <code>schema.xml</code> declare <code>sortMissingLast="true"</code>, and
+a schema of your own needs it as well to order these elements as
+JanusGraph does.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="collection-does-not-exist">Collection Does Not Exist</h3>
 <p>The collection (and all of the required configuration files) must be
