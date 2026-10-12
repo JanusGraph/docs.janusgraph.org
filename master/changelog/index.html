@@ -2170,6 +2170,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#olap-traversals-no-longer-fail-or-lose-results-when-the-processors-of-a-scan-clone-their-program-at-once" class="md-nav__link">
+    OLAP traversals no longer fail or lose results when the processors of a scan clone their program at once
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#opt-in-parallel-token-range-scan-for-cql-full-scans" class="md-nav__link">
     Opt-in parallel token-range scan for CQL full scans
   </a>
@@ -3787,6 +3794,13 @@
           <li class="md-nav__item">
   <a href="#olap-jobs-end-their-transactions-and-jobs-which-run-at-once-create-their-compute-keys" class="md-nav__link">
     OLAP jobs end their transactions, and jobs which run at once create their compute keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#olap-traversals-no-longer-fail-or-lose-results-when-the-processors-of-a-scan-clone-their-program-at-once" class="md-nav__link">
+    OLAP traversals no longer fail or lose results when the processors of a scan clone their program at once
   </a>
   
 </li>
@@ -5729,6 +5743,15 @@ their commits, and an <code>IllegalArgumentException</code> saying that the tran
 job whose commit fails on such a lock, of JanusGraph's own locker, now waits twice <code>storage.lock.wait-time</code>, then twice
 as long each time, and creates the keys which are still missing, making up to <code>storage.lock.retries</code> attempts.
 <code>JanusGraphManagement.rollback()</code> no longer throws after a commit which failed.</p>
+<h5 id="olap-traversals-no-longer-fail-or-lose-results-when-the-processors-of-a-scan-clone-their-program-at-once">OLAP traversals no longer fail or lose results when the processors of a scan clone their program at once</h5>
+<p>An OLAP traversal could fail with <code>Failed to process [N] vertices in vertex program iteration [K]</code>, where each vertex
+which failed logged <code>The provided key is not a memory compute key</code> or a <code>NullPointerException</code>, or return too few
+results without an error. The processors of a scan clone the job, and the traversal's <code>TraversalVertexProgram</code> with it,
+for each work block of <code>10 × storage.buffer-size</code> vertices, 10,240 by default, so in a scan of more than two blocks on
+several processors they may clone the program at the same time. Each clone numbers the steps of its own copy of the
+traversal, and TinkerPop's copies of a traversal share the counter with which they are numbered: copies numbered at the
+same time got mixed-up step ids, which the job's memory and the other clones didn't know, or knew as other steps. Vertex
+programs are now cloned one at a time.</p>
 <h5 id="opt-in-parallel-token-range-scan-for-cql-full-scans">Opt-in parallel token-range scan for CQL full scans</h5>
 <p>CQL full-table scans (used by reindex and other OLAP jobs) can optionally be split into several
 token-bounded queries instead of a single coordinator-funneled scan:
