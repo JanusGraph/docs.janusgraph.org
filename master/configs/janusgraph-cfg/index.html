@@ -2879,7 +2879,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].max-result-set-size</td>
-<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch</td>
+<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch, except that Elasticsearch reads a query with a limit too large for a single request in batches of up to <code>index.[X].elasticsearch.limited-result-max-page-size</code> results, though never smaller than this</td>
 <td>Integer</td>
 <td>50</td>
 <td>MASKABLE</td>
@@ -3090,6 +3090,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>The number of I/O threads with which the Elasticsearch client of this index backend sends requests and receives responses. They don't wait for Elasticsearch, so a few are enough for many connections. Every index backend of every graph has a client of its own, and without this option each client starts as many I/O threads as the JVM has processors. With <code>compression</code> on, a thread compresses each request it sends, and the other requests of the thread wait meanwhile.</td>
 <td>Integer</td>
 <td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.limited-result-max-page-size</td>
+<td>The largest page of an index query with a limit which is too large for a single request, one whose offset and limit together go beyond 10,000 hits. Such a result is read from its first hit on in as few pages as this allows, all of one size, which split the hits up to the end of its limit evenly, but never in pages smaller than <code>index.[X].max-result-set-size</code>, the page size of a query without a limit. Larger pages take fewer round trips and a larger response each. <code>scroll-keep-alive</code> must cover consuming one page: each page renews it, and a consumer which takes longer over a page than the keep-alive loses the scroll context or point in time. The next page then fails, or, where the index's shards sit on several nodes, comes back with the hits of only some shards, which ends the result early or leaves hits out without an error. A slower consumer can lower this option in its local configuration, as it is MASKABLE, or raise <code>scroll-keep-alive</code>, which is GLOBAL_OFFLINE. 10,000 is the practical ceiling: Elasticsearch accepts at most <code>index.max_result_window</code> hits in a page of a scroll or of a point in time, 10,000 by default, which JanusGraph lifts only on the indexes it creates; on those, the time a consumer has for each hit bounds it. A value no larger than <code>max-result-set-size</code> reads such results in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
+<td>Integer</td>
+<td>250</td>
 <td>MASKABLE</td>
 </tr>
 <tr>

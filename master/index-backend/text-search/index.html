@@ -2237,9 +2237,17 @@ of the above text predicates:</p>
 <p>Full-text search predicates may be used in queries, but those require
 filtering in memory which can be very costly.</p>
 <h3 id="full-text-and-string-search">Full text and string search</h3>
-<p>If you are using Elasticsearch it is possible to index properties as
-both text and string allowing you to use all of the predicates for exact
-and fuzzy matching.</p>
+<p>Elasticsearch, OpenSearch, Solr and Lucene can index properties as
+both text and string, <code>Mapping.TEXTSTRING</code>, allowing you to use all of
+the predicates for exact and fuzzy matching. The full-text search
+predicates match the words of the text, case-insensitively, and the
+string search predicates, as well as <code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code> and
+<code>between</code>, match the whole string, case-sensitively. A key with a
+custom string analyzer
+(<a href="../field-mapping/#custom-analyzer"><code>ParameterType.STRING_ANALYZER</code></a>)
+is the exception: <code>eq</code> and <code>neq</code> first split their value with that
+analyzer, and the other string predicates and the ranges compare their
+value with the terms which the analyzer gives.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">openManagement</span><span class="o">()</span>
 <span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mgmt</span><span class="o">.</span><span class="na">makePropertyKey</span><span class="o">(</span><span class="s1">&#39;booksummary&#39;</span><span class="o">).</span><span class="na">dataType</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">make</span><span class="o">()</span>
 <span class="n">mgmt</span><span class="o">.</span><span class="na">buildIndex</span><span class="o">(</span><span class="s1">&#39;booksBySummary&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">Vertex</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">addKey</span><span class="o">(</span><span class="n">summary</span><span class="o">,</span><span class="w"> </span><span class="n">Mapping</span><span class="o">.</span><span class="na">TEXTSTRING</span><span class="o">.</span><span class="na">asParameter</span><span class="o">()).</span><span class="na">buildMixedIndex</span><span class="o">(</span><span class="s2">&quot;search&quot;</span><span class="o">)</span>
