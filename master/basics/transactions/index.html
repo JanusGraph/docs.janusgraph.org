@@ -462,6 +462,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#queries-see-the-transactions-changes" class="md-nav__link">
+    Queries See the Transaction's Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transaction-failures" class="md-nav__link">
     Transaction Failures
   </a>
@@ -2081,6 +2088,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#queries-see-the-transactions-changes" class="md-nav__link">
+    Queries See the Transaction's Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transaction-failures" class="md-nav__link">
     Transaction Failures
   </a>
@@ -2199,6 +2213,17 @@ transitioned:
 <span class="n">graph</span><span class="o">.</span><span class="na">tx</span><span class="o">().</span><span class="na">commit</span><span class="o">()</span><span class="w"> </span><span class="c1">//Ends transaction</span>
 <span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="o">.</span><span class="na">E</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="na">next</span><span class="o">()</span><span class="w"> </span><span class="c1">//Need to refresh edge</span>
 <span class="n">e</span><span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s2">&quot;time&quot;</span><span class="o">,</span><span class="w"> </span><span class="mi">99</span><span class="o">)</span>
+</code></pre></div></p>
+<h2 id="queries-see-the-transactions-changes">Queries See the Transaction's Changes</h2>
+<p>A query in a transaction sees what the transaction has changed before it commits: the vertices and edges it added and
+the values it set, and not the elements or values it removed. Indexes hold what was committed, so JanusGraph corrects
+what an index returns for a query with the changes of the transaction, in memory. That takes time in proportion to the
+transaction's changes which the query's conditions or order may concern, and a query with a limit may read further into
+the index, past elements which the transaction changed. A query in a transaction with very many changes which only
+needs the committed state of the graph can run in a transaction of its own, which sees none of the other's changes:
+<div class="highlight"><pre><span></span><code><span class="n">committed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="na">buildTransaction</span><span class="o">().</span><span class="na">readOnly</span><span class="o">().</span><span class="na">start</span><span class="o">()</span>
+<span class="n">latest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">committed</span><span class="o">.</span><span class="na">traversal</span><span class="o">().</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;kind&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;k&quot;</span><span class="o">).</span><span class="na">order</span><span class="o">().</span><span class="na">by</span><span class="o">(</span><span class="s2">&quot;updatedAt&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">desc</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">toList</span><span class="o">()</span>
+<span class="n">committed</span><span class="o">.</span><span class="na">rollback</span><span class="o">()</span>
 </code></pre></div></p>
 <h2 id="transaction-failures">Transaction Failures</h2>
 <p>When committing a transaction, JanusGraph will attempt to persist all
