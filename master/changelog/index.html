@@ -2149,6 +2149,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fixes-to-text-predicates-and-set-keys-on-lucene-and-solr" class="md-nav__link">
+    Fixes to text predicates and SET keys on Lucene and Solr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faster-mixed-index-reindex-with-batched-document-restores" class="md-nav__link">
     Faster mixed-index reindex with batched document restores
   </a>
@@ -3829,6 +3836,13 @@
           <li class="md-nav__item">
   <a href="#ranges-and-not-equals-of-a-textstring-key-compare-its-strings-whole" class="md-nav__link">
     Ranges and not-equals of a TEXTSTRING key compare its strings whole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-to-text-predicates-and-set-keys-on-lucene-and-solr" class="md-nav__link">
+    Fixes to text predicates and SET keys on Lucene and Solr
   </a>
   
 </li>
@@ -5810,6 +5824,53 @@ memory, as it does on keys of the other mappings.</p>
 <p>On Lucene, Elasticsearch and OpenSearch, a <code>TEXTSTRING</code> key with a custom <code>string-analyzer</code> holds the terms of that
 analyzer in the field of its whole strings, as a key mapped as <code>STRING</code> with that analyzer does: a range compares its
 value, which isn't analyzed, with those terms, while <code>eq</code> and <code>neq</code> first split their value with that analyzer.</p>
+<h5 id="fixes-to-text-predicates-and-set-keys-on-lucene-and-solr">Fixes to text predicates and <code>SET</code> keys on Lucene and Solr</h5>
+<p>Lucene now finds the elements which Elasticsearch and OpenSearch find in three more cases.</p>
+<p><code>textContainsRegex</code> on a key mapped as <code>TEXTSTRING</code> matched its expression anywhere in a word, so
+<code>textContainsRegex("lit")</code> found "Long Little Lewis", and <code>textContainsRegex("l.*e")</code> found "Middle Sister Mabel" too.
+A word now matches when the expression matches it whole, as the predicate is defined. An expression which was valid
+only within the <code>.*</code> around it now fails, as on Elasticsearch: one which ends in a backslash, or <code>abc|</code>, which matched
+every word. The expression is put in lower case, as the words are, as before: <code>textContainsRegex("Lit*le")</code> finds "Long
+Little Lewis", as on Elasticsearch and Solr, while the predicate checked in memory, as on the elements a transaction
+changed, doesn't. Putting it in lower case also turns an escape such as <code>\W</code> into <code>\w</code>, as on Elasticsearch.</p>
+<p>A <code>SET</code> key mapped as <code>DEFAULT</code>, <code>TEXT</code> or <code>TEXTSTRING</code> holds the words of each of its values in lower case, so two
+values which differ only in case have the same words. A value added beside such a variant of it, in the same
+transaction or a later one, took the place of the variant's words instead of adding its own, and once one of the two
+values was removed, the other had no words left: with "zed" and "Zed", removing "zed" made <code>textContains("zed")</code> miss
+the vertex. Lucene now replaces the words of an added value only where the document holds the value itself: as the
+field of the whole strings of a <code>TEXTSTRING</code> key tells, and on a <code>DEFAULT</code> or <code>TEXT</code> key, which has no such field, where
+a transaction puts the value back, as when a vertex property is replaced by one of the same value. An index provider
+tells such an addition by the new <code>IndexMutation.isReAddition</code>. On a <code>DEFAULT</code> or <code>TEXT</code> key, a value which reaches the
+index twice otherwise has its words twice, and they stay findable after the value is removed, until the element is
+reindexed. That takes a reindex or the transaction recovery which writes the element between the storage commit of the
+transaction which added the value and its index mutation, or a reattempt of a write whose commit failed after Lucene
+wrote it (see below). Both are rare, and the values of <code>LIST</code> keys already behave so. Words lost before this fix stay
+lost until the index is reindexed.</p>
+<p>On Solr, a value of a <code>SET</code> or <code>LIST</code> key which a transaction removed and added back was held twice, as when a
+transaction sets a value which a <code>SET</code> key holds and so replaces its property. The mutation drops such a removal and
+keeps the addition, which Solr's atomic update <code>add</code> appended to the values the document holds, while a later removal,
+Solr's <code>remove</code>, takes out one occurrence of a value. So once the value was removed, <code>textContains</code>, <code>eq</code> and the other
+predicates still found the element, on every mapping. Solr now leaves out an addition which puts back a value the
+mutation removed, as the document still holds it. Elasticsearch adds a value to a <code>SET</code> key only where the key doesn't
+hold it already. A value of a <code>LIST</code> key which a transaction removes and adds back is still held twice on Lucene and
+Elasticsearch.</p>
+<p>A mutation which Lucene reattempts after a failure is now applied once, save where a store's commit failed after Lucene
+wrote it. The stores which committed before the failure are left out of the reattempt, and the store which failed
+discards what it wrote before it failed. Before, the reattempt applied those changes again: it added the values of
+<code>LIST</code> keys a second time, and removed a second entry of a removed value of a <code>LIST</code> key, or the words of a case variant
+of a removed value of a <code>SET</code> key. And what a store wrote before it failed, also in a restore, was made to last by the
+next commit of the store, or by closing the index, where no reattempt followed. A commit which fails after Lucene wrote
+it takes an I/O error at its very end, such as a missing file of the previous commit, and the reattempt then applies
+its store again. A writer which a failure closed outside a write, such as a background merge which fails on a full
+disk, is now replaced by the next write of its store, which failed before, and a failure to open a writer, such as too
+many open files, is reattempted.</p>
+<p><code>eq</code>, <code>neq</code> and <code>textContains</code> of a value which the analyzer gives no terms for, such as punctuation or a stop word of a
+custom analyzer, added no condition to the query: alone, they found every element in the index, with the key or
+without it, and a count of them failed with "Query must not be null". (<code>eq</code> and <code>neq</code> split their value only on a key
+with a custom <code>string-analyzer</code>.) Now <code>eq</code> and <code>textContains</code> find no element, and <code>neq</code> every element with a value.
+A <code>neq</code> of a value of several terms found the elements which hold none of its terms, and the elements without a value,
+instead of the elements with a value which <code>eq</code> doesn't find, which lack one of its terms or more: with "Tom and Jerry"
+and "Spike" under the English analyzer, <code>neq("Tom Spike")</code> found neither of the two, only an element without a value.</p>
 <h5 id="faster-mixed-index-reindex-with-batched-document-restores">Faster mixed-index reindex with batched document restores</h5>
 <p>Mixed-index reindex jobs (<code>SchemaAction.REINDEX</code> against an Elasticsearch, Solr or Lucene index) now
 flush restored documents to the index backend in bounded batches while the storage scan is still
