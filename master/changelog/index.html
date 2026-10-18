@@ -2107,6 +2107,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#solr-keeps-the-clauses-of-each-condition-together" class="md-nav__link">
+    Solr keeps the clauses of each condition together
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
     Lucene counts more than a thousand matches exactly
   </a>
@@ -3794,6 +3801,13 @@
           <li class="md-nav__item">
   <a href="#solr-9-support-solr-8-is-deprecated" class="md-nav__link">
     Solr 9 support, Solr 8 is deprecated
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solr-keeps-the-clauses-of-each-condition-together" class="md-nav__link">
+    Solr keeps the clauses of each condition together
   </a>
   
 </li>
@@ -5742,6 +5756,39 @@ classes, and when the <code>org.noggit:noggit</code> 0.8 artifact (a dependency 
 reader) comes first on the classpath, SolrJ fails with
 <code>NoSuchMethodError: 'java.lang.Object org.noggit.ObjectBuilder.getValStrict()'</code>. Applications which use
 <code>janusgraph-solr</code> should exclude <code>org.noggit:noggit</code> as well: Spatial4j works with SolrJ's copy.</p>
+<h5 id="solr-keeps-the-clauses-of-each-condition-together">Solr keeps the clauses of each condition together</h5>
+<p>Solr's query parser takes the clauses of a condition's query within another condition as clauses of that one, so
+JanusGraph has to group them. It didn't:</p>
+<ul>
+<li>A <code>textContains</code> of several words, which Solr gets as a conjunction of its words, failed together with another
+  condition which the same mixed index answers, such as <code>g.V().has('name', textContains('red green')).has('num',
+  lt(4))</code>, with <code>SyntaxError: Cannot parse '++name_t:(red) +name_t:(green) ...'</code>. So did an <code>eq</code> or <code>neq</code> whose value a
+  custom <code>string-analyzer</code> splits into several terms.</li>
+<li>Within a disjunction of predicates on one key, such a condition, or a <code>neq</code>, restricted the other alternatives:
+  <code>has('name', textContains('red green').or(textContains('yellow')))</code> didn't find a vertex named <code>yellow</code>, and
+  <code>has('num', neq(3).or(lt(4)))</code> didn't find the vertices of <code>num</code> 3.</li>
+<li>In a condition which an application builds for the index provider API itself, a negation within a disjunction
+  excluded its documents from the whole disjunction, and a negation of a negation matched every document.</li>
+</ul>
+<p>Solr now gets each such condition as a group, and a group which starts with a negation starts from all documents
+(<code>*:*</code>). The other queries are unchanged.</p>
+<p>The precision of a shape (<code>distErrPct=0</code>), which JanusGraph wrote after the quotes of the query of a key mapped as
+<code>PREFIX_TREE</code> and after a <code>geofilt</code> query, was a clause of its own as well: a term of the default field, <code>text</code>.</p>
+<ul>
+<li>The configset in <code>conf/solr</code> has no such field, so with it Solr rejected these queries with <code>undefined field text</code>:
+  every geo condition on a <code>PREFIX_TREE</code> key other than a <code>geoIntersect</code> of a circle or a box, and a <code>geofilt</code> one
+  together with another condition of the same mixed index, such as
+  <code>g.V().has('location', geoWithin(Geoshape.circle(48.5, 0.5, 200))).has('num', 3)</code> on a key of the default mapping.
+  A condition of a polygon fails earlier there, as before: that configset's geo field parses no polygons.</li>
+<li>Where the field exists, as in the configset of JanusGraph's tests, a document whose <code>text</code> held "0" matched such a
+  query on a <code>PREFIX_TREE</code> key on its own, and a <code>geofilt</code> query within a disjunction.</li>
+</ul>
+<p>The precision now goes within the quotes, where Solr reads it. So the query of a shape on a <code>PREFIX_TREE</code> key, which
+every geo condition there gets but a <code>geoIntersect</code> of a circle (a <code>geofilt</code> query) or of a box (a range query),
+compares the shape as precisely as the field's grid allows, rather than with the field's <code>distErrPct</code>. Where that is
+larger than 0, such as 0.025 in Solr's sample <code>location_rpt</code> field, such a query may take longer, as it refines more
+cells along the shape's edge; in the configset in <code>conf/solr</code>, it is 0 already, so nothing changes there. A <code>geofilt</code>
+query takes no such option and gets none.</p>
 <h5 id="lucene-counts-more-than-a-thousand-matches-exactly">Lucene counts more than a thousand matches exactly</h5>
 <p>A <code>count()</code> which a Lucene mixed index answers, such as <code>g.V().has('age', lt(2000)).count()</code>, and the totals of a direct
 index query, <code>vertexTotals()</code>, <code>edgeTotals()</code> and <code>propertyTotals()</code>, took the total hits of a search for one document,
