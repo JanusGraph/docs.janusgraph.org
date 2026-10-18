@@ -2534,6 +2534,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#a-connection-or-property-which-the-schema-has-already-is-not-added-again" class="md-nav__link">
+    A connection or property which the schema has already is not added again
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#closing-a-graph-no-longer-fails-on-a-transaction-which-another-thread-closes-meanwhile" class="md-nav__link">
     Closing a graph no longer fails on a transaction which another thread closes meanwhile
   </a>
@@ -4235,6 +4242,13 @@
           <li class="md-nav__item">
   <a href="#schema-changes-committed-by-ordinary-transactions-reach-the-other-instances" class="md-nav__link">
     Schema changes committed by ordinary transactions reach the other instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-connection-or-property-which-the-schema-has-already-is-not-added-again" class="md-nav__link">
+    A connection or property which the schema has already is not added again
   </a>
   
 </li>
@@ -6842,6 +6856,19 @@ eviction as well and acknowledge it; that acknowledgement is ignored, so a rolli
 the upgrade, each such eviction costs an older instance the thread which waits for its open transactions to close before
 it acknowledges, for up to a minute, and one with a transaction open for longer than that logs the stale-transaction
 error it logs for any eviction it waited that long for.</p>
+<h5 id="a-connection-or-property-which-the-schema-has-already-is-not-added-again">A connection or property which the schema has already is not added again</h5>
+<p><code>addConnection(edgeLabel, outLabel, inLabel)</code>, on a transaction or on the management system, wrote the connection, and a
+link from the edge label to the outgoing vertex label, each time it was called, and <code>addProperties(label, keys...)</code>
+wrote the property of a vertex or edge label on each call. <code>mappedConnections()</code> and <code>mappedProperties()</code> list each
+copy, so a connection which was added twice was listed twice by both labels.</p>
+<p>With <code>schema.constraints=true</code> and a schema maker which creates missing constraints, a transaction checks the
+connections and properties of the committed schema, so it added a connection or a property which that schema lacked
+for each edge or element of it: three such edges in one transaction left the connection listed three times by both
+labels, and three vertices with a property new to their label left the property listed three times.</p>
+<p>Now <code>addConnection</code> and <code>addProperties</code> write a connection, link or property only where the schema hasn't got it,
+committed or written earlier by the same transaction. The copies which earlier versions wrote stay, and so do those
+of two transactions which add the same constraint at the same time. Renaming an edge label renames each copy of its
+connections.</p>
 <h5 id="closing-a-graph-no-longer-fails-on-a-transaction-which-another-thread-closes-meanwhile">Closing a graph no longer fails on a transaction which another thread closes meanwhile</h5>
 <p>Closing a graph rolls back the transactions which are still open. If another thread closed one of them after the graph
 had listed it, the graph's rollback found it closed, and <code>close()</code> threw
