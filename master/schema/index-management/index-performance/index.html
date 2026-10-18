@@ -2448,8 +2448,9 @@ graph index would be defined.
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To enforce uniqueness against an eventually consistent storage
-backend, the <a href="../../../advanced-topics/eventual-consistency/">consistency</a> of the index must be
+<p>To enforce uniqueness against concurrent transactions, on an eventually
+consistent storage backend or on BerkeleyDB, the
+<a href="../../../advanced-topics/eventual-consistency/">consistency</a> of the index must be
 explicitly set to enabling locking.</p>
 </div>
 <h3 id="mixed-index">Mixed Index</h3>
