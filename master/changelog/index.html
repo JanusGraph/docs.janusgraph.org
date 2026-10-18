@@ -2317,6 +2317,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elasticsearch-sorts-by-byte-and-short-keys" class="md-nav__link">
+    Elasticsearch sorts by Byte and Short keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#transient-elasticsearch-read-failures-are-reattempted" class="md-nav__link">
     Transient Elasticsearch read failures are reattempted
   </a>
@@ -4011,6 +4018,13 @@
           <li class="md-nav__item">
   <a href="#index-restores-are-reattempted-after-a-transient-failure" class="md-nav__link">
     Index restores are reattempted after a transient failure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-sorts-by-byte-and-short-keys" class="md-nav__link">
+    Elasticsearch sorts by Byte and Short keys
   </a>
   
 </li>
@@ -6338,6 +6352,18 @@ classified as transient — for Elasticsearch a 429, a 503 or a dropped connecti
 where the same failure during a commit is reattempted. It now runs through <code>BackendOperation</code> like a commit does:
 reattempted with backoff for up to <code>storage.write-time</code>, and only then reported. A restore writes whole documents, so
 a reattempt is idempotent.</p>
+<h5 id="elasticsearch-sorts-by-byte-and-short-keys">Elasticsearch sorts by Byte and Short keys</h5>
+<p>A graph query which a mixed index on Elasticsearch answered in the order of a <code>Byte</code> or a <code>Short</code> key, such as
+<code>g.V().has('tag', 't').order().by('small')</code>, failed with <code>Could not call index</code>, and an index query (<code>indexQuery</code>)
+with <code>orderBy</code> on such a key failed too: JanusGraph gave the sort an <code>unmapped_type</code> of <code>null</code>, which Elasticsearch and
+OpenSearch reject with a 400 (<code>[field_sort] unmapped_type doesn't support values of type: VALUE_NULL</code>). The sort now
+names the <code>byte</code> or <code>short</code> type which JanusGraph maps such a key to.</p>
+<p>A sort by a string key named the type <code>string</code>, which Elasticsearch 5 replaced with <code>text</code> and <code>keyword</code>. Where the
+index had no mapping of the key, as under an external dynamic mapping
+(<code>index.[X].elasticsearch.create.use-external-mappings</code> without <code>index.[X].elasticsearch.create.allow-mapping-update</code>)
+before any document held the key, Elasticsearch 8 and 9 rejected the sort (<code>No mapper found for type [string]</code>), and
+Elasticsearch 6 and 7 sorted by <code>keyword</code> in its place, with a deprecation warning. It now names <code>keyword</code>, the type
+which JanusGraph maps the field a sort by a string key reads to, unless the key has a custom string analyzer.</p>
 <h5 id="transient-elasticsearch-read-failures-are-reattempted">Transient Elasticsearch read failures are reattempted</h5>
 <p>A mixed index query, count or aggregation against Elasticsearch wrapped every failure in a <code>PermanentBackendException</code>,
 so a throttled or momentarily unreachable cluster failed the traversal outright — although <code>BackendTransaction</code> already
