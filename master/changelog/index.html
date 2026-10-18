@@ -2128,6 +2128,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#haskey-on-lucene-finds-the-elements-with-a-list-or-set-key-of-numbers-dates-or-booleans" class="md-nav__link">
+    has(key) on Lucene finds the elements with a LIST or SET key of numbers, dates or booleans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#names-dates-and-searched-text-no-longer-depend-on-the-default-locale" class="md-nav__link">
     Names, dates and searched text no longer depend on the default locale
   </a>
@@ -3850,6 +3857,13 @@
           <li class="md-nav__item">
   <a href="#apache-lucene-9" class="md-nav__link">
     Apache Lucene 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haskey-on-lucene-finds-the-elements-with-a-list-or-set-key-of-numbers-dates-or-booleans" class="md-nav__link">
+    has(key) on Lucene finds the elements with a LIST or SET key of numbers, dates or booleans
   </a>
   
 </li>
@@ -5866,6 +5880,13 @@ values as floats.</p>
 loaded by class name, so they have to exist in Lucene 9. Lucene 9 renamed the <code>lucene-analyzers-common</code> artifact to
 <code>lucene-analysis-common</code> and moved a few analyzers to other packages, for example <code>ClassicAnalyzer</code> to
 <code>org.apache.lucene.analysis.classic</code> and <code>UAX29URLEmailAnalyzer</code> to <code>org.apache.lucene.analysis.email</code>.</p>
+<h5 id="haskey-on-lucene-finds-the-elements-with-a-list-or-set-key-of-numbers-dates-or-booleans"><code>has(key)</code> on Lucene finds the elements with a <code>LIST</code> or <code>SET</code> key of numbers, dates or booleans</h5>
+<p>On a Lucene mixed index, <code>has(key)</code> of a key of <code>LIST</code> or <code>SET</code> cardinality whose values are numbers, dates, instants or
+booleans, such as <code>g.V().has("weights")</code>, found no elements in JanusGraph 0.6.0 to 1.1.x, on vertex, edge and vertex
+property indexes alike, and its <code>count()</code> was 0. Lucene indexes such values as points alone, without the doc values or
+norms which the exists query of <code>has(key)</code> read. That query now finds the elements which hold a value of such a key, by
+reading all the values of the key in the index: roughly 1 ms a query per million values, also with a limit or a
+selective condition beside it. No reindexing is needed, as Lucene writes these keys as before.</p>
 <h5 id="names-dates-and-searched-text-no-longer-depend-on-the-default-locale">Names, dates and searched text no longer depend on the default locale</h5>
 <p>JanusGraph converts the case of the names it reads and writes in the root locale, and lower-cases the text it searches
 case-insensitively one code point at a time, as the analyzers of the index backends do. Both followed the JVM's default
