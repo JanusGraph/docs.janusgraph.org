@@ -2422,6 +2422,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#graph-queries-which-janusgraph-sorts-leave-out-the-vertices-which-the-transaction-removed" class="md-nav__link">
+    Graph queries which JanusGraph sorts leave out the vertices which the transaction removed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#graph-queries-read-on-past-the-edges-and-properties-which-the-transaction-removed" class="md-nav__link">
     Graph queries read on past the edges and properties which the transaction removed
   </a>
@@ -4137,6 +4144,13 @@
           <li class="md-nav__item">
   <a href="#an-index-query-result-too-large-for-the-transactions-cache-is-no-longer-put-into-it" class="md-nav__link">
     An index query result too large for the transaction's cache is no longer put into it
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-queries-which-janusgraph-sorts-leave-out-the-vertices-which-the-transaction-removed" class="md-nav__link">
+    Graph queries which JanusGraph sorts leave out the vertices which the transaction removed
   </a>
   
 </li>
@@ -6634,6 +6648,15 @@ Elasticsearch and Solr do: a query which streamed 500,000 ids from Elasticsearch
 31 bytes per id. The cache is also maintained by the thread which uses it, rather than in a task of the common pool
 after every change, so that a hundred index queries of one result each in a transaction take 0.71 ms instead of 0.89 on
 one thread, and 1.1 ms instead of 3.1 with eight threads running such transactions at once, on the inmemory backend.</p>
+<h5 id="graph-queries-which-janusgraph-sorts-leave-out-the-vertices-which-the-transaction-removed">Graph queries which JanusGraph sorts leave out the vertices which the transaction removed</h5>
+<p>A graph query ordered by a key which its index doesn't sort it by, such as one which a composite index answers, or a
+mixed index which doesn't hold the order key, failed in a transaction which had removed one of the vertices it matched,
+with an <code>IllegalStateException</code> that the vertex was removed: JanusGraph sorted what the index returned before it left
+out the elements which the transaction had removed, and read the order key of the removed vertex. It now leaves out the
+removed vertices before it sorts the others, as the query without an order leaves them out. So
+<code>g.V().has('kind', 'p').order().by('name')</code>, with <code>kind</code> in a composite index, returns the vertices of kind <code>p</code> which
+are left in a transaction which dropped one of them, as does
+<code>graph.query().has('kind', 'p').orderBy('name', asc).vertices()</code>.</p>
 <h5 id="graph-queries-read-on-past-the-edges-and-properties-which-the-transaction-removed">Graph queries read on past the edges and properties which the transaction removed</h5>
 <p>An index, mixed or composite, still holds the edges and vertex properties which the transaction removed, until it
 commits. Their ids turn into no element, and a graph query leaves them out of what the index returns. A query which the
