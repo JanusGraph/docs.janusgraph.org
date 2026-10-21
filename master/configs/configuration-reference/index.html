@@ -3068,6 +3068,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>none</td>
 <td>MASKABLE</td>
 </tr>
+<tr>
+<td>computer.task-progress-timeout</td>
+<td>How long a job waits without any of its tasks ending in the phases which run on a pool of workers after its scans: the execution of the vertex program on the partitioned vertices, the reduce stage of a map-reduce, and the writing of the computed properties into the graph. Then the job interrupts the running tasks, drops the others and fails, rather than wait for tasks which may never end. While tasks keep ending, the job waits as long as they take. A task is one vertex, key or batch of writes, which normally ends within seconds; the default also lets a backend retry the writes of a batch for several times storage.write-time. As for every duration, a value without a unit is in milliseconds: half an hour is '30 minutes' or 1800000. A value of about 292 years or more, such as 9223372036854775807, waits indefinitely.</td>
+<td>Duration</td>
+<td>600000 ms</td>
+<td>MASKABLE</td>
+</tr>
 </tbody>
 </table>
 <h3 id="graph">graph</h3>
@@ -3577,6 +3584,13 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.allow-partial-results</td>
+<td>Whether an index query, count or aggregation uses the results of the shards which answered where other shards of the index failed, weren't available or ran out of time: where the search context of a scroll expired on some nodes but not on others, for example, or where a search ran out of its <code>timeout</code>, set as a parameter of a direct index query or by the cluster's <code>search.default_search_timeout</code>. Elasticsearch answers with such partial results unless it is told otherwise. By default, JanusGraph tells it otherwise, with <code>allow_partial_search_results=false</code> on the searches and counts it sends to Elasticsearch 7 and later and to OpenSearch, and fails every answer which lacks the results of some shards, with their failures in the error, the later pages of a scroll among them, which take no such parameter. JanusGraph doesn't reattempt a search which ran out of time, though the Elasticsearch client still sends a request answered with 502, 503 or 504 to its next host, and Elasticsearch 8.15.3 answers a time-out with 504. Set this to true to use partial results, as earlier versions did.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</td>
 <td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size. If a single bulk item exceeds this limit an exception will be thrown after the smaller bulk items are submitted. Ensure that this limit is always less than or equal to the configured limit of <code>http.max_content_length</code> on the Elasticsearch servers. For more information, refer to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-network.html">Elasticsearch documentation</a>.</td>
 <td>Integer</td>
@@ -3641,7 +3655,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.limited-result-max-page-size</td>
-<td>The largest page of an index query with a limit which is too large for a single request, one whose offset and limit together go beyond 10,000 hits. Such a result is read from its first hit on in as few pages as this allows, all of one size, which split the hits up to the end of its limit evenly, but never in pages smaller than <code>index.[X].max-result-set-size</code>, the page size of a query without a limit. Larger pages take fewer round trips and a larger response each. <code>scroll-keep-alive</code> must cover consuming one page: each page renews it, and a consumer which takes longer over a page than the keep-alive loses the scroll context or point in time. The next page then fails, or, where the index's shards sit on several nodes, comes back with the hits of only some shards, which ends the result early or leaves hits out without an error. A slower consumer can lower this option in its local configuration, as it is MASKABLE, or raise <code>scroll-keep-alive</code>, which is GLOBAL_OFFLINE. 10,000 is the practical ceiling: Elasticsearch accepts at most <code>index.max_result_window</code> hits in a page of a scroll or of a point in time, 10,000 by default, which JanusGraph lifts only on the indexes it creates; on those, the time a consumer has for each hit bounds it. A value no larger than <code>max-result-set-size</code> reads such results in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
+<td>The largest page of an index query with a limit which is too large for a single request, one whose offset and limit together go beyond 10,000 hits. Such a result is read from its first hit on in as few pages as this allows, all of one size, which split the hits up to the end of its limit evenly, but never in pages smaller than <code>index.[X].max-result-set-size</code>, the page size of a query without a limit. Larger pages take fewer round trips and a larger response each. <code>scroll-keep-alive</code> must cover consuming one page: each page renews it, and a consumer which takes longer over a page than the keep-alive loses the scroll context or point in time, and the next page fails, unless <code>allow-partial-results</code> lets it come back with the hits of the shards which kept theirs. A slower consumer can lower this option in its local configuration, as it is MASKABLE, or raise <code>scroll-keep-alive</code>, which is GLOBAL_OFFLINE. 10,000 is the practical ceiling: Elasticsearch accepts at most <code>index.max_result_window</code> hits in a page of a scroll or of a point in time, 10,000 by default, which JanusGraph lifts only on the indexes it creates; on those, the time a consumer has for each hit bounds it. A value no larger than <code>max-result-set-size</code> reads such results in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
 <td>Integer</td>
 <td>250</td>
 <td>MASKABLE</td>
@@ -3676,7 +3690,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-error-codes</td>
-<td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. Queries get the client level attempts only. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
+<td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. A query, count or aggregation is likewise reattempted as a whole for up to <code>storage.read-time</code>, but not the later pages of a result read in pages, which get the client level attempts only. JanusGraph doesn't reattempt a search which ran out of its time, whatever its status, though the Elasticsearch client still sends a request answered with 502, 503 or 504 to its next host. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
 <td>String[]</td>
 <td>429,502,503,504</td>
 <td>LOCAL</td>

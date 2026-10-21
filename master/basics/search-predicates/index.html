@@ -2145,6 +2145,17 @@
 <p>All comparison predicates are supported by String, numeric, Date and Instant data types.
 Boolean and UUID data types support the <code>eq</code> and <code>neq</code> comparison predicates.</p>
 <p><code>eq</code> and <code>neq</code> can be used on Boolean and UUID.</p>
+<p>In a graph query, such as <code>g.V().has('name', gt('m'))</code>, the comparison predicates compare two strings by their code
+points, as the mixed indexes do, also where JanusGraph checks them itself, and so does an <code>order().by(key)</code> which
+JanusGraph folds into the query. On the edges and properties of a vertex, such as
+<code>g.V(v).outE('link').has('name', gt('m'))</code>, they compare two strings by their UTF-16 code units, the order in which a
+vertex-centric index sorts them. So do an <code>order()</code> and a <code>has()</code> which JanusGraph doesn't fold into a query, which
+TinkerPop checks, such as <code>order().by('name').by(T.id)</code>, <code>not(has('name', lte('m')))</code> or a <code>has()</code> of a
+<code>g.withComputer()</code> traversal. Such an order disagrees with the conditions of a graph query also where no mixed index
+answers it, so keyset paging with <code>gt()</code> needs an order which JanusGraph folds: by property keys alone, right after the
+<code>has()</code> steps of the query, and for vertices by keys of <code>SINGLE</code> cardinality, unless every mixed index backend of the
+graph can order by a key of several values. The two orders differ only where, at the first character in which two
+strings differ, one has a character from U+10000 up, such as an emoji, and the other one from U+E000 to U+FFFF.</p>
 <h2 id="text-predicate">Text Predicate</h2>
 <p>The <code>Text</code> enum specifies the <a href="../../index-backend/text-search/">Text Search</a> used to query for matching text or string values.  We differentiate between two types of predicates:</p>
 <ul>

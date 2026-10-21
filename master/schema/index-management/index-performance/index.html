@@ -2579,7 +2579,19 @@ retrieves the ten oldest individuals with <em>hercules</em> in their name.</p>
 </li>
 <li>
 <p>Only Elasticsearch and Solr mixed index backends support ordering
-    property keys with <strong>LIST</strong> cardinality natively and efficiently.</p>
+    property keys with <strong>LIST</strong> cardinality natively and efficiently.
+    They order an element with several values of a key of <strong>LIST</strong> or
+    <strong>SET</strong> cardinality by the least of them in an ascending order and
+    by the greatest in a descending one. JanusGraph orders such
+    elements in the same way where it sorts the results of
+    <code>graph.query()</code> itself, as it does those of a composite index, or
+    of a Lucene index, which can't sort by such a key. A traversal's
+    <code>order().by()</code> of vertices by such a key is folded into
+    JanusGraph's query only where the graph has mixed index backends
+    and every one of them can sort by it; otherwise TinkerPop sorts the
+    vertices, and fails on one with several values of the key. An order
+    of edges, each of which holds one value of a key at most, is folded
+    in whatever the cardinality of the key.</p>
 </li>
 <li>
 <p>Strings are ordered by their code points, as the mixed index
@@ -2590,6 +2602,21 @@ retrieves the ten oldest individuals with <em>hercules</em> in their name.</p>
     the first character in which two strings differ, one has a
     character from U+10000 up, such as an emoji, and the other one
     from U+E000 to U+FFFF.</p>
+</li>
+<li>
+<p>UUIDs are ordered by their string forms, as the Elasticsearch,
+    OpenSearch and Solr mixed index backends sort them and as the
+    storage backend holds them as sort keys, whether a mixed index or
+    JanusGraph sorts the results. An <code>order()</code> which JanusGraph
+    doesn't fold into its query, <code>min()</code> and <code>max()</code> compare them by
+    <code>UUID.compareTo</code> instead, as TinkerPop does, which differs: keyset
+    paging with such an order, such as
+    <code>has('uid', gt(last)).order().by('uid').by(T.id)</code>, can skip UUIDs,
+    so it needs an order which JanusGraph folds, such as
+    <code>order().by('uid')</code>. Lucene doesn't sort by a UUID key: a query
+    which a Lucene index answers, ordered by a UUID key which the
+    index holds, fails with "Could not call index", and JanusGraph
+    doesn't sort the results itself instead.</p>
 </li>
 </ul>
 <h3 id="label-constraint">Label Constraint</h3>

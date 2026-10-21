@@ -2225,6 +2225,10 @@ needs the committed state of the graph can run in a transaction of its own, whic
 <span class="n">latest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">committed</span><span class="o">.</span><span class="na">traversal</span><span class="o">().</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;kind&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;k&quot;</span><span class="o">).</span><span class="na">order</span><span class="o">().</span><span class="na">by</span><span class="o">(</span><span class="s2">&quot;updatedAt&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">desc</span><span class="o">).</span><span class="na">limit</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">toList</span><span class="o">()</span>
 <span class="n">committed</span><span class="o">.</span><span class="na">rollback</span><span class="o">()</span>
 </code></pre></div></p>
+<p>Direct index queries, through <code>graph.indexQuery()</code> or a transaction's <code>indexQuery()</code>, read the index alone. They leave
+out the elements which the transaction removed, but its other changes don't change what they find: they don't find the
+elements which the transaction added or changed to match, and they return those which it changed to no longer match,
+with their new values. Their totals, such as <code>vertexTotals()</code>, count what the index holds.</p>
 <h2 id="transaction-failures">Transaction Failures</h2>
 <p>When committing a transaction, JanusGraph will attempt to persist all
 changes to the storage backend. This might not always be successful due
