@@ -2163,6 +2163,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys" class="md-nav__link">
+    Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from LIST and SET keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ranges-and-not-equals-of-a-textstring-key-compare-its-strings-whole" class="md-nav__link">
     Ranges and not-equals of a TEXTSTRING key compare its strings whole
   </a>
@@ -2186,6 +2193,13 @@
           <li class="md-nav__item">
   <a href="#lucene-analyzes-each-field-with-the-key-information-of-the-transaction-at-hand" class="md-nav__link">
     Lucene analyzes each field with the key information of the transaction at hand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucene-finds-the-words-of-a-string-which-ends-in-an-unpaired-high-surrogate" class="md-nav__link">
+    Lucene finds the words of a string which ends in an unpaired high surrogate
   </a>
   
 </li>
@@ -2333,6 +2347,13 @@
           <li class="md-nav__item">
   <a href="#the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points" class="md-nav__link">
     The strings of an ordered graph query come in the order of their code points
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-limit-range-and-order-steps-of-an-or-branch-apply-to-each-element-as-in-tinkerpop" class="md-nav__link">
+    The limit(), range() and order() steps of an or() branch apply to each element, as in TinkerPop
   </a>
   
 </li>
@@ -3953,6 +3974,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys" class="md-nav__link">
+    Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from LIST and SET keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ranges-and-not-equals-of-a-textstring-key-compare-its-strings-whole" class="md-nav__link">
     Ranges and not-equals of a TEXTSTRING key compare its strings whole
   </a>
@@ -3976,6 +4004,13 @@
           <li class="md-nav__item">
   <a href="#lucene-analyzes-each-field-with-the-key-information-of-the-transaction-at-hand" class="md-nav__link">
     Lucene analyzes each field with the key information of the transaction at hand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucene-finds-the-words-of-a-string-which-ends-in-an-unpaired-high-surrogate" class="md-nav__link">
+    Lucene finds the words of a string which ends in an unpaired high surrogate
   </a>
   
 </li>
@@ -4123,6 +4158,13 @@
           <li class="md-nav__item">
   <a href="#the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points" class="md-nav__link">
     The strings of an ordered graph query come in the order of their code points
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-limit-range-and-order-steps-of-an-or-branch-apply-to-each-element-as-in-tinkerpop" class="md-nav__link">
+    The limit(), range() and order() steps of an or() branch apply to each element, as in TinkerPop
   </a>
   
 </li>
@@ -6057,6 +6099,29 @@ has, as it does without the index, whereas Lucene orders <code>-0.0</code> below
 stores and orders above positive infinity, also finds what it does without the index: <code>eq</code>, <code>lte</code> and <code>gte</code> of NaN find
 NaN, <code>lt</code> and <code>gt</code> of NaN nothing, and <code>neq</code> of any other value finds NaN as well. A raw range reaches NaN by a NaN
 bound, as in <code>score:[5 TO NaN]</code>.</p>
+<h5 id="lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys">Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from <code>LIST</code> and <code>SET</code> keys</h5>
+<p>On a Lucene mixed index, most floats (<code>Float</code>) removed from a key of <code>LIST</code> or <code>SET</code> cardinality stayed in the
+element's document, as did the float which such a key of an edge held before it was set to another one, and <code>eq</code> and
+the ranges kept finding the element by them: after <code>g.V(v).properties("weights").drop()</code>, <code>g.V().has("weights", 0.1f)</code>
+and <code>g.V().has("weights", gt(0f))</code> still found <code>v</code>. Lucene stores a float as the double which it widens to, and
+compared the removed float with the stored values by its own decimal string, which differs from the double's for most
+floats: <code>0.1</code> against <code>0.10000000149011612</code>. Floats whose strings are the same, such as <code>1.5f</code> or <code>-2.5f</code>, were
+removed. A string with an unpaired surrogate stayed likewise, whatever its mapping, as Lucene stores U+FFFD in place of
+the surrogate. Lucene now compares a removed value with the stored ones in the form in which it stores them. What it
+writes doesn't change. A string longer than 16,000 UTF-16 units is removed too where storage gives it back with its
+unpaired surrogates, as it does from 1.2.0 on (see "Strings longer than 16,000 UTF-16 units keep their unpaired
+surrogates"); one which an earlier version stored comes back with a question mark in place of each unpaired surrogate,
+and stays in the index when it's removed.</p>
+<p>In exchange, a <code>SET</code> key mapped as <code>STRING</code> or <code>TEXTSTRING</code> which holds two strings that Lucene stores alike, which
+differ only in an unpaired surrogate, or in one and U+FFFD, holds one entry for both, whichever came first, so once one
+of them is removed, the other isn't found either. Two instants of one millisecond share one entry in the same way, as
+before.</p>
+<p>What an earlier version left in an index stays there: the removed values, and a second copy of a value which a <code>SET</code>
+key held when the value was set again, so that removing that value now takes out one of the two. A reindex writes the
+document of each element which holds a value of the index anew, without them, but leaves the document of an element
+which holds none as it is. To clear those too, stop the instances, delete the directory of each mixed index concerned,
+<code>index.[X].directory/&lt;index name&gt;</code>, and reindex those indexes. They stay enabled meanwhile, so until the reindex has
+finished, their queries miss the elements which it hasn't written yet.</p>
 <h5 id="ranges-and-not-equals-of-a-textstring-key-compare-its-strings-whole">Ranges and not-equals of a <code>TEXTSTRING</code> key compare its strings whole</h5>
 <p>A key mapped as <code>TEXTSTRING</code> holds each string whole in a field of its own, which the index sorts the key by, and its
 words in its text field. A range on such a key, <code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code> or <code>between</code>, compared its bound with the
@@ -6167,6 +6232,16 @@ key and queries no longer found the values indexed before; string-mapped and UUI
 instance already, as their exact, prefix, regex, fuzzy and range queries compare the raw value with what the
 standard analyzer indexed. The analyzer now resolves each field through the key information of the transaction on
 whose behalf the field is analyzed.</p>
+<h5 id="lucene-finds-the-words-of-a-string-which-ends-in-an-unpaired-high-surrogate">Lucene finds the words of a string which ends in an unpaired high surrogate</h5>
+<p>On a Lucene mixed index, a string value of a key mapped as <code>DEFAULT</code>, <code>TEXT</code> or <code>TEXTSTRING</code> which ended in an unpaired
+high surrogate, a unit from U+D800 to U+DBFF without the low half of its pair after it, was indexed without the words
+which Lucene's standard tokenizer read last along with the surrogate, all of them in a short value:
+<code>textContains("words")</code> didn't find an element whose value was <code>"Tail Words\uD800"</code>. A later write of the element's
+document found them, as it analyzed the string as Lucene had stored it, with U+FFFD in place of the surrogate. Such a
+string is now analyzed with U+FFFD from its first write, and so is a query value: a <code>textContains</code> value which ended in
+an unpaired high surrogate gave no words and found every element of the index, and a <code>textContainsPrefix</code> value found
+none, where both now find the elements with its words. A value written before keeps its words missing until its
+element's document is written again, as by a reindex or an update of another of its values in the index.</p>
 <h5 id="faster-olap-scans-signal-based-row-hand-off">Faster OLAP scans (signal-based row hand-off)</h5>
 <p>The OLAP scan pipeline behind reindex and other scan jobs now hands rows between its internal threads
 using blocking <code>take()</code> and sentinel markers instead of polling bounded queues on a fixed timer. On
@@ -6609,7 +6684,7 @@ these came out of order:</p>
 <li>in a query which no index sorts, such as one ordered by a key which the index doesn't hold, which sorted them unlike
   a query which an index sorts;</li>
 <li>in a traversal whose <code>or()</code> branches JanusGraph answers by queries of their own, as it does when no index answers
-  the <code>or()</code>, and in most cases when a branch has a <code>range()</code> or a <code>limit()</code> of its own, which merged the results of
+  the <code>or()</code> as a whole, as for branches which only a composite index or no index answers, which merged the results of
   those queries by UTF-16 unit. That merge also failed with an <code>IllegalStateException</code> when it compared an element
   without the order key with one of another branch; such an element now comes last, as in any ordered graph query
   which JanusGraph answers.</li>
@@ -6621,6 +6696,71 @@ edges which its representatives hold, where a vertex which isn't partitioned put
 representative orders them.</p>
 <p>For code built on these classes: <code>MultiDistinctOrderedIterator</code> takes the <code>Comparator</code> to merge by in place of a list
 of <code>HasStepFolder.OrderEntry</code>.</p>
+<h5 id="the-limit-range-and-order-steps-of-an-or-branch-apply-to-each-element-as-in-tinkerpop">The <code>limit()</code>, <code>range()</code> and <code>order()</code> steps of an <code>or()</code> branch apply to each element, as in TinkerPop</h5>
+<p>TinkerPop runs each branch of an <code>or()</code> for each element on its own. So a <code>limit()</code> or <code>range()</code> in a branch lets the
+element through, unless it skips it or its limit is 0, and an <code>order()</code> there lets it through where each of its
+<code>by(key)</code> modulators has a value. JanusGraph, which folds the <code>or()</code> into its query, took the first elements of such a
+branch instead, and a branch's limit could become that of the whole query. With <code>kind</code> in a mixed index:</p>
+<ul>
+<li><code>g.V().or(__.has('kind', 'p').limit(1), __.has('kind', 'q'))</code> returned a single vertex, and one of kind <code>p</code> with those
+  of kind <code>q</code> where the branches came the other way round. It now returns every vertex of kind <code>p</code> or <code>q</code>, as
+  TinkerGraph does.</li>
+<li><code>g.V().or(__.has('kind', 'p').range(1, 3), __.has('kind', 'q'))</code> returned two vertices of kind <code>p</code> as well. A range
+  from 1 lets no element through, so it now returns the vertices of kind <code>q</code>.</li>
+<li><code>g.V().or(__.has('kind', 'p').order().by('age').limit(1), __.has('kind', 'q')).order().by('name')</code> returned a single
+  vertex, and where no index answers the <code>or()</code> as a whole, the first vertex of kind <code>p</code> by its <code>name</code> rather than its
+  <code>age</code> with those of kind <code>q</code>. It now returns the vertices of kind <code>p</code> which have an <code>age</code>, and those of kind <code>q</code>.</li>
+</ul>
+<p>A branch's <code>limit()</code> no longer bounds what JanusGraph reads, so such an <code>or()</code> reads every element which matches it. To
+take the first elements of a branch, use a <code>union()</code> of traversals which each start from <code>V()</code>, such as
+<code>g.union(__.V().has('kind', 'p').limit(1), __.V().has('kind', 'q')).dedup()</code>, for which JanusGraph queries an index for
+each branch. <code>g.V().union(...)</code> reads every vertex instead, and fails under <code>query.force-index</code>.</p>
+<p>Each step of a branch is now a condition on the element, whatever their order. A <code>has(key)</code> after a <code>has()</code>, as in
+<code>__.has('kind', 'p').has('age')</code>, was dropped, and a second one taken for a branch of its own; several <code>has()</code> steps
+with a <code>limit()</code> between them, such as <code>__.has('kind', 'p').limit(1).has('age', 3)</code>, were taken for branches of their
+own; a branch which began with a <code>limit()</code> was left out; and an <code>order()</code> by a traversal in a branch was dropped. A
+branch's <code>order()</code> by the id or the label of the element, which every element has, lets each element through, and so
+does one by a key under the deprecated <code>ProductiveByStrategy</code>, which makes it yield null where the key has none. An
+<code>or()</code> of which no branch lets an element through now returns no element without reading any, also where the traversal
+orders the elements. JanusGraph leaves an <code>or()</code> to TinkerPop where one of its branches orders by a traversal, such as
+<code>__.has('kind', 'p').order().by(__.values('age').count())</code>, and folds in none of the <code>has()</code> steps after it either:
+TinkerPop then checks every element which the query of the <code>has()</code> steps before the <code>or()</code> returns, every vertex where
+there are none, which fails under <code>query.force-index</code>, where JanusGraph used the index before.</p>
+<p>The vertices of ids which a traversal starts from, as in
+<code>g.V().hasId(ids).or(__.has('kind', 'p'), __.has('name', 'd'))</code>, had to hold every branch of the <code>or()</code> at once; they
+now need to hold one, as in TinkerPop. A traversal with two <code>or()</code> steps, of which one had a branch with an offset or an
+order of its own, failed with a <code>NullPointerException</code>, and one with a branch on a key which doesn't exist next to
+another <code>or()</code> returned nothing; both are fixed. Such a branch also made the <code>or()</code> of JanusGraph's API return nothing:
+<code>tx.query().or([tx.query().has('nickname', 'x'), tx.query().has('kind', 'p')]).vertices()</code> now returns the vertices of
+kind <code>p</code>.</p>
+<p>That <code>or()</code> also left out the query's own conditions, so
+<code>tx.query().has('kind', 'p').or([tx.query().has('name', 'd'), tx.query().has('age', 1)])</code> returned the vertices of other
+kinds which held a sub-query too, and the <code>or()</code> calls of its sub-queries, so that a sub-query of only an <code>or()</code> call,
+as the first of <code>tx.query().or([tx.query().or([...]), tx.query().has('name', 'a')])</code>, held for every vertex, for none
+where a Lucene index answered the query, and made Elasticsearch fail. Both now hold, the sub-queries as they are when
+the <code>or()</code> is called: a condition added to a sub-query afterwards no longer counts. The query's own conditions, and
+those of an <code>or()</code> of a single sub-query, make one conjunction, which an <code>or()</code> of sub-queries of a single condition
+each joins as a disjunction of those conditions, so that a composite index, or a Solr index, can answer the conditions
+it holds. An <code>or()</code> of sub-queries of several conditions each takes the query's condition out of that form: it is
+checked in memory, or scans, and fails under <code>query.force-index</code>, even where a composite index holds one of the query's
+own conditions, unless an Elasticsearch or Lucene index answers the whole condition. The condition of a traversal with
+several <code>or()</code> steps whose branches have a single condition each is written in the same way, so that a composite or a
+Solr index can answer it too where it holds its keys, and <code>profile()</code> shows it flat, as
+<code>((name = bob OR prop = val2) AND (name = alex OR prop = val))</code>. And <code>tx.query().or([])</code>, of no sub-queries, returned
+every vertex, where it now returns none, as a disjunction of nothing holds for none.</p>
+<p>A sub-query which every element holds, such as <code>tx.query().hasNot('nickname')</code> where no key is named <code>nickname</code>, now
+makes the <code>or()</code> hold for every element. Where a mixed index answered the <code>or()</code>, such a sub-query became a conjunction
+of no conditions: Lucene read it as one which no element holds, so
+<code>tx.query().or([tx.query().hasNot('nickname'), tx.query().has('kind', 'p')])</code> returned only the vertices of kind <code>p</code>,
+and Elasticsearch failed with <code>Could not call index</code>. Such an <code>or()</code> now reads every element, and so fails under
+<code>query.force-index</code> with <code>Could not find a suitable index</code>. So does a traversal's <code>or()</code> with a branch such as
+<code>__.has('nickname', null)</code> on a key which doesn't exist, which JanusGraph holds for every vertex, as it does
+<code>g.V().has('nickname', null)</code>, where TinkerPop holds it for none:
+<code>g.V().or(__.has('nickname', null), __.has('kind', 'p'))</code> now returns every vertex with a Lucene or Elasticsearch index
+too, as it did without an index, where Lucene returned the vertices of kind <code>p</code> and Elasticsearch failed.</p>
+<p>For code built on these classes: <code>HasStepFolder.localFoldInHasContainer</code> takes the step and the branch, as
+<code>(HasStepFolder, Traversal.Admin)</code>, and <code>JanusGraphStep.setLocalLimit</code> and <code>localOrderBy</code> apply the range and the order
+of a branch to each element, as TinkerPop does, instead of limiting and ordering the query of the branch.</p>
 <h5 id="mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case">Mixed index names on one backing index must now differ in more than case</h5>
 <p>An index backend derives its own index name from the JanusGraph index name case-insensitively — Elasticsearch
 lowercases it, Lucene names a directory after it — so two mixed indexes on the same backing index whose names differed
