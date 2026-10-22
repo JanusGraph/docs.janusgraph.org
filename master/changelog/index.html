@@ -2345,6 +2345,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ordered-traversals-leave-out-the-elements-which-have-no-value-of-an-order-key" class="md-nav__link">
+    Ordered traversals leave out the elements which have no value of an order key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points" class="md-nav__link">
     The strings of an ordered graph query come in the order of their code points
   </a>
@@ -4151,6 +4158,13 @@
           <li class="md-nav__item">
   <a href="#fixes-to-the-aggregations-and-orders-which-a-mixed-index-answers" class="md-nav__link">
     Fixes to the aggregations and orders which a mixed index answers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordered-traversals-leave-out-the-elements-which-have-no-value-of-an-order-key" class="md-nav__link">
+    Ordered traversals leave out the elements which have no value of an order key
   </a>
   
 </li>
@@ -6657,20 +6671,74 @@ that doesn't exist, or whose conditions a composite index answers, failed with a
 the index gives it, a <code>Long</code> for whole numbers and a <code>Double</code> for decimals, where TinkerPop keeps the type of the values
 unless the sum outgrows it. As before, Elasticsearch and Solr aggregate in doubles, and Lucene sums in doubles, which
 hold whole numbers exactly only up to 2^53.</p>
-<p>Lucene, and Solr with the example schema of earlier versions, sorted the elements without the key of an
-<code>order().by(key)</code> which the index answers among the others: as if their value were 0 for numbers and dates, and in
-Lucene for booleans too, while Lucene put strings without a value first when ascending. JanusGraph places these elements
-last, whether the order is ascending or descending, when it orders elements itself, and Elasticsearch does too. Lucene
-now places them last as well, except where they tie with the value they sort as, the greatest <code>Long</code> or date value or
-positive infinity when ascending and the least ones or negative infinity when descending, and except that they come
-before NaN when ascending. Solr places them as its schema says: the numeric and date field types of the example
-<code>conf/solr/schema.xml</code> now declare <code>sortMissingLast="true"</code>, as its string and boolean types did already. To have an
-existing collection order these elements in the same way, add the attribute to those types in its schema and reload the
-collection.</p>
+<p>Lucene, and Solr with the example schema of earlier versions, sorted the elements without the key of an ordered query
+which the index answers among the others, such as those of <code>graph.query().orderBy('age', asc)</code>: as if their value were 0
+for numbers and dates, and in Lucene for booleans too, while Lucene put strings without a value first when ascending.
+JanusGraph places these elements last, whether the order is ascending or descending, when it orders elements itself, and
+Elasticsearch does too. Lucene now places them last as well, except where they tie with the value they sort as, the
+greatest <code>Long</code> or date value or positive infinity when ascending and the least ones or negative infinity when
+descending, and except that they come before NaN when ascending. Solr places them as its schema says: the numeric and
+date field types of the example <code>conf/solr/schema.xml</code> now declare <code>sortMissingLast="true"</code>, as its string and boolean
+types did already. To have an existing collection order these elements in the same way, add the attribute to those types
+in its schema and reload the collection. A traversal's <code>order().by(key)</code> now leaves these elements out, as the section
+<em>Ordered traversals leave out the elements which have no value of an order key</em> describes.</p>
 <p>For code built on these classes: <code>ElasticSearchClient.avg</code> returns a <code>Double</code>, and <code>RestAggValue.getValue()</code> and
 <code>setValue()</code> give and take one; <code>ElasticSearchClient.min</code>, <code>max</code>, <code>avg</code> and <code>sum</code>, <code>IndexProvider.queryAggregation</code> and
 <code>MixedIndexAggQuery.execute</code> return null when there is no value to aggregate; and Lucene's <code>SumCollector</code> is now
 <code>StatsCollector</code>.</p>
+<h5 id="ordered-traversals-leave-out-the-elements-which-have-no-value-of-an-order-key">Ordered traversals leave out the elements which have no value of an order key</h5>
+<p>JanusGraph folds an <code>order().by(key)</code> of a traversal into its query, which an index sorts where it can, and the query
+returned the elements which have no value of the key as well, after the others. TinkerPop leaves such an element out, as
+a <code>by()</code> modulator which yields no value filters the traverser, and so does TinkerGraph. So
+<code>g.V().has('kind', 'k').order().by('name')</code> returned the vertices of kind <code>k</code> without a <code>name</code> too, and now leaves them
+out, and a <code>count()</code> after it no longer counts them. This holds wherever JanusGraph folds the order in: in a query which
+a mixed index sorts, which now skips these elements itself, in one which JanusGraph sorts in memory, for the elements
+which a transaction added or changed, and in an order of the edges or properties of a vertex, such as
+<code>local(outE('knows').order().by('weight').limit(10))</code>. Several <code>order()</code> steps in a row, such as
+<code>order().by('a').order().by('b')</code>, leave out the elements without <code>a</code> or <code>b</code>, and are now folded in together, ordering
+by <code>b</code> and then by <code>a</code>, as TinkerPop's sorts, which keep the order of ties, do. JanusGraph dropped all but the last of
+them. Where the index which sorts the query doesn't hold the key of an earlier step, as with only <code>b</code> indexed in
+<code>order().by('a').order().by('b').limit(10)</code>, JanusGraph read the first ten by <code>b</code> from the index and left their ties
+unordered; it now sorts every match in memory, as it sorts any query which no index sorts, which fails with a
+<code>QueryException</code> where it reads a million elements or more. An order by the same key twice, such as
+<code>order().by('name').by('name', desc)</code>, failed with an <code>IllegalArgumentException</code>, and now orders by the first.</p>
+<p>To keep the elements without the key, order by a traversal which gives them a value, such as
+<code>order().by(coalesce(values('name'), constant('')))</code>, which places them where the empty string sorts. JanusGraph doesn't
+fold such an order into its query, and TinkerPop sorts the elements in memory. A query of JanusGraph's API, such as
+<code>graph.query().has('kind', 'k').orderBy('name', asc).vertices()</code>, keeps them, last where JanusGraph sorts them and where
+the section <em>Fixes to the aggregations and orders which a mixed index answers</em> says for a mixed index. An order of
+vertices by a key of several values, <code>LIST</code> or <code>SET</code>, which JanusGraph folds in where every mixed index backend can sort
+by such a key, as Elasticsearch and Solr can, leaves them out as well, and so the vertices without a value of its other
+keys, as in <code>order().by('names').by('age')</code>.</p>
+<p>Where a vertex-centric index sorts the edges or properties of a vertex by the key, the slice of the index which such an
+order reads leaves out those without the key, and so do the slices of a <code>has(key)</code>, such as
+<code>outE('knows').has('since')</code>, and of a range of the key which is open toward the larger values, such as
+<code>outE('knows').has('since', gt(2020))</code>, which JanusGraph checked in memory before. The slice ends before them, as
+JanusGraph writes a missing value after every value of the key, except for a key whose data type is <code>Class</code> or one with
+a custom serializer which writes null itself, for which JanusGraph still checks them in memory. It also still checks a
+range of a <code>Float</code> or <code>Double</code> key from a start in memory, as the slice holds NaN, which sorts after the other values,
+and +0.0 after -0.0, which the comparisons of the range reject. A <code>has(key)</code> of the edges or properties of a vertex now
+reads such an index, so that with a limit and no order it may return other relations than before.</p>
+<p>Some orders which JanusGraph folded in are now left to TinkerPop:</p>
+<ul>
+<li><code>order().by(key, shuffle)</code>, which failed with an <code>AssertionError</code>;</li>
+<li>an order of the edges or properties of a vertex by several keys, such as
+  <code>local(outE('knows').order().by('weight').by('time'))</code>, which failed with an <code>IllegalArgumentException</code>, as such a
+  query takes a single key;</li>
+<li>an order whose <code>by()</code> modulator has a bypass traversal: the deprecated <code>ProductiveByStrategy</code> gives it one which
+  yields null where the key has none, which TinkerPop places first when ascending, and <code>SubgraphStrategy</code> with a filter
+  of vertex properties one which reads only the properties which the filter keeps;</li>
+<li>an order of other elements than the step's by an <code>ElementValueComparator</code>, such as
+  <code>order().by(out('knows'), new ElementValueComparator('name', asc))</code>, which JanusGraph folded in as an order of the
+  step's own elements;</li>
+<li><code>order()</code> steps in a row of which one isn't by a key.</li>
+</ul>
+<p>TinkerPop sorts these orders in memory, after reading every element which the steps before them match, where an index
+sorted some of them before and a limit read only the first elements.</p>
+<p>The edges or properties of a vertex which a traversal fetches in a batch, as <code>query.batch.enabled</code> has it by default,
+could come in the order of the storage backend rather than the one which the traversal folded in, where no
+vertex-centric index sorts them in that order; so could those of an ordered <code>JanusGraphMultiVertexQuery</code>. They are now
+sorted.</p>
 <h5 id="the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points">The strings of an ordered graph query come in the order of their code points</h5>
 <p>A graph query ordered by a string key, such as <code>g.V().has('kind', 'k').order().by('name')</code>, now orders the strings by
 their code points whoever sorts them: Elasticsearch, OpenSearch, Lucene and Solr sort strings by their UTF-8 bytes,
@@ -6686,14 +6754,14 @@ these came out of order:</p>
 <li>in a traversal whose <code>or()</code> branches JanusGraph answers by queries of their own, as it does when no index answers
   the <code>or()</code> as a whole, as for branches which only a composite index or no index answers, which merged the results of
   those queries by UTF-16 unit. That merge also failed with an <code>IllegalStateException</code> when it compared an element
-  without the order key with one of another branch; such an element now comes last, as in any ordered graph query
-  which JanusGraph answers.</li>
+  without the order key with one of another branch; the traversal now leaves such an element out, as the section
+  <em>Ordered traversals leave out the elements which have no value of an order key</em> describes.</li>
 </ul>
 <p>An <code>order()</code> which JanusGraph doesn't fold into its query, such as one by a traversal, is TinkerPop's and still compares
 strings by UTF-16 unit, and so does the order of a vertex's edges or properties by a key, in which the storage backend
-holds them. A partitioned vertex put an edge without the key of a descending order of its edges out of place among the
-edges which its representatives hold, where a vertex which isn't partitioned puts it first; it now merges them as each
-representative orders them.</p>
+holds them. A partitioned vertex put an edge without the key of a descending order of its edges, which a query of the
+vertex keeps, out of place among the edges which its representatives hold, where a vertex which isn't partitioned puts
+it first; it now merges them as each representative orders them.</p>
 <p>For code built on these classes: <code>MultiDistinctOrderedIterator</code> takes the <code>Comparator</code> to merge by in place of a list
 of <code>HasStepFolder.OrderEntry</code>.</p>
 <h5 id="the-limit-range-and-order-steps-of-an-or-branch-apply-to-each-element-as-in-tinkerpop">The <code>limit()</code>, <code>range()</code> and <code>order()</code> steps of an <code>or()</code> branch apply to each element, as in TinkerPop</h5>
