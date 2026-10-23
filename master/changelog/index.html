@@ -2114,6 +2114,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#solr-no-longer-ignores-a-condition-whose-value-has-no-terms" class="md-nav__link">
+    Solr no longer ignores a condition whose value has no terms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
     Lucene counts more than a thousand matches exactly
   </a>
@@ -2163,8 +2170,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vertex-centric-ranges-of-float-and-double-keys-hold-what-their-comparisons-hold" class="md-nav__link">
+    Vertex-centric ranges of Float and Double keys hold what their comparisons hold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys" class="md-nav__link">
     Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from LIST and SET keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-opensearch-and-solr-compare-decimals-with-zero-nan-and-the-infinities-as-janusgraph-does" class="md-nav__link">
+    Elasticsearch, OpenSearch and Solr compare decimals with zero, NaN and the infinities as JanusGraph does
   </a>
   
 </li>
@@ -2389,6 +2410,13 @@
           <li class="md-nav__item">
   <a href="#elasticsearch-sorts-by-byte-and-short-keys" class="md-nav__link">
     Elasticsearch sorts by Byte and Short keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orders-by-a-key-which-the-index-backend-cant-sort-by-are-sorted-by-janusgraph" class="md-nav__link">
+    Orders by a key which the index backend can't sort by are sorted by JanusGraph
   </a>
   
 </li>
@@ -3932,6 +3960,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#solr-no-longer-ignores-a-condition-whose-value-has-no-terms" class="md-nav__link">
+    Solr no longer ignores a condition whose value has no terms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lucene-counts-more-than-a-thousand-matches-exactly" class="md-nav__link">
     Lucene counts more than a thousand matches exactly
   </a>
@@ -3981,8 +4016,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vertex-centric-ranges-of-float-and-double-keys-hold-what-their-comparisons-hold" class="md-nav__link">
+    Vertex-centric ranges of Float and Double keys hold what their comparisons hold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys" class="md-nav__link">
     Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from LIST and SET keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch-opensearch-and-solr-compare-decimals-with-zero-nan-and-the-infinities-as-janusgraph-does" class="md-nav__link">
+    Elasticsearch, OpenSearch and Solr compare decimals with zero, NaN and the infinities as JanusGraph does
   </a>
   
 </li>
@@ -4207,6 +4256,13 @@
           <li class="md-nav__item">
   <a href="#elasticsearch-sorts-by-byte-and-short-keys" class="md-nav__link">
     Elasticsearch sorts by Byte and Short keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orders-by-a-key-which-the-index-backend-cant-sort-by-are-sorted-by-janusgraph" class="md-nav__link">
+    Orders by a key which the index backend can't sort by are sorted by JanusGraph
   </a>
   
 </li>
@@ -6027,6 +6083,30 @@ compares the shape as precisely as the field's grid allows, rather than with the
 larger than 0, such as 0.025 in Solr's sample <code>location_rpt</code> field, such a query may take longer, as it refines more
 cells along the shape's edge; in the configset in <code>conf/solr</code>, it is 0 already, so nothing changes there. A <code>geofilt</code>
 query takes no such option and gets none.</p>
+<h5 id="solr-no-longer-ignores-a-condition-whose-value-has-no-terms">Solr no longer ignores a condition whose value has no terms</h5>
+<p>On Solr, a condition whose value the key's analyzer turns into no terms, such as punctuation or a stop word, matched
+what the other conditions matched: JanusGraph sent no clause for it, or a clause which Solr's query parser dropped. So
+<code>g.V().has('kind', 'p').has('title', textContains('!!!'))</code> found every vertex of kind <code>p</code>, also those without a title,
+<code>g.V().has('title', textContains('!!!'))</code> alone found every element of the mixed index, and its <code>count()</code> counted them
+all. <code>textContainsPhrase</code>, <code>textContains</code> of a key with a custom <code>text-analyzer</code> and <code>eq</code> of a key with a custom
+<code>string-analyzer</code> found nothing alone, but what the other conditions found next to them. Now such a condition finds
+nothing, as on Lucene, Elasticsearch and OpenSearch, and as the text predicates find in memory, while a <code>neq</code> of such a
+value still finds every element with a value.</p>
+<p>A <code>neq</code> of a value which a custom <code>string-analyzer</code> splits into several terms found only the elements which hold none of
+the terms on Solr. It now finds the elements with a value which <code>eq</code> doesn't find, those which lack one of the terms or
+more, as on Lucene, Elasticsearch and OpenSearch: with "Tom and Jerry" and "Spike" under the standard analyzer,
+<code>neq('Tom Spike')</code> found neither of them, and now finds both.</p>
+<p>JanusGraph splits the value of a condition with the key's <code>text-analyzer</code> or <code>string-analyzer</code>, or with the standard
+tokenizer for a text key without one, while Solr analyzes the key's field as its schema says, so the two should agree.
+Where they don't, a stop word which only the field's type drops, of a key without an analyzer parameter, is still
+ignored. And a value which only JanusGraph's analysis drops, such as symbols which the field keeps, now matches nothing:
+<code>textContainsPhrase</code>, and <code>textContains</code> and <code>eq</code> of a key with a custom analyzer, find nothing for it, where they found
+the elements which hold it, and <code>neq</code> finds these elements too.</p>
+<p>The <code>string-analyzer</code> or <code>text-analyzer</code> of a key on Solr may name a tokenizer, such as
+<code>org.apache.lucene.analysis.core.WhitespaceTokenizer</code>, as the documentation of the field mappings says, as well as an
+analyzer. Since JanusGraph 1.0, a tokenizer made <code>textContains</code>, <code>eq</code> and <code>neq</code> fail with a <code>ClassCastException</code>: it now
+splits their values alone, as it did in JanusGraph 0.6.</p>
+<p>No reindexing is needed: only the queries change.</p>
 <h5 id="lucene-counts-more-than-a-thousand-matches-exactly">Lucene counts more than a thousand matches exactly</h5>
 <p>A <code>count()</code> which a Lucene mixed index answers, such as <code>g.V().has('age', lt(2000)).count()</code>, and the totals of a direct
 index query, <code>vertexTotals()</code>, <code>edgeTotals()</code> and <code>propertyTotals()</code>, took the total hits of a search for one document,
@@ -6113,6 +6193,28 @@ has, as it does without the index, whereas Lucene orders <code>-0.0</code> below
 stores and orders above positive infinity, also finds what it does without the index: <code>eq</code>, <code>lte</code> and <code>gte</code> of NaN find
 NaN, <code>lt</code> and <code>gt</code> of NaN nothing, and <code>neq</code> of any other value finds NaN as well. A raw range reaches NaN by a NaN
 bound, as in <code>score:[5 TO NaN]</code>.</p>
+<h5 id="vertex-centric-ranges-of-float-and-double-keys-hold-what-their-comparisons-hold">Vertex-centric ranges of <code>Float</code> and <code>Double</code> keys hold what their comparisons hold</h5>
+<p>Where a vertex-centric index sorts the edges or properties of a vertex by a <code>Float</code> or <code>Double</code> key, it holds them in an
+order which puts <code>-0.0</code> before <code>0.0</code> and NaN after positive infinity, while the comparisons of a range take <code>-0.0</code> and
+<code>0.0</code> as equal, and NaN as equal to NaN alone and comparable with no other value. A range of the key with an end
+returned the relations which the index holds between its bounds, and the slice of a range from a start without an end,
+which JanusGraph checked in memory, began at its start. So <code>outE('rated').has('score', lt(0.0d))</code> returned an edge with
+a score of <code>-0.0</code>, <code>lte(-0.0d)</code> missed one of <code>0.0</code>, <code>lt(Double.NaN)</code> returned every edge with a score but NaN,
+<code>lte(Double.NaN)</code> every edge with a score, and <code>gte(0.0d)</code> missed an edge with a score of <code>-0.0</code>, also up to an end, as
+in <code>between(0.0d, 1.0d)</code>. Two conditions on such a key were combined in the order of the index too, also where no index
+sorts by the key, and so were two of a <code>Float</code> or <code>Double</code> value on a key of type <code>Object</code>:
+<code>has('score', gte(0.0d)).has('score', lte(-0.0d))</code> and <code>has('score', -0.0d).has('score', gte(0.0d))</code> returned nothing,
+and <code>has('score', Double.NaN).has('score', gt(1.0d))</code> returned the edges scored NaN where an index sorts by the score.
+These queries now return the relations whose values the comparisons hold, as a Lucene mixed index finds them (see
+"Lucene range queries reach zero, negative decimals, the infinities and the ends of <code>long</code>"): a bound at either zero
+holds both zeros where it is inclusive and neither where it is strict, <code>lte</code> and <code>gte</code> of NaN hold NaN, and <code>lt</code> and
+<code>gt</code> of NaN nothing. An equality still tells <code>-0.0</code> from <code>0.0</code>, as it does without the index. The examples write their
+decimals with a <code>d</code>, as Groovy, which the Gremlin Console runs, reads <code>-0.0</code> as a <code>BigDecimal</code>, which has no negative
+zero.</p>
+<p>The slice of a range from a start, such as <code>outE('rated').has('score', gt(1.0d))</code>, now ends before NaN, so that the
+index answers such a range of a <code>Float</code> or <code>Double</code> key alone, where JanusGraph checked it in memory, as it answers a
+range of a key of another type (see "Ordered traversals leave out the elements which have no value of an order key").
+What the index holds doesn't change, so nothing needs to be reindexed.</p>
 <h5 id="lucene-no-longer-keeps-the-floats-and-the-strings-with-unpaired-surrogates-removed-from-list-and-set-keys">Lucene no longer keeps the floats, and the strings with unpaired surrogates, removed from <code>LIST</code> and <code>SET</code> keys</h5>
 <p>On a Lucene mixed index, most floats (<code>Float</code>) removed from a key of <code>LIST</code> or <code>SET</code> cardinality stayed in the
 element's document, as did the float which such a key of an edge held before it was set to another one, and <code>eq</code> and
@@ -6136,6 +6238,26 @@ document of each element which holds a value of the index anew, without them, bu
 which holds none as it is. To clear those too, stop the instances, delete the directory of each mixed index concerned,
 <code>index.[X].directory/&lt;index name&gt;</code>, and reindex those indexes. They stay enabled meanwhile, so until the reindex has
 finished, their queries miss the elements which it hasn't written yet.</p>
+<h5 id="elasticsearch-opensearch-and-solr-compare-decimals-with-zero-nan-and-the-infinities-as-janusgraph-does">Elasticsearch, OpenSearch and Solr compare decimals with zero, NaN and the infinities as JanusGraph does</h5>
+<p>A comparison of a <code>Float</code> or <code>Double</code> key with a bound at zero didn't find on an Elasticsearch, OpenSearch or Solr
+mixed index what it finds without an index. These indexes order <code>-0.0</code> below <code>0.0</code>, while JanusGraph's comparisons
+hold the two zeros equal, and only <code>eq</code> and <code>neq</code> tell them apart: <code>has("score", lt(0.0))</code> found the elements with a
+score of <code>-0.0</code>, <code>gt(-0.0)</code> those with <code>0.0</code>, <code>gte(0.0)</code> missed those with <code>-0.0</code>, and <code>lte(-0.0)</code> those with <code>0.0</code>.
+Now a bound at either zero finds the same elements whichever sign its zero has, as on Lucene.</p>
+<p>These indexes also order NaN above positive infinity, while NaN equals NaN alone and compares to no other value. On
+Solr, <code>lt</code> and <code>lte</code> of NaN found every value, and <code>gte</code> of NaN missed NaN. Now <code>eq</code>, <code>lte</code> and <code>gte</code> of NaN find NaN,
+<code>lt</code> and <code>gt</code> of NaN nothing, and <code>neq</code> of NaN every other value, as on Lucene.</p>
+<p>Elasticsearch and OpenSearch hold neither NaN nor the infinities: they reject the document, or the update of the
+document, of an element with such a value of a <code>Float</code> or <code>Double</code> key, so that the mixed index misses a new element,
+or keeps an existing element's document as it was before the change, and JanusGraph logs that the index mutation
+failed. Yet <code>lt</code> and <code>lte</code> of NaN found every value of a <code>Double</code> key on Elasticsearch 7 and later and on OpenSearch,
+and of a <code>Float</code> key on Elasticsearch 8 and later. And a comparison with NaN or an infinity failed with "Could not call
+index" where the cluster rejected the query: <code>eq</code> and <code>neq</code> of a <code>Double</code> key on Elasticsearch 6 to 8 and on
+OpenSearch, every comparison of a <code>Float</code> key on Elasticsearch 6 and 7 and on OpenSearch, and every comparison of either
+key on Elasticsearch 6. Now such a comparison isn't sent to them: as every value they hold is finite, it finds every
+element with a value of the key where any finite value passes it, as <code>lt</code> of positive infinity and <code>neq</code> of NaN do, and
+none otherwise.</p>
+<p>Only the queries change, so no reindexing is needed.</p>
 <h5 id="ranges-and-not-equals-of-a-textstring-key-compare-its-strings-whole">Ranges and not-equals of a <code>TEXTSTRING</code> key compare its strings whole</h5>
 <p>A key mapped as <code>TEXTSTRING</code> holds each string whole in a field of its own, which the index sorts the key by, and its
 words in its text field. A range on such a key, <code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code> or <code>between</code>, compared its bound with the
@@ -6608,9 +6730,9 @@ order too. So UUIDs like these came out of order:</p>
 </ul>
 <p>Elasticsearch failed a graph query ordered by a UUID key which its index holds with "Could not call index", as
 JanusGraph asked it to sort by the key with an <code>unmapped_type</code> of null, which it rejects. JanusGraph now gives
-<code>keyword</code>, the type which it maps UUIDs to. Lucene still doesn't sort by a UUID key: a graph query which a Lucene index
-answers, ordered by a UUID key which the index holds, fails with "Could not call index", and JanusGraph doesn't sort the
-results itself instead.</p>
+<code>keyword</code>, the type which it maps UUIDs to. Lucene doesn't sort by a UUID key, and failed such a query as well:
+JanusGraph now sorts its results itself, as the section <em>Orders by a key which the index backend can't sort by are
+sorted by JanusGraph</em> describes.</p>
 <p>On Solr, an ascending order by a UUID key which keeps the elements without the key, such as that of
 <code>graph.query().has('tag', 't').orderBy('uid', asc)</code>, put those elements first, where JanusGraph and Elasticsearch put
 them last, as the <code>uuid</code> field type of the example <code>conf/solr/schema.xml</code> didn't declare <code>sortMissingLast="true"</code>, as
@@ -6715,10 +6837,11 @@ order reads leaves out those without the key, and so do the slices of a <code>ha
 <code>outE('knows').has('since')</code>, and of a range of the key which is open toward the larger values, such as
 <code>outE('knows').has('since', gt(2020))</code>, which JanusGraph checked in memory before. The slice ends before them, as
 JanusGraph writes a missing value after every value of the key, except for a key whose data type is <code>Class</code> or one with
-a custom serializer which writes null itself, for which JanusGraph still checks them in memory. It also still checks a
-range of a <code>Float</code> or <code>Double</code> key from a start in memory, as the slice holds NaN, which sorts after the other values,
-and +0.0 after -0.0, which the comparisons of the range reject. A <code>has(key)</code> of the edges or properties of a vertex now
-reads such an index, so that with a limit and no order it may return other relations than before.</p>
+a custom serializer which writes null itself, for which JanusGraph still checks them in memory. The slice of a range of
+a <code>Float</code> or <code>Double</code> key from a start ends before NaN, which sorts after the other values and which the comparisons of
+the range reject (see "Vertex-centric ranges of <code>Float</code> and <code>Double</code> keys hold what their comparisons hold"). A
+<code>has(key)</code> of the edges or properties of a vertex now reads such an index, so that with a limit and no order it may
+return other relations than before.</p>
 <p>Some orders which JanusGraph folded in are now left to TinkerPop:</p>
 <ul>
 <li><code>order().by(key, shuffle)</code>, which failed with an <code>AssertionError</code>;</li>
@@ -6827,8 +6950,11 @@ and Elasticsearch failed with <code>Could not call index</code>. Such an <code>o
 <code>g.V().or(__.has('nickname', null), __.has('kind', 'p'))</code> now returns every vertex with a Lucene or Elasticsearch index
 too, as it did without an index, where Lucene returned the vertices of kind <code>p</code> and Elasticsearch failed.</p>
 <p>For code built on these classes: <code>HasStepFolder.localFoldInHasContainer</code> takes the step and the branch, as
-<code>(HasStepFolder, Traversal.Admin)</code>, and <code>JanusGraphStep.setLocalLimit</code> and <code>localOrderBy</code> apply the range and the order
-of a branch to each element, as TinkerPop does, instead of limiting and ordering the query of the branch.</p>
+<code>(HasStepFolder, Traversal.Admin)</code>. As the <code>limit()</code>, <code>range()</code> and <code>order()</code> steps of a branch are conditions on each
+element, a branch no longer has limits or an order of its own: <code>HasStepFolder.localOrderBy</code>, <code>setLocalLimit</code>,
+<code>getLocalLowLimit</code> and <code>getLocalHighLimit</code> are removed, with their implementations in <code>JanusGraphStep</code>,
+<code>JanusGraphVertexStep</code> and <code>JanusGraphPropertiesStep</code>, and so are <code>QueryInfo</code> and the last parameter of
+<code>HasStepFolder.foldInOrder</code> and <code>foldInRange</code>, which took the has containers of a branch. <code>foldInOrder</code> returns nothing.</p>
 <h5 id="mixed-index-names-on-one-backing-index-must-now-differ-in-more-than-case">Mixed index names on one backing index must now differ in more than case</h5>
 <p>An index backend derives its own index name from the JanusGraph index name case-insensitively — Elasticsearch
 lowercases it, Lucene names a directory after it — so two mixed indexes on the same backing index whose names differed
@@ -6890,6 +7016,37 @@ index had no mapping of the key, as under an external dynamic mapping
 before any document held the key, Elasticsearch 8 and 9 rejected the sort (<code>No mapper found for type [string]</code>), and
 Elasticsearch 6 and 7 sorted by <code>keyword</code> in its place, with a deprecation warning. It now names <code>keyword</code>, the type
 which JanusGraph maps the field a sort by a string key reads to, unless the key has a custom string analyzer.</p>
+<h5 id="orders-by-a-key-which-the-index-backend-cant-sort-by-are-sorted-by-janusgraph">Orders by a key which the index backend can't sort by are sorted by JanusGraph</h5>
+<p>A graph query which a mixed index answers, ordered by a key which the index holds, had the index sort the results by the
+key whatever its mapping. None of JanusGraph's index backends sorts by the strings of a key of <code>TEXT</code> mapping, which is
+the default for strings, as the index holds the words of each string rather than the string. So, for such a <code>title</code>,
+the traversal <code>g.V().has('kind', 'p').order().by('title')</code> failed with <code>Could not call index</code> on Lucene, which reported
+<code>unexpected docvalues type NONE for field 'title'</code>, and on Elasticsearch and OpenSearch, which don't sort by a text
+field (<code>Text fields are not optimised for operations that require per-document field data</code>), while Solr ordered the
+vertices by the least word of each title, ascending or descending, and a query of JanusGraph's API put those without a
+title first when ascending. Elasticsearch and OpenSearch failed in the same way on a key of <code>STRING</code> mapping with a
+custom <code>string-analyzer</code>, which JanusGraph maps to a text field, and on one of <code>TEXTSTRING</code> mapping with one, whose
+whole strings, by which the index sorts the key, are then a text field too. And Lucene failed on a UUID key, by which it
+doesn't sort (<code>Unsupported order specified on field [uid] with datatype [class java.util.UUID]</code>).</p>
+<p>JanusGraph now gives the index an order only by the keys which its backend can sort by, and sorts the results of the
+other orders itself, by the whole values. That holds for the queries of JanusGraph's API and for the orders which a
+traversal folds into its query, also under a custom index selection strategy which decides by the deprecated
+<code>IndexSelectionUtil.indexCoversOrder(MixedIndexType, OrderList)</code> whether the index sorts the results. As for any query
+whose order no index covers, JanusGraph reads every match before it returns the first one, and fails with a
+<code>QueryException</code> where there are 1,000,000 of them or more.</p>
+<p>Solr answered these orders from the index, reading only up to the limit of the query, and gave a key of the <code>DEFAULT</code>
+mapping, the default for strings, the right order but for the case of the letters where each of its values is a single
+word. Such a query now reads every match, and so fails where there are 1,000,000 of them or more. To have the index
+sort by a string key, on any backend, map it as <code>STRING</code>, or as <code>TEXTSTRING</code> to search its words as well, without a
+custom <code>string-analyzer</code> on Elasticsearch and OpenSearch: the index sorts such a key by its whole strings. An index
+keeps the mapping which it holds a key with, so that takes a new key, or a new index of the key and a reindex.</p>
+<p>For code built on these classes: <code>IndexInformation</code>, and so <code>IndexProvider</code>, has a new method
+<code>supportsOrdering(KeyInformation)</code>, which tells whether the index can sort by a key with the given information. It is
+true by default, so that an index provider which doesn't implement it is given every order, as before. A provider which
+can't sort by some keys should implement it, and one which hands its calls to another provider must forward it, as
+<code>MetricInstrumentedIndexProvider</code> now does, or the index is given every order again.
+<code>IndexSerializer.supportsOrdering(MixedIndexType, ParameterIndexField)</code> is new, and
+<code>IndexSelectionUtil.indexCoversOrder(MixedIndexType, OrderList, IndexSerializer)</code> checks it for each key of the order.</p>
 <h5 id="transient-elasticsearch-read-failures-are-reattempted">Transient Elasticsearch read failures are reattempted</h5>
 <p>A mixed index query, count or aggregation against Elasticsearch wrapped every failure in a <code>PermanentBackendException</code>,
 so a throttled or momentarily unreachable cluster failed the traversal outright — although <code>BackendTransaction</code> already
