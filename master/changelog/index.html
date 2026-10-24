@@ -2373,6 +2373,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ordered-traversals-read-a-mixed-index-of-their-order-keys-which-answers-them-whole" class="md-nav__link">
+    Ordered traversals read a mixed index of their order keys which answers them whole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points" class="md-nav__link">
     The strings of an ordered graph query come in the order of their code points
   </a>
@@ -4221,6 +4228,13 @@
           <li class="md-nav__item">
   <a href="#ordered-traversals-leave-out-the-elements-which-have-no-value-of-an-order-key" class="md-nav__link">
     Ordered traversals leave out the elements which have no value of an order key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordered-traversals-read-a-mixed-index-of-their-order-keys-which-answers-them-whole" class="md-nav__link">
+    Ordered traversals read a mixed index of their order keys which answers them whole
   </a>
   
 </li>
@@ -6876,6 +6890,69 @@ sorted some of them before and a limit read only the first elements.</p>
 could come in the order of the storage backend rather than the one which the traversal folded in, where no
 vertex-centric index sorts them in that order; so could those of an ordered <code>JanusGraphMultiVertexQuery</code>. They are now
 sorted.</p>
+<h5 id="ordered-traversals-read-a-mixed-index-of-their-order-keys-which-answers-them-whole">Ordered traversals read a mixed index of their order keys which answers them whole</h5>
+<p>A traversal which orders by a key and has no condition that an index answers, such as
+<code>g.V().order().by('name').limit(10)</code> with <code>name</code> mapped as <code>STRING</code> in a mixed index, read every vertex and sorted them
+in memory, which fails with a <code>QueryException</code> where JanusGraph reads a million elements or more, and which
+<code>query.force-index</code> refused. Such a traversal leaves out the elements without a value of an order key, as the section
+<em>Ordered traversals leave out the elements which have no value of an order key</em> describes, so a mixed index which holds
+the order keys can answer it, as it answers <code>g.V().has('name').order().by('name').limit(10)</code>. It now does where a single
+mixed index holds every order key, which its backend sorts by, and answers every condition of the traversal: the index
+returns the elements sorted, so that a limit reads only the first of them, and a <code>count()</code> right after the order, or a
+<code>min()</code>, <code>max()</code>, <code>sum()</code> or <code>mean()</code> of a key which the index holds, comes from the index, as after a <code>has()</code>. An index
+restricted to a label with <code>indexOnly()</code> answers such an order of the elements of that label, as in
+<code>g.V().hasLabel('person').order().by('name').limit(10)</code>. <code>query.force-index</code> no longer refuses these traversals.</p>
+<p>On Elasticsearch, such a traversal without a limit, as <code>g.V().order().by('name')</code>, reads all that the index returns in
+pages of <code>index.[X].max-result-set-size</code> elements, 50 by default. In a test, ordering 31,846 vertices so took 51% longer
+than a scan of the inmemory storage backend with pages of 50, and 57% less time with pages of 1,000: raise
+<code>index.[X].max-result-set-size</code> for such traversals. Solr reads such a result in pages which grow up to
+<code>index.[X].solr.max-page-size</code>, as the section <em>Solr reads a result larger than a page in growing pages</em> describes: in
+the same test, ordering 31,846 vertices so took 51% less time than the scan.</p>
+<p>These traversals now see what a <code>has(key)</code> sees, where the scan read what the storage backend holds. An element
+committed moments before may be missing until the index shows it: Elasticsearch, with
+<code>index.[X].elasticsearch.bulk-refresh</code> at its default of <code>false</code>, shows it once it refreshes the index, and Solr, with
+<code>index.[X].solr.wait-searcher</code> at its default of <code>false</code>, once a commit opens a new searcher, which the <code>solrconfig.xml</code>
+that JanusGraph ships does only where <code>solr.autoSoftCommit.maxTime</code> is set. The other way round, an element whose order
+key was removed moments before may still come back, and so may a vertex removed moments before, and an element whose
+value of the key changed may come in the order of its old value, as JanusGraph doesn't check in memory what an index
+which answers every condition returns. Where a write to the index failed, the element may be missing, or come back as it
+was. Elements which tie on the order keys may come in another order than before, the index's, so that a limit may take
+others of them, and so may elements whose <code>Instant</code> values differ by less than a millisecond, as Elasticsearch and
+Lucene keep instants by the millisecond, and Solr takes no finer one.</p>
+<p>A traversal with a condition that an index answers, such as <code>g.V().has('kind', 'k').order().by('name')</code> with a
+composite index on <code>kind</code>, reads that index as before, and so does each branch of an <code>or()</code> which no index answers as a
+whole, which JanusGraph runs as a query of its own. Otherwise a traversal still reads every element where no single
+mixed index answers it whole:</p>
+<ul>
+<li>where the mixed index which holds the order keys doesn't answer a condition, as one on a key which no index holds, in
+  <code>g.V().has('tag', 't').order().by('name')</code>, or a label which the index isn't restricted to, in
+  <code>g.V().hasLabel('person').order().by('name')</code> with <code>name</code> in an index of every vertex: JanusGraph would read the index
+  in growing batches and look up each element which it returns to check the condition, which may take longer than the
+  scan, depending on the index backend and on how many elements hold the condition;</li>
+<li>where no mixed index holds an order key, or holds it in a field which isn't <code>ENABLED</code>, as one added to the index and
+  not yet reindexed;</li>
+<li>where only several mixed indexes together hold the order keys and answer the conditions, as for
+  <code>g.V().hasLabel('person').order().by('nick').by('name')</code> with <code>nick</code> in an index of the persons and <code>name</code> in another
+  one: a query of several indexes reads all but the first of them whole;</li>
+<li>where the backend of the index which holds the order keys doesn't sort by one of them as JanusGraph orders its
+  values, as the section <em>Orders by a key which the index backend can't sort by are sorted by JanusGraph</em> describes: no
+  backend sorts by a string key which the index maps as <code>TEXT</code>, as it maps a string key by default, Elasticsearch and
+  OpenSearch don't by a string key with a custom <code>string-analyzer</code>, and Lucene doesn't by a <code>UUID</code> key; nor does Lucene
+  sort by a key of <code>LIST</code> or <code>SET</code> cardinality, as in an order of edges by such a key, as the section <em>Orders by a key
+  of several values compare its least or greatest value</em> describes;</li>
+<li>where the index holds an order key with custom parameters, which Elasticsearch takes into its mapping, and which may
+  keep it from sorting by the key, as <code>doc_values</code> false does.</li>
+</ul>
+<p>A single mixed index which holds every order key, which its backend sorts by, and answers the other conditions,
+restricted to the traversal's label where it has one, answers such a traversal, also where another index which holds
+the keys can't sort by them. To have an order by a string key read the index, map the key as <code>STRING</code>, or as
+<code>TEXTSTRING</code> to search its words as well, without a custom <code>string-analyzer</code> on Elasticsearch and OpenSearch. A query of
+JanusGraph's API, such as <code>graph.query().orderBy('name', asc).vertices()</code>, keeps the elements without the key, which no
+index holds, and so still reads every element too. An index backend of another provider which keeps the default of
+<code>IndexProvider.supportsOrdering</code>, true, is taken to sort by every key, so that such a traversal now reads its index,
+also by a key which it can't sort by, such as <code>g.V().order().by('title')</code> of a key of <code>TEXT</code> mapping: such a provider
+should implement <code>supportsOrdering</code>, as the section <em>Orders by a key which the index backend can't sort by are sorted by
+JanusGraph</em> says.</p>
 <h5 id="the-strings-of-an-ordered-graph-query-come-in-the-order-of-their-code-points">The strings of an ordered graph query come in the order of their code points</h5>
 <p>A graph query ordered by a string key, such as <code>g.V().has('kind', 'k').order().by('name')</code>, now orders the strings by
 their code points whoever sorts them: Elasticsearch, OpenSearch, Lucene and Solr sort strings by their UTF-8 bytes,
@@ -7287,11 +7364,12 @@ a value of the key still comes last.</p>
 <p>That holds for the queries of JanusGraph's API, such as
 <code>graph.query().has('kind', 'k').orderBy('names', asc).vertices()</code>, and for the orders which a traversal folds into its
 query. A traversal folds an order of vertices by such a key in only where the graph has mixed index backends and every
-one of them can sort by it, as Elasticsearch, OpenSearch and Solr can: there, <code>g.V().order().by('names')</code>, which no
-index answers, and the order of what a composite index returns, are now sorted where they failed. Elsewhere, as on a
-graph with a Lucene index backend, or without a mixed index backend, TinkerPop sorts the vertices, and fails on one with
-several values of the key, as before. A traversal folds an order of edges, each of which holds one value of a key at
-most, in whatever the cardinality of the key.</p>
+one of them can sort by it, as Elasticsearch, OpenSearch and Solr can: there, <code>g.V().order().by('names')</code> where no
+mixed index holds the key, and the order of what a composite index returns, are now sorted where they failed; where a
+mixed index holds it, that traversal reads the index, as the section <em>Ordered traversals read a mixed index of their
+order keys which answers them whole</em> describes. Elsewhere, as on a graph with a Lucene index backend, or without a mixed
+index backend, TinkerPop sorts the vertices, and fails on one with several values of the key, as before. A traversal
+folds an order of edges, each of which holds one value of a key at most, in whatever the cardinality of the key.</p>
 <p>Lucene can't sort by a key of several values: a query of JanusGraph's API, or a traversal's order of edges, by such a
 key, which a Lucene index holding the key answered, failed with "Could not call index". JanusGraph now sorts the results
 of such a query itself, which reads every match first, as for any query whose order no index covers, and fails with a

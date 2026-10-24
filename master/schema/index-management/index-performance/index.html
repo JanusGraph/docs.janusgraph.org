@@ -2618,6 +2618,33 @@ retrieves the ten oldest individuals with <em>hercules</em> in their name.</p>
     which TinkerPop sorts in memory.</p>
 </li>
 <li>
+<p>A traversal ordered by a key, which has no condition that an index
+    answers, such as <code>g.V().order().by('age').limit(10)</code>, reads a mixed
+    index which holds every order key and answers every condition of the
+    traversal, as it reads it for
+    <code>g.V().has('age').order().by('age').limit(10)</code>: the index returns
+    the elements with a value of the keys, sorted by them, where
+    JanusGraph would otherwise read every element and sort them in
+    memory. A mixed index restricted to a label answers such an order of
+    the elements of that label, as in
+    <code>g.V().hasLabel('person').order().by('age')</code>. Where an index answers
+    a condition of the traversal, JanusGraph reads the indexes which
+    answer its conditions, as without the order. It reads every element
+    where no single mixed index answers the traversal whole, as for
+    <code>g.V().has('tag', 't').order().by('age')</code> with no index on <code>tag</code>, or
+    for <code>g.V().hasLabel('person').order().by('age')</code> with <code>age</code> in an
+    index which isn't restricted to persons: a single mixed index which
+    holds every order key and answers the traversal's conditions,
+    restricted to its label where it has one, answers it. JanusGraph
+    reads for such an order only an index whose backend sorts by every
+    order key as JanusGraph orders its values: none sorts by a string
+    mapped as <code>TEXT</code>, which is how mixed indexes map strings by default,
+    Elasticsearch and OpenSearch don't by a string with a
+    <code>string-analyzer</code>, and Lucene doesn't by a <code>UUID</code>, nor by a key of
+    <strong>LIST</strong> or <strong>SET</strong> cardinality. Nor does it read one which holds an
+    order key with custom parameters.</p>
+</li>
+<li>
 <p>Strings are ordered by their code points, as the mixed index
     backends sort them, whether a mixed index or JanusGraph sorts the
     results. The edges and properties of a vertex, which a
