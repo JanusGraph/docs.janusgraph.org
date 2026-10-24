@@ -2886,7 +2886,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].max-result-set-size</td>
-<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch, except that Elasticsearch reads a query with a limit too large for a single request in batches of up to <code>index.[X].elasticsearch.limited-result-max-page-size</code> results, though never smaller than this</td>
+<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch, except that Elasticsearch reads a query with a limit too large for a single request in batches of up to <code>index.[X].elasticsearch.limited-result-max-page-size</code> results, and Solr reads every batch after the first one twice as large as the one before, up to <code>index.[X].solr.max-page-size</code> results, though never smaller than this</td>
 <td>Integer</td>
 <td>50</td>
 <td>MASKABLE</td>
@@ -3555,6 +3555,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Major version of the Solr servers, for example 8 or 9. JanusGraph adapts the requests which Solr versions treat differently to it: only for Solr 8 the creation of a collection sends max-shards-per-node. If it isn't set, JanusGraph asks Solr for its version when it creates a collection, and assumes Solr 8 if that fails.</td>
 <td>Integer</td>
 <td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.max-page-size</td>
+<td>The largest page in which a result larger than a page is read. The first page of a result holds <code>index.[X].max-result-set-size</code> hits, or the limit if that is less, and every page after it twice as many hits as the page before, up to this many, but never more than the limit leaves. Solr reads each page at its offset, collecting and sorting every hit before it again, so a result read in pages of one size takes time which grows with the square of its size. Larger pages take fewer such passes, at the price of a larger response each, which JanusGraph holds until it is read. As the pages only grow while a result is read on, a read which stops early asks for no more than twice the hits it takes, plus a first page. 10,000, the largest page of Elasticsearch by default (<code>index.max_result_window</code>), is the recommended value: with it, a result of a million hits takes about 100 pages, each of which still costs Solr the hits before it. A value no larger than <code>max-result-set-size</code> reads every result in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
+<td>Integer</td>
+<td>10000</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
