@@ -1930,6 +1930,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2428,8 +2448,9 @@ graph index would be defined.
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To enforce uniqueness against an eventually consistent storage
-backend, the <a href="../../../advanced-topics/eventual-consistency/">consistency</a> of the index must be
+<p>To enforce uniqueness against concurrent transactions, on an eventually
+consistent storage backend or on BerkeleyDB, the
+<a href="../../../advanced-topics/eventual-consistency/">consistency</a> of the index must be
 explicitly set to enabling locking.</p>
 </div>
 <h3 id="mixed-index">Mixed Index</h3>
@@ -2548,12 +2569,103 @@ retrieves the ten oldest individuals with <em>hercules</em> in their name.</p>
     For large result sets, this can be very expensive.</p>
 </li>
 <li>
-<p>Mixed indexes support ordering natively and efficiently. However,
+<p>Mixed indexes support ordering property keys with <strong>SINGLE</strong> cardinality
+    natively and efficiently, by the keys which their backends can sort
+    by, as the next point describes. However,
     the property key used in the order().by() method must have been
     previously added to the mixed indexed for native result ordering
     support. This is important in cases where the the order().by() key
     is different from the query keys. If the property key is not part of
     the index, then sorting requires loading all results into memory.</p>
+</li>
+<li>
+<p>A mixed index sorts the results only by a key which its backend
+    can sort by. None of JanusGraph's index backends sorts by a string
+    key of <strong>TEXT</strong> mapping, which is the default for strings, as the
+    index holds the words of each string rather than the string.
+    Elasticsearch and OpenSearch don't sort by a key of <strong>STRING</strong> or
+    <strong>TEXTSTRING</strong> mapping with a custom <code>string-analyzer</code>, which
+    makes its whole strings a text field, and Lucene doesn't sort by a
+    UUID key. JanusGraph sorts the results of an order by such a key
+    itself, which requires loading all results into memory. To have
+    the index sort by a string key, map it as <strong>STRING</strong>, or as
+    <strong>TEXTSTRING</strong> to search its words too.</p>
+</li>
+<li>
+<p>Only Elasticsearch and Solr mixed index backends support ordering
+    property keys with <strong>LIST</strong> cardinality natively and efficiently.
+    They order an element with several values of a key of <strong>LIST</strong> or
+    <strong>SET</strong> cardinality by the least of them in an ascending order and
+    by the greatest in a descending one. JanusGraph orders such
+    elements in the same way where it sorts the results of
+    <code>graph.query()</code> itself, as it does those of a composite index, or
+    of a Lucene index, which can't sort by such a key. A traversal's
+    <code>order().by()</code> of vertices by such a key is folded into
+    JanusGraph's query only where the graph has mixed index backends
+    and every one of them can sort by it; otherwise TinkerPop sorts the
+    vertices, and fails on one with several values of the key. An order
+    of edges, each of which holds one value of a key at most, is folded
+    in whatever the cardinality of the key.</p>
+</li>
+<li>
+<p>An element which has no value of a key the results are ordered by
+    is left out of them, as TinkerPop leaves out an element for which a
+    <code>by()</code> modulator has no value. A mixed index which answers the query
+    and holds the key skips such elements itself, and so does the slice
+    of a vertex-centric index which sorts the edges or properties of a
+    vertex by it. To keep them, order by a traversal which gives them a
+    value, such as <code>order().by(coalesce(values('age'), constant(0)))</code>,
+    which TinkerPop sorts in memory.</p>
+</li>
+<li>
+<p>A traversal ordered by a key, which has no condition that an index
+    answers, such as <code>g.V().order().by('age').limit(10)</code>, reads a mixed
+    index which holds every order key and answers every condition of the
+    traversal, as it reads it for
+    <code>g.V().has('age').order().by('age').limit(10)</code>: the index returns
+    the elements with a value of the keys, sorted by them, where
+    JanusGraph would otherwise read every element and sort them in
+    memory. A mixed index restricted to a label answers such an order of
+    the elements of that label, as in
+    <code>g.V().hasLabel('person').order().by('age')</code>. Where an index answers
+    a condition of the traversal, JanusGraph reads the indexes which
+    answer its conditions, as without the order. It reads every element
+    where no single mixed index answers the traversal whole, as for
+    <code>g.V().has('tag', 't').order().by('age')</code> with no index on <code>tag</code>, or
+    for <code>g.V().hasLabel('person').order().by('age')</code> with <code>age</code> in an
+    index which isn't restricted to persons: a single mixed index which
+    holds every order key and answers the traversal's conditions,
+    restricted to its label where it has one, answers it. JanusGraph
+    reads for such an order only an index whose backend sorts by every
+    order key as JanusGraph orders its values: none sorts by a string
+    mapped as <code>TEXT</code>, which is how mixed indexes map strings by default,
+    Elasticsearch and OpenSearch don't by a string with a
+    <code>string-analyzer</code>, and Lucene doesn't by a <code>UUID</code>, nor by a key of
+    <strong>LIST</strong> or <strong>SET</strong> cardinality. Nor does it read one which holds an
+    order key with custom parameters.</p>
+</li>
+<li>
+<p>Strings are ordered by their code points, as the mixed index
+    backends sort them, whether a mixed index or JanusGraph sorts the
+    results. The edges and properties of a vertex, which a
+    vertex-centric index sorts, are ordered by the UTF-16 code units
+    of their sort keys instead. The two orders differ only where, at
+    the first character in which two strings differ, one has a
+    character from U+10000 up, such as an emoji, and the other one
+    from U+E000 to U+FFFF.</p>
+</li>
+<li>
+<p>UUIDs are ordered by their string forms, as the Elasticsearch,
+    OpenSearch and Solr mixed index backends sort them and as the
+    storage backend holds them as sort keys, whether a mixed index or
+    JanusGraph sorts the results. An <code>order()</code> which JanusGraph
+    doesn't fold into its query, <code>min()</code> and <code>max()</code> compare them by
+    <code>UUID.compareTo</code> instead, as TinkerPop does, which differs: keyset
+    paging with such an order, such as
+    <code>has('uid', gt(last)).order().by('uid').by(T.id)</code>, can skip UUIDs,
+    so it needs an order which JanusGraph folds, such as
+    <code>order().by('uid')</code>. Lucene doesn't sort by a UUID key, so
+    JanusGraph sorts the results of such an order itself.</p>
 </li>
 </ul>
 <h3 id="label-constraint">Label Constraint</h3>
@@ -2903,7 +3015,7 @@ second key in the index to be effective.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+      Copyright &copy; 2025 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
     </div>
   
   

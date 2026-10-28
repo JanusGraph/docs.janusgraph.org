@@ -1740,6 +1740,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2034,6 +2054,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#indexxcdc" class="md-nav__link">
+    index.[X].cdc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#indexxelasticsearch" class="md-nav__link">
     index.[X].elasticsearch
   </a>
@@ -2183,6 +2210,13 @@
         <li class="md-nav__item">
   <a href="#schemainitjson" class="md-nav__link">
     schema.init.json
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schemareindex" class="md-nav__link">
+    schema.reindex
   </a>
   
 </li>
@@ -2467,10 +2501,31 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </thead>
 <tbody>
 <tr>
+<td>computer.job-keep-alive-time</td>
+<td>How long a thread which runs the jobs of the graph's computers waits for the next job before it ends. The default is recommended.</td>
+<td>Duration</td>
+<td>60000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>computer.job-pool-size</td>
+<td>The number of threads which run the jobs of the graph's computers, a job on each, while further jobs wait. If not set, which is recommended, as many as the JVM's common pool has threads (by default the number of processors less one, at least one), or a thread per job where that is a single thread. Set it to run fewer of the graph's jobs at once, or more.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>computer.result-mode</td>
 <td>How the graph computer should return the computed results. 'persist' for writing them into the graph, 'localtx' for writing them into the local transaction, or 'none' (default)</td>
 <td>String</td>
 <td>none</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>computer.task-progress-timeout</td>
+<td>How long a job waits without any of its tasks ending in the phases which run on a pool of workers after its scans: the execution of the vertex program on the partitioned vertices, the reduce stage of a map-reduce, and the writing of the computed properties into the graph. Then the job interrupts the running tasks, drops the others and fails, rather than wait for tasks which may never end. While tasks keep ending, the job waits as long as they take. A task is one vertex, key or batch of writes, which normally ends within seconds; the default also lets a backend retry the writes of a batch for several times storage.write-time. As for every duration, a value without a unit is in milliseconds: half an hour is '30 minutes' or 1800000. A value of about 292 years or more, such as 9223372036854775807, waits indefinitely.</td>
+<td>Duration</td>
+<td>600000 ms</td>
 <td>MASKABLE</td>
 </tr>
 </tbody>
@@ -2522,6 +2577,27 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>String</td>
 <td>(no default value)</td>
 <td>LOCAL</td>
+</tr>
+<tr>
+<td>graph.management-ack-timeout</td>
+<td>Maximum time to wait for an instance to acknowledge a schema change before treating it as stale. Only effective when graph.management-auto-close-stale-instances is enabled.</td>
+<td>Duration</td>
+<td>120000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>graph.management-auto-close-stale-instances</td>
+<td>Whether to automatically force-close instances that fail to acknowledge schema changes within the configured timeout (graph.management-ack-timeout). When enabled, unresponsive instances are removed from the registration store so they no longer block schema status transitions.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>graph.management-tx-close-wait-time</td>
+<td>Maximum time an instance waits for the transactions which were open when a schema change reached it to close, before it acknowledges the change. If they are still open by then, it logs a stale transaction alert and doesn't acknowledge the change. The default is recommended; raise it if transactions stay open longer and schema changes should wait for them. With graph.management-auto-close-stale-instances, an instance which hasn't acknowledged a change within graph.management-ack-timeout is force-closed, whether it still waits or has given up, so a value above that timeout gains nothing.</td>
+<td>Duration</td>
+<td>60000 ms</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
 <td>graph.replace-instance-if-exists</td>
@@ -2667,10 +2743,24 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>ids.renew-keep-alive-time</td>
+<td>How long a thread which reserves ID blocks waits for the next reservation before it ends. The default is recommended.</td>
+<td>Duration</td>
+<td>60000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>ids.renew-percentage</td>
 <td>When the most-recently-reserved ID block has only this percentage of its total IDs remaining (expressed as a value between 0 and 1), JanusGraph asynchronously begins reserving another block. This helps avoid transaction commits waiting on ID reservation even if the block size is relatively small.</td>
 <td>Double</td>
 <td>0.3</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>ids.renew-pool-size</td>
+<td>The number of threads which reserve new ID blocks for the instance's ID pools, each pool one block at a time. If not set, which is recommended, as many as the instance can have pools: three for each partition of cluster.max-partitions (vertices, vertices of unmodifiable labels and relations), one for schema ids and one for partitioned vertices, so that every pool can reserve a block at once. The threads end after ids.renew-keep-alive-time without a reservation. Set it to bound them, at the price of reservations queueing when more pools need blocks at once.</td>
+<td>Integer</td>
+<td>(no default value)</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
@@ -2796,7 +2886,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].max-result-set-size</td>
-<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch</td>
+<td>Maximum number of results to return if no limit is specified. For index backends that support scrolling, it represents the number of results in each batch, except that Elasticsearch reads a query with a limit too large for a single request in batches of up to <code>index.[X].elasticsearch.limited-result-max-page-size</code> results, and Solr reads every batch after the first one twice as large as the one before, up to <code>index.[X].solr.max-page-size</code> results, though never smaller than this</td>
 <td>Integer</td>
 <td>50</td>
 <td>MASKABLE</td>
@@ -2890,6 +2980,35 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 </tbody>
 </table>
+<h3 id="indexxcdc">index.[X].cdc</h3>
+<p>Configuration options for Change-Data-Capture (CDC) based maintenance of this mixed index backend</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index.[X].cdc.enabled</td>
+<td>Whether this mixed index backend is maintained via the CDC pipeline (the janusgraph-cdc worker consumes Change-Data-Capture events of the graph data and reindexes affected elements) instead of, or in addition to, synchronous index writes during the transaction. Has no effect unless an external CDC pipeline (e.g. Cassandra CDC + Debezium + Kafka) and the janusgraph-cdc worker are running. The stored value can be changed on a running cluster via mgmt.set("index.[X].cdc.enabled", ...), which JanusGraph instances and the CDC worker pick up when they next open the graph, and the local configuration of an instance overrides it. Keep the instances and the CDC worker consistent: every index an instance writes in cdc-only mode must be maintained by the worker.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].cdc.synchronous</td>
+<td>Only relevant when index.[X].cdc.enabled is true. When true (default), the mixed index is ALSO written synchronously during the transaction (dual mode: safe and redundant - CDC repairs any synchronous failure). When false, synchronous mixed index additions are skipped (cdc-only mode) and performed by the CDC worker instead, which maximizes efficiency at the cost of the index lagging the graph by the CDC propagation latency; the few deletions of edge and meta-property documents that change events cannot identify are still applied synchronously. Can be changed on a running cluster and overridden by the local configuration of an instance, like index.[X].cdc.enabled.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
 <h3 id="indexxelasticsearch">index.[X].elasticsearch</h3>
 <p>Elasticsearch index configuration</p>
 <table>
@@ -2903,6 +3022,27 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>index.[X].elasticsearch.adaptive-point-in-time-max-page-size</td>
+<td>The largest page size (<code>index.[X].max-result-set-size</code>) with which <code>paging-mode</code> <code>adaptive_point_in_time</code> reads a result through a point in time. 500 is the recommended value: on Elasticsearch 9.5.4, a point in time read the pages of an index of one shard in the order of the index about as fast as a scroll or faster with pages of up to 500 hits, and more slowly with pages of 1,000. Lower it where a point in time falls behind a scroll with smaller pages, raise it where it keeps up with larger ones.</td>
+<td>Integer</td>
+<td>500</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.adaptive-point-in-time-max-shards</td>
+<td>The most shards an index may have, as the first request of a result reports them, for <code>paging-mode</code> <code>adaptive_point_in_time</code> to read the result through a point in time. 1 is the recommended value: on Elasticsearch 9.5.4, reading the pages of an index of two or three shards through a point in time took 4% to 37% longer than through a scroll, even in the order of the index. Raise it only where a point in time keeps up with a scroll on indexes of more shards.</td>
+<td>Integer</td>
+<td>1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.allow-partial-results</td>
+<td>Whether an index query, count or aggregation uses the results of the shards which answered where other shards of the index failed, weren't available or ran out of time: where the search context of a scroll expired on some nodes but not on others, for example, or where a search ran out of its <code>timeout</code>, set as a parameter of a direct index query or by the cluster's <code>search.default_search_timeout</code>. Elasticsearch answers with such partial results unless it is told otherwise. By default, JanusGraph tells it otherwise, with <code>allow_partial_search_results=false</code> on the searches and counts it sends to Elasticsearch 7 and later and to OpenSearch, and fails every answer which lacks the results of some shards, with their failures in the error, the later pages of a scroll among them, which take no such parameter. JanusGraph doesn't reattempt a search which ran out of time, though the Elasticsearch client still sends a request answered with 502, 503 or 504 to its next host, and Elasticsearch 8.15.3 answers a time-out with 504. Set this to true to use partial results, as earlier versions did.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
 <tr>
 <td>index.[X].elasticsearch.bulk-chunk-size-limit-bytes</td>
 <td>The total size limit in bytes of a bulk request. Mutation batches in excess of this limit will be chunked to this size. If a single bulk item exceeds this limit an exception will be thrown after the smaller bulk items are submitted. Ensure that this limit is always less than or equal to the configured limit of <code>http.max_content_length</code> on the Elasticsearch servers. For more information, refer to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-network.html">Elasticsearch documentation</a>.</td>
@@ -2919,10 +3059,17 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.client-keep-alive</td>
-<td>Set a keep-alive timeout (in milliseconds)</td>
+<td>How long (in milliseconds) the Elasticsearch client keeps reusing a connection after a response. Without it the client keeps connections open as long as Elasticsearch does. A load balancer, NAT gateway or firewall between JanusGraph and Elasticsearch may drop a connection which stays idle longer than its own idle timeout, and the next request on it fails. Set this below that timeout.</td>
 <td>Long</td>
 <td>(no default value)</td>
 <td>GLOBAL_OFFLINE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.compression</td>
+<td>Whether the Elasticsearch client compresses the bodies of its requests with gzip, bulk requests above all, and asks Elasticsearch to compress its responses, which saves network traffic at the cost of CPU on both sides. Elasticsearch compresses responses only if its <code>http.compression</code> setting allows it, which it does by default on a cluster without TLS. The client compresses a request on one of its I/O threads, whose other requests wait meanwhile, so a large bulk request can delay queries. More <code>io-threads</code> make it less likely that a query shares that thread, and a smaller <code>bulk-chunk-size-limit-bytes</code> shortens the wait. A compressed request is sent in chunks without a Content-Length header, which some request signers, such as interceptors which sign requests with AWS Signature Version 4, may not handle.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
 <td>index.[X].elasticsearch.connect-timeout</td>
@@ -2953,43 +3100,92 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.io-threads</td>
+<td>The number of I/O threads with which the Elasticsearch client of this index backend sends requests and receives responses. They don't wait for Elasticsearch, so a few are enough for many connections. Every index backend of every graph has a client of its own, and without this option each client starts as many I/O threads as the JVM has processors. With <code>compression</code> on, a thread compresses each request it sends, and the other requests of the thread wait meanwhile.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.limited-result-max-page-size</td>
+<td>The largest page of an index query with a limit which is too large for a single request, one whose offset and limit together go beyond 10,000 hits. Such a result is read from its first hit on in as few pages as this allows, all of one size, which split the hits up to the end of its limit evenly, but never in pages smaller than <code>index.[X].max-result-set-size</code>, the page size of a query without a limit. Larger pages take fewer round trips and a larger response each. <code>scroll-keep-alive</code> must cover consuming one page: each page renews it, and a consumer which takes longer over a page than the keep-alive loses the scroll context or point in time, and the next page fails, unless <code>allow-partial-results</code> lets it come back with the hits of the shards which kept theirs. A slower consumer can lower this option in its local configuration, as it is MASKABLE, or raise <code>scroll-keep-alive</code>, which is GLOBAL_OFFLINE. 10,000 is the practical ceiling: Elasticsearch accepts at most <code>index.max_result_window</code> hits in a page of a scroll or of a point in time, 10,000 by default, which JanusGraph lifts only on the indexes it creates; on those, the time a consumer has for each hit bounds it. A value no larger than <code>max-result-set-size</code> reads such results in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
+<td>Integer</td>
+<td>250</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.major-version</td>
+<td>Major version of the Elasticsearch API which the index backend provides: 6, 7, 8 or 9. JanusGraph adapts its requests to it. If it isn't set, JanusGraph asks the cluster for its version. OpenSearch provides the Elasticsearch 7 API, which JanusGraph uses when the cluster reports an OpenSearch version. If this option is set for OpenSearch, which has no mapping types since version 2, keep use-mapping-for-es7 disabled.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.max-connections</td>
+<td>The most connections the Elasticsearch client of this index backend opens to all Elasticsearch hosts together. A request waits until one of them is free. It caps <code>max-connections-per-host</code>, whose default it also gives.</td>
+<td>Integer</td>
+<td>30</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.max-connections-per-host</td>
+<td>The most connections the Elasticsearch client of this index backend opens to each Elasticsearch host. A request waits until one of them is free, so this caps the requests which the index backend has in flight at a host at once, its queries and the bulk requests of its commits together. Without this option <code>max-connections</code> is divided evenly among the hosts, but each gets at least 10, the limit of the Elasticsearch client on its own. So a single host, such as a load balancer or the endpoint of a hosted cluster, can take all 30 connections by default, while three hosts get 10 each, which keeps a host which stops answering from holding every connection. A JanusGraph Server which runs more Gremlin threads than a host can take may need more.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].elasticsearch.paging-mode</td>
+<td>How a result larger than a page (<code>index.[X].max-result-set-size</code>) is read.<br>Supported modes:<br>- <code>scroll</code> - Every result is read through a scroll.<br>- <code>point_in_time</code> - Every result is read through a point in time and <code>search_after</code>. A point in time isn't counted against <code>search.max_open_scroll_context</code>, its pages don't count the total number of hits, and a page which is sent again after a failure comes back the same, where a scroll may skip it. But it reads the pages more slowly than a scroll unless they come in the order of the index, on an index of one shard and in pages of up to about 500 hits; the Elasticsearch page of the documentation has the measurements.<br>- <code>adaptive_point_in_time</code> - A result is read through a point in time where that is about as fast as a scroll or faster: the result of a graph query without a limit and without an order, whose pages come in the order of the index, on an index of at most <code>adaptive-point-in-time-max-shards</code> shards and with pages of at most <code>adaptive-point-in-time-max-page-size</code> hits. A graph query is limited where its traversal limits it, where <code>query.smart-limit</code> is on, and where <code>query.hard-max-limit</code> is lowered. Every other result is read through a scroll.<br>A cluster which reports an Elasticsearch version older than 7.12 scrolls in every mode, as does one whose version isn't asked for (<code>major-version</code> 7) or can't be, and OpenSearch, whose point in time lacks the tiebreaker <code>search_after</code> needs.</td>
+<td>String</td>
+<td>adaptive_point_in_time</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.retry-error-codes</td>
-<td>Comma separated list of Elasticsearch REST client ResponseException error codes to retry. E.g. "408,429"</td>
+<td>Comma separated list of Elasticsearch HTTP status codes which are considered transient, whether answered to a request or reported for a single bulk item. Such a failure is reattempted at two levels. First the Elasticsearch client reattempts the request <code>retry-limit</code> times, resending only the failed items of a bulk request. If that does not succeed, an index mutation which failed this way is reported as a temporary rather than a permanent backend exception, so JanusGraph reattempts the whole mutation with exponential backoff for up to <code>storage.write-time</code> instead of dropping it and leaving the mixed index inconsistent with the graph; a bulk request qualifies only when every item which failed did so with one of these codes. Resubmitting a whole mutation resends items which already succeeded, which duplicates the values of LIST cardinality properties - the client level attempts do not. A query, count or aggregation is likewise reattempted as a whole for up to <code>storage.read-time</code>, but not the later pages of a result read in pages, which get the client level attempts only. JanusGraph doesn't reattempt a search which ran out of its time, whatever its status, though the Elasticsearch client still sends a request answered with 502, 503 or 504 to its next host. Set to an empty list to consider every status code permanent, which disables both levels. E.g. "429,502,503,504"</td>
 <td>String[]</td>
-<td></td>
+<td>429,502,503,504</td>
 <td>LOCAL</td>
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-initial-wait</td>
-<td>Sets the initial retry wait time (in milliseconds) before exponential backoff.</td>
+<td>The backoff (in milliseconds) before the first of the <code>retry-limit</code> reattempts of the Elasticsearch client. The backoff before each further reattempt is ten times the one before, up to <code>retry-max-wait</code>. The client waits a random time between half of the backoff and all of it, so that requests which failed together don't all come back at the same moment.</td>
 <td>Long</td>
 <td>1</td>
 <td>LOCAL</td>
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-limit</td>
-<td>Sets the number of attempts for configured retryable error codes.</td>
+<td>Number of times the Elasticsearch client reattempts a request which failed transiently before giving up on it: a request answered with a status code listed in <code>retry-error-codes</code>, or one which produced no response at all when <code>retry-transport-failures</code> is enabled. The failed items of a bulk request are reattempted on their own, so these attempts do not resend items which already succeeded. Set to 0 to disable them. A failure which survives these attempts is then classified by the same two options, and an index mutation which is still transient is reattempted as a whole by JanusGraph for up to <code>storage.write-time</code>.</td>
 <td>Integer</td>
-<td>0</td>
+<td>3</td>
 <td>LOCAL</td>
 </tr>
 <tr>
 <td>index.[X].elasticsearch.retry-max-wait</td>
-<td>Sets the max retry wait time (in milliseconds).</td>
+<td>The largest backoff (in milliseconds) before a reattempt of the Elasticsearch client. See <code>retry-initial-wait</code>.</td>
 <td>Long</td>
 <td>1000</td>
 <td>LOCAL</td>
 </tr>
 <tr>
+<td>index.[X].elasticsearch.retry-transport-failures</td>
+<td>Whether Elasticsearch failures which never produced an HTTP response - connection refused, connection reset, socket timeout, prematurely closed connection, TLS failure - are considered transient and reattempted at the same two levels as a status code listed in <code>retry-error-codes</code>: <code>retry-limit</code> times by the Elasticsearch client, then as a whole index mutation by JanusGraph for up to <code>storage.write-time</code>. Such a failure leaves it unknown whether Elasticsearch applied the request, so any reattempt may resubmit items which already succeeded; resubmission is idempotent except for LIST cardinality properties, whose values are appended. While this option is enabled every TLS failure is treated as transient, not only a handshake which was interrupted, so a write against a persistently misconfigured or untrusted certificate is reattempted for the whole write time before it fails.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>LOCAL</td>
+</tr>
+<tr>
 <td>index.[X].elasticsearch.retry_on_conflict</td>
-<td>Specify how many times should the operation be retried when a conflict occurs.</td>
+<td>How many times Elasticsearch reattempts an update of a document which another request changed after the update read it. JanusGraph updates the document of an element which a transaction changes, and transactions which change the same element at the same time conflict this way. Elasticsearch reattempts the update against the latest version of the document. A conflict which survives these attempts fails the update with status 409, which is permanent unless <code>retry-error-codes</code> lists it. Set to 0 to leave conflicts unattempted.</td>
 <td>Integer</td>
-<td>0</td>
+<td>3</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
 <td>index.[X].elasticsearch.scroll-keep-alive</td>
-<td>How long (in seconds) elasticsearch should keep alive the scroll context.</td>
+<td>How long (in seconds) elasticsearch should keep alive the scroll context, or the point in time, of a result which is read in pages.</td>
 <td>Integer</td>
 <td>60</td>
 <td>GLOBAL_OFFLINE</td>
@@ -3017,7 +3213,7 @@ DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
 </tr>
 <tr>
 <td>index.[X].elasticsearch.use-mapping-for-es7</td>
-<td>Mapping types are deprecated in ElasticSearch 7 and JanusGraph will not use mapping types by default for ElasticSearch 7 but if you want to preserve mapping types, you can setup this parameter to true. If you are updating ElasticSearch from 6 to 7 and you don't want to reindex your indexes, you may setup this parameter to true but we do recommend to reindex your indexes and don't use this parameter.</td>
+<td>Mapping types are deprecated in ElasticSearch 7 and JanusGraph will not use mapping types by default for ElasticSearch 7 but if you want to preserve mapping types, you can setup this parameter to true. If you are updating ElasticSearch from 6 to 7 and you don't want to reindex your indexes, you may setup this parameter to true but we do recommend to reindex your indexes and don't use this parameter. It is ignored when the cluster reports OpenSearch, which has no mapping types since version 2.</td>
 <td>Boolean</td>
 <td>false</td>
 <td>MASKABLE</td>
@@ -3355,8 +3551,22 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>GLOBAL</td>
 </tr>
 <tr>
+<td>index.[X].solr.major-version</td>
+<td>Major version of the Solr servers, for example 8 or 9. JanusGraph adapts the requests which Solr versions treat differently to it: only for Solr 8 the creation of a collection sends max-shards-per-node. If it isn't set, JanusGraph asks Solr for its version when it creates a collection, and assumes Solr 8 if that fails.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>index.[X].solr.max-page-size</td>
+<td>The largest page in which a result larger than a page is read. The first page of a result holds <code>index.[X].max-result-set-size</code> hits, or the limit if that is less, and every page after it twice as many hits as the page before, up to this many, but never more than the limit leaves. Solr reads each page at its offset, collecting and sorting every hit before it again, so a result read in pages of one size takes time which grows with the square of its size. Larger pages take fewer such passes, at the price of a larger response each, which JanusGraph holds until it is read. As the pages only grow while a result is read on, a read which stops early asks for no more than twice the hits it takes, plus a first page. 10,000, the largest page of Elasticsearch by default (<code>index.max_result_window</code>), is the recommended value: with it, a result of a million hits takes about 100 pages, each of which still costs Solr the hits before it. A value no larger than <code>max-result-set-size</code> reads every result in pages of <code>max-result-set-size</code>, as earlier versions did.</td>
+<td>Integer</td>
+<td>10000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>index.[X].solr.max-shards-per-node</td>
-<td>Maximum number of shards per node. This applies when creating a new collection which is only supported under the SolrCloud operation mode.</td>
+<td>Maximum number of shards per node. This applies when creating a new collection which is only supported under the SolrCloud operation mode. Deprecated: only Solr 8 supports it (see major-version), Solr 9 removed the maxShardsPerNode parameter of the collection creation.</td>
 <td>Integer</td>
 <td>1</td>
 <td>GLOBAL_OFFLINE</td>
@@ -3448,7 +3658,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>log.[X].max-read-time</td>
-<td>Maximum time in ms to try reading log messages from the backend before failing.</td>
+<td>Maximum time in ms to try reading log messages from the backend before failing. On a storage backend which does not support interruption, also how often a closing log reports that it is still waiting for its readers to finish, a second at the least.</td>
 <td>Duration</td>
 <td>4000 ms</td>
 <td>MASKABLE</td>
@@ -3806,7 +4016,7 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 <tr>
 <td>query.batch.enabled</td>
-<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. If <code>false</code> then all other configuration options under <code>query.batch</code> namespace are ignored.</td>
+<td>Whether traversal queries should be batched when executed against the storage backend. This can lead to significant performance improvement if there is a non-trivial latency to the backend. It also lets a composite index lookup of several values, such as <code>has(key, within(values))</code>, read their index rows together, and a commit read the labels which the index updates of its vertices check together, on a storage backend with multi-key queries. It is the default of each transaction's own multi-query setting, which <code>TransactionBuilder.multiQuery(boolean)</code> can change for a transaction; where that setting is <code>false</code>, all other configuration options under <code>query.batch</code> namespace are ignored.</td>
 <td>Boolean</td>
 <td>true</td>
 <td>MASKABLE</td>
@@ -3837,6 +4047,13 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>Default batch size (barrier() step size) for queries. This size is applied only for cases where <code>LazyBarrierStrategy</code> strategy didn't apply <code>barrier</code> step and where user didn't apply barrier step either. This option is used only when <code>query.batch.limited</code> is <code>true</code>. Notice, value <code>2147483647</code> is considered to be unlimited.</td>
 <td>Integer</td>
 <td>2500</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>query.batch.max-keys-per-read</td>
+<td>The most keys which one read of several keys at once asks the storage backend for, where JanusGraph splits such a read on its own: a composite index lookup of several values, such as <code>has(key, within(values))</code>, reading their index rows, and a commit reading the labels which the index updates of its vertices check. A read which fails temporarily is reattempted whole, and its results are held all at once, so a smaller value makes smaller reads, and more of them. The default is the recommended value. Used only where reads are batched (<code>query.batch.enabled</code>, unless a transaction sets its own multi-query setting), on a storage backend with multi-key queries.</td>
+<td>Integer</td>
+<td>1000</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
@@ -3984,6 +4201,35 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 </tr>
 </tbody>
 </table>
+<h3 id="schemareindex">schema.reindex</h3>
+<p>Configuration options for schema reindex operations.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Default Value</th>
+<th>Mutability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema.reindex.mixed-index-batch-enabled</td>
+<td>Whether mixed-index reindex jobs should batch document restore calls independently from the storage page size.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>schema.reindex.mixed-index-batch-size</td>
+<td>Number of graph elements a mixed-index reindex worker should process before flushing restored documents to the index backend. Larger values can improve Elasticsearch bulk restore throughput at the cost of additional worker memory.</td>
+<td>Integer</td>
+<td>1000</td>
+<td>MASKABLE</td>
+</tr>
+</tbody>
+</table>
 <h3 id="storage">storage</h3>
 <p>Configuration options for the storage backend.  Some options are applicable only for certain backends.</p>
 <table>
@@ -4047,11 +4293,25 @@ See <a href="../../index-backend/elasticsearch/#index-creation-options">Elastics
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.drop-whole-row-on-vertex-removal</td>
+<td>When a vertex is removed, delete its entire storage row in a single operation (e.g. a Cassandra partition-level delete producing one tombstone) instead of deleting each edge/property column individually. This greatly reduces tombstone pressure when removing super-nodes. Only takes effect on storage backends that support optimized whole-row deletion; ignored otherwise.</td>
+<td>Boolean</td>
+<td>true</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.hostname</td>
 <td>The hostname or comma-separated list of hostnames of storage backend servers.  This is only applicable to some storage backends, such as cassandra and hbase.</td>
 <td>String[]</td>
 <td>127.0.0.1</td>
 <td>LOCAL</td>
+</tr>
+<tr>
+<td>storage.keys-size</td>
+<td>The maximum amount of keys/partitions to retrieve from distributed storage system by JanusGraph in a single request.</td>
+<td>Integer</td>
+<td>100</td>
+<td>MASKABLE</td>
 </tr>
 <tr>
 <td>storage.num-mutations-parallel-threshold</td>
@@ -4269,6 +4529,13 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.cql.cdc</td>
+<td>Enable Apache Cassandra Change-Data-Capture by setting the cdc=true table option on JanusGraph's edgestore table. This allows an external CDC pipeline (e.g. Debezium + Kafka, consumed by the janusgraph-cdc worker) to capture graph mutations and keep mixed indexes eventually consistent. Requires the Cassandra cluster to be started with cdc_enabled=true.</td>
+<td>Boolean</td>
+<td>false</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.cql.compaction-strategy-class</td>
 <td>The compaction strategy to use for JanusGraph tables</td>
 <td>String</td>
@@ -4322,6 +4589,13 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 <td>How long the driver waits for the response (in milliseconds) to a heartbeat.</td>
 <td>Long</td>
 <td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.idempotent-writes</td>
+<td>Whether JanusGraph marks its writes idempotent while <code>graph.assign-timestamp</code> is <code>true</code>, so that the driver may send a write again, to the same node or another one, after a closed connection, an overloaded node or a server error, ask its retry policy about a write which timed out, and run speculative executions of it. A write sent again writes the same cells with the same timestamp, but an insert with a TTL sent again can expire later. With <code>false</code>, or without assigned timestamps, writes keep the driver's default idempotence, <code>basic.request.default-idempotence</code>.</td>
+<td>Boolean</td>
+<td>true</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
@@ -4381,6 +4655,13 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 <td>MASKABLE</td>
 </tr>
 <tr>
+<td>storage.cql.parallel-scan-token-ranges</td>
+<td>Number of disjoint Murmur3 token ranges a full-table scan (e.g. a mixed-index reindex or other OLAP job) is split into. With the default value of 1 the full scan is issued as a single query that funnels the whole table through one coordinator. When set above 1 and the Murmur3 partitioner is in use: scan jobs (reindex and other OLAP jobs run through the scan-job framework) drain each token range on its own set of threads, scanning all ranges fully in parallel; other callers of a whole-table scan receive the ranges as token-bounded queries streamed back-to-back in token order (bounded coordinator scans, not extra parallelism). Each range adds concurrent scan queries against the cluster (one per scan-job query, times the number of ranges), so values that are too high can overload the cluster; a small multiple of the cluster's node count is a sensible starting point.</td>
+<td>Integer</td>
+<td>1</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
 <td>storage.cql.partitioner-name</td>
 <td>The name of Cassandra cluster's partitioner. It will be retrieved by client if not provided. If provided, it must match the cluster's partitioner name. It can be the full class name such as <code>org.apache.cassandra.dht.ByteOrderedPartitioner</code> or the simple name such as <code>ByteOrderedPartitioner</code></td>
 <td>String</td>
@@ -4434,6 +4715,20 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 <td>Timeout for CQL requests in milliseconds. See DataStax Java Driver option <code>basic.request.timeout</code> for more information.</td>
 <td>Long</td>
 <td>12000</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.scan-page-size</td>
+<td>Page size (CQL rows per backend round trip) used for scan queries: whole-table and token-range scans on the Murmur3 partitioner as well as key-range scans on ordered partitioners - i.e. every getKeys-style key iteration, which is the path OLAP jobs (such as a mixed-index reindex) read through. Transactional slice reads keep using storage.page-size. When 0 or negative, storage.page-size is used for scans as well. A scan streams many rows per request, so a page size several times larger than the OLTP-oriented storage.page-size usually cuts scan round trips (and total scan time) substantially at the cost of slightly larger response payloads held in memory per scan thread.</td>
+<td>Integer</td>
+<td>0</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>storage.cql.scan-per-partition-limit-enabled</td>
+<td>Push each scan query's per-key entry limit into the CQL full-scan queries as PER PARTITION LIMIT. Scan jobs (e.g. reindex) issue a grounding (key-existence) query with a per-key limit of 1; without the pushdown every cell of every row slice is streamed to the client and discarded there, so the grounding query alone transfers the whole table (including adjacency data irrelevant to the job). With the pushdown the server stops after the per-key limit, e.g. one cell per key for the grounding query. Requires PER PARTITION LIMIT support in the backend (Apache Cassandra 3.6+, ScyllaDB); a CQL-compatible service that rejects the clause (e.g. Amazon Keyspaces) automatically falls back to plain scan statements with a warning at store open, so leaving the option enabled is safe everywhere; set it to false to skip the attempt.</td>
+<td>Boolean</td>
+<td>true</td>
 <td>MASKABLE</td>
 </tr>
 <tr>
@@ -5201,9 +5496,9 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 </tr>
 <tr>
 <td>tx.max-commit-time</td>
-<td>Maximum time (in ms) that a transaction might take to commit against all backends. This is used by the distributed write-ahead log processing to determine when a transaction can be considered failed (i.e. after this time has elapsed).Must be longer than the maximum allowed write time.</td>
+<td>Maximum time that a transaction might take to commit against all backends; a value without a unit is in milliseconds. This is used by the distributed write-ahead log processing to determine when a transaction can be considered failed. Transaction recovery considers a transaction failed once it has read the transaction log up to this long past the first of the transaction's log entries it read, however long reading the log takes. A value shorter than the commit really takes lets recovery restore the index documents of a transaction which is still committing, underneath the index writes that commit has yet to make. A commit reattempts its storage write and then each of its index writes for up to storage.write-time in turn, so this must exceed storage.write-time multiplied by one plus the number of configured index backends; a warning is logged at graph open when transaction logging is enabled and it does not. That is only the minimum: the time a commit spends preparing its writes counts as well; a transaction with more than storage.buffer-size mutations writes storage in several chunks, each reattempted for up to storage.write-time; on a storage backend without transaction isolation, a transaction which creates schema elements first commits them in a storage write of their own, reattempted the same way; and the last attempt of each write can run past its write time. So leave headroom for the largest transactions. A transaction which writes a user log (TransactionBuilder.logIdentifier) is exposed for longer: until recovery has read its final status, an expiry makes recovery send its user-log event again, so its user-log write (up to log.user.max-write-time when log.user.send-delay is 0) counts as well. The final status's own write does not: its log entry is timed from before the write, and has to become visible within log.tx.read-lag-time like every entry.</td>
 <td>Duration</td>
-<td>10000 ms</td>
+<td>300000 ms</td>
 <td>GLOBAL</td>
 </tr>
 </tbody>
@@ -5221,6 +5516,20 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>tx.recovery.repair-keep-alive-time</td>
+<td>How long a thread which repairs incomplete transactions waits for the next repair before it ends. The default is recommended.</td>
+<td>Duration</td>
+<td>60000 ms</td>
+<td>MASKABLE</td>
+</tr>
+<tr>
+<td>tx.recovery.repair-pool-size</td>
+<td>The number of threads which repair the transactions the recovery finds incomplete: a repair reads the storage backend and writes the index backends and the user log. If not set, which is recommended, as many as the JVM's common pool has threads (by default the number of processors less one, at least one). As the repairs mostly wait for I/O, more threads catch up faster with many incomplete transactions.</td>
+<td>Integer</td>
+<td>(no default value)</td>
+<td>MASKABLE</td>
+</tr>
 <tr>
 <td>tx.recovery.verbose</td>
 <td>Whether the transaction recovery system should print recovered transactions and other activity to standard output</td>
@@ -5253,7 +5562,7 @@ Notice, for compatibility reasons, it's allowed to use <code>-</code> character 
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+      Copyright &copy; 2025 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
     </div>
   
   

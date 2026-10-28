@@ -1860,6 +1860,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2208,7 +2228,8 @@ for Mapping.TEXT and ParameterType.STRING_ANALYZER for Mapping.STRING.</p>
 property key <em>string</em> and the <em>english</em> analyzer for property key
 <em>text</em>.</p>
 <h4 id="for-solr">For Solr</h4>
-<p>The class of the tokenizer must be set as parameter value.
+<p>The class of an analyzer, or of a tokenizer, must be set as parameter
+value.
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">()</span>
 <span class="n">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mgmt</span><span class="p">.</span><span class="na">makePropertyKey</span><span class="p">(</span><span class="err">&#39;</span><span class="n">string</span><span class="err">&#39;</span><span class="p">).</span><span class="na">dataType</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">make</span><span class="p">()</span>
 <span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mgmt</span><span class="p">.</span><span class="na">makePropertyKey</span><span class="p">(</span><span class="err">&#39;</span><span class="n">text</span><span class="err">&#39;</span><span class="p">).</span><span class="na">dataType</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">make</span><span class="p">()</span>
@@ -2218,7 +2239,9 @@ property key <em>string</em> and the <em>english</em> analyzer for property key
 </code></pre></div></p>
 <p>With these settings, JanusGraph will use the <em>standard</em> tokenizer for
 property key <em>string</em> and the <em>whitespace</em> tokenizer for property key
-<em>text</em>.</p>
+<em>text</em>. JanusGraph splits the values of the conditions on a key with
+it, while Solr analyzes the key's field as the schema defines it, so the
+field's type should analyze the values alike.</p>
 <h4 id="for-lucene">For Lucene</h4>
 <p>The name of the analyzer must be set as parameter value or it defaults to KeywordAnalyzer for <code>Mapping.STRING</code> and to StandardAnalyzer for <code>Mapping.TEXT</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">mgmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">openManagement</span><span class="p">()</span>
@@ -2304,7 +2327,7 @@ The name of the custom parameter must be set through <code>ParameterType.customP
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+      Copyright &copy; 2025 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
     </div>
   
   

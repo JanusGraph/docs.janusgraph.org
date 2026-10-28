@@ -1814,6 +1814,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../advanced-topics/cdc-mixed-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDC Mixed Index Synchronization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../advanced-topics/data-model/" class="md-nav__link">
         
   
@@ -2067,7 +2087,7 @@
 <h1 id="management-system">Management System</h1>
 <p>JanusGraph Management System provides methods to define, update, and inspect the schema of
 a JanusGraph graph, and more. Checkout the
-JanusGraph Management <a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.1.0/org/janusgraph/core/schema/JanusGraphManagement.html">API documentation</a>
+JanusGraph Management <a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.2.0/org/janusgraph/core/schema/JanusGraphManagement.html">API documentation</a>
 for all core APIs available.</p>
 <p>JanusGraph Management System behaves like a transaction in that it opens a transactional scope. As such, it needs to
 be closed via its commit or rollback methods, unless otherwise specified.
@@ -2093,7 +2113,7 @@ See <a href="../../schema/">schema management</a> for details.</p>
 <p>Management System allows you to purge <a href="../../advanced-topics/eventual-consistency/#ghost-vertices">ghost vertices</a>
 in the graph. It uses a local thread pool to initiate multiple threads to scan your entire graph, detecting and
 purging ghost vertices as well as their incident edges, leveraging
-<a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.1.0/org/janusgraph/graphdb/olap/job/GhostVertexRemover.html">GhostVertexRemover</a>
+<a href="https://javadoc.io/doc/org.janusgraph/janusgraph-core/1.2.0/org/janusgraph/graphdb/olap/job/GhostVertexRemover.html">GhostVertexRemover</a>
 By default, the concurrency level is the number of available
 processors on your machine. You can also configure the number of threads as shown in the example below. If your graph
 is huge, you could consider running GhostVertexRemover on a MapReduce cluster.
@@ -2168,7 +2188,7 @@ is huge, you could consider running GhostVertexRemover on a MapReduce cluster.
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
+      Copyright &copy; 2025 JanusGraph Authors. All rights reserved.<br> The Linux Foundation has registered trademarks and uses trademarks. For a list of<br> trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.<br> Cassandra, Groovy, HBase, Hadoop, Lucene, Solr, and TinkerPop are trademarks of the Apache Software Foundation.<br> Berkeley DB and Berkeley DB Java Edition are trademarks of Oracle.
     </div>
   
   

@@ -1,6 +1,7 @@
 const versions = [
   {path: "master", text: "Upcoming version", selected: false },
-  {path: "", text: "v1.1 Latest", selected: true },
+  {path: "", text: "v1.2 Latest", selected: true },
+  {path: "v1.1", text: "v1.1", selected: false },
   {path: "v1.0", text: "v1.0", selected: false },
   {path: "v0.6", text: "v0.6", selected: false },
   {path: "v0.5", text: "v0.5", selected: false },
